@@ -1,0 +1,14 @@
+{
+  "name": "guide-forge",
+  "owner": { "name": "GuideForge" },
+  "metadata": {
+    "description": "The GuideForge plugin — learn-as-you-go guide authoring for Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "guide-forge",
+      "source": "./",
+      "description": "Plan, draft, clarify, review, modernize, audit, scaffold, version-update, fix-from-field-reports, and log-reader-feedback learn-as-you-go developer guides, plus a pre-PR contributor check. Eleven skills, one install."
+    }
+  ]
+}

@@ -1,0 +1,416 @@
+# EXPLAINER — GuideForge in full
+
+> The complete walkthrough. The [README](README.md) is the overview; this document covers the same ground in
+> depth. Read it top to bottom once, then use the section links as a reference.
+>
+> **No prior context is needed.** It starts from the rationale, then walks every file in the repo, then
+> explains each rule and design decision.
+
+---
+
+## Contents
+
+- [Skills at a glance](#skills-at-a-glance-cheat-sheet) — one-line recap of all eleven skills
+1. [The problem, precisely](#1-the-problem-precisely)
+2. [The core idea: learn-as-you-go](#2-the-core-idea-learn-as-you-go)
+3. [The five pillars](#3-the-five-pillars)
+4. [How the pieces fit: the pipeline](#4-how-the-pieces-fit-the-pipeline)
+5. [Every file, explained](#5-every-file-explained)
+6. [The four prompts, in depth](#6-the-four-prompts-in-depth)
+7. [The 10 pedagogy rules, with before/after](#7-the-10-pedagogy-rules-with-beforeafter)
+8. [The templates, and why each field exists](#8-the-templates-and-why-each-field-exists)
+9. [Design decisions & trade-offs](#9-design-decisions--trade-offs)
+10. [How to customize it for your world](#10-how-to-customize-it-for-your-world)
+11. [Where this came from](#11-where-this-came-from)
+12. [Glossary](#12-glossary)
+
+---
+
+## Skills at a glance (cheat-sheet)
+
+The whole toolkit is **eleven skills** (each a `/slash-command`, each also a paste-prompt twin). What each does,
+in one line — the deep dives are in [§6](#6-the-four-prompts-in-depth) and the per-file tour in
+[§5](#5-every-file-explained).
+
+*Pipeline (build a guide):*
+- **`/plan-guide`** — one-line idea → milestone-laddered plan, after an audience + live-stack interview.
+- **`/draft-milestone`** — expands the approved plan into atomic, teaching step-files — the whole guide (all milestones) in one pass.
+- **`/clarify-step`** — the 10-rule pedagogy pass over one step; removes confusion without changing behavior.
+- **`/review-before-follow`** — reconciles a guide with reality before you follow it (stale APIs, moved files).
+
+*Auxiliary (set up, QA, maintain):*
+- **`/scaffold-guide`** — stamps the folder skeleton + foundation docs from the approved plan.
+- **`/audit-guide`** — lints a drafted guide against the contract; reports violations (read-only).
+- **`/update-stack`** — re-verifies versions online and bumps the guide to current releases.
+- **`/modernize-guide`** — recasts an existing tutorial/README/runbook as a GuideForge plan.
+- **`/report-issue`** — fixes a reader's field report at the root, everywhere it appears, and logs it.
+- **`/log-feedback`** — captures reader friction to `feedback-log.md` for later analysis, *without* touching the guide.
+
+*Contributor tooling:*
+- **`/pre-pr-check`** — pre-flights a contribution to this repo before a PR (ground rules, registry sync, dead links).
+
+---
+
+## 1. The problem, precisely
+
+Ask an LLM for a tutorial and you usually get a **linear list of commands**. It runs. You learned nothing,
+because the tutorial never told you:
+
+- **Where** each action happens (which file? which menu? which terminal?).
+- **Why** this step exists and what it accomplishes.
+- **Which parts matter** — what's mandatory vs an arbitrary example choice.
+- **What breaks** if you deviate, and how to tell.
+- **What the words mean** — jargon appears undefined and you're expected to already know it.
+
+The result is *brittle knowledge*. The moment your setup differs from the tutorial's, or a tool version
+moves, you're stranded, because you were following, not understanding.
+
+Hand-crafted excellent guides don't have this problem. They cost enormous effort because a good author is
+*constantly modeling the reader* — "will they know this term? do they know where this menu is? will they
+wonder whether to touch the other fields?" GuideForge's job is to make Claude do that modeling
+**systematically**, every step, so the output explains as it goes rather than assuming prior knowledge.
+
+---
+
+## 2. The core idea: learn-as-you-go
+
+> **Learn-as-you-go** = the reader acquires the concepts *exactly when a step needs them*, in the context
+> of doing something real — never as a wall of theory up front, never as unexplained magic.
+
+Two consequences drive the whole design:
+
+1. **Concepts are introduced at the point of use.** You don't front-load a chapter on "how dependency
+   injection works." You explain it the first time a step wires a dependency, in one or two sentences, then
+   link to a glossary for the reader who wants more. This is *just-in-time teaching*.
+
+2. **Every increment is runnable and verified.** The reader is never more than one small, checkable step
+   from "it still works." Confidence compounds; debugging surface stays tiny. This is why GuideForge builds
+   in **vertical slices** (see pillar 2) rather than horizontal layers.
+
+---
+
+## 3. The five pillars
+
+Everything in this repo is an expression of five ideas.
+
+### Pillar 1 — Model the reader first
+The **audience model** is the single most important input, and it has two dials: a **per-topic expertise
+matrix** (each topic the build touches rated Expert → Intermediate → Beginner → New, which sets how deeply
+that concept is explained) and a **granularity** setting (how finely steps are cut and how much prose
+surrounds them). Depth is graded *per topic*, not one global level — so an expert on the language gets
+names-only while the same reader gets full deep-dives on the topic they've never touched. Over-explaining a
+topic the reader is expert in is as harmful as under-explaining one they're new to — it buries the signal.
+→ [reference/audience-model.md](reference/audience-model.md)
+
+### Pillar 2 — Build in vertical slices, gated
+Work is decomposed into a **milestone ladder**. Each milestone is a *vertical slice* that produces something
+observable and runnable, and ends in a **"Done-when" gate** — a short checklist of things you can literally
+observe to confirm it works. Milestones are ordered so each builds only on proven ones.
+→ [reference/milestone-design.md](reference/milestone-design.md)
+
+### Pillar 3 — Atomic, teaching steps
+Inside a milestone, each **step file** is *one indivisible action* and follows a fixed template
+(glossary → why → do this → code → done-when). Small, single-purpose, self-explaining.
+→ [templates/step.md](templates/step.md)
+
+### Pillar 4 — A written pedagogy contract
+Ten rules ("explain every concept on first use", "every action says where", …) turn "teach well" from a vibe into a
+checklist Claude can actually satisfy and you can actually audit.
+→ [reference/pedagogy-rules.md](reference/pedagogy-rules.md)
+
+### Pillar 5 — Truth lives in one place
+A guide *describes intent*. Reality can drift. So there's a **status authority** file that is the single
+source of truth for what is actually done and verified, plus a **reconcile-before-follow** rule: when the
+guide and reality disagree, reality wins, and you log the drift.
+→ [templates/status.md](templates/status.md)
+
+---
+
+## 4. How the pieces fit: the pipeline
+
+GuideForge's core pipeline is four prompts you run in sequence, with a human gate between each (three
+auxiliary tools sit outside it — see §5). You never hand the whole job to the model unattended — that's a
+feature, because the gates are where quality is enforced.
+
+```mermaid
+sequenceDiagram
+    actor You
+    participant P1 as 01 plan-guide
+    participant P2 as 02 draft-milestone
+    participant P3 as 03 clarify-step
+    participant P4 as 04 review-before-follow
+
+    You->>P1: idea + audience answers
+    P1-->>You: full build plan (ladder + templates)
+    Note over You: GATE — approve the plan
+    You->>P2: "draft the guide"
+    P2-->>You: every milestone's overview + atomic step files
+    Note over You: Finished guide in hand — now you build against it
+    loop as you follow each milestone
+        You->>P4: "reconcile before I execute"
+        P4-->>You: patched steps + drift log
+        opt a step is confusing
+            You->>P3: "clarify step NN"
+            P3-->>You: revised step (10 rules applied)
+        end
+        Note over You: verify the milestone's Done-when gate
+    end
+```
+
+**Why four prompts instead of one mega-prompt?** Because each stage has a different job, a different gate,
+and a different failure mode. Splitting them keeps each prompt short, testable, and independently
+improvable — and lets you re-run just the stage that went wrong.
+
+---
+
+## 5. Every file, explained
+
+### Root
+
+| File | What it is | When you touch it |
+|------|-----------|-------------------|
+| `README.md` | The storefront: pitch, quick start, toolkit table, learning path. | First read; update when files move. |
+| `EXPLAINER.md` | This file — the full walkthrough. | When you want the *why* behind anything. |
+| `LICENSE` | MIT. Without it, nobody can legally reuse the repo. | Once. |
+| `CHANGELOG.md` | Version history. | Every release. |
+| `CONTRIBUTING.md` | How to add examples/rules and the PR checklist. | When accepting contributions. |
+| `.claude-plugin/` | `plugin.json` (manifest) + `marketplace.json` (local marketplace) — makes the repo installable as one Claude Code plugin. | When you cut a release / bump the version. |
+| `hooks/` | `hooks.json` + `track-tokens.js` — the bundled Stop/SubagentStop hook that meters **real** per-guide token cost into `examples/<name>/TOKEN_USAGE.md` (see [reference/token-tracking.md](reference/token-tracking.md)). Costs zero Claude tokens. | When you change cost tracking. |
+
+### The prompt contracts — `skills/*/prompt.md`
+
+Every skill folder holds a `prompt.md`: the full, domain-agnostic contract for that tool and its **single
+source of truth**. It doubles as the paste-into-any-chat twin (Option A in the README) and the file the
+`SKILL.md` wrapper inlines. Four are the ordered pipeline stages; the rest are out-of-pipeline tools.
+
+| Prompt contract | Job | Gate it feeds |
+|------|-----|---------------|
+| `plan-guide/prompt.md` | Interview the user, then produce a full milestone-laddered plan. | "Approve the plan." |
+| `draft-milestone/prompt.md` | Expand the approved plan into atomic step files — the whole guide, all milestones, in one pass. | "The finished guide is drafted." |
+| `clarify-step/prompt.md` | Apply the 10 pedagogy rules to one existing step. | (loops back to Done-when) |
+| `review-before-follow/prompt.md` | Reconcile a guide against reality before executing it. | Safe to execute. |
+
+**Auxiliary contracts** (not part of the linear pipeline): `modernize-guide/prompt.md` (convert an existing tutorial
+into a plan), `audit-guide/prompt.md` (lint a drafted guide against the contract — read-only), `scaffold-guide/prompt.md`
+(stamp the folders + foundation docs from an approved plan), `update-stack/prompt.md` (re-verify a guide's versions
+online, bring the guide up to date, and re-audit), `report-issue/prompt.md` (a reader hit a real issue following the
+guide — fix the root cause everywhere it appears, log it, and re-audit), and `log-feedback/prompt.md` (capture a
+reader's friction into the guide's `feedback-log.md` for later analysis — log-only, no fix, decoupled from
+`report-issue`).
+
+### `skills/` — Claude Code wrappers
+
+Each is a folder with a `SKILL.md` (YAML frontmatter + instructions). The repo ships as a Claude Code
+**plugin** (`.claude-plugin/plugin.json`), so one install adds every skill — the four pipeline stages
+(`/plan-guide`, `/draft-milestone`, `/clarify-step`, `/review-before-follow`) plus six auxiliary tools
+(`/modernize-guide`, `/audit-guide`, `/scaffold-guide`, `/update-stack`, `/report-issue`, `/log-feedback`), and one repo-maintenance skill for contributors to
+GuideForge itself (`/pre-pr-check`, which gates a PR against the CONTRIBUTING rules — skill-only, no paste
+prompt, since it only makes sense run inside this repo). They're **thin wrappers, not copies**: each
+`SKILL.md` is just its frontmatter plus a bash-injection line that **inlines its co-located `prompt.md`**
+(via `` !`cat "${CLAUDE_SKILL_DIR}/prompt.md"` `` — `CLAUDE_SKILL_DIR` is the documented variable for a
+skill's own folder, so the contract loads verbatim from right beside the wrapper, with no parent-directory
+traversal) and runs it, passing your `$ARGUMENTS`
+(the idea or step name) in and
+noting the few Claude-Code adaptations (you're already invoked; write/edit files on disk rather than printing
+them). The paste-prompt is the **single source of truth** — the skill can't drift from it, because it *is*
+it. Each also accepts **optional attached files** (a spec, sample code, the real file to reconcile against);
+the `argument-hint` frontmatter advertises the `[file ...]` argument. Installed as a plugin the commands may
+be namespaced (`/guide-forge:plan-guide`); each wrapper's `prompt.md` sits **beside it** in the same skill
+folder, so copying a skill folder into `.claude/skills/` by hand brings its contract with it — nothing else
+to copy. `pre-pr-check` is self-contained and has no `prompt.md`.
+
+### `templates/` — scaffolds the *generated guide* uses
+
+These are not for you to fill in by hand (usually) — they're what prompt 02 stamps out. Reading them tells
+you the exact shape of a GuideForge guide.
+
+| File | Role |
+|------|------|
+| `readme.md` | The generated guide's front door: objective + one-line stack summary + headline decisions + an Updates log, each linking to the detailed doc. A thin summary — `status.md` still owns progress. |
+| `milestone-overview.md` | The `00_overview.md` contract for a milestone. |
+| `step.md` | The atomic step file template. |
+| `verify.md` | The `NN_verify.md` template: the milestone's Done-when gate **plus a full-file checkpoint** — the complete current contents of every file the milestone touched, so no file survives only as fragments. |
+| `stack.md` | The Verified stack: pinned versions + official doc links + check date, from the Phase 0.5 web check. |
+| `status.md` | The single-source-of-truth status authority (pillar 5). |
+| `glossary.md` | Running term list the steps link into. |
+| `conventions.md` | Style/architecture rules referenced everywhere. |
+| `decision-log.md` | Non-obvious choices + rationale, so the reader learns *why*. |
+| `feedback-log.md` | Append-only field log of friction readers hit — captured by `/log-feedback`, for improving the guide and the method. |
+
+### `reference/` — the method, explained
+
+The deep-dives behind the pillars: [pedagogy-rules.md](reference/pedagogy-rules.md),
+[milestone-design.md](reference/milestone-design.md), [audience-model.md](reference/audience-model.md),
+[canonical-layout.md](reference/canonical-layout.md) (the one fixed on-disk skeleton every guide uses), and
+[token-tracking.md](reference/token-tracking.md) (how per-guide cost is metered and where each ledger lives).
+
+### `examples/` — worked runs
+
+Full worked runs of the pipeline — a complete plan plus drafted milestones — so you can see real output
+before running anything yourself. **Being redone; the folder is currently empty.**
+
+---
+
+## 6. The four prompts, in depth
+
+### `plan-guide` — the planner
+- **Input:** a one-to-three sentence idea, plus **any attached files** (an existing spec/PRD, design doc,
+  sample code, OpenAPI file, or a legacy guide to modernize). Provided files are treated as authoritative
+  source material — they pre-answer Phase 0 questions and seed the stack (still verified online in Phase 0.5).
+- **Phase 0 (interview):** seven question groups — a **per-topic expertise matrix** (rate the reader Expert →
+  New on each topic the build touches), a **granularity** dial (Terse → Highly granular), target end state, a
+  **detailed stack interview** (language + version, framework/runtime, key libraries, package manager, target
+  platform, the tool the reader drives), scope boundaries, hard constraints, format & size. This is
+  *mandatory*; the prompt asks one concrete follow-up rather than infer if you're vague. The gate then
+  **closes with a mandatory advise-back step**: before any plan, the planner suggests *other features* worth
+  considering (yours to accept or decline) and flags the *long-run risks* of your choices — EOL/fading
+  versions, a scope boundary that forces rework, a stack that won't grow — with a cheaper alternative for
+  each, logging the risks you acknowledge in the decision log.
+- **Phase 0.5 (verify the stack online):** for every language/framework/library, look up the **latest stable
+  version** and **canonical docs URL** from authoritative sources, note renames/deprecations/EOL, and record
+  a dated **Verified stack** table. This always runs — even in non-interactive mode — because it needs no
+  input from you and it's what keeps the guide built on *current facts, not stale training memory*. The hard
+  rule: no real link → don't state the version; mark it "unverified." If web tools are unavailable, the whole
+  table is flagged UNVERIFIED.
+- **Phases 1–5:** foundation docs (including the Verified stack) → milestone ladder → step contract →
+  pedagogy contract → verification design.
+- **Output:** a plan (not the guide), ending in "approve before I draft."
+- **Escape hatches:** *lite mode* (skip foundation/verification, 2–3 milestones — but **keep Phase 0.5**) and
+  *non-interactive mode* (state assumptions and proceed, still run Phase 0.5) for automation.
+
+### `draft-milestone` — the drafter
+- **Input:** the approved plan (with the Verified stack); by default "draft the guide" (or a single milestone to re-draft one).
+- **Output:** every milestone's folder in one pass — each with its `00_overview.md` and numbered atomic step files, each obeying the 10
+  pedagogy rules, ending in a `NN_verify.md` gate — carrying the cumulative handoff forward from one milestone to the next.
+- **Builds against the pinned versions**, and **re-verifies each API against the live official docs before
+  writing code** — memory is stale, the docs are truth — linking those docs in the concept callouts.
+- **Rule of thumb it enforces:** one step = one indivisible action (bundling only code files written in the
+  same commit).
+
+### `clarify-step` — the editor
+- **Input:** one existing step that's confusing, stale, or tripped a reader.
+- **Output:** the same step revised in place — jargon defined, WHERE/WHAT/WHY added, values made exact,
+  arrow-chains split into numbered lists — **without changing scope or behavior**.
+- **Key discipline:** clarity ≠ rewrite. It never changes what the step does, only how clearly it says it.
+
+### `review-before-follow` — the reconciler
+- **Input:** a guide (or step) you're about to *execute*, plus the real project/tool state.
+- **Output:** the guide patched to match reality, with a drift-log line added to `status.md`.
+- **Governing rule:** a clear-but-stale instruction is more dangerous than an unclear one. Reality wins.
+
+---
+
+## 7. The 10 pedagogy rules, with before/after
+
+These are the heart of the toolkit. Each rule exists because of a *real* way readers get lost. Full
+treatment (and the origin of each) is in [reference/pedagogy-rules.md](reference/pedagogy-rules.md); here's
+the essence with a concrete contrast.
+
+| # | Rule | Before | After |
+|---|------|----------|---------|
+| 1 | Explain every concept on first use (inline gloss, or a "New concept" callout right above the line) | "Register the middleware." | "Register the **middleware** — code that runs on every request before your handler — by …" |
+| 2 | Say WHERE | "Add the route." | "In `cmd/server/main.go`, inside `setupRoutes()`, add the route." |
+| 3 | Say WHAT + WHY | "Run `go mod init`." | "Run `go mod init example/api` — this creates `go.mod`, which pins your module path so imports resolve." |
+| 4 | Exact values | "Set a reasonable timeout." | "Set the timeout to `5 * time.Second` (any value ≥1s is fine; we use 5s)." |
+| 5 | Mandatory vs illustrative | "Name it `BookStore`." | "The struct name is free; the JSON tag `\"id\"` is **load-bearing** — the API contract depends on it." |
+| 6 | Change vs leave default | "Configure the server." | "Set `Addr` and `Handler`; **leave every other `http.Server` field at its default.**" |
+| 7 | Teach the recurring model | (silent) | "Remember: in Go, an interface is satisfied implicitly — you never write `implements`. We'll rely on this again in step 4." |
+| 8 | Load-bearing vs cosmetic names | "Call the handler whatever." | "The function name is cosmetic; the route string `/books` is load-bearing — tests hit it exactly." |
+| 9 | Numbered lists, not arrows | "Open file → edit → save → run." | "1. Open the file. 2. Edit the handler. 3. Save. 4. Run `go test ./...`." |
+| 10 | Name the likely failure | (silent) | "If you get `undefined: mux`, you forgot the import in step 2 — check the top of the file first." |
+
+---
+
+## 8. The templates, and why each field exists
+
+### Step template ([templates/step.md](templates/step.md))
+```
+# <Milestone> · Step NN of <TOTAL> — <single action title>
+> Nav: [← prev] · [Overview] · [next →]    ← label is exactly "Overview"; first step's prev is a bare "—"
+
+## Glossary for this step    ← only terms THIS step introduces (rule 1). Omit if none.
+## Why / design              ← the rationale the reader needs (rule 3). Omit if pure mechanics.
+## Do this                   ← the numbered actions (rules 2,4,6,9).
+## Code                      ← complete file(s), never partial snippets.
+## Done when (this step)     ← the sub-slice of the milestone gate this step satisfies.
+```
+- **Nav line** — a reader in the middle of a folder of files needs to know where they are and how to move.
+- **Per-step glossary** — keeps rule 1 local; you don't hunt a global list mid-step.
+- **Why before Do** — understanding precedes action; that's the "learn" in learn-as-you-go.
+- **Complete code, never snippets** — partial snippets are the #1 source of "wait, where does this go?"
+- **Done-when** — the atomic verification; the milestone gate is just the sum of these.
+
+### Milestone overview ([templates/milestone-overview.md](templates/milestone-overview.md))
+Goal · **Scope discipline** (what it deliberately does NOT do) · Prerequisite · Steps-at-a-glance (grouped
+into "sittings" = natural stopping points) · Design/decisions folded in · Done-when gate · **Handoff**.
+The *Handoff* is what makes a *series* coherent: at each milestone's end it recaps what now exists and points
+to the next, so the reader always knows their place in the arc.
+
+### Status authority ([templates/status.md](templates/status.md))
+The one file that states *reality*: which milestones are actually verified, a drift log, and a session log.
+Pillar 5. Guides claim; this file confirms.
+
+---
+
+## 9. Design decisions & trade-offs
+
+| Decision | Why | Trade-off we accepted |
+|----------|-----|-----------------------|
+| Plan first, don't draft | Fixing a ladder is cheap; re-drafting 10 milestones is not. | Slower to first content. |
+| Milestone-*laddered* structure | Each milestone stays small and independently verifiable, with its own Done-when gate the reader checks as they build. | The whole ladder must be right up front — it's all drafted in one pass. |
+| Four prompts, not one | Each stage has its own gate + failure mode; independently improvable. | More files to learn. |
+| Vertical slices | Every increment runs and is verifiable. | Harder to cut than layers. |
+| Written rule contract | Makes "teach well" auditable, not a vibe. | Rules must be maintained. |
+| Reality-wins reconcile | Stale-but-clear guides are the dangerous kind. | Requires a status file. |
+| Lite mode exists | The full method is overkill for a 1-hour guide. | Users must opt into it. |
+
+---
+
+## 10. How to customize it for your world
+
+- **Swap the domain vocabulary.** The prompts are domain-agnostic; you'll get better output by naming your
+  stack in Phase 0 (the audience/tech questions). No prompt edits needed.
+- **Add house conventions.** Fill [templates/conventions.md](templates/conventions.md) with your team's
+  rules and point the drafter at it — every step will then conform.
+- **Add or retune rules.** If your readers keep tripping on something specific, add a rule to
+  [reference/pedagogy-rules.md](reference/pedagogy-rules.md) (cite the confusion — see CONTRIBUTING).
+- **Make it always-on.** Paste the writing contract into your `CLAUDE.md` so all guides follow it.
+- **Wire the skills.** Copy `skills/*` into `.claude/skills/` for slash-command access.
+
+---
+
+## 11. Where this came from
+
+GuideForge is a generalization of a real, working system: a **doc-driven, solo-dev build kit** where a large
+project was turned into a game as a **milestone ladder**, expressed as folders of **atomic step files**. That
+system had three ingredients GuideForge lifts and makes domain-agnostic:
+
+1. **An atomic step-file contract** — one indivisible action per file, a fixed template, complete code, a
+   per-step "Done when."
+2. **A milestone ladder with acceptance gates** — verified in order, each proving one runnable thing.
+3. **A trigger-gated clarity protocol** — a numbered set of rules for rewriting a step so a
+   *fluent-but-new-to-this-domain* developer never gets stuck, plus a review gate to run *before* following
+   any step.
+
+The original was tuned for one game engine and one developer. GuideForge keeps the machinery and drops the
+specifics, so the same discipline works for a library, a web app, a CLI, or a course.
+
+---
+
+## 12. Glossary
+
+> **Audience model** — the per-topic expertise matrix (topic → level → depth) + granularity dial that
+> calibrate every explanation and step size.
+> **Per-topic expertise** — rating the reader Expert/Intermediate/Beginner/New on *each* topic, so depth is
+> graded per topic rather than one global level.
+> **Granularity** — how finely steps are cut and how much prose surrounds them; independent of expertise.
+> **Milestone** — a vertical slice that proves one runnable thing and ends in a Done-when gate.
+> **Ladder** — the dependency-ordered sequence of milestones.
+> **Done-when gate** — a checklist of *observable* conditions that prove a step or milestone works.
+> **Atomic step** — one indivisible action, written to a fixed teaching template.
+> **Sitting** — a group of steps ending at a natural stopping point / checkpoint.
+> **Status authority** — the single file that states what is *actually* done, vs what a guide intends.
+> **Reconcile-before-follow** — checking a guide against reality before executing it; reality wins.
+> **Lite mode** — the escape hatch that skips heavy phases for small guides.
+> **Load-bearing** — a name/value/string that must match exactly or things break (vs *cosmetic*).
+> **Vertical slice** — a runnable increment that spans all layers, vs a horizontal layer that can't run alone.
