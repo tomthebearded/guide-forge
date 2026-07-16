@@ -1,5 +1,5 @@
 # Milestone 7 — Sound, timer, best time & restart
-> Section: Polish · milestone 7 of 8 (M0–M7) · (final milestone)
+> Section: Polish · milestone 7 of 8 (M0–M7) · prev: [Gravity twist](../MILESTONE_6_gravity-twist/00_overview.md) · (final milestone)
 
 ## Goal
 Close the loop. Add a **`Sfx`** helper that **synthesizes** beep tones in memory (no audio files) and wire beeps
@@ -67,3 +67,6 @@ ShapeJumper/
   menu, camera follow (Cinemachine), a mute toggle, and building a standalone player.
 ### This is the final milestone
 There is no M8. See [07_verify](07_verify.md) for the whole-game gate and where to go next.
+
+---
+> Section: Polish · milestone 7 of 8 (M0–M7) · prev: [Gravity twist](../MILESTONE_6_gravity-twist/00_overview.md) · (final milestone)

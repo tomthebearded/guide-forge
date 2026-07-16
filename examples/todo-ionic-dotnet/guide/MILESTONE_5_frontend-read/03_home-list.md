@@ -85,3 +85,6 @@ export class HomePage implements OnInit {
   up (see [M4 verify](../MILESTONE_4_frontend-scaffold/04_verify.md)).
 - **`todos()` is not a function** — you assigned `this.api.todos()` (called it) instead of `this.api.todos`
   (the signal itself). Assign the signal, call it in the template.
+
+---
+> Nav: [← TodoApiService](02_todo-api-service.md) · [Overview](00_overview.md) · [Verify →](04_verify.md)

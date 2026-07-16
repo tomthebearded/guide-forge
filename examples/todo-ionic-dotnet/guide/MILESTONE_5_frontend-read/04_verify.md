@@ -99,3 +99,6 @@ export class HomePage implements OnInit {
 
 ## Next
 → [M6 — Frontend CRUD UI](../MILESTONE_6_frontend-crud/00_overview.md)
+
+---
+> Nav: [← Render the list](03_home-list.md) · [Overview](00_overview.md) · [M6 Frontend CRUD UI →](../MILESTONE_6_frontend-crud/00_overview.md)

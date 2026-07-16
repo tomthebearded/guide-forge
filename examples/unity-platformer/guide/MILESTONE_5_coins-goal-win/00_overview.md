@@ -69,3 +69,6 @@ ShapeJumper/
 ### Next milestone
 [M6 — The gravity twist](../MILESTONE_6_gravity-twist/00_overview.md): make `Physics2D.gravity` randomly flip,
 telegraphed — and watch the sign-aware player code from M3 handle upside-down play with no changes.
+
+---
+> Section: The game · milestone 5 of 8 (M0–M7) · next: [The gravity twist](../MILESTONE_6_gravity-twist/00_overview.md)

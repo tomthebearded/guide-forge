@@ -68,3 +68,6 @@ ShapeJumper/
 ### Next milestone
 [M4 — Platforms & a real level](../MILESTONE_4_platforms-and-level/00_overview.md): duplicate the ground into
 platforms, build a level, and **play it** — the reality-check gate.
+
+---
+> Section: Control · milestone 3 of 8 (M0–M7) · next: [Platforms & a real level](../MILESTONE_4_platforms-and-level/00_overview.md)

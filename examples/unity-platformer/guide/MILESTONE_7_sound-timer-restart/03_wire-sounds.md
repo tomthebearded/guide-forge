@@ -53,3 +53,6 @@ crash.
 - **Jump is silent but coin/win work** → the `PlayerController` edit (step 5) is missing, or
   `GameManager.Instance` is null (the `GameManager` object must be in the scene).
 - **`Sfx` type not found on the field** → `Sfx.cs` didn't compile; fix Console errors first.
+
+---
+> Nav: [← Audio object](02_audio-object.md) · [Overview](00_overview.md) · [Timer HUD →](04_timer-hud.md)

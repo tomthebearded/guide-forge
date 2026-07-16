@@ -37,3 +37,6 @@ pause to use what you made.
   design tuning pass, exactly what the reality-check is for.
 - **Anything tunnels on tab-switch** — the `maxDt` clamp in `main.js` is missing or too large; it should be
   `1/30`.
+
+---
+> Nav: [← Collision](02_collision.md) · [Overview](00_overview.md) · [Verify →](04_verify.md)

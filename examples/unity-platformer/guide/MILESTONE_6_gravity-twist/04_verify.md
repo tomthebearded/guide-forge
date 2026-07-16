@@ -157,3 +157,6 @@ Scene adds a `TelegraphPanel` under the HUD Canvas, wired into `GameManager` alo
 [M7 — Sound, timer & restart](../MILESTONE_7_sound-timer-restart/00_overview.md): synthesized beeps for
 jump/coin/win, a completion timer, a persisted best time, an **R** restart, and a **Menu** button — the final
 polish that closes the loop.
+
+---
+> Nav: [← Wire & test](03_wire-and-test.md) · [Overview](00_overview.md) · [M7 — Sound, timer & restart →](../MILESTONE_7_sound-timer-restart/00_overview.md)

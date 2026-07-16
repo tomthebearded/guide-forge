@@ -64,3 +64,6 @@ shape-jumper/
 ### Next milestone
 [M6 — The random twist: gravity flips](../MILESTONE_6_gravity-twist/00_overview.md): gravity randomly inverts,
 telegraphed. Done-when: a telegraph, then a flip; platforming works upside-down; it flips back.
+
+---
+> Section: The game · milestone 5 of 7 · prev: [Platforms & AABB collision](../MILESTONE_4_platforms-and-collision/00_overview.md) · next: [The random twist: gravity flips](../MILESTONE_6_gravity-twist/00_overview.md)

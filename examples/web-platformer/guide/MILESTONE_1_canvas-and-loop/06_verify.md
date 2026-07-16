@@ -141,3 +141,6 @@ requestAnimationFrame(frame);
 Once all three gate items pass, go to
 **[M2 — Player & keyboard control](../MILESTONE_2_player-and-input/00_overview.md)**: replace the demo square
 with a real player you steer with the keyboard. (Remember to update `foundation/status.md` — mark M1 ✅.)
+
+---
+> Nav: [← Delta time](05_delta-time.md) · [Overview](00_overview.md) · [M2: Player & keyboard →](../MILESTONE_2_player-and-input/00_overview.md)

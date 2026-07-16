@@ -35,3 +35,6 @@ wired in step 07 after the script exists. Building the visuals first, then wirin
   (TMP)`'s Text Input. Expand the button and select the child.
 - **Button appears outside the Canvas in the Hierarchy** → you right-clicked empty space, not the Canvas. Drag
   the button onto `Canvas` in the Hierarchy to nest it.
+
+---
+> Nav: [← Title text](02_title-text.md) · [Overview](00_overview.md) · [Game scene →](04_game-scene.md)

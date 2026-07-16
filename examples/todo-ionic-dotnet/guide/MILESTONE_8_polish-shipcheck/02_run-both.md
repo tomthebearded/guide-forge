@@ -56,3 +56,6 @@ Node 24 · Angular 20.3 (standalone) · @ionic/angular 8 · .NET 10 · EF Core I
 ## If it breaks
 - **The fenced block confuses your editor** — the outer ```` ```` ```` fence above is just so this guide can
   *show* a README that itself contains ``` blocks; your actual `README.md` uses normal single ``` fences.
+
+---
+> Nav: [← Loading/empty/error](01_loading-empty-error.md) · [Overview](00_overview.md) · [Troubleshooting →](03_troubleshooting.md)

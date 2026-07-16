@@ -39,3 +39,6 @@ A coin is a **Circle** sprite the player walks *through* (not into), so its coll
   from the Tag dropdown.
 - **Dragging to Prefabs did nothing** → drag from the **Hierarchy** into the **Project** window's `Prefabs`
   folder (not Scene view).
+
+---
+> Nav: — · [Overview](00_overview.md) · [Place coins →](02_place-coins.md)

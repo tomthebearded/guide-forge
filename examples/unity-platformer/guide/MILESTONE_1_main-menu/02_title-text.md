@@ -49,3 +49,6 @@ default for UI text in 6.5.
   Component that decides how UI scales across screen sizes — leave it at its default for now.)*
 - **No `UI` entry in the right-click menu** → right-click inside the **Hierarchy** (not the Scene view); the UI
   submenu lives there.
+
+---
+> Nav: [← MainMenu scene](01_mainmenu-scene.md) · [Overview](00_overview.md) · [Buttons →](03_buttons.md)

@@ -63,3 +63,6 @@ ShapeJumper/
 ### Next milestone
 [M1 — The Main Menu](../MILESTONE_1_main-menu/00_overview.md): build a title screen with Play + Quit buttons and
 your first (tiny) script. Done-when: pressing Play shows the menu, and **Play** loads a second scene.
+
+---
+> Section: Setup · milestone 0 of 8 (M0–M7) · next: [The Main Menu](../MILESTONE_1_main-menu/00_overview.md)

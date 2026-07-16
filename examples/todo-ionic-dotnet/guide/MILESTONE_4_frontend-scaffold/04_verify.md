@@ -96,3 +96,6 @@ target now carries the `proxyConfig` line (added in step 03), and (2) `ng genera
 
 ## Next
 → [M5 — Frontend read path](../MILESTONE_5_frontend-read/00_overview.md)
+
+---
+> Nav: [← Dev proxy](03_proxy.md) · [Overview](00_overview.md) · [M5 Frontend read path →](../MILESTONE_5_frontend-read/00_overview.md)

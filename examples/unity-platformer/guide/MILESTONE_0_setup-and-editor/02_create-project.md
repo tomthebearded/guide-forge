@@ -36,3 +36,6 @@ template saves a dozen manual settings.
   recreate it with the **2D** template; it's far easier than converting.
 - **"Failed to resolve packages" or a long hang** → let it finish once (it's downloading built-in packages). A
   second open is fast. If it errors, reopen from Hub → Projects → `ShapeJumper`.
+
+---
+> Nav: [← Install Unity](01_install-unity.md) · [Overview](00_overview.md) · [Editor tour →](03_editor-tour.md)

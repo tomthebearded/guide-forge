@@ -46,3 +46,6 @@ Find each panel in the default layout (if your layout differs, use **Window → 
 - **Panels are missing or rearranged** → **Window → Layouts → Default** resets to the standard layout the guide
   assumes.
 - **No Console tab visible** → **Window → General → Console** (or `Ctrl+Shift+C`) opens it.
+
+---
+> Nav: [← Create the 2D project](02_create-project.md) · [Overview](00_overview.md) · [First square →](04_first-square.md)

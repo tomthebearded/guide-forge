@@ -53,6 +53,13 @@ If any of these is missing from the conversation, ask for it before drafting.
   at the topic's depth. Keep the bar consistent: if the guide glosses `const`, it must gloss `toFixed()` on
   the next line too. (Observed: web-platformer glossed `const` but left `toFixed`/`Math.round`/`Math.PI`
   bare; unity left `Transform`/`IL2CPP`/`Clear Flags` unglossed.)
+- **Track each concept's first appearance — gloss + point forward if it's taught later.** As you draft in
+  order, note where each concept first *appears* (a config key, a code comment, a value), not just where you
+  plan to *teach* it. If a concept surfaces before its dedicated teaching step, give it a **one-line mini-gloss
+  plus a forward pointer** at that first appearance (e.g. "*delta time* — seconds since the last frame; you'll
+  build it fully in step 05") — never leave it bare because "step 05 explains it." The deep-dive stays where the
+  ladder puts it. (Observed: web-platformer named *delta time* in M1/02's `maxDt` comment but only taught it in
+  M1/05.)
 - **Granularity:** cut steps to the setting — **Terse** bundles more per step and skips obvious sub-actions;
   **Standard** is default atomic; **Highly granular** splits further and spells out every sub-action.
 
@@ -87,7 +94,7 @@ not a suggestion. Check every step against the boundary *before* you draft it:
   milestone adds must be **called within that same milestone** (exercised by its Done-when). The one exception
   is a genuine early definition consumed later — mark it inline with a `[Mn]` comment naming the consuming
   milestone (e.g. `clear() { … } // [M10] used by the reset flow`); an unmarked, uncalled member is
-  gold-plating. (Observed: spotify-trip M8/05 built M11's marker system, leaving dead members.)
+  gold-plating. (Observed: spotify-angular M8/05 built M11's marker system, leaving dead members.)
 - **Only** exception: a genuine **hard prerequisite** the plan missed — something the milestone literally
   cannot run without. Even then, stop and flag it as a plan gap; don't silently absorb it.
 
@@ -110,7 +117,7 @@ before you close each milestone (see [milestone-design.md](../../reference/miles
   ladder with my approval) or the use must move later. Never draft the milestone with the dangling reference.
 
 > **The defect this prevents:** M9 calling `LikedIndex.clear()` when `clear()` isn't introduced until M10 —
-> the reader following in order hits a build that cannot pass. (Observed: spotify-trip M9→M10.)
+> the reader following in order hits a build that cannot pass. (Observed: spotify-angular M9→M10.)
 
 ---
 
@@ -139,6 +146,10 @@ illustrative. 6. Say which fields to change and which to leave at default. 7. Te
 model at the point of use. 8. Flag load-bearing vs cosmetic names. 9. Numbered lists, not arrow-chains.
 10. Name the likely failure and its usual cause.
 
+**Voice — address the reader as "you".** The guide-follower is always second person. Never call them "the
+Human"/"the human"/"the user"/"the developer"/"the reader"/"one" — write every action and gate as something
+**you** do and see. (Third-person is fine only for a *different* actor: the app's end-user, a teammate.)
+
 Plus the structural rules — the ones drafters most often drop:
 - **Draft every step in full — never stub, summarize, or collapse.** Each atomic step gets its own complete
   file, even when steps are repetitive or mechanical. Never elide with "steps 3–6 follow the same pattern",
@@ -150,23 +161,24 @@ Plus the structural rules — the ones drafters most often drop:
   **complete** by the milestone's end — render the full current contents of each touched file in
   `NN_verify.md`'s "Files after this milestone" checkpoint. Never let a file's final state exist only as
   scattered fragments. Short files fully written in one step are shown complete inline.
-- **Canonical nav line, at the top, every step — generated from the template, not hand-written.** Line 2,
-  directly under the H1, exactly:
+- **Canonical nav line, at the top AND bottom of every step/overview/verify — generated from the template,
+  not hand-written.** Line 2, directly under the H1, exactly:
   `> Nav: [← <prev>](<prev>.md) · [Overview](00_overview.md) · [<next> →](<next>.md)` — same format in every
   milestone. The middle anchor label is **exactly `Overview`** — never `Milestone overview` or any other
   wording (that drift spread across 140 files in one guide). The **first step of a milestone** has **`—` (a
   bare em-dash, no link) as its prev** — the Overview anchor already points there, so a prev→`00_overview.md`
   link is redundant: `> Nav: — · [Overview](00_overview.md) · [<next> →](<next>.md)`. `NN_verify.md`'s
   `next →` = the next milestone's `../MILESTONE_<n+1>_<slug>/00_overview.md`. Milestone→milestone links are
-  clickable, never prose. (Observed: spotify-trip mixed `[Overview]`/`[Milestone overview]` labels and gave
-  first steps a redundant prev.)
+  clickable, never prose. **Repeat the same nav line verbatim at the very bottom of the file, after a `---`
+  rule** — top and bottom must be identical. (Observed: spotify-angular mixed `[Overview]`/`[Milestone overview]`
+  labels and gave first steps a redundant prev.)
 - **Cumulative handoff.** The overview's `Handoff` carries `Done so far (cumulative)` and `Artifacts now in
   the project` — the running inventory carried forward from the previous milestone and appended — not just a
   forward-looking "what the next milestone assumes" paragraph.
 - **Glossary deep-links must resolve.** When a gloss or "New concept" callout links a term, use
   `../glossary.md#<slug>` where `<slug>` is the term's heading slug (lowercase, spaces → `-`, punctuation
   dropped). Every term in `glossary.md` is a `### <term>` heading, never a bullet — bulleted terms have no
-  anchor and the link silently fails. Add the term as a heading when you introduce it. (Observed: spotify-trip
+  anchor and the link silently fails. Add the term as a heading when you introduce it. (Observed: spotify-angular
   shipped 39 dead `glossary.md#term` links because the glossary used bullets.)
 - **Required code lives in a step, never in "If it breaks."** The failure section lists diagnoses only; if a
   fix needs new code/config, it's a numbered step (or a clearly-flagged optional one).
@@ -178,11 +190,11 @@ Plus the structural rules — the ones drafters most often drop:
 - **Gates prove what they claim.** When a `Done when` names a *property* (deterministic, persistent,
   idempotent, cached), its action must **exercise that property's code-path** — re-run and diff for
   determinism, restart and re-read for persistence. If the property isn't observable, reword the claim to what
-  the action actually shows. (Observed: spotify-trip M5 claimed determinism without re-querying.)
+  the action actually shows. (Observed: spotify-angular M5 claimed determinism without re-querying.)
 - **Commands are cross-platform for the targeted shells.** Every command in a step or a `Done when` must run on
   **every** shell listed in `stack.md`'s *Target OS / shell(s)*. When a command differs between shells, give
   the variant for each (e.g. bash `grep -q` **and** PowerShell `Select-String -Quiet`) — never a Unix-only
-  command as the sole gate check when the guide also targets Windows/PowerShell. (Observed: spotify-trip M0's
+  command as the sole gate check when the guide also targets Windows/PowerShell. (Observed: spotify-angular M0's
   zone.js check was bash `grep` only, unrunnable on the reader's PowerShell.)
 - **Keep versions and names consistent.** Every command and code block uses the pinned Verified-stack versions
   (never mix versions between steps), and every load-bearing name, path, or identifier is spelled **identically**
@@ -202,7 +214,8 @@ drafting a single named milestone, output just that one folder.
 **Self-audit before you hand off.** Re-read what you just produced against the structural contract and fix any
 miss *before* showing it — run this check on **each** milestone you drafted, and don't ship one you'd flag
 yourself. Confirm:
-- every step file has the canonical **nav line** (line 2, three anchors) and its own **"Done when"**;
+- every step file has the canonical **nav line at both top (line 2) and bottom (after a `---`), identical**,
+  three anchors, and its own **"Done when"**;
 - `00_overview.md` has all its sections and a **cumulative** handoff (`Done so far` / `Artifacts now`);
 - `NN_verify.md` renders the **complete current contents** of every file this milestone touched — no file left
   as scattered fragments;

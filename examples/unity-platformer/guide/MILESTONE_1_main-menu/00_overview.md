@@ -74,3 +74,6 @@ ShapeJumper/
 ### Next milestone
 [M2 — The world & free physics](../MILESTONE_2_world-and-free-physics/00_overview.md): fill the `Game` scene
 with shapes and watch the engine make the player fall and land — with **zero code**.
+
+---
+> Section: Front end · milestone 1 of 8 (M0–M7) · next: [The world & free physics](../MILESTONE_2_world-and-free-physics/00_overview.md)

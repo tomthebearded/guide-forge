@@ -51,3 +51,6 @@
   note the drift in [status.md](../foundation/status.md).
 - **It listens on `5000`/`7xxx`, not `5080`** — `launchSettings.json` wasn't saved, or you ran with a
   different profile. Confirm the file matches above and run plain `dotnet run`.
+
+---
+> Nav: — · [Overview](00_overview.md) · [Todo & DbContext →](02_todo-and-dbcontext.md)

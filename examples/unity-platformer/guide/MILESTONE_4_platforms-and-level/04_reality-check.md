@@ -29,3 +29,6 @@ MANDATORY: actually play it and make the go/no-go call. Tuning values are ILLUST
   2-unit gaps). Changing only one unbalances it: more gravity alone and you can no longer climb.
 - **Movement feels sluggish or twitchy** → adjust **Move Speed** (lower = heavier, higher = zippier).
 - **You keep falling off the edges** → widen platforms (Scale X) or bring them closer together.
+
+---
+> Nav: [← Check layers](03_check-layers.md) · [Overview](00_overview.md) · [Verify →](05_verify.md)

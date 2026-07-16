@@ -65,3 +65,6 @@ shape-jumper/
 ### Next milestone
 [M5 — Coins, goal, HUD & win](../MILESTONE_5_coins-goal-win/00_overview.md): give the level a point — collect
 coins and reach the goal to win. Done-when: coins score up, the goal triggers a WIN state.
+
+---
+> Section: Core mechanics · milestone 4 of 7 · prev: [Gravity & jumping](../MILESTONE_3_gravity-and-jump/00_overview.md) · next: [Coins, goal & win](../MILESTONE_5_coins-goal-win/00_overview.md)

@@ -346,3 +346,6 @@ requestAnimationFrame(frame);
 Mark M6 ✅ in [foundation/status.md](../foundation/status.md), then go to
 **[M7 — Sound, timer, best time & restart](../MILESTONE_7_sound-timer-persistence/00_overview.md)** — the final
 polish that makes it a replayable game.
+
+---
+> Nav: [← Telegraph](03_telegraph.md) · [Overview](00_overview.md) · [M7: Sound, timer & best time →](../MILESTONE_7_sound-timer-persistence/00_overview.md)

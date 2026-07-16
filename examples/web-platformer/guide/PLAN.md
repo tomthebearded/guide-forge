@@ -317,11 +317,10 @@ Done-when gate (aggregated, observable) · Handoff (what now exists · open issu
 
 ```
 examples/web-platformer/
-  TOKEN_USAGE.md                      ← project-level metered ledger (created by the token hook)
   guide/
     PLAN.md                           ← THIS FILE (the only thing written now)
     README.md                         ← front door (scaffold)
-    token-usage.md                    ← per-guide estimate ledger (scaffold seeds row 1 from the cost line below)
+    TOKEN_USAGE.md                    ← the one cost ledger (metered by the hook; scaffold seeds row 1 from the cost line below)
     feedback-log.md                   ← reader-friction log (scaffold)
     foundation/
       stack.md  audience.md  conventions.md  glossary.md  status.md  decision-log.md
@@ -372,5 +371,5 @@ speed" gate is the first checkpoint; M4 is the reality-check where you actually 
 ---
 
 *Planning cost (est.): 2026-07-10 ~14:20 UTC · `plan-guide` · ~48k tokens in / ~7k out ≈ 55k total ·
-rough est. (Claude can't meter its own tokens mid-run) — `/scaffold-guide` seeds `token-usage.md` row 1 from
+rough est. (Claude can't meter its own tokens mid-run) — `/scaffold-guide` seeds `TOKEN_USAGE.md` row 1 from
 this line.*

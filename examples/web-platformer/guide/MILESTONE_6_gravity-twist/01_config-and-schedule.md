@@ -170,3 +170,6 @@ Game.update = function (dt) {
 - **`clock` stays 0** — the `s.clock += dt;` line isn't in `Game.update`, or `dt` is 0 (see M1 troubleshooting).
 - **`nextFlipAt` is 0 or NaN** — `scheduleNextFlip` didn't run (is it called at the end of `resetGame`?) or a
   config value is missing.
+
+---
+> Nav: — · [Overview](00_overview.md) · [The flip →](02_flip.md)

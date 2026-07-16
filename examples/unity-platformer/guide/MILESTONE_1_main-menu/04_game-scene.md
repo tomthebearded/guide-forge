@@ -30,3 +30,6 @@ it, the change is unmistakable in the Game view.
   buttons are gone, redo steps 02–03 (and save as you go with `Ctrl+S`).
 - **Two scenes look identical** → set the `Game` camera's **Background** to a clearly different color so the load
   is obvious later.
+
+---
+> Nav: [← Buttons](03_buttons.md) · [Overview](00_overview.md) · [Build Settings →](05_build-settings.md)

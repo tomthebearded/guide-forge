@@ -82,3 +82,6 @@ Game.state = {
 - **Player vanished / errors** — a typo in the objects (missing comma or brace). Check the Console; objects are
   comma-separated `key: value` pairs.
 - **You changed `floorY` above `height`** — the floor would be off-screen. Keep `floorY` < `height`.
+
+---
+> Nav: — · [Overview](00_overview.md) · [Physics: gravity →](02_physics-gravity.md)

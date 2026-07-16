@@ -25,3 +25,6 @@ its Inspector fields.
 - **Runtime `NullReferenceException` on `scoreText`/`winPanel`** → a field is still empty; wire it.
 - **`GameManager.Instance` is null when a coin is hit** → the `GameManager` object isn't in the scene or the
   script isn't attached; confirm step 1–2.
+
+---
+> Nav: [← HUD & win panel](06_hud-and-winpanel.md) · [Overview](00_overview.md) · [Verify →](08_verify.md)

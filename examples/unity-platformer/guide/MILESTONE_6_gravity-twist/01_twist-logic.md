@@ -169,3 +169,6 @@ public class GameManager : MonoBehaviour
 - **Error on `Random.Range`** → it's `UnityEngine.Random` (you have `using UnityEngine;`). If you also had
   `using System;` a `Random` ambiguity can appear — qualify as `UnityEngine.Random.Range(...)`.
 - **`Header`/`SerializeField` errors** → both are in `UnityEngine`; keep the `using UnityEngine;` line.
+
+---
+> Nav: — · [Overview](00_overview.md) · [Telegraph panel →](02_telegraph-ui.md)

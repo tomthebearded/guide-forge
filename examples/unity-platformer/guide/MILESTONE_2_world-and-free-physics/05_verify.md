@@ -39,4 +39,8 @@ Game scene (Assets/Scenes/Game.unity)
 ## Next
 [M3 — Move & jump](../MILESTONE_3_move-and-jump/00_overview.md): time for your **first gameplay script**. You'll
 read the keyboard and drive the `Rigidbody2D` to run and jump — writing it **gravity-sign-aware** so the M6
-twist stays cheap.
+twist stays cheap. *(The **twist** is M6's signature mechanic — mid-run the engine's gravity randomly flips
+upside-down for a while, then flips back; you'll build it in [M6](../MILESTONE_6_gravity-twist/00_overview.md).)*
+
+---
+> Nav: [← Colliders land](04_colliders-land.md) · [Overview](00_overview.md) · [M3 — Move & jump →](../MILESTONE_3_move-and-jump/00_overview.md)

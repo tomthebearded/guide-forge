@@ -35,3 +35,6 @@ both). ILLUSTRATIVE: the exact count, positions, and sizes — three platforms i
   05 catch this.
 - **Platforms are off-screen** → keep positions within roughly X ∈ [-8, 8], Y ∈ [-4, 4] for the default camera
   Size 5, or raise the camera Size.
+
+---
+> Nav: — · [Overview](00_overview.md) · [Build the level →](02_build-level.md)

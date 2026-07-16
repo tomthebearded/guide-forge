@@ -39,3 +39,6 @@ back.
   **Solid Color** — `backgroundColor` only shows under **Solid Color** (the 2D template's default). Set **Main
   Camera → Camera → Clear Flags = Solid Color** if the background never changes.
 - **Flips never happen** → **Twist Enabled** is off, or the intervals are very long; shorten them to test.
+
+---
+> Nav: [← Telegraph panel](02_telegraph-ui.md) · [Overview](00_overview.md) · [Verify →](04_verify.md)

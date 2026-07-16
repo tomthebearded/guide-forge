@@ -25,3 +25,6 @@ art (shapes only).
 - **Player and Ground overlap** → increase the gap: put Player at Y 2 and Ground at Y -3 (or lower the ground
   further).
 - **Ground off-screen** → raise the camera **Size** (Main Camera → Camera → Size) so both fit.
+
+---
+> Nav: [← Player & camera](01_player-and-camera.md) · [Overview](00_overview.md) · [Rigidbody falls →](03_rigidbody-falls.md)

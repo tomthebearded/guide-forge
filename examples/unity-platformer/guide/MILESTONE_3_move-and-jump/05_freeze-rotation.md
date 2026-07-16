@@ -23,3 +23,6 @@ lands on an edge or bumps a wall. A platformer character should stay upright. We
   check it at all. Only **Freeze Rotation Z** should be on.
 - **Player won't move or fall anymore** → you accidentally froze **Position X/Y**. Uncheck those; only Rotation Z
   is frozen.
+
+---
+> Nav: [← Add jump](04_add-jump.md) · [Overview](00_overview.md) · [Verify →](06_verify.md)

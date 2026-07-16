@@ -59,3 +59,6 @@ Built a minimal API whose `GET /api/todos` returns two seeded todos from an in-m
 ### Next milestone
 [M2 — Backend full CRUD + CORS](../MILESTONE_2_backend-crud-cors/00_overview.md): every verb works and the
 browser origin is allowed. Done-when: each of POST/PUT/PATCH/DELETE succeeds via curl and the CORS header is present.
+
+---
+> Backend · milestone 2 of 9 · prev: [M0 Workspace](../MILESTONE_0_workspace/00_overview.md) · next: [M2 Backend CRUD + CORS](../MILESTONE_2_backend-crud-cors/00_overview.md)

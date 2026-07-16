@@ -64,3 +64,6 @@ the verify step expects these exact strings, so keep them to match the checkpoin
   missing or misspelled. It must run on `builder.Services` before `builder.Build()`.
 - **Seed throws on startup** — you called `CreateScope()` after `app.Run()`; the seed block must sit between
   `builder.Build()` and `app.Run()`.
+
+---
+> Nav: [← GET endpoint](03_endpoints-get.md) · [Overview](00_overview.md) · [Verify →](05_verify.md)

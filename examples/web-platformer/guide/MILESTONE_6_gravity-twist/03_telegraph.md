@@ -73,3 +73,6 @@ Game.flipIncoming = function () {
 - **The telegraph shows the whole time** — `telegraphTime` is larger than your min flip delay, so a flip is
   "always incoming." Keep `telegraphTime` well under `flipMinDelay`.
 - **The label is centered but the HUD is too** — reset `ctx.textAlign = 'left'` at the end of the block.
+
+---
+> Nav: [← The flip](02_flip.md) · [Overview](00_overview.md) · [Verify →](04_verify.md)

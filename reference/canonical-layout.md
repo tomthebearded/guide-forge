@@ -11,12 +11,11 @@
 ## The skeleton
 
 ```
-<project>/                        ← PROJECT LEVEL — external/meta artifacts, NOT guide content
-├── TOKEN_USAGE.md                ← real metered cost ledger (written by the bundled hook; see reference/token-tracking.md)
+<project>/                        ← PROJECT LEVEL
 └── <guide-root>/  (the guide/)   ← THE GUIDE FOLDER — every guide-related doc lives here
     ├── README.md                 ← the front door (objective · stack summary · decisions · Updates log)
     ├── PLAN.md                   ← the approved plan (written by plan-guide; scaffold fills the guide in around it)
-    ├── token-usage.md            ← estimate-fallback cost ledger (used only when the hook isn't active)
+    ├── TOKEN_USAGE.md            ← the ONE cost ledger — metered by the bundled hook, estimate-appended by skills when the hook is off (see reference/token-tracking.md)
     ├── feedback-log.md           ← append-only field log of reader friction (seeded by scaffold; appended by /log-feedback)
     ├── foundation/               ← the cross-cutting docs, read first
     │   ├── stack.md              ← Verified stack (pinned versions + official docs + check date)
@@ -47,17 +46,18 @@
   milestone *created or modified*, and its completeness claim covers **only those files**. A file the milestone
   didn't touch is listed as unchanged (named, not rendered) — never swept into a blanket "authoritative copy of
   every file" claim the checkpoint doesn't actually keep. A file named as touched but shown only as a fragment
-  is a broken checkpoint. (Observed: spotify-trip M10/M11 and unity M7/07 over-claimed completeness.)
+  is a broken checkpoint. (Observed: spotify-angular M10/M11 and unity M7/07 over-claimed completeness.)
 - **Foundation docs** live under **`foundation/`**, never loose at the guide root. Their filenames are exactly
   `stack.md`, `status.md`, `glossary.md`, `conventions.md`, `decision-log.md`.
 - **`README.md`** sits at the guide root (above `foundation/`).
 - **Guide-root files** — every guide-related doc lives **inside the guide folder**: `README.md`, `PLAN.md`
-  (the approved plan — written into `guide/` by `plan-guide`, not left at the project root), `token-usage.md`
-  (estimate-fallback ledger), `feedback-log.md` (reader-friction log), and `foundation/` + the milestone
-  folders. Nothing guide-related lives outside `guide/`.
-- **Project-level metering, one level up.** The only artifact that sits *beside* the guide folder rather than
-  inside it is the hook's metered **`TOKEN_USAGE.md`** — it is machine-generated cost metering (external/meta),
-  not authored content, so it stays at the project level. See `reference/token-tracking.md`.
+  (the approved plan — written into `guide/` by `plan-guide`, not left at the project root), `TOKEN_USAGE.md`
+  (the one cost ledger), `feedback-log.md` (reader-friction log), and `foundation/` + the milestone folders.
+  Nothing guide-related lives outside `guide/`.
+- **One cost ledger, inside the guide.** There is a single `TOKEN_USAGE.md` per guide, in the guide folder
+  beside `README.md`. The bundled hook meters it (rewriting it from real transcript usage); skills append an
+  estimate row only when the hook is inactive, which the hook then replaces on its next run. See
+  `reference/token-tracking.md`.
 
 ## Link conventions (so nothing dead-links)
 - From a **step or overview** to a foundation doc: `../foundation/<doc>.md` (steps live one level below root).
@@ -68,7 +68,12 @@
   - The **first step's prev is a bare em-dash `—`** (not a link): `> Nav: — · [Overview](00_overview.md) · [<next> →](<next>.md)`.
     The Overview anchor already points at `00_overview.md`, so a prev→overview link is redundant.
   - `NN_verify.md`'s `next →` points at the **next milestone's** map: `../MILESTONE_<n+1>_<slug>/00_overview.md`.
+- **Nav appears at BOTH ends.** Every navigable file (steps, `NN_verify.md`, `00_overview.md`) repeats its
+  nav line **verbatim at the very bottom**, after a `---` horizontal rule, so a reader who scrolls to the end
+  can move on without scrolling back up. Top nav is line 2; bottom nav is the last content in the file. The two
+  must be **identical**. (Foundation docs, `README.md`, `PLAN.md`, `feedback-log.md`, and `TOKEN_USAGE.md`
+  carry no step nav and get none.)
 - **Overview nav line:** `prev`/`next` point at the sibling milestones' maps
-  (`../MILESTONE_<n-1>_<slug>/00_overview.md`, `../MILESTONE_<n+1>_<slug>/00_overview.md`).
+  (`../MILESTONE_<n-1>_<slug>/00_overview.md`, `../MILESTONE_<n+1>_<slug>/00_overview.md`) — at both top and bottom.
 
 > This layout is not optional styling — it is the contract the whole pipeline and the audit rely on.

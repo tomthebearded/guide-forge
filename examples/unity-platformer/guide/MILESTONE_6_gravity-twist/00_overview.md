@@ -62,3 +62,6 @@ ShapeJumper/
 ### Next milestone
 [M7 — Sound, timer & restart](../MILESTONE_7_sound-timer-restart/00_overview.md): synthesized beeps, a completion
 timer, a persisted best time, an **R** restart, and a **Menu** button — closing the loop.
+
+---
+> Section: The twist · milestone 6 of 8 (M0–M7) · next: [Sound, timer & restart](../MILESTONE_7_sound-timer-restart/00_overview.md)

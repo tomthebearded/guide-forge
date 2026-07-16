@@ -95,7 +95,7 @@ only when nothing in its area changed, and say so.
 
 Do not run `git commit`, `git push`, or open the PR yourself — the contributor does that after a PASS.
 
-**Log the run:** only if this check is scoped to a single guide, append this run to its `guide/token-usage.md`
+**Log the run:** only if this check is scoped to a single guide, append this run to its `guide/TOKEN_USAGE.md`
 (date + time UTC, `pre-pr-check`, an **estimated** token count + cost) and update the `TOTAL`; a repo-wide
 check touches no single ledger, so skip and say so. See
 [reference/token-tracking.md](../../reference/token-tracking.md). Estimates only — label them so.

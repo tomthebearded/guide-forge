@@ -68,6 +68,6 @@ That is the only install. Everything else is built into the Editor.
 ## Verification caveat (honesty — read this)
 Unity is a GUI application plus a physics/render engine; unlike the JS sibling it **cannot be exercised
 headlessly in the authoring environment.** The guide's steps, menu paths, API names, and code were authored and
-cross-checked against the official docs above, **but were not run in the Unity Editor by the author.** A human
+cross-checked against the official docs above, **but were not run in the Unity Editor by the author.** A person
 must open Unity 6.5, follow the guide, and tick each Done-when gate. `status.md` marks every milestone **📝
 drafted (author-unverified)**, never ✅, until that happens.

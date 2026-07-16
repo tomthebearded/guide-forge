@@ -25,3 +25,6 @@ export interface Todo {
 ## If it breaks
 - **Later type errors on `todo.isDone`** — a typo (`isDone` vs `IsDone`/`done`). It must be exactly `isDone`
   to match the API's JSON key.
+
+---
+> Nav: — · [Overview](00_overview.md) · [TodoApiService →](02_todo-api-service.md)

@@ -123,3 +123,6 @@ Game.updatePlayer = function (dt) {
   auto-repeat (missing `!e.repeat`).
 - **Holding Space auto-jumps on landing** — same missing `!e.repeat`. Auto-repeat `keydown`s must be ignored.
 - **Space scrolls the page** — the `e.preventDefault()` for game keys is missing.
+
+---
+> Nav: [← Floor & grounded](03_floor-and-grounded.md) · [Overview](00_overview.md) · [Verify →](05_verify.md)

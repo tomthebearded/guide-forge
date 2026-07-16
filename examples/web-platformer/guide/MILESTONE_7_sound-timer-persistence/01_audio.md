@@ -124,3 +124,6 @@ let audioStarted = false;
 - **`Game.beep is not a function`** — `audio.js` loads *after* `physics.js`. It must come before it.
 - **A click/pop on each beep** — the gain fade is missing; keep the `exponentialRampToValueAtTime(...)` line.
 - **`Cannot read properties of null`** — you removed the `if (!ac) return;` guard in `beep`; keep it.
+
+---
+> Nav: — · [Overview](00_overview.md) · [Timer & best time →](02_timer-and-best.md)

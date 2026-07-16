@@ -43,8 +43,8 @@ version notes, and check date: **[foundation/stack.md](foundation/stack.md)**.
 
 ## Updates
 - 2026-07-13 — fixed: the "no C# until M3" framing (M1 does write a small `MenuController.cs`) → now "no **gameplay** C# until M3" everywhere; and 3 dead D8 anchor links (`#d8--playerprefs-for-the-best-time`). M0/M2/M7 flagged for re-verify.
-- 2026-07-11 — Audit pass (PASS-WITH-WARNINGS, 0 blockers): fixed the Unity-6 **Build Profiles** menu path, a jump-height physics error (`jumpSpeed` 12→7), a broken decision-log anchor, the script-create submenu path, and several pedagogy nits. Link check clean (374 links). Still awaiting human Editor verification.
-- 2026-07-11 — Whole guide drafted (M0–M7, 56 files). Author-cross-checked vs Unity 6.5 docs but **not run in the Editor** — awaiting human verification (see [status](foundation/status.md)).
+- 2026-07-11 — Audit pass (PASS-WITH-WARNINGS, 0 blockers): fixed the Unity-6 **Build Profiles** menu path, a jump-height physics error (`jumpSpeed` 12→7), a broken decision-log anchor, the script-create submenu path, and several pedagogy nits. Link check clean (374 links). Still awaiting Editor verification by a person.
+- 2026-07-11 — Whole guide drafted (M0–M7, 56 files). Author-cross-checked vs Unity 6.5 docs but **not run in the Editor** — awaiting verification by a person (see [status](foundation/status.md)).
 - 2026-07-11 — Guide created (plan approved → scaffolded). Unity 6.5, full web-platformer parity + Main Menu.
 
 ## Following this guide

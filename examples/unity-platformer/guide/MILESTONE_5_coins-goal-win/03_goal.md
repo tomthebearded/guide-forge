@@ -27,3 +27,6 @@ tall, obvious shape at the top of the level.
 - **`Goal` tag missing from the dropdown** → you added it in the tag editor but didn't assign it; reselect Goal
   and pick **Goal**.
 - **Goal unreachable** → move it within a jump of the top platform.
+
+---
+> Nav: [← Place coins](02_place-coins.md) · [Overview](00_overview.md) · [Player triggers →](04_player-triggers.md)

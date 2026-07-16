@@ -45,3 +45,6 @@ create it in the next step. *(If you'd rather not see a red error in between, do
 - **Coin isn't destroyed on touch** → the coin's collider isn't **Is Trigger**, or the coin's tag is wrong.
 - **`Destroy(other.gameObject)` removes the wrong thing** → `other.gameObject` is the coin (the thing the player
   entered); that's correct. Don't destroy `gameObject` (that'd delete the player).
+
+---
+> Nav: [← Goal](03_goal.md) · [Overview](00_overview.md) · [GameManager script →](05_gamemanager-script.md)

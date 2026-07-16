@@ -50,3 +50,6 @@ Added the `Todo` model, a `TodoApiService` that GETs the list into a signal, and
 ### Next milestone
 [M6 — Frontend CRUD UI](../MILESTONE_6_frontend-crud/00_overview.md): add/toggle/edit/delete/filter from the
 UI. Done-when: full CRUD works from the browser and survives a refresh.
+
+---
+> Frontend · milestone 6 of 9 · prev: [M4 Frontend scaffold](../MILESTONE_4_frontend-scaffold/00_overview.md) · next: [M6 Frontend CRUD UI](../MILESTONE_6_frontend-crud/00_overview.md)

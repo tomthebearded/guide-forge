@@ -224,3 +224,6 @@ requestAnimationFrame(frame);
 Mark M3 ✅ in [foundation/status.md](../foundation/status.md), then go to
 **[M4 — Platforms & AABB collision](../MILESTONE_4_platforms-and-collision/00_overview.md)** ⭐ — the
 reality-check gate, where the floor becomes real platforms and you actually play the thing.
+
+---
+> Nav: [← Jump](04_jump.md) · [Overview](00_overview.md) · [M4: Platforms & collision →](../MILESTONE_4_platforms-and-collision/00_overview.md)

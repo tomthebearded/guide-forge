@@ -21,7 +21,7 @@ The guide file(s) to audit (attach or point at them). If a foundation doc (`stat
 ## Structural checks (objective — pass/fail)
 - **Canonical layout:** `README.md` at the guide root; foundation docs under `foundation/`; one
   `MILESTONE_<N>_<slug>/` folder per milestone. Flag `overview.md` (must be `00_overview.md`), foundation docs loose at
-  the root, or a missing README. `PLAN.md`, `token-usage.md`, and `feedback-log.md` are expected guide-root
+  the root, or a missing README. `PLAN.md`, `TOKEN_USAGE.md`, and `feedback-log.md` are expected guide-root
   files (not foundation docs) — don't flag them.
 - Each milestone has a `00_overview.md` with every section (Goal · Scope discipline · Prerequisite · Steps at
   a glance grouped into sittings · Design/decisions · Done-when gate · Handoff) and ends in an `NN_verify.md`.
@@ -34,16 +34,18 @@ The guide file(s) to audit (attach or point at them). If a foundation doc (`stat
   **fragment** (not the whole file), and (b) a **blanket completeness claim** ("the authoritative copy of every
   file", "every file in the project") when the checkpoint renders only some files — the claim must be scoped to
   the files actually rendered, with untouched files named as unchanged, not implied-reproduced. (Observed:
-  spotify-trip M10/M11 and unity M7/07 claimed authoritative-copy-of-every-file but rendered fragments /
+  spotify-angular M10/M11 and unity M7/07 claimed authoritative-copy-of-every-file but rendered fragments /
   omitted files.)
-- Each step file: has the **canonical nav line at the top** (line 2 under the H1, three anchors
-  `[← prev] · [Overview] · [next →]`, same format throughout — flag bottom-only nav, missing back-links, or
-  format drift), is **one indivisible action** (a same-commit bundle must be **declared** at the step top),
-  ends in its own **Done-when**, and any code block is a **complete file** (no partial snippets / `// …`).
+- Each step file: has the **canonical nav line at BOTH the top and the bottom** (top = line 2 under the H1;
+  bottom = the last content in the file, after a `---` rule), three anchors `[← prev] · [Overview] · [next →]`,
+  same format throughout. **Flag a missing bottom nav, a missing top nav, a top/bottom mismatch, missing
+  back-links, or format drift.** Each step is **one indivisible action** (a same-commit bundle must be
+  **declared** at the step top), ends in its own **Done-when**, and any code block is a **complete file** (no
+  partial snippets / `// …`). Overviews and `NN_verify.md` also carry nav at both ends.
 - **Nav label + first-step prev (exact):** the middle anchor label is **exactly `Overview`** — flag any variant
   (`Milestone overview`, `Back to overview`, etc.) even if it links correctly, and flag the label drifting
   between files. The **first step of each milestone** must have `—` (a bare em-dash, no link) as its prev, not a
-  redundant link to `00_overview.md`. (Observed: spotify-trip mixed `[Overview]`/`[Milestone overview]` across
+  redundant link to `00_overview.md`. (Observed: spotify-angular mixed `[Overview]`/`[Milestone overview]` across
   140 files and linked first-step prev→overview redundantly.)
 - **Required code placement:** no load-bearing code/config inside an "If it breaks" / troubleshooting note.
 - **Scope discipline honored:** no step introduces a capability, file, dependency, command, config key, or
@@ -52,7 +54,7 @@ The guide file(s) to audit (attach or point at them). If a foundation doc (`stat
   ladder isn't attached, check each step against this milestone's own declared Scope discipline.)
 - **No dead capability (consume-it-now):** flag any public member/function a milestone *adds* that is never
   called within the same milestone **and** carries no `[Mn]` deferral marker naming the milestone that
-  consumes it. An unmarked, uncalled member is gold-plating built ahead of its use. (Observed: spotify-trip
+  consumes it. An unmarked, uncalled member is gold-plating built ahead of its use. (Observed: spotify-angular
   M8/05 built M11's marker system, leaving dead members across milestones.)
 - **Gates show expected output:** every `Done when` (per step and in `NN_verify.md`) pairs its action with a
   concrete expected result the reader will observe. Flag aspirational gates ("it works", "the endpoint
@@ -62,11 +64,11 @@ The guide file(s) to audit (attach or point at them). If a foundation doc (`stat
   re-runs and diffs for determinism, restarts and re-reads for persistence, etc. Flag a gate whose action
   can't demonstrate the property it names (e.g. "proves it's deterministic" but the action runs the query only
   once). Suggest either strengthening the action or rewording the claim to what's observed. (Observed:
-  spotify-trip M5 claimed determinism without re-querying.)
+  spotify-angular M5 claimed determinism without re-querying.)
 - **Cross-platform commands:** if `foundation/stack.md`'s *Target OS / shell(s)* lists more than one shell,
   flag any command in a step or `Done-when` gate that runs on only one of them with no variant for the others —
   e.g. a Unix-only `grep`/`ls`/`cat`/`rm`/`export` used as a gate check when the guide also targets
-  Windows/PowerShell. (Observed: spotify-trip M0 checked for zone.js with bash `grep` only.)
+  Windows/PowerShell. (Observed: spotify-angular M0 checked for zone.js with bash `grep` only.)
 - **Version & naming consistency (whole-guide):** every command and code block uses the same pinned versions
   from the Verified stack — flag any step on a different version. Every load-bearing name, path, or identifier
   is spelled identically wherever it recurs — flag a file/route/variable/env-key that drifts between steps.
@@ -81,7 +83,7 @@ The guide file(s) to audit (attach or point at them). If a foundation doc (`stat
   uses (class, method, function, field, constant, file, route, env-key, config key, CSS class) and verify its
   **first definition precedes every use** by milestone/step order. Flag as a **BLOCKER** any symbol whose
   first definition lives in a *later* milestone than a milestone that uses it — that milestone's `build`/
-  `Done-when` gate cannot pass from the current + earlier code alone. (Observed: spotify-trip M9 used
+  `Done-when` gate cannot pass from the current + earlier code alone. (Observed: spotify-angular M9 used
   `LikedIndex.clear()` introduced only in M10.) Needs the whole guide (or the ladder) to resolve
   cross-milestone; say so if only a fragment was attached.
 - **No dead relative links** — `../../` overshooting the guide root, or links to files that don't exist;
@@ -89,7 +91,7 @@ The guide file(s) to audit (attach or point at them). If a foundation doc (`stat
 - **Glossary deep-links resolve to a real anchor.** For every `glossary.md#<slug>` link, verify the target
   glossary actually contains a **`### heading`** whose GitHub slug equals `<slug>` — not just that the file
   exists. Flag a link whose term is a bullet (no anchor) or whose slug doesn't match any heading as a dead
-  link. (Observed: spotify-trip had 39 dead `glossary.md#term` links because the terms were bullets, not
+  link. (Observed: spotify-angular had 39 dead `glossary.md#term` links because the terms were bullets, not
   headings.)
 - `foundation/status.md` exists and its frontier is set.
 
@@ -110,6 +112,17 @@ audience matrix** — a term is a violation only if the reader isn't Expert on t
   `IL2CPP`, `Clear Flags`). Flag the tell-tale **inconsistent bar** — a guide that glosses `const` but uses
   `toFixed()` bare. (Observed: web-platformer glossed `const` but not `toFixed`/`Math.round`/`Math.PI`; unity
   left `Transform`/`IL2CPP`/`Clear Flags` unglossed.)
+- **Voice — address the reader as "you":** flag any third-person reference to the *guide-follower* — "the
+  Human", "the human", "the user", "the developer", "the reader", "one" — used where the reader is the actor
+  (step actions, Done-when gates, troubleshooting, handoffs). It must be second-person "you". (Referring in
+  third person to a *different* actor — an app end-user, a teammate — is fine.) Suggest the direct "you"
+  rewrite.
+- **R1 forward-explained concept:** flag a taught concept whose **full explanation lives in a later step than
+  its first appearance** when that first appearance lacks a **mini-gloss + forward pointer**. The first mention
+  needs a one-line plain-language definition *and* a link to the step that teaches it fully — leaving it bare
+  (or a bare pointer with no definition) is the defect. This needs step order (ideally the whole milestone/
+  guide) to resolve; say so if only a fragment was attached. (Observed: web-platformer named *delta time* in
+  M1/02's `maxDt` comment but only taught it in M1/05.)
 
 ## Deliverable
 1. A **verdict**: PASS / PASS-WITH-WARNINGS / FAIL, with counts.

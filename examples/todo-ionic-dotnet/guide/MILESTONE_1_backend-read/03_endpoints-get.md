@@ -39,3 +39,6 @@ public static class TodoEndpoints
 ## If it breaks
 - **`'WebApplication' does not contain a definition for 'MapGroup'`** — you're on an older ASP.NET Core; confirm
   `Api.csproj` targets `net10.0` (step 01).
+
+---
+> Nav: [← Todo & DbContext](02_todo-and-dbcontext.md) · [Overview](00_overview.md) · [Program & seed →](04_program-seed-run.md)

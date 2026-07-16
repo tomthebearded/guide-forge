@@ -39,3 +39,6 @@ falling player lands. Still no code: collision detection and response are the en
   default collision handles it; leave Gravity Scale at 1.
 - **Ground moves when hit** → you accidentally gave the Ground a `Rigidbody2D`. Remove it — the ground must be
   static.
+
+---
+> Nav: [← Rigidbody falls](03_rigidbody-falls.md) · [Overview](00_overview.md) · [Verify →](05_verify.md)

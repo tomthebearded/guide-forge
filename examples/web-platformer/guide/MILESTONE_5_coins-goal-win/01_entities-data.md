@@ -191,3 +191,6 @@ requestAnimationFrame(frame);
 - **Coins/goal don't appear** — `render.js` isn't drawing them, or `resetGame()` didn't run so `state.coins` is
   empty. Confirm the `Game.resetGame();` line is in `main.js` before the loop starts.
 - **Player starts in the wrong place** — `resetGame` reads `Game.level.playerStart`; check that object exists.
+
+---
+> Nav: — · [Overview](00_overview.md) · [Collect coins →](02_collect-coins.md)

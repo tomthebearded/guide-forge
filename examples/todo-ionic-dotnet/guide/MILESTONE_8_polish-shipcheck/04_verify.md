@@ -240,3 +240,6 @@ See the full [troubleshooting sheet](03_troubleshooting.md).
 You've built a complete Ionic + .NET to-do app: a minimal API over an EF Core in-memory store, a standalone
 Ionic-Angular UI with full CRUD + filtering, graceful UX states, and green test suites on both sides. The
 "later" list (persistence, auth, deployment, native) lives in the [M8 overview handoff](00_overview.md#handoff).
+
+---
+> Nav: [← Troubleshooting](03_troubleshooting.md) · [Overview](00_overview.md) · 🎉 done

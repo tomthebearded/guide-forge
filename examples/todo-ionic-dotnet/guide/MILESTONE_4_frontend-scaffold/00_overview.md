@@ -50,3 +50,6 @@ Created the Ionic app, made `HttpClient` injectable, added an environment file f
 ### Next milestone
 [M5 — Frontend read path](../MILESTONE_5_frontend-read/00_overview.md): fetch and render real todos. Done-when:
 the home page lists the live todos from the backend.
+
+---
+> Frontend · milestone 5 of 9 · prev: [M3 Backend tests](../MILESTONE_3_backend-tests/00_overview.md) · next: [M5 Frontend read path](../MILESTONE_5_frontend-read/00_overview.md)

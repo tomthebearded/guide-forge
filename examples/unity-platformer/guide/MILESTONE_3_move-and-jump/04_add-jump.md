@@ -84,3 +84,6 @@ This step **edits** `PlayerController.cs`. Make these four changes (the complete
   and make sure **Ground Layer** excludes the player's layer.
 - **Jump is too weak/strong** → tune **Jump Speed** (7 is a good start — at default gravity the jump peaks at
   about **2.5 units**, which comfortably clears a **2-unit** step; higher = higher jumps).
+
+---
+> Nav: [← Attach & test](03_attach-and-test-move.md) · [Overview](00_overview.md) · [Freeze rotation →](05_freeze-rotation.md)

@@ -26,3 +26,6 @@ public record UpdateTodoDto(string Title, bool IsDone);
 ## If it breaks
 - **Build error about duplicate types** — you named a record `Todo`; the entity already owns that name. Keep
   the DTO names exactly `CreateTodoDto` / `UpdateTodoDto`.
+
+---
+> Nav: — · [Overview](00_overview.md) · [CRUD endpoints →](02_crud-endpoints.md)

@@ -68,3 +68,6 @@ constructor that assigns `_factory`.
   missing; re-run `dotnet add reference ../Api/Api.csproj`.
 - **Compile error on `GetFromJsonAsync`** — add `using System.Net.Http.Json;` (it's in the shared framework,
   no package needed).
+
+---
+> Nav: [← Create test project](01_create-test-project.md) · [Overview](00_overview.md) · [Update/toggle/delete tests →](03_update-toggle-delete-tests.md)

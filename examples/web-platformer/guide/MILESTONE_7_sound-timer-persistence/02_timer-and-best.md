@@ -148,3 +148,6 @@ requestAnimationFrame(frame);
   `state` has both fields.
 - **A `SecurityError` in the Console on load** — some browsers throw on `localStorage` under `file://` in
   private mode; the `try/catch` swallows it and the game still runs (just without a saved best).
+
+---
+> Nav: [← Audio](01_audio.md) · [Overview](00_overview.md) · [Title & restart →](03_title-and-restart.md)

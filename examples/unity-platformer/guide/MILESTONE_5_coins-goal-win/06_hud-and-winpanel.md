@@ -35,3 +35,6 @@ the `Game` scene. We add a **HUD Canvas** with a score label (top-left) and a **
   and position work together.
 - **WinPanel covers the whole screen even when "hidden"** → make sure you **unchecked** the GameObject's active
   checkbox (top-left of its Inspector), not just lowered its opacity.
+
+---
+> Nav: [← GameManager script](05_gamemanager-script.md) · [Overview](00_overview.md) · [Wire GameManager →](07_wire-gamemanager.md)

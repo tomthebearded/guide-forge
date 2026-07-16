@@ -52,3 +52,6 @@ Added create/read-one/update/toggle/delete endpoints and a CORS policy for the I
 ### Next milestone
 [M3 — Backend tests (xUnit v3)](../MILESTONE_3_backend-tests/00_overview.md): lock this behavior with tests.
 Done-when: `dotnet test` green across every endpoint.
+
+---
+> Backend · milestone 3 of 9 · prev: [M1 Backend read path](../MILESTONE_1_backend-read/00_overview.md) · next: [M3 Backend tests](../MILESTONE_3_backend-tests/00_overview.md)

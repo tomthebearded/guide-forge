@@ -263,3 +263,6 @@ requestAnimationFrame(frame);
 ## Next
 Mark M4 ✅ in [foundation/status.md](../foundation/status.md), then go to
 **[M5 — Coins, goal, HUD & win](../MILESTONE_5_coins-goal-win/00_overview.md)**: give the level a purpose.
+
+---
+> Nav: [← Reality-check](03_reality-check.md) · [Overview](00_overview.md) · [M5: Coins, goal & win →](../MILESTONE_5_coins-goal-win/00_overview.md)

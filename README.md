@@ -6,7 +6,7 @@
 
 A prompt-and-skill toolkit for Claude that plans, drafts, and hardens **learn-as-you-go** developer guides — for games, libraries, web apps, CLIs, APIs, anything. The reader follows it start to finish and *understands what they're doing*, even for the parts they've never seen.
 
-`MIT License` · `Works with Claude | Claude Code` · `Domain-agnostic` · `v1.1.0` · `PRs welcome`
+`MIT License` · `Works with Claude | Claude Code` · `Domain-agnostic` · `v1.2.0` · `PRs welcome`
 
 [Quick start](#quick-start-15-minutes) · [The toolkit](#the-toolkit) · [Learning path](#learning-path) · [Explainer](EXPLAINER.md) · [FAQ](#faq)
 
@@ -225,9 +225,9 @@ Append the pedagogy rules (the writing contract) from [`reference/pedagogy-rules
 
 Install GuideForge as a plugin (Option B) and it tracks what your build actually costs — no setup, no extra tokens.
 
-A bundled **Stop / SubagentStop hook** ([`hooks/track-tokens.js`](hooks/track-tokens.js), wired by [`hooks/hooks.json`](hooks/hooks.json)) runs after every finished request. It reads the session transcript's real `usage` records, dedupes them by message id, prices each message per model, fetches the live USD→EUR rate, and writes a **per-guide `examples/<name>/TOKEN_USAGE.md`** — running totals plus a per-request log, one ledger per guide.
+A bundled **Stop / SubagentStop hook** ([`hooks/track-tokens.js`](hooks/track-tokens.js), wired by [`hooks/hooks.json`](hooks/hooks.json)) runs after every finished request. It reads the session transcript's real `usage` records, dedupes them by message id, prices each message per model, fetches the live USD→EUR rate, and writes a **per-guide `examples/<name>/guide/TOKEN_USAGE.md`** — running totals plus a per-request log, one ledger per guide.
 
-- **Tracked per guide, not per project.** A guide is an `examples/<name>/` folder; each session's usage is credited to the guide its tool calls reference most, and the ledger sits at the project level next to that guide's `guide/` folder. Work that touches no guide — building the plugin itself — is **not** tracked. (A plain single-guide project with no `examples/` dir writes one `TOKEN_USAGE.md` at its root.)
+- **Tracked per guide, not per project.** A guide is an `examples/<name>/` folder; each session's usage is credited to the guide its tool calls reference most, and the ledger sits **inside** that guide's `guide/` folder (`TOKEN_USAGE.md`, beside `README.md`). Work that touches no guide — building the plugin itself — is **not** tracked. (A plain single-guide project with no `examples/` dir writes one `guide/TOKEN_USAGE.md`, or a root `TOKEN_USAGE.md` if it has no `guide/` folder.)
 
 - **It's a meter, not a bill — subscription-agnostic.** The hook doesn't know or care how you pay (Pro/Max subscription, API credits, pay-as-you-go). It just reports what your usage *would* cost at API list rates, so you can see how much you spent. On a subscription those dollars are informational, not an actual charge.
 - **Real numbers, not estimates.** Figures come straight from the transcript's token counts (input / output / cache-write / cache-read), not a guess.
@@ -236,7 +236,7 @@ A bundled **Stop / SubagentStop hook** ([`hooks/track-tokens.js`](hooks/track-to
 - **Backfill past sessions:** `node "$CLAUDE_PLUGIN_ROOT/hooks/track-tokens.js" --backfill "<your project's transcript dir>"` — adds one row per past session.
 - **Turn it off:** remove the `"hooks"` key from `.claude-plugin/plugin.json`, or delete `hooks/hooks.json`.
 
-Using the paste prompts instead (Option A)? There's no hook, so the skills fall back to a rough **estimated** ledger inside the guide (`guide/token-usage.md`). See [reference/token-tracking.md](reference/token-tracking.md) for both mechanisms.
+Using the paste prompts instead (Option A)? There's no hook, so the skills fall back to appending a rough **estimated** row to the same in-guide ledger (`guide/TOKEN_USAGE.md`); when the hook next runs it replaces the file with metered figures. See [reference/token-tracking.md](reference/token-tracking.md) for both mechanisms.
 
 ---
 

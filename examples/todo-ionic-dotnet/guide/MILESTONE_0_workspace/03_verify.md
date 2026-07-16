@@ -35,3 +35,6 @@ todo-ionic-dotnet/
 
 ## Next
 → [M1 — Backend read path](../MILESTONE_1_backend-read/00_overview.md)
+
+---
+> Nav: [← Folder skeleton](02_folder-skeleton.md) · [Overview](00_overview.md) · [M1 Backend read path →](../MILESTONE_1_backend-read/00_overview.md)

@@ -59,3 +59,6 @@ shape-jumper/
 ### Next milestone
 [M2 — Player & keyboard control](../MILESTONE_2_player-and-input/00_overview.md): turn the demo square into a
 player you move left/right with the keyboard. Done-when: held ←/→ (or A/D) moves it; release stops it.
+
+---
+> Section: Foundations · milestone 1 of 7 · next: [Player & keyboard control](../MILESTONE_2_player-and-input/00_overview.md)

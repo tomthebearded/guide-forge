@@ -34,7 +34,7 @@ $ARGUMENTS
 **Gate:** flag, don't fix — point the user at `/clarify-step` for the pedagogy issues you find.
 
 **Log the run:** you're read-only on guide *content*, but the cost ledger is metadata — append this run to
-`guide/token-usage.md` anyway (that one file is exempt from your no-edit promise) and update the `TOTAL`;
+`guide/TOKEN_USAGE.md` anyway (that one file is exempt from your no-edit promise) and update the `TOTAL`;
 change nothing else. Row = date + time (UTC), `audit-guide`, what it did, an **estimated** token breakdown +
 cost. See [reference/token-tracking.md](../../reference/token-tracking.md). Estimates only (Claude can't meter
 its own tokens mid-run) — label them so.

@@ -52,3 +52,6 @@ menu path first resets `Time.timeScale = 1` so the menu isn't frozen by a leftov
 - **Menu button loads a black screen / errors** → `MainMenu` isn't in Build Settings, or the button's function
   isn't `GameManager.GoToMenu` (re-check the OnClick wiring).
 - **Menu opens but is frozen** → `GoToMenu` must set `Time.timeScale = 1f` before loading (it does above).
+
+---
+> Nav: [← Best time](05_best-time.md) · [Overview](00_overview.md) · [Verify →](07_verify.md)

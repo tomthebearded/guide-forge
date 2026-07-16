@@ -25,7 +25,7 @@ Every step must obey the 10 pedagogy rules — see ../reference/pedagogy-rules.m
      Whole file, not a diff or a fragment.
      - The "complete" claim covers ONLY the files rendered here. Never write a blanket claim like "the
        authoritative copy of every file in the project" unless you actually render every file — a claim you
-       don't keep is worse than no claim. (Observed: spotify-trip M10/M11 and unity M7/07 claimed
+       don't keep is worse than no claim. (Observed: spotify-angular M10/M11 and unity M7/07 claimed
        authoritative-copy-of-every-file but rendered fragments / omitted files.)
      - Files this milestone did NOT touch are OUT of the claim: list them by name under "Unchanged this
        milestone" and say they are unchanged since <earlier milestone> — do NOT render them and do NOT imply
@@ -61,3 +61,7 @@ below). Files not listed were not touched this milestone._
 ## Next
 Continue to **[<next milestone> — <title>](../MILESTONE_<n+1>_<slug>/00_overview.md)**.
 <!-- If this is the last milestone, say so instead and point back to the README. -->
+
+<!-- BOTTOM NAV — the SAME line as line 2, after a --- rule, as the last thing in the file. -->
+---
+> Nav: [← <last step>](NN-1_<slug>.md) · [Overview](00_overview.md) · [<next milestone> →](../MILESTONE_<n+1>_<slug>/00_overview.md)

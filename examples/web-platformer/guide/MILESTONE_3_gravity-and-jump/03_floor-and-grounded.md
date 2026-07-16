@@ -99,3 +99,6 @@ Game.draw = function () {
   It must come *after* `p.y += p.vy * dt`.
 - **Player floats above the floor** — `floorY` in `render.js` and `physics.js` differ, or `p.h` is wrong. They
   both read `Game.config.floorY`; the same value must be used in both.
+
+---
+> Nav: [← Physics: gravity](02_physics-gravity.md) · [Overview](00_overview.md) · [Jump →](04_jump.md)

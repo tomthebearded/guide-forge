@@ -83,3 +83,6 @@ public class PlayerController : MonoBehaviour
 [M4 — Platforms & a real level](../MILESTONE_4_platforms-and-level/00_overview.md): turn the single ground bar
 into a real level of platforms and **play it** — the reality-check gate where you decide it's fun enough to
 finish.
+
+---
+> Nav: [← Freeze rotation](05_freeze-rotation.md) · [Overview](00_overview.md) · [M4 — Platforms & a real level →](../MILESTONE_4_platforms-and-level/00_overview.md)

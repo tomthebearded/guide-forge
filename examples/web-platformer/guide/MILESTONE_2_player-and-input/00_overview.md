@@ -61,3 +61,6 @@ shape-jumper/
 ### Next milestone
 [M3 — Gravity & jumping](../MILESTONE_3_gravity-and-jump/00_overview.md): the player falls under gravity, rests
 on a floor, and jumps. Done-when: it falls to the floor, Space jumps once, no double-jump midair.
+
+---
+> Section: Foundations · milestone 2 of 7 · prev: [Canvas & the game loop](../MILESTONE_1_canvas-and-loop/00_overview.md) · next: [Gravity & jumping](../MILESTONE_3_gravity-and-jump/00_overview.md)

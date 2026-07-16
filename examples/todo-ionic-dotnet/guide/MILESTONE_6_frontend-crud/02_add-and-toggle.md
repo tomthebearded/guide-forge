@@ -107,3 +107,6 @@ export class HomePage implements OnInit {
   calls `this.api.toggle(todo)` (which reloads from the server).
 - **Add does nothing** — the title was empty/whitespace (guarded by `trim()`), or the backend is down (check
   the console; M8 will surface this in the UI).
+
+---
+> Nav: [← API mutations](01_api-mutations.md) · [Overview](00_overview.md) · [Edit + delete →](03_edit-and-delete.md)

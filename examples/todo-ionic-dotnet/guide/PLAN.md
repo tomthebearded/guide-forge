@@ -109,7 +109,7 @@ milestone. Everything else stays out of scope.
 - **`foundation/glossary.md`** — running plain-language defs, growing as steps introduce terms (standalone
   component, signal, `ion-*` component, DbContext, minimal API, DTO, CORS, WebApplicationFactory, TestBed).
 - **`foundation/status.md`** — single source of truth for what is **actually done & verified** (vs. what the
-  guide intends). Milestones start `⬜ not started`; only reach ✅ after a human runs the Done-when gate.
+  guide intends). Milestones start `⬜ not started`; only reach ✅ after a person runs the Done-when gate.
 - **`foundation/decision-log.md`** — the *why* behind non-obvious choices: EF InMemory vs SQLite-in-memory
   (with the risk-1 trade-off), minimal APIs over controllers, standalone Ionic imports over `IonicModule`,
   Vitest as the scaffold default, xUnit v3 template install, dev-CORS named policy.
@@ -194,11 +194,10 @@ far, open issues, pointer to next milestone).
 
 ```
 examples/todo-ionic-dotnet/
-├─ TOKEN_USAGE.md                 (project-level cost ledger; scaffold seeds it)
 └─ guide/
    ├─ PLAN.md                     ← this file
    ├─ README.md                   (front door — scaffold)
-   ├─ token-usage.md              (scaffold)
+   ├─ TOKEN_USAGE.md              (the one cost ledger — scaffold seeds it; hook meters it)
    ├─ feedback-log.md             (scaffold)
    ├─ foundation/
    │  ├─ stack.md  audience-model.md  conventions.md  glossary.md  status.md  decision-log.md

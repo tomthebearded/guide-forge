@@ -171,3 +171,6 @@ public class TodosApiTests(WebApplicationFactory<Program> factory)
 
 ## Next
 → [M4 — Frontend scaffold](../MILESTONE_4_frontend-scaffold/00_overview.md)
+
+---
+> Nav: [← Update/toggle/delete tests](03_update-toggle-delete-tests.md) · [Overview](00_overview.md) · [M4 Frontend scaffold →](../MILESTONE_4_frontend-scaffold/00_overview.md)

@@ -48,3 +48,6 @@ Added a service spec (HTTP mocked) and a home-page render spec; replaced the sta
 ### Next milestone
 [M8 — Polish & full-stack ship-check](../MILESTONE_8_polish-shipcheck/00_overview.md): loading/empty/error
 states and the final run-both acceptance. Done-when: graceful states + full flow works end to end.
+
+---
+> Frontend · milestone 8 of 9 · prev: [M6 Frontend CRUD UI](../MILESTONE_6_frontend-crud/00_overview.md) · next: [M8 Polish & ship-check](../MILESTONE_8_polish-shipcheck/00_overview.md)

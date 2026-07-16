@@ -146,3 +146,6 @@ object. `Assets/Prefabs/Coin.prefab` exists.
 ## Next
 [M6 — The gravity twist](../MILESTONE_6_gravity-twist/00_overview.md): the signature mechanic — randomly flip
 `Physics2D.gravity`, telegraphed, and watch the sign-aware M3 player code play upside-down with **no changes**.
+
+---
+> Nav: [← Wire GameManager](07_wire-gamemanager.md) · [Overview](00_overview.md) · [M6 — The gravity twist →](../MILESTONE_6_gravity-twist/00_overview.md)

@@ -42,3 +42,6 @@ MANDATORY: the pinned version is **`6000.5.x` (Unity 6.5)**. ILLUSTRATIVE: the e
   drift — the guide's APIs (`linearVelocity`, `Physics2D.gravity`, uGUI) are stable across 6.x.
 - **"License not found" when you later open a project** → in the Hub, go to the **gear/Preferences → Licenses**
   and add a free **Personal** license.
+
+---
+> Nav: — · [Overview](00_overview.md) · [Create the 2D project →](02_create-project.md)

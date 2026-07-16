@@ -59,3 +59,6 @@ shape-jumper/
 ### Next milestone
 [M7 — Sound, timer, best time & restart](../MILESTONE_7_sound-timer-persistence/00_overview.md): beeps, a
 completion timer, a persisted best time, and the **R** restart that reseeds the flip schedule.
+
+---
+> Section: The game · milestone 6 of 7 · prev: [Coins, goal & win](../MILESTONE_5_coins-goal-win/00_overview.md) · next: [Sound, timer & best time](../MILESTONE_7_sound-timer-persistence/00_overview.md)

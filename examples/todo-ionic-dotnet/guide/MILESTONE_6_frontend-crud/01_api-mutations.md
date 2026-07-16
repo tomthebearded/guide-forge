@@ -60,3 +60,6 @@ DTOs (`CreateTodoDto`, `UpdateTodoDto`) from [M2 step 01](../MILESTONE_2_backend
 ## If it breaks
 - **`patch(...)` needs a body** — pass `{}` as the second argument (an empty object) for the toggle; the
   backend ignores it.
+
+---
+> Nav: — · [Overview](00_overview.md) · [Add + toggle →](02_add-and-toggle.md)

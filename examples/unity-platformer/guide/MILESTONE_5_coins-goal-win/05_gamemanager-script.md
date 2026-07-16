@@ -88,3 +88,6 @@ public class GameManager : MonoBehaviour
 - **`TMP_Text` not found** → add `using TMPro;` at the top (it's in the code above).
 - **Still errors about `GameManager`** → the class/file name must both be `GameManager`.
 - **`winPanel`/`scoreText` warnings** → they're just unassigned until step 07; not a compile error.
+
+---
+> Nav: [← Player triggers](04_player-triggers.md) · [Overview](00_overview.md) · [HUD & win panel →](06_hud-and-winpanel.md)

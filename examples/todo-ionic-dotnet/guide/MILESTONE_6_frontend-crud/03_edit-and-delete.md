@@ -150,3 +150,6 @@ The icon `name` strings (`"createOutline"`, `"trashOutline"`) **must match** the
   `provideIonicAngular()` is in `main.ts`; confirm that provider is present (M4 step 02).
 - **Swipe does nothing** — the `ion-item` must be a direct child of `ion-item-sliding`, with
   `ion-item-options` as its sibling.
+
+---
+> Nav: [← Add + toggle](02_add-and-toggle.md) · [Overview](00_overview.md) · [Filter →](04_filter.md)

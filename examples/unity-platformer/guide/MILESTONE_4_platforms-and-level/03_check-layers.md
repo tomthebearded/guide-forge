@@ -24,3 +24,6 @@ maddening "I can jump off some platforms but not others" bug later.
 - **A platform falls when the game runs** → it has a `Rigidbody2D`; remove it (gear icon → Remove Component).
 - **Player passes through a platform** → that platform lost its `BoxCollider2D`; **Add Component → Box Collider
   2D**.
+
+---
+> Nav: [← Build the level](02_build-level.md) · [Overview](00_overview.md) · [⭐ Reality-check →](04_reality-check.md)

@@ -44,7 +44,7 @@ it appears, not just where they hit it; never mark a rewritten milestone `✅` (
 Done-when gates); propose pedagogy rules, don't silently add them. Leave all changes in the working tree — do
 not commit.
 
-**Log the run:** before you finish, append this run to `guide/token-usage.md` — date + time (UTC),
+**Log the run:** before you finish, append this run to `guide/TOKEN_USAGE.md` — date + time (UTC),
 `report-issue`, what it did, an **estimated** token breakdown + cost — and update the `TOTAL`. See
 [reference/token-tracking.md](../../reference/token-tracking.md); create the ledger from its template if it's
 missing. Numbers are estimates (Claude can't meter its own tokens mid-run) — label them so.

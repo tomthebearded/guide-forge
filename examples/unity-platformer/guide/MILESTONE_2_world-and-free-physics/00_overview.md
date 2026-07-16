@@ -66,3 +66,6 @@ ShapeJumper/
 ### Next milestone
 [M3 — Move & jump](../MILESTONE_3_move-and-jump/00_overview.md): write your first *gameplay* script,
 `PlayerController`, to run left/right and jump — reading the legacy input axes and driving the `Rigidbody2D`.
+
+---
+> Section: The engine · milestone 2 of 8 (M0–M7) · next: [Move & jump](../MILESTONE_3_move-and-jump/00_overview.md)

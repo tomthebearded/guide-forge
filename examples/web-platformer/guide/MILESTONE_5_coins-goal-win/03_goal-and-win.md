@@ -84,3 +84,6 @@ Game.update = function (dt) {
 - **The overlay text is invisible or off-center** — you didn't set `textAlign = 'center'`, or you forgot to
   reset it to `'left'` (which then mis-aligns the HUD next frame).
 - **The whole HUD is centered afterwards** — you didn't reset `ctx.textAlign = 'left'` at the end of the overlay block.
+
+---
+> Nav: [← Collect coins](02_collect-coins.md) · [Overview](00_overview.md) · [Verify →](04_verify.md)

@@ -9,6 +9,13 @@ and makes every step conform. Fill with YOUR stack's rules.
 > The rules every step in this guide follows. If a step seems to contradict one of these, the convention
 > wins — fix the step.
 
+## Voice
+<!-- FIXED across every GuideForge guide: address the reader directly as "you" (second person). Never refer to
+     the guide-follower in the third person — not "the Human", "the human", "the user", "the developer", "the
+     reader", or "one". Third-person is fine only for a DIFFERENT actor (the app's end-user, a teammate).
+     See ../reference/pedagogy-rules.md § The voice principle. -->
+- Address the reader as **you**; never "the Human"/"the user"/"the reader".
+
 ## Naming
 <!-- e.g. file naming, symbol casing, which names are load-bearing by convention. -->
 
@@ -26,7 +33,7 @@ and makes every step conform. Fill with YOUR stack's rules.
      step or a Done-when gate must run on EVERY targeted shell — give a variant per shell when they differ
      (e.g. a bash `grep -q zone.js package.json` AND its PowerShell `Select-String -Quiet zone.js package.json`).
      Never ship a Unix-only command as the sole gate check when the guide also targets Windows/PowerShell.
-     (Observed: spotify-trip M0's zone.js check was bash `grep` only, which fails on the reader's PowerShell.) -->
+     (Observed: spotify-angular M0's zone.js check was bash `grep` only, which fails on the reader's PowerShell.) -->
 
 ## Testing / verification
 <!-- How "done" is proven in this project (the shape of Done-when gates). -->

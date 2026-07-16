@@ -141,3 +141,6 @@ Game.updatePlayer = function (dt) {
   Confirm `if (Math.sign(p.vy) === s.gravitySign) p.grounded = true;` is inside the overlap branch.
 - **`floorY is not defined`** — something still references the deleted constant. Search your files for `floorY`
   and remove the last use.
+
+---
+> Nav: [← Level data](01_level-data.md) · [Overview](00_overview.md) · [Reality-check →](03_reality-check.md)

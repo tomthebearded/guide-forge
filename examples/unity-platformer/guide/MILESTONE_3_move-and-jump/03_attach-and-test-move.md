@@ -26,3 +26,6 @@ test movement before adding jump — verifying one behavior at a time.
   re-add it.
 - **Player rotates/tumbles when moving into the ground edge** → expected for now; we freeze rotation in step 05.
 - **Movement feels smoothed/laggy** → make sure you used `GetAxisRaw` (instant -1/0/+1), not `GetAxis`.
+
+---
+> Nav: [← PlayerController (move)](02_playercontroller-move.md) · [Overview](00_overview.md) · [Add jump →](04_add-jump.md)

@@ -68,3 +68,6 @@ shape-jumper/
 [M4 — Platforms & AABB collision](../MILESTONE_4_platforms-and-collision/00_overview.md) ⭐ **reality-check**:
 solid platforms you land on and bump into. Done-when: lands on every platform, can't pass through any side —
 then you actually play it.
+
+---
+> Section: Core mechanics · milestone 3 of 7 · prev: [Player & keyboard control](../MILESTONE_2_player-and-input/00_overview.md) · next: [Platforms & AABB collision](../MILESTONE_4_platforms-and-collision/00_overview.md)

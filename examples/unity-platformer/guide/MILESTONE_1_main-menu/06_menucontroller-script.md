@@ -65,3 +65,6 @@ public class MenuController : MonoBehaviour
 - **Error on `SceneManager`** → you're missing `using UnityEngine.SceneManagement;` at the top. It's in the code
   above — make sure you copied the whole file.
 - **Nothing recompiles** → click back into the Unity window; it recompiles when it regains focus.
+
+---
+> Nav: [← Build Settings](05_build-settings.md) · [Overview](00_overview.md) · [Wire the buttons →](07_wire-buttons.md)

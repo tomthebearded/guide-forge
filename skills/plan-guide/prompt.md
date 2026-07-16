@@ -316,7 +316,7 @@ Produce **the plan**, not the guide, in this shape:
 4. **Milestone ladder** — the ordered table from Phase 2, with the reality-check gate marked.
 5. **Templates** — the step + overview templates from Phase 3.
 6. **Writing contract** — the pedagogical rules (Phase 4) plus verification design (Phase 5).
-7. **Folder/file layout** — the fixed canonical skeleton (README, `PLAN.md`, `token-usage.md`, and
+7. **Folder/file layout** — the fixed canonical skeleton (README, `PLAN.md`, `TOKEN_USAGE.md`, and
    `feedback-log.md` at the guide root; foundation docs under `foundation/`; one `MILESTONE_<N>_<slug>/` folder
    per milestone with `00_overview.md` … `NN_verify.md`). Don't invent a structure — just fill in the real
    milestone slugs. **This plan's own home is `guide/PLAN.md`** — every guide-related doc, the plan included,

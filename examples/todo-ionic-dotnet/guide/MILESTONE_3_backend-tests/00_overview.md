@@ -55,3 +55,6 @@ Added an xUnit v3 project that spins up the app in-process and asserts each endp
 ### Next milestone
 [M4 — Frontend scaffold](../MILESTONE_4_frontend-scaffold/00_overview.md): the backend is done; now stand up
 the Ionic app. Done-when: `ionic serve` shows the shell and `/api` proxies to `:5080`.
+
+---
+> Backend · milestone 4 of 9 · prev: [M2 Backend CRUD + CORS](../MILESTONE_2_backend-crud-cors/00_overview.md) · next: [M4 Frontend scaffold](../MILESTONE_4_frontend-scaffold/00_overview.md)

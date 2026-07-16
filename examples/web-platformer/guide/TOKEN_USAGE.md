@@ -3,13 +3,13 @@
 Real metered usage for **this guide**, written by the bundled GuideForge hook (`hooks/track-tokens.js`). Anthropic bills in USD; EUR uses the live USD→EUR rate fetched at each update. Cache-write priced at 1.25× (5-min) / 2× (1-hour). The tracker is a hook script and costs no tokens. Work not attributable to a guide (building the plugin itself) is not tracked.
 
 ## Totals
-- Updated:        2026-07-13 17:11:05
-- USD→EUR rate:   0.8753 (live)
-- Input tokens:   69,911
-- Output tokens:  281,600
-- Cache write:    1,208,013
-- Cache read:     36,103,741
-- Cost:           $35.21  ·  €30.82
+- Updated:        2026-07-16 12:54:13
+- USD→EUR rate:   0.8767 (live)
+- Input tokens:   70,272
+- Output tokens:  405,429
+- Cache write:    2,016,174
+- Cache read:     61,325,538
+- Cost:           $57.41  ·  €50.33
 
 ## Per-request log
 | # | Time (local) | Model | Input | Output | Cache W | Cache R | USD | EUR | Rate |
@@ -61,6 +61,15 @@ Real metered usage for **this guide**, written by the bundled GuideForge hook (`
 | 45 | 2026-07-13 17:09:44 | opus-4-8 | 17 | 6,120 | 118,162 | 392,056 | 1.1789 | 1.0320 | 0.8753 |
 | 46 | 2026-07-13 17:10:13 | opus-4-8 | 2 | 4 | 9,307 | 93,815 | 0.1052 | 0.0921 | 0.8753 |
 | 47 | 2026-07-13 17:11:05 | opus-4-8 | 9 | 3,406 | 8,533 | 351,836 | 0.3464 | 0.3033 | 0.8753 |
+| 48 | 2026-07-16 10:50:21 | opus-4-8 | 31 | 28,311 | 93,916 | 1,407,342 | 2.3508 | 2.0610 | 0.8767 |
+| 49 | 2026-07-16 10:59:47 | opus-4-8 | 74 | 30,685 | 146,891 | 5,180,482 | 4.8266 | 4.2317 | 0.8767 |
+| 50 | 2026-07-16 11:12:39 | opus-4-8 | 30 | 19,409 | 62,125 | 2,968,073 | 2.5907 | 2.2713 | 0.8767 |
+| 51 | 2026-07-16 12:17:21 | opus-4-8 | 141 | 21,867 | 409,707 | 6,943,954 | 6.7185 | 5.8903 | 0.8767 |
+| 52 | 2026-07-16 12:18:06 | opus-4-8 | 15 | 102 | 24,391 | 822,795 | 0.5665 | 0.4966 | 0.8767 |
+| 53 | 2026-07-16 12:19:08 | opus-4-8 | 27 | 591 | 26,788 | 1,391,408 | 0.8780 | 0.7698 | 0.8767 |
+| 54 | 2026-07-16 12:19:31 | opus-4-8 | 1 | 3 | 492 | 90,929 | 0.0486 | 0.0426 | 0.8767 |
+| 55 | 2026-07-16 12:25:56 | opus-4-8 | 20 | 12,699 | 28,913 | 2,819,903 | 2.0167 | 1.7681 | 0.8767 |
+| 56 | 2026-07-16 12:54:13 | opus-4-8 | 22 | 10,162 | 14,938 | 3,596,911 | 2.2020 | 1.9306 | 0.8767 |
 
 _Rows marked `*` were backfilled (one per past session, shared day rate);
 rows marked `~` used an estimated rate (FX fetch failed)._

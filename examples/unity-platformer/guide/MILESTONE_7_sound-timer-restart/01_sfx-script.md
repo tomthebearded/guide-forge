@@ -86,3 +86,6 @@ public class Sfx : MonoBehaviour
 - **`SetData` / `Create` errors** → check the argument order: `AudioClip.Create(name, sampleCount, channels=1,
   sampleRate, stream=false)`, then `clip.SetData(samples, 0)`.
 - **Compiles but you worry it's silent** → you can't hear it yet; the object + wiring come in steps 02–03.
+
+---
+> Nav: — · [Overview](00_overview.md) · [Audio object →](02_audio-object.md)

@@ -63,3 +63,6 @@ though CORS is also configured on the API ([decision D4](../foundation/decision-
   `proxy.conf.json` and restart (some dev-server versions need the glob for nested paths).
 - **`Could not read proxy configuration file`** — the path in `angular.json` must be `src/proxy.conf.json`
   relative to the workspace root; confirm the file is under `src/`.
+
+---
+> Nav: [← HttpClient + environments](02_http-and-environment.md) · [Overview](00_overview.md) · [Verify →](04_verify.md)

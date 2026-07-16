@@ -75,3 +75,6 @@ time. We also fill the win panel's **Time** and **Best** labels.
   just beat it.
 - **Best resets every run** → you forgot `PlayerPrefs.Save()` (it's in the code above), or you're reading a
   different key string than you wrote.
+
+---
+> Nav: [← Timer HUD](04_timer-hud.md) · [Overview](00_overview.md) · [Restart & Menu →](06_restart-and-menu.md)

@@ -46,3 +46,6 @@ export class TodoApiService {
 - **`Cannot find module '../environments/environment'`** — the environment files weren't generated; see
   [M4 step 02](../MILESTONE_4_frontend-scaffold/02_http-and-environment.md).
 - **`No provider for HttpClient`** at runtime — `provideHttpClient()` is missing from `main.ts` (M4 step 02).
+
+---
+> Nav: [← Todo model](01_todo-model.md) · [Overview](00_overview.md) · [Render the list →](03_home-list.md)

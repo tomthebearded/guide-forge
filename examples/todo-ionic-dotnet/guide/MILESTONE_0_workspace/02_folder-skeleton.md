@@ -32,3 +32,6 @@ Do not create `frontend/`, a `.git` folder, or any config files yet — those ar
 ## If it breaks
 - **`cd backend` later says "no such file or directory"** — you created `backend` somewhere other than the
   project root, or you're not in the root. Run `pwd` and confirm you're in `todo-ionic-dotnet`.
+
+---
+> Nav: [← Prerequisites](01_prerequisites.md) · [Overview](00_overview.md) · [Verify →](03_verify.md)

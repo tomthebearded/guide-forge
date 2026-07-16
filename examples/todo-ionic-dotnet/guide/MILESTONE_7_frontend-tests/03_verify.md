@@ -121,3 +121,6 @@ describe('HomePage', () => {
 
 ## Next
 → [M8 — Polish & full-stack ship-check](../MILESTONE_8_polish-shipcheck/00_overview.md)
+
+---
+> Nav: [← Home page spec](02_home-spec.md) · [Overview](00_overview.md) · [M8 Polish & ship-check →](../MILESTONE_8_polish-shipcheck/00_overview.md)

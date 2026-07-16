@@ -31,3 +31,6 @@ Ground object on it, so the check has something to find.
   or higher).
 - **Layer dropdown still shows "Default" on the Ground** → you created the layer but didn't re-select it on the
   object; reselect Ground and pick **Ground** from the Layer dropdown.
+
+---
+> Nav: — · [Overview](00_overview.md) · [PlayerController (move) →](02_playercontroller-move.md)

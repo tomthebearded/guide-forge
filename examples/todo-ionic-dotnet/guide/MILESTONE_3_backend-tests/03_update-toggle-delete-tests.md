@@ -121,3 +121,6 @@ public class TodosApiTests(WebApplicationFactory<Program> factory)
   needs `using System.Net.Http.Json;` (already at the top of the file).
 - **A test fails intermittently** — you added a count-based assertion; because the store is shared per class,
   assert on your own created todo, not on the total number of todos.
+
+---
+> Nav: [← Read + create tests](02_list-and-create-tests.md) · [Overview](00_overview.md) · [Verify →](04_verify.md)

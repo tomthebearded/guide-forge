@@ -38,3 +38,6 @@ milestone writing a gravity integrator; here you click **Add Component**.
   Type to **Dynamic**.
 - **It falls sideways or too slow/fast** → check **Gravity Scale = 1** and that you didn't rotate the object.
 - **You added a 3D `Rigidbody`** → remove it (gear icon → Remove Component) and add **Rigidbody 2D**.
+
+---
+> Nav: [← Ground](02_ground.md) · [Overview](00_overview.md) · [Colliders land →](04_colliders-land.md)

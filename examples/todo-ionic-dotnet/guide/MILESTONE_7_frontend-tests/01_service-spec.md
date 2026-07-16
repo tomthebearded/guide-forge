@@ -78,3 +78,6 @@ The URL `'/api/todos'` matches `environment.apiUrl` (`'/api'`) + `/todos`.
   `'/api'` so the request is `/api/todos`.
 - **`verify()` fails with an unexpected request** — `add()` also triggers `load()`; both requests must be
   flushed, as shown.
+
+---
+> Nav: — · [Overview](00_overview.md) · [Home page spec →](02_home-spec.md)

@@ -81,3 +81,6 @@ net so the Player always has one.)*
 - **Red squiggle on `linearVelocity`** → you're on an older Unity; the guide targets 6.5 where `linearVelocity`
   is correct. If you truly must use an older editor, it'd be `velocity` — but re-pin to 6.5 (see stack.md).
 - **`Vector2` not found** → keep `using UnityEngine;` at the top (it's in the code above).
+
+---
+> Nav: [← Ground layer](01_ground-layer.md) · [Overview](00_overview.md) · [Attach & test →](03_attach-and-test-move.md)

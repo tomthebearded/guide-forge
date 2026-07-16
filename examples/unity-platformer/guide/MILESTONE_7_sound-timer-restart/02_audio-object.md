@@ -26,3 +26,6 @@ which lives on the Main Camera by default. We make a dedicated **`Audio`** GameO
   Source** manually.
 - **Main Camera has no Audio Listener** → **Add Component → Audio Listener** on the Main Camera (only one
   listener should exist in the scene).
+
+---
+> Nav: [← Sfx script](01_sfx-script.md) · [Overview](00_overview.md) · [Wire sounds →](03_wire-sounds.md)

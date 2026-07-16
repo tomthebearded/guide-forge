@@ -73,3 +73,6 @@ would point at the real API URL instead.
   workspace).
 - **Later: `NullInjectorError: No provider for HttpClient`** — `provideHttpClient()` is missing from `main.ts`;
   this step adds it.
+
+---
+> Nav: [← Create the Ionic app](01_ionic-start.md) · [Overview](00_overview.md) · [Dev proxy →](03_proxy.md)

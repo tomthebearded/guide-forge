@@ -72,3 +72,6 @@ window.addEventListener('keyup', function (e) {
   string. The codes are case-sensitive: `"KeyA"`, `"ArrowLeft"` (not `"a"`, not `"arrowleft"`).
 - **`Game is not defined`** — `input.js` must load *after* `config.js` (which creates `Game`). We set the
   script order in step 04.
+
+---
+> Nav: [← Config & state](01_config-and-state.md) · [Overview](00_overview.md) · [Render →](03_render.md)

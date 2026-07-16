@@ -35,3 +35,6 @@ right. Everything visible in this game will be one of these primitive shapes (th
 - **Square shows in Scene but not in Game view** → the camera isn't pointing at it. Confirm the square's
   Position **Z = 0** and that **Main Camera**'s Position Z is negative (the 2D template defaults it to `-10`, so
   it looks toward +Z where your sprite sits).
+
+---
+> Nav: [← Editor tour](03_editor-tour.md) · [Overview](00_overview.md) · [Verify →](05_verify.md)

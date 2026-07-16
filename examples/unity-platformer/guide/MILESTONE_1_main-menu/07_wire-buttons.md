@@ -33,3 +33,6 @@ method. Wiring in the Inspector — not in code — is the Unity way to connect 
   bold `MenuController` header). The other is the "dynamic string" variant — not what we want.
 - **You dragged the Button into the field instead of MenuController** → the object field must be the
   **MenuController** GameObject (the one holding the script), not the button.
+
+---
+> Nav: [← MenuController script](06_menucontroller-script.md) · [Overview](00_overview.md) · [Verify →](08_verify.md)

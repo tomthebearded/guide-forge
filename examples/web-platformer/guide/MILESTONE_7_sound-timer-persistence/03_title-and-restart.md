@@ -107,3 +107,6 @@ requestAnimationFrame(frame);
   player isn't standing on the ground on the very first frame of the new run, so the queued jump is simply
   ignored (you can only jump when grounded). Press jump again once play begins. This is harmless — no fix
   needed; it's just the one keypress doing double duty (start **and** a jump that can't apply yet).
+
+---
+> Nav: [← Timer & best time](02_timer-and-best.md) · [Overview](00_overview.md) · [Verify →](04_verify.md)

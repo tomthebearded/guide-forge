@@ -200,3 +200,6 @@ the versions above are the M6 end state.)
 
 ## Next
 → [M7 — Frontend tests (Karma/Jasmine)](../MILESTONE_7_frontend-tests/00_overview.md)
+
+---
+> Nav: [← Filter](04_filter.md) · [Overview](00_overview.md) · [M7 Frontend tests →](../MILESTONE_7_frontend-tests/00_overview.md)

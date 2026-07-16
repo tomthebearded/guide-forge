@@ -179,3 +179,6 @@ requestAnimationFrame(frame);
 Mark M2 ✅ in [foundation/status.md](../foundation/status.md), then go to
 **[M3 — Gravity & jumping](../MILESTONE_3_gravity-and-jump/00_overview.md)**: make the player fall, land on a
 floor, and jump — written *gravity-sign-aware* so the M6 twist is nearly free.
+
+---
+> Nav: [← Wire it up](04_wire-up.md) · [Overview](00_overview.md) · [M3: Gravity & jumping →](../MILESTONE_3_gravity-and-jump/00_overview.md)

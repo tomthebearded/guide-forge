@@ -76,3 +76,6 @@ you later serve the frontend on a different port, update this string.
   or the policy name doesn't match `AddPolicy`.
 - **Header shows `*` instead of the origin** — you used `AllowAnyOrigin()`; we deliberately name the origin so
   it's explicit.
+
+---
+> Nav: [← CRUD endpoints](02_crud-endpoints.md) · [Overview](00_overview.md) · [Verify →](04_verify.md)

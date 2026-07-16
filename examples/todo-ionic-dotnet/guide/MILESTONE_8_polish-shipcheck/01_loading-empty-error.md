@@ -243,3 +243,6 @@ export class HomePage implements OnInit {
 - **`'ion-spinner' is not a known element`** — `IonSpinner`/`IonText` aren't in the component `imports`.
 - **The empty message shows briefly on every load** — that's the gap before data arrives; it's covered because
   `loading()` is checked first in the `@if` chain. Confirm the order: loading → error → empty → list.
+
+---
+> Nav: — · [Overview](00_overview.md) · [Run-both README →](02_run-both.md)

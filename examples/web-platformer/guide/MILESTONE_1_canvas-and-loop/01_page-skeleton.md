@@ -76,3 +76,6 @@ html, body {
   expected; the next step creates that file.
 - **The `<script>` tag has `type="module"`** — remove it. Modules fail under `file://` with no server; we use
   plain classic scripts on purpose (see [decision D1](../foundation/decision-log.md#d1--zero-build-classic-scripts-not-es-modules)).
+
+---
+> Nav: — · [Overview](00_overview.md) · [Config namespace →](02_config-namespace.md)

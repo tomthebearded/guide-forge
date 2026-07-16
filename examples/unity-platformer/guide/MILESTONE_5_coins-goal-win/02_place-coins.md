@@ -29,3 +29,6 @@ MANDATORY: at least one coin, placed so the player can reach it. ILLUSTRATIVE: t
 - **A coin sits inside a platform** → raise its Y so it's clearly above the surface.
 - **Editing one coin didn't change the others** → you edited an instance override, not the prefab. To change all
   coins, double-click `Coin.prefab` to open **Prefab Mode** and edit there.
+
+---
+> Nav: [← Coin prefab](01_coin-prefab.md) · [Overview](00_overview.md) · [Goal →](03_goal.md)

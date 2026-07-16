@@ -75,3 +75,6 @@ Game.update = function (dt) {
   (which then paints over it). The HUD must be drawn last, after the background.
 - **`s is not defined` in the HUD code** — `Game.draw` defines `const s = Game.state;` near the top (from step
   01). Make sure that line is present.
+
+---
+> Nav: [← Entities data](01_entities-data.md) · [Overview](00_overview.md) · [Goal & win →](03_goal-and-win.md)

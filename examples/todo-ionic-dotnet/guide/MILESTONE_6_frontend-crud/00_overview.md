@@ -53,3 +53,6 @@ Wired the full CRUD + filter UI to the backend through `TodoApiService`.
 ### Next milestone
 [M7 — Frontend tests (Karma/Jasmine)](../MILESTONE_7_frontend-tests/00_overview.md): lock the service + page
 behavior. Done-when: `ng test` green.
+
+---
+> Frontend · milestone 7 of 9 · prev: [M5 Frontend read path](../MILESTONE_5_frontend-read/00_overview.md) · next: [M7 Frontend tests](../MILESTONE_7_frontend-tests/00_overview.md)

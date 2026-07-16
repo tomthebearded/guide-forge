@@ -41,6 +41,24 @@ A teaching guide loses all trust the moment a version number is wrong or an API 
 
 ---
 
+## The voice principle (address the reader directly as "you")
+
+The person following the guide is **"you"** — always second person, spoken to directly. **Never refer to the
+reader in the third person** — not "the Human", "the human", "the user", "the developer", "the reader", or
+"one". Those labels read as if the guide is describing someone else performing the steps, which distances the
+very person holding the keyboard. Write instructions and gates as things **you** do and see.
+
+This applies everywhere the reader is the actor: step actions, Done-when gates, troubleshooting, overviews,
+and handoffs. (Referring to a *different* actor — an end-user of the app you're building, a teammate — in the
+third person is fine; the rule is only about naming the guide-follower.)
+
+- ❌ "The Human presses F5 and the Extension Development Host opens." / "The user then runs the tests."
+- ✅ "Press <kbd>F5</kbd> — the Extension Development Host opens." / "Now run the tests."
+- ❌ "Done when: the human sees the square glide across the canvas."
+- ✅ "Done when: **you** see the square glide across the canvas."
+
+---
+
 ## R1 — Explain every concept on first use (inline, or a callout right above)
 **Why:** an undefined term stops a reader cold; they either guess (dangerous) or leave to look it up (lost
 momentum). The worst case is a term stated as a **bare rule or decision** — "use Gamma color space, PPU 32,
@@ -77,6 +95,21 @@ them at first use, at the topic's depth. The defect is an **inconsistent bar**: 
 - ✅ (callout, on its own line right above the action):
   `> 📚 New concept — Gamma color space: texture values render exactly as authored (no sRGB curve), so`
   `hand-picked palettes look right. See [glossary](../glossary.md#gamma).`
+
+**Forward-explained concepts — gloss + point forward at first use.** A concept is often *used* (in a config
+key, a code comment, a value) a few steps before the step that *teaches* it in depth. "First use" is still
+first use: the reader meets the term there, so it can't be left bare just because a later step will explain it.
+At the **first appearance**, give a **one-line mini-gloss AND a forward pointer** to the step that teaches it
+fully — not silence, and not a bare pointer with no definition (the reader still hits an undefined term). The
+deep-dive stays where the ladder puts it; the first mention just needs a plain-language definition and a
+signpost. (This is the pedagogy twin of the structural *dependency-ordering* rule, which forbids a code
+identifier being *used* before it's *defined*.)
+
+- ❌ (web-platformer M1/02, a config comment) "`maxDt` — the delta-time **clamp** (max seconds simulated in
+  one frame)." — names *delta time* three steps before it's taught in M1/05, with no gloss and no pointer.
+- ✅ "`maxDt` — the **delta-time** clamp. *Delta time* (`dt`) is the seconds elapsed since the previous frame;
+  we cap it so one slow frame can't teleport the player. You'll build and fully understand `dt` in
+  [step 05](05_delta-time.md); here you're just setting the ceiling."
 
 ## R2 — Every action says WHERE
 **Why:** "add the route" is useless if the reader doesn't know which file/panel/menu. Locating things is
@@ -178,7 +211,7 @@ claims to prove** — otherwise a green check certifies nothing.
   output, run it again, diff: no differences."
 
 > **The defect this prevents:** a gate that claims to "prove the ordering is deterministic" but only queries
-> once, so it never exercises the re-run that determinism is about. (Observed: spotify-trip M5.)
+> once, so it never exercises the re-run that determinism is about. (Observed: spotify-angular M5.)
 
 ---
 

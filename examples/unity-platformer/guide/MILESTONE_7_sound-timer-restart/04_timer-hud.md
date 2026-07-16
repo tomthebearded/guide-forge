@@ -71,3 +71,6 @@ element, and a `FormatTime` helper (also used by the best time next step).
 - **Timer keeps running after win** → the increment must be inside the `if (playing)` block (step 4); the win
   sets `playing = false`.
 - **Timer shows a weird format** → confirm you copied `FormatTime` exactly; it expects milliseconds.
+
+---
+> Nav: [← Wire sounds](03_wire-sounds.md) · [Overview](00_overview.md) · [Best time →](05_best-time.md)

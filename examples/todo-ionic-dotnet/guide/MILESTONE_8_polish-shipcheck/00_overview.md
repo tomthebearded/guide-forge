@@ -48,3 +48,6 @@ Added graceful UX states, a project run-README, and a troubleshooting sheet; ver
 - **Auth**, **pagination**, **deployment/hosting**, **Capacitor native builds** — none included; each is a natural next project.
 ### Next milestone
 None — this is the final milestone. 🎉 You have a working, tested Ionic + .NET to-do app.
+
+---
+> Frontend · milestone 9 of 9 · prev: [M7 Frontend tests](../MILESTONE_7_frontend-tests/00_overview.md) · next: —

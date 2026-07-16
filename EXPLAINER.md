@@ -175,7 +175,7 @@ improvable — and lets you re-run just the stage that went wrong.
 | `CHANGELOG.md` | Version history. | Every release. |
 | `CONTRIBUTING.md` | How to add examples/rules and the PR checklist. | When accepting contributions. |
 | `.claude-plugin/` | `plugin.json` (manifest) + `marketplace.json` (local marketplace) — makes the repo installable as one Claude Code plugin. | When you cut a release / bump the version. |
-| `hooks/` | `hooks.json` + `track-tokens.js` — the bundled Stop/SubagentStop hook that meters **real** per-guide token cost into `examples/<name>/TOKEN_USAGE.md` (see [reference/token-tracking.md](reference/token-tracking.md)). Costs zero Claude tokens. | When you change cost tracking. |
+| `hooks/` | `hooks.json` + `track-tokens.js` — the bundled Stop/SubagentStop hook that meters **real** per-guide token cost into `examples/<name>/guide/TOKEN_USAGE.md` (see [reference/token-tracking.md](reference/token-tracking.md)). Costs zero Claude tokens. | When you change cost tracking. |
 
 ### The prompt contracts — `skills/*/prompt.md`
 

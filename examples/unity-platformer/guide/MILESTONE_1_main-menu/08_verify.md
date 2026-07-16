@@ -54,3 +54,6 @@ Scenes on disk: `Assets/Scenes/MainMenu.unity` (index 0), `Assets/Scenes/Game.un
 ## Next
 [M2 — The world & free physics](../MILESTONE_2_world-and-free-physics/00_overview.md): open the empty `Game`
 scene and fill it with shapes — then add two components and watch the player **fall and land with no code**.
+
+---
+> Nav: [← Wire the buttons](07_wire-buttons.md) · [Overview](00_overview.md) · [M2 — The world & free physics →](../MILESTONE_2_world-and-free-physics/00_overview.md)

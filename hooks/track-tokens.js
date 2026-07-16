@@ -12,16 +12,17 @@
  *   - A guide is an `examples/<name>/` folder. Each session is attributed to the guide its
  *     tool calls reference most (session -> dominant `examples/<name>`); a session's whole
  *     usage is credited to that one guide.
- *   - The metered ledger is written to `examples/<name>/TOKEN_USAGE.md` — at the PROJECT
- *     level, next to the guide's `guide/` folder (it is machine-generated metering about the
- *     COST of building the guide, i.e. external/meta, not authored guide content). This also
- *     dodges the Windows case-collision with the estimate ledger `guide/token-usage.md`.
+ *   - The metered ledger is the single `TOKEN_USAGE.md` written INSIDE the guide folder:
+ *     `examples/<name>/guide/TOKEN_USAGE.md`. It is the one cost ledger per guide. The hook is
+ *     authoritative and rewrites the whole file each run; if a skill appended an estimate row
+ *     (the fallback when the hook is inactive), that row is transient and gets replaced here.
  *   - Sessions that touch no `examples/<name>/` path — e.g. work on the GuideForge tooling
  *     itself (skills, hook, README) — are INTENTIONALLY DROPPED. Building the plugin is not a
  *     guide, so it gets no ledger. There is no project-root catch-all in a repo that has an
  *     `examples/` folder.
  *   - Fallback: a plain single-guide project (no `examples/` dir at all) is treated as one
- *     guide and its ledger is the project-root `TOKEN_USAGE.md` (preserves shipped behaviour).
+ *     guide; its ledger is `<project>/guide/TOKEN_USAGE.md` when a `guide/` dir exists, else the
+ *     project-root `TOKEN_USAGE.md` (preserves behaviour for non-GuideForge layouts).
  *
  * The tracker is a plain script and costs zero Claude tokens, so there is no "tool cost" section.
  * Figures are REAL (read from transcript usage records), not estimates.
@@ -262,11 +263,23 @@ function getGuideState(state, guide) {
   return state.guides[guide];
 }
 
-/** Where a guide's metered ledger is written, and the title it carries. */
+/**
+ * Where a guide's metered ledger is written: a single `TOKEN_USAGE.md` INSIDE the guide folder.
+ *   - examples mode: `examples/<name>/guide/TOKEN_USAGE.md`.
+ *   - root fallback: `<project>/guide/TOKEN_USAGE.md` when a `guide/` dir exists (the canonical
+ *     GuideForge layout), else `<project>/TOKEN_USAGE.md` (a non-GuideForge single-guide project).
+ */
 function guideOutPath(guide) {
-  return guide === ROOT_GUIDE
-    ? path.join(PROJECT_DIR, 'TOKEN_USAGE.md')
-    : path.join(EXAMPLES_DIR, guide, 'TOKEN_USAGE.md');
+  if (guide === ROOT_GUIDE) {
+    const inGuide = path.join(PROJECT_DIR, 'guide');
+    try {
+      if (fs.statSync(inGuide).isDirectory()) return path.join(inGuide, 'TOKEN_USAGE.md');
+    } catch {
+      /* no guide/ dir -> project root */
+    }
+    return path.join(PROJECT_DIR, 'TOKEN_USAGE.md');
+  }
+  return path.join(EXAMPLES_DIR, guide, 'guide', 'TOKEN_USAGE.md');
 }
 
 function guideTitle(guide) {

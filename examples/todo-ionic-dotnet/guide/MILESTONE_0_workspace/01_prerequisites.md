@@ -39,3 +39,6 @@ brings its own), and you do **not** need Docker, a database server, or any globa
   yet. Open a new terminal, or run `npm bin -g` to find the folder and add it to `PATH`.
 - **`dotnet --version` shows 9.x though you installed 10** — a `global.json` somewhere up the directory tree
   is pinning an older SDK. You're not in the project yet, so run the check from your home directory.
+
+---
+> Nav: — · [Overview](00_overview.md) · [Folder skeleton →](02_folder-skeleton.md)

@@ -65,3 +65,6 @@ describe('HomePage', () => {
   `expectOne` comes after it.
 - **`'ion-item' is not a known element`** — `HomePage` must be in `imports` (it brings its own Ionic
   components); it's a standalone component, so importing it is enough.
+
+---
+> Nav: [← Service spec](01_service-spec.md) · [Overview](00_overview.md) · [Verify →](03_verify.md)

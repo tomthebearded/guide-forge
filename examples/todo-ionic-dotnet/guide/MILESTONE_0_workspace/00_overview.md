@@ -47,3 +47,6 @@ Toolchain verified; the project root and `backend/` folder exist.
 ### Next milestone
 [M1 — Backend read path](../MILESTONE_1_backend-read/00_overview.md): a .NET 10 minimal API that returns
 seeded todos from an EF Core in-memory database. Done-when: `GET /api/todos` returns the seeded JSON array.
+
+---
+> Setup · milestone 1 of 9 · prev: — · next: [M1 Backend read path](../MILESTONE_1_backend-read/00_overview.md)

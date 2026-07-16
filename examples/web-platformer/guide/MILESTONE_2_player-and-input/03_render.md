@@ -59,3 +59,6 @@ Game.draw = function () {
   sets `Game.ctx = ctx;` in step 04; confirm that line exists and `render.js` loads before `main.js` calls draw.
 - **The player is a sharp rectangle** — that's the fallback path; your browser predates `roundRect`. It's fine
   (cosmetic). Update your browser if you want the rounded look.
+
+---
+> Nav: [← Input](02_input.md) · [Overview](00_overview.md) · [Wire it up →](04_wire-up.md)

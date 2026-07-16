@@ -45,3 +45,6 @@ smallest sensible starting point.
 - **Port 8100 already in use** — another `ionic serve` is running; stop it, or run `ionic serve --port 8101`
   and update the CORS origin in [M2 step 03](../MILESTONE_2_backend-crud-cors/03_cors.md) to match.
 - **`ionic: command not found`** — the CLI isn't installed; see [M0 step 01](../MILESTONE_0_workspace/01_prerequisites.md).
+
+---
+> Nav: — · [Overview](00_overview.md) · [HttpClient + environments →](02_http-and-environment.md)

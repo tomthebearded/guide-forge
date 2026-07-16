@@ -3,14 +3,16 @@
 All notable changes to GuideForge are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/); this project uses date-stamped versions.
 
-## [Unreleased]
+## [1.2.0] — 2026-07-16
 
 A drafting-cadence change (whole guide in one pass), structural hardening of the skill layer, two correctness
-fixes, and a **method-hardening pass** driven by defect classes observed while auditing the worked examples.
+fixes, a **method-hardening pass** driven by defect classes observed while auditing the worked examples, and a
+layout/navigation/voice pass (one in-guide cost ledger, top-and-bottom nav, first-use concept glosses, a
+direct-address voice rule) with two worked examples renamed.
 
 ### Method hardening (from example audits)
 
-Ten recurring defect classes surfaced across the worked-example audits (spotify-trip, unity, web-platformer).
+Ten recurring defect classes surfaced across the worked-example audits (spotify-angular, unity, web-platformer).
 Each got a rule at the point it's authored **and** a matching lint in `audit-guide`, so the same defect can't
 recur. No skill was added or removed.
 
@@ -18,33 +20,33 @@ recur. No skill was added or removed.
   every load-bearing symbol a milestone uses to have its **first definition in that milestone or an earlier
   one**, and each milestone's build/Done-when gate to be satisfiable from current+earlier code alone; a
   dependency-ordering self-check runs before each milestone closes. `audit-guide` resolves every identifier and
-  flags a first-definition-after-use as a **BLOCKER**. (Observed: spotify-trip M9 used `LikedIndex.clear()`
+  flags a first-definition-after-use as a **BLOCKER**. (Observed: spotify-angular M9 used `LikedIndex.clear()`
   introduced only in M10.)
 - **No gold-plating / build-now-consume-later.** `milestone-design` adds a *consume-it-now* test — every public
   member a milestone adds must be **called within that milestone**, or carry a `[Mn]` marker naming the
   consuming milestone; `draft-milestone` enforces it and `audit-guide` flags unmarked, uncalled members.
-  (Observed: spotify-trip M8/05 built M11's marker system, leaving dead members.)
+  (Observed: spotify-angular M8/05 built M11's marker system, leaving dead members.)
 - **Glossary deep-links resolve.** `templates/glossary.md` now uses **`### <term>` headings** (stable GitHub
   anchors) instead of bullets; `scaffold-guide`/`draft-milestone` link terms as `glossary.md#<slug>`, and
-  `audit-guide` validates the **anchor**, not just the file. (Observed: spotify-trip shipped 39 dead
+  `audit-guide` validates the **anchor**, not just the file. (Observed: spotify-angular shipped 39 dead
   `glossary.md#term` links because terms were bullets.)
 - **Checkpoint completeness claims are kept.** `templates/verify.md` and `reference/canonical-layout.md` scope
   the "complete" claim to the files actually rendered (untouched files are *named as unchanged*, never swept
   into a blanket "authoritative copy of every file"); `audit-guide` flags a touched-but-fragmented file, or an
-  over-broad claim, as **MAJOR**. (Observed: spotify-trip M10/M11 and unity M7/07 over-claimed.)
+  over-broad claim, as **MAJOR**. (Observed: spotify-angular M10/M11 and unity M7/07 over-claimed.)
 - **Canonical nav label + first-step prev.** `templates/step.md`, `plan-guide`, `draft-milestone`, and
   `canonical-layout.md` fix the middle anchor label to exactly **`Overview`** and make the **first step's prev
   a bare `—`** (the Overview anchor already points there); `audit-guide` checks both exactly. (Observed:
-  spotify-trip mixed `[Overview]`/`[Milestone overview]` across 140 files and gave first steps a redundant
+  spotify-angular mixed `[Overview]`/`[Milestone overview]` across 140 files and gave first steps a redundant
   prev — the `[Milestone overview]` label originated in `plan-guide`'s step template.)
 - **Gates prove what they claim.** `pedagogy-rules.md` adds the gate principle — a `Done-when` action must
   **exercise the property it claims** (re-run for determinism, restart+re-read for persistence) or reword the
-  claim; `draft-milestone` and `audit-guide` enforce it. (Observed: spotify-trip M5 claimed determinism without
+  claim; `draft-milestone` and `audit-guide` enforce it. (Observed: spotify-angular M5 claimed determinism without
   re-querying.)
 - **Cross-platform gate commands.** `templates/stack.md` gains a **Target OS / shell(s)** field;
   `templates/conventions.md` and `draft-milestone` require a command variant per targeted shell; `audit-guide`
   flags a Unix-only command used as a gate check when the guide also targets Windows/PowerShell. (Observed:
-  spotify-trip M0's zone.js check was bash `grep` only.)
+  spotify-angular M0's zone.js check was bash `grep` only.)
 - **Front-door claims match the content.** `draft-milestone` adds a post-draft *reconcile front-door claims*
   pass (re-read README + decision-log + M0 overview against what milestones do); `plan-guide` cautions against
   absolute framings the ladder breaks; `audit-guide` flags a contradicted absolute claim as a **WARNING**.
@@ -57,6 +59,33 @@ recur. No skill was added or removed.
   first-use terms for New/Beginner topics; `draft-milestone` and `audit-guide` flag the *inconsistent bar*
   (glossing `const` but not `toFixed`). (Observed: web-platformer glossed `const` but not
   `toFixed`/`Math.round`/`Math.PI`; unity left `Transform`/`IL2CPP`/`Clear Flags` unglossed.)
+
+### Layout, navigation & voice (2026-07-16)
+
+- **One token ledger, inside the guide.** The two per-guide cost files collapsed into a single
+  **`guide/TOKEN_USAGE.md`** (previously a metered `examples/<name>/TOKEN_USAGE.md` at the project level *plus*
+  an estimate `guide/token-usage.md`). The bundled hook now writes the in-guide file and is authoritative
+  (rewrites it each run); skills append an estimate row to the same file only when the hook is inactive, which
+  the hook then replaces. Removing the second filename also dissolves the old Windows case-collision. Updated
+  `hooks/track-tokens.js`, `reference/token-tracking.md`, `reference/canonical-layout.md`, every skill's
+  log-the-run step, README/EXPLAINER, and migrated the 5 drafted example guides.
+- **Nav at the bottom of every navigable file.** Steps, `00_overview.md`, and `NN_verify.md` now repeat their
+  canonical nav line **verbatim at the bottom**, after a `---` rule, identical to the line-2 top nav — so you
+  can move on without scrolling back up. `templates/{step,verify,milestone-overview}.md`, `canonical-layout.md`,
+  `draft-milestone`, and `scaffold-guide` require it; `audit-guide` now flags a missing/desynced bottom nav
+  (it previously flagged *bottom-only* nav). Retrofitted across all 5 example guides (336 files).
+- **Explain a concept at its first appearance, not later.** `pedagogy-rules.md` R1 gains the
+  *forward-explained concept* case — a concept used before its dedicated teaching step must get a **one-line
+  mini-gloss + a forward pointer** at first use; `draft-milestone` tracks first-appearance and `audit-guide`
+  flags a bare first-use whose full treatment lives in a later step. (Observed: web-platformer named *delta
+  time* in M1/02's `maxDt` comment but only taught it in M1/05.)
+- **Address the reader as "you" (voice principle).** `pedagogy-rules.md` adds a voice principle: the
+  guide-follower is always second person — never "the Human", "the user", "the reader", "the developer", or
+  "one". `templates/conventions.md` codifies it as fixed house style, `draft-milestone` enforces it, and
+  `audit-guide` flags third-person references to the reader. Retrofitted across all 5 example guides.
+- **Examples renamed.** `vscode-live-recolor` → **`vscode-extension`** and `spotify-trip` → **`spotify-angular`**
+  (the latter a full rebrand — the taught Angular app name changed too). Folders, all in-repo references, and
+  the hook's per-guide state keys were updated so metered history carries over.
 
 ### Changed
 - **`draft-milestone` now drafts the whole guide in one pass.** By default it walks the approved ladder and

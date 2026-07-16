@@ -27,3 +27,6 @@ there's room above the ground for the player to fall.
 - **Square not visible in Game view** → check **Position Z = 0** and that **Main Camera** Z is negative (default
   `-10`). Off-screen usually means a bad Z or the camera Size too small.
 - **No `2D Object` menu** → the project is 3D; you'd need to recreate it 2D (M0/02).
+
+---
+> Nav: — · [Overview](00_overview.md) · [Ground →](02_ground.md)

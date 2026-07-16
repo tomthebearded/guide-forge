@@ -576,3 +576,6 @@ Shape Jumper is complete — a full browser platformer of nothing but rectangles
 gravity twist, built with zero tooling. Mark **M7 ✅** and the guide complete in
 [foundation/status.md](../foundation/status.md). Ideas for going further (all deliberately out of scope here):
 more levels via additional `level.js` data, a scrolling camera, enemies, or on-screen touch controls.
+
+---
+> Nav: [← Title & restart](03_title-and-restart.md) · [Overview](00_overview.md) · [Guide README →](../README.md)

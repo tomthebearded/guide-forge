@@ -72,3 +72,6 @@ Game.state = {
   only appears once wiring is done — check script order then.
 - **You reloaded and the demo square froze or vanished** — expected and transient: the *old* `main.js` still references the `demoSpeed` you just removed, so its motion math becomes `NaN` (the page won't throw an error, the square just stops or disappears). Step 04 replaces `main.js` and it comes back to life.
 - **You deleted `moveSpeed` by accident** — the player won't move in step 04. It must be a number of pixels per second.
+
+---
+> Nav: — · [Overview](00_overview.md) · [Input →](02_input.md)

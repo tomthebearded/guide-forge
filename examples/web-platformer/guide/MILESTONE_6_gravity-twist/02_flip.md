@@ -82,3 +82,6 @@ Game.update = function (dt) {
   stays true. Both lines are required.
 - **Jump feels wrong after a flip** — that would mean the jump isn't sign-aware; confirm
   `p.vy = -cfg.jumpSpeed * s.gravitySign;` (from M3), not a hard-coded `-cfg.jumpSpeed`.
+
+---
+> Nav: [← Config & schedule](01_config-and-schedule.md) · [Overview](00_overview.md) · [Telegraph →](03_telegraph.md)

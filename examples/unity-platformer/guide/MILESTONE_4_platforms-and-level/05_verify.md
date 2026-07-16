@@ -39,3 +39,6 @@ Game scene (Assets/Scenes/Game.unity)
 [M5 — Coins, goal & win](../MILESTONE_5_coins-goal-win/00_overview.md): add circle coins you collect for score,
 a goal that triggers a **win**, and an on-screen HUD — introducing triggers, tags, prefabs, and your second
 script, `GameManager`.
+
+---
+> Nav: [← ⭐ Reality-check](04_reality-check.md) · [Overview](00_overview.md) · [M5 — Coins, goal & win →](../MILESTONE_5_coins-goal-win/00_overview.md)

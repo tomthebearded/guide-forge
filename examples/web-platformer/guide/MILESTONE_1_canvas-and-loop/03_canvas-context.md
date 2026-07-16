@@ -57,3 +57,6 @@ ctx.fillRect(40, 200, 40, 40); // x=40, y=200, 40x40 square
   canvas id doesn't match. It must be exactly `game` in both `index.html` and `main.js`.
 - **`Game is not defined`** — `config.js` isn't loading before `main.js`. Check the `<script>` tag order in
   `index.html` (config first).
+
+---
+> Nav: [← Config namespace](02_config-namespace.md) · [Overview](00_overview.md) · [Animation loop →](04_animation-loop.md)

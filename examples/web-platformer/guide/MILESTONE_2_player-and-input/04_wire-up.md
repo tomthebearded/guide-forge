@@ -106,3 +106,6 @@ requestAnimationFrame(frame);
   `render.js` paints the sky before the player.
 - **Arrow keys scroll the page instead of moving** — harmless here (the page doesn't scroll); we add
   `preventDefault` for jump keys in M3.
+
+---
+> Nav: [← Render](03_render.md) · [Overview](00_overview.md) · [Verify →](05_verify.md)

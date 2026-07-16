@@ -321,3 +321,6 @@ requestAnimationFrame(frame);
 Mark M5 ✅ in [foundation/status.md](../foundation/status.md), then go to
 **[M6 — The random twist: gravity flips](../MILESTONE_6_gravity-twist/00_overview.md)** — the signature
 mechanic, and the payoff for all that sign-aware physics.
+
+---
+> Nav: [← Goal & win](03_goal-and-win.md) · [Overview](00_overview.md) · [M6: The random twist →](../MILESTONE_6_gravity-twist/00_overview.md)

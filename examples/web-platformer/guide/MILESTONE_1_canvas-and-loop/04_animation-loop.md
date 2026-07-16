@@ -73,3 +73,6 @@ requestAnimationFrame(frame);
   loop never repeats.
 - **Nothing moves / immediate error** — check the Console. `boxX` must be declared with `let` (it changes);
   `boxY`/`boxSize` with `const` is fine.
+
+---
+> Nav: [← Canvas context](03_canvas-context.md) · [Overview](00_overview.md) · [Delta time →](05_delta-time.md)

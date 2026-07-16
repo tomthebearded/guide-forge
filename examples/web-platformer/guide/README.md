@@ -26,9 +26,9 @@ browser web-platform APIs, all Baseline "Widely available". Full verified table 
   is a two-line change, not a rewrite. → [foundation/decision-log.md](foundation/decision-log.md#d3--gravity-sign-aware-physics)
 
 ## Updates
-- 2026-07-11 — Re-audit + fixes: corrected M4's Done-when gate, added New-tier first-use glosses (`addEventListener`, `preventDefault`, `includes`, ternary, `rgba()`, `Math.sin`/`abs`, gain envelope, `file://`), and small consistency/clarity tidy-ups. Still awaiting human browser verification.
-- 2026-07-11 — Audit-fix pass: blessed the fragment-plus-verify code convention (new decision D7), glossed `switch`/`for…of`, backfilled the glossary, tidied the whole-game gate and a decision-log link. Still awaiting human browser verification.
-- 2026-07-10 — Whole guide drafted (M1–M7). Awaiting human browser verification (see [status](foundation/status.md)).
+- 2026-07-11 — Re-audit + fixes: corrected M4's Done-when gate, added New-tier first-use glosses (`addEventListener`, `preventDefault`, `includes`, ternary, `rgba()`, `Math.sin`/`abs`, gain envelope, `file://`), and small consistency/clarity tidy-ups. Still awaiting browser verification by a person.
+- 2026-07-11 — Audit-fix pass: blessed the fragment-plus-verify code convention (new decision D7), glossed `switch`/`for…of`, backfilled the glossary, tidied the whole-game gate and a decision-log link. Still awaiting browser verification by a person.
+- 2026-07-10 — Whole guide drafted (M1–M7). Awaiting browser verification by a person (see [status](foundation/status.md)).
 - 2026-07-10 — Guide created.
 
 ## Following this guide

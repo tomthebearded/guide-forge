@@ -34,3 +34,6 @@ Nothing here is load-bearing yet — the Square is a pipeline test we delete in 
 ## Next
 [M1 — The Main Menu](../MILESTONE_1_main-menu/00_overview.md): build the title screen (Play + Quit) and write
 your first tiny script to load a second scene.
+
+---
+> Nav: [← First square](04_first-square.md) · [Overview](00_overview.md) · [M1 — The Main Menu →](../MILESTONE_1_main-menu/00_overview.md)

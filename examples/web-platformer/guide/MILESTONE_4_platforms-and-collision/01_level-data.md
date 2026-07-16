@@ -95,3 +95,6 @@ Game.draw = function () {
 - **Platforms don't appear** — `render.js` still draws the old single floor. Confirm you replaced it with the
   `for (const plat of Game.level.platforms)` loop.
 - **`floorY` error** — `render.js` shouldn't reference `floorY` anymore; it draws from the platforms array now.
+
+---
+> Nav: — · [Overview](00_overview.md) · [Collision →](02_collision.md)

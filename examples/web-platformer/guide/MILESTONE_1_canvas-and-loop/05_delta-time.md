@@ -16,7 +16,7 @@ frames, but each frame's `dt` is smaller, so the square covers the *same distanc
 > progress, or your animation runs faster on high-refresh-rate screens. Every moving thing in this game
 > multiplies its speed by `dt`. Memorize the shape: `position += velocity * dt`. See [MDN note](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame) and [decision D2](../foundation/decision-log.md#d2--delta-time-loop-clamped-dt).
 
-> **New concept — clamp `dt`.** If the user switches tabs, the next frame's `dt` could be *seconds*, hurling
+> **New concept — clamp `dt`.** If you switch tabs, the next frame's `dt` could be *seconds*, hurling
 > the square across the screen (and, later, straight through a platform). We cap `dt` at `Game.config.maxDt`
 > (1/30 s). This one line prevents a whole class of collision bugs in M4.
 
@@ -88,3 +88,6 @@ requestAnimationFrame(frame);
   Ensure `lastTime = timestamp;` runs every frame *after* computing `dt`.
 - **`dt` logs `NaN`** — `frame` isn't receiving `timestamp`. It must be `function frame(timestamp)` and be
   called by `requestAnimationFrame` (which supplies the argument), not called directly with no argument.
+
+---
+> Nav: [← Animation loop](04_animation-loop.md) · [Overview](00_overview.md) · [Verify →](06_verify.md)

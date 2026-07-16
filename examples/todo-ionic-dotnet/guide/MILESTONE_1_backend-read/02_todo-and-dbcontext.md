@@ -47,3 +47,6 @@ public class TodoDb(DbContextOptions<TodoDb> options) : DbContext(options)
 ## If it breaks
 - **`The type or namespace 'DbContext' could not be found`** — the `using Microsoft.EntityFrameworkCore;` line
   is missing from `TodoDb.cs`, or the InMemory package from step 01 didn't restore. Re-run `dotnet restore`.
+
+---
+> Nav: [← Create project](01_create-api-project.md) · [Overview](00_overview.md) · [GET endpoint →](03_endpoints-get.md)

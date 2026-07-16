@@ -63,3 +63,6 @@ tests hit real routes without a running server.
   from `backend/Api.Tests`.
 - **`WebApplicationFactory` won't resolve later** — the `Microsoft.AspNetCore.Mvc.Testing` package didn't add;
   re-run step 4's `dotnet add package`.
+
+---
+> Nav: — · [Overview](00_overview.md) · [Read + create tests →](02_list-and-create-tests.md)

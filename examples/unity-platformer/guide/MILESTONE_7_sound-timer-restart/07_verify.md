@@ -368,3 +368,6 @@ public class MenuController : MonoBehaviour
 
 You built a complete, menu-driven, shapes-only 2D platformer in Unity 6.5 — the engine-powered twin of the
 `web-platformer/` guide. Nicely done.
+
+---
+> Nav: [← Restart & Menu](06_restart-and-menu.md) · [Overview](00_overview.md) · [Guide home →](../README.md)

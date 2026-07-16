@@ -5,14 +5,16 @@ says so at the top ("this step touches N files, committed together: …").
 Delete these comments and any section that doesn't apply (Glossary/Code are omittable).
 Every step must obey the 10 pedagogy rules — see ../reference/pedagogy-rules.md.
 
-NAV LINE IS CANONICAL AND REQUIRED: line 2, directly under the H1, in this EXACT format, the SAME in every
-step of every milestone. The middle anchor label is EXACTLY "Overview" — never "Milestone overview", "Back to
-overview", or any other wording (that inconsistency spread across 140 files in one guide). A verify step's
-"next →" points at the next milestone's ../MILESTONE_<n+1>_<slug>/00_overview.md.
+NAV LINE IS CANONICAL AND REQUIRED — AT BOTH TOP AND BOTTOM: line 2 directly under the H1, AND repeated
+verbatim at the very bottom of the file after a "---" horizontal rule. Same EXACT format in both places, the
+SAME in every step of every milestone. The middle anchor label is EXACTLY "Overview" — never "Milestone
+overview", "Back to overview", or any other wording (that inconsistency spread across 140 files in one guide).
+A verify step's "next →" points at the next milestone's ../MILESTONE_<n+1>_<slug>/00_overview.md.
 FIRST STEP OF A MILESTONE: its "prev" is a bare em-dash "—" (NOT a link) — the Overview anchor already points
 there, so a prev→00_overview.md link is redundant. So the first step's nav is:
   > Nav: — · [Overview](00_overview.md) · [<next> →](<next>.md)
-Generate the nav from this template mechanically; don't hand-write it per file. See reference/canonical-layout.md.
+Generate the nav from this template mechanically; don't hand-write it per file. The bottom nav is the same
+line as the top. See reference/canonical-layout.md.
 Editing an EXISTING file? Show the whole updated file if it's short; a long file grown across steps is shown
 complete in that milestone's NN_verify.md checkpoint — never leave it as fragments only.
 -->
@@ -52,3 +54,7 @@ complete in that milestone's NN_verify.md checkpoint — never leave it as fragm
 ## If it breaks
 <!-- Rule 10: the likely failure and the first thing to check. Omit only if truly nothing can go wrong. -->
 - **<symptom>** → <usual cause / first thing to check>.
+
+<!-- BOTTOM NAV — the SAME line as line 2, after a --- rule, as the last thing in the file. -->
+---
+> Nav: [← <prev>](<prev>.md) · [Overview](00_overview.md) · [<next> →](<next>.md)

@@ -26,3 +26,6 @@ feels like a bug. It's a uGUI **Panel** on the HUD Canvas, tinted a warning colo
 - **Panel is fully opaque and hides the game** → lower the Image **Color → Alpha** (the A slider) to ~50–80.
 - **Panel isn't under the HUD Canvas** → drag `TelegraphPanel` onto the `Canvas` in the Hierarchy so it's a
   child; UI must live under a Canvas.
+
+---
+> Nav: [← Twist logic](01_twist-logic.md) · [Overview](00_overview.md) · [Wire & test →](03_wire-and-test.md)

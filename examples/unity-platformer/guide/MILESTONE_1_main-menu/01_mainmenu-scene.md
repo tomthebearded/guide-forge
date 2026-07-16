@@ -28,3 +28,6 @@ than reusing `SampleScene`) keeps names clean and matches the load-bearing scene
 - **Can't find where to save** → the **Save As** dialog opens to your project; drill into `Assets/Scenes`. Files
   saved outside `Assets/` are invisible to Unity.
 - **Title bar still says SampleScene** → you didn't save; redo **File → Save As** and name it `MainMenu`.
+
+---
+> Nav: — · [Overview](00_overview.md) · [Title text →](02_title-text.md)

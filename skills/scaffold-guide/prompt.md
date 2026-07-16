@@ -21,7 +21,7 @@ You do **not** write step content — only the scaffolding.
 
 ## Produce — under `guide/` (follow the canonical layout exactly)
 Use the one canonical skeleton — don't invent a per-guide structure. The fixed tree + naming rules:
-`README.md`, `PLAN.md`, `token-usage.md`, and `feedback-log.md` at the guide root; foundation docs under
+`README.md`, `PLAN.md`, `TOKEN_USAGE.md`, and `feedback-log.md` at the guide root; foundation docs under
 `foundation/`; one `MILESTONE_<N>_<slug>/` folder per milestone with `00_overview.md` … `NN_verify.md`.
 
 1. **`README.md` at the guide root** — the front door (objective ← Target end state; one-line stack summary
@@ -34,11 +34,12 @@ Use the one canonical skeleton — don't invent a per-guide structure. The fixed
    - `glossary.md`, `conventions.md`, `decision-log.md` — seeded with whatever the plan already decided;
      otherwise the empty template with headings. In `glossary.md`, every term is a **`### <term>` heading**
      (never a bullet) so `../glossary.md#<slug>` deep-links from steps resolve natively on GitHub — bulleted
-     terms have no anchor and the links silently fail. (Observed: spotify-trip had 39 dead `glossary.md#term`
+     terms have no anchor and the links silently fail. (Observed: spotify-angular had 39 dead `glossary.md#term`
      links because terms were bullets.)
 3. **One folder per milestone**, named `MILESTONE_<N>_<slug>/` (`MILESTONE_0_…/`, `MILESTONE_1_…/`, …), each
    with a **placeholder `00_overview.md`** carrying that milestone's Goal + Done-when from the ladder and a
-   `🔶 SCAFFOLD — not yet drafted` banner.
+   `🔶 SCAFFOLD — not yet drafted` banner. Give the placeholder its canonical milestone nav line at **both**
+   the top (line 2) and the bottom (after a `---`), identical — see `reference/canonical-layout.md`.
 4. **`feedback-log.md` at the guide root**, from `templates/feedback-log.md` — the empty append-only field log
    for reader friction (header only, no entries yet). It's later appended by `/log-feedback` and `/report-issue`.
 

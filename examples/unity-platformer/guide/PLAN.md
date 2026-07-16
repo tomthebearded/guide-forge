@@ -163,7 +163,7 @@ version and the **built-in modules/APIs** the milestones lean on.
 **Verification caveat (honesty — read this):** Unity is a GUI application plus a physics/render engine; unlike
 the JS sibling it **cannot be exercised headlessly in this authoring environment.** The guide's steps, menu
 paths, API names, and code are authored and cross-checked against the official docs above, **but were not run
-in the Unity Editor by the author.** A human must open Unity 6.5, follow the guide, and tick each Done-when
+in the Unity Editor by the author.** A person must open Unity 6.5, follow the guide, and tick each Done-when
 gate. `status.md` will mark milestones **📝 drafted (author-unverified)**, never ✅, until that happens.
 
 ---
@@ -349,7 +349,7 @@ Done-when gate (aggregated, observable in the Editor) · Handoff (what now exist
 - **Reconcile-before-follow** — Unity moves fast and 6.5 is non-LTS: if a menu path, default, or API has
   drifted when the reader follows, **reality wins** — patch the step and log the drift in `status.md`.
   (`/review-before-follow` + `/update-stack` support this.) Given the author-unverified caveat, the *first*
-  human follow-through is itself the verification pass.
+  hands-on follow-through is itself the verification pass.
 
 ---
 
@@ -357,11 +357,10 @@ Done-when gate (aggregated, observable in the Editor) · Handoff (what now exist
 
 ```
 examples/unity-platformer/
-  TOKEN_USAGE.md                      ← project-level metered ledger (created by the token hook)
   guide/
     PLAN.md                           ← THIS FILE (the only thing written now)
     README.md                         ← front door (scaffold)
-    token-usage.md                    ← per-guide estimate ledger (scaffold seeds row 1 from the cost line below)
+    TOKEN_USAGE.md                    ← the one cost ledger (metered by the hook; scaffold seeds row 1 from the cost line below)
     feedback-log.md                   ← reader-friction log (scaffold)
     foundation/
       stack.md  audience.md  conventions.md  glossary.md  status.md  decision-log.md
@@ -402,7 +401,7 @@ ShapeJumper/                     ← the Unity project (created in M0 via the Hu
 back-to-back — so the reader has the finished guide before building. Once drafted I reconcile `status.md` (all
 milestones **📝 drafted, author-unverified** — see the caveat in §2) + the README Updates log + `examples/README.md`
 and run a dead-link check. The reader then installs Unity 6.5, follows the guide, and verifies each Done-when
-gate in the Editor — that first human follow-through *is* the verification the author could not run.
+gate in the Editor — that first hands-on follow-through *is* the verification the author could not run.
 
 **Do not draft yet.** This plan is the deliverable. Next steps in order:
 1. You approve (or adjust) this plan.
@@ -412,5 +411,5 @@ gate in the Editor — that first human follow-through *is* the verification the
 ---
 
 *Planning cost (est.): 2026-07-11 ~10:40 UTC · `plan-guide` · ~55k tokens in / ~9k out ≈ 64k total ·
-rough est. (Claude can't meter its own tokens mid-run) — `/scaffold-guide` seeds `token-usage.md` row 1 from
+rough est. (Claude can't meter its own tokens mid-run) — `/scaffold-guide` seeds `TOKEN_USAGE.md` row 1 from
 this line.*

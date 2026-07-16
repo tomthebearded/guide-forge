@@ -100,3 +100,6 @@ requestAnimationFrame(frame);
 - **Player falls instantly off-screen in one frame** — you added `gravity` to `y` directly instead of to `vy`,
   or forgot a `* dt`. Gravity goes into `vy`; `vy` goes into `y`; both scaled by `dt`.
 - **`Game.updatePlayer is not a function`** — `physics.js` loads *after* `main.js`. It must come before `main.js`.
+
+---
+> Nav: [← Config & state](01_config-and-state.md) · [Overview](00_overview.md) · [Floor & grounded →](03_floor-and-grounded.md)

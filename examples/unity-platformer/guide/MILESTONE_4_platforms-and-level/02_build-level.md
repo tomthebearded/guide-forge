@@ -35,3 +35,6 @@ make any layout you like as long as it's climbable.
   behavior. If it feels bad, widen the platform (Scale X).
 - **You fall off the world** → the floor is your safety net; make sure `Platform_Floor` spans the whole width
   (Scale X ~16).
+
+---
+> Nav: [← Platform from ground](01_platform-from-ground.md) · [Overview](00_overview.md) · [Check layers →](03_check-layers.md)

@@ -38,7 +38,7 @@ $ARGUMENTS
 
 **Log the run:** the cost ledger doesn't exist yet (scaffold owns it), so don't write one — even though you
 just created `guide/` for `PLAN.md`. End your reply with a `Planning cost (est.)` line — date + time (UTC),
-`modernize-guide`, an **estimated** token count + cost — so `/scaffold-guide` seeds `guide/token-usage.md`'s
+`modernize-guide`, an **estimated** token count + cost — so `/scaffold-guide` seeds `guide/TOKEN_USAGE.md`'s
 first row from it. See
 [reference/token-tracking.md](../../reference/token-tracking.md). It's an estimate (Claude can't meter its own
 tokens mid-run) — label it so.

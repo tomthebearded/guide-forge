@@ -89,3 +89,6 @@ exactly these URLs in M6.
   need it to bind the JSON body to the DTO.
 - **`400` with a binding error** — the JSON key case doesn't match. Send `"title"` (camelCase), matching
   `CreateTodoDto.Title`.
+
+---
+> Nav: [← DTOs](01_dtos.md) · [Overview](00_overview.md) · [CORS →](03_cors.md)

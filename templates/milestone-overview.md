@@ -46,3 +46,7 @@ This is the reader's map for the milestone AND the connective tissue to the rest
 <!-- Anything deferred, uncertain, or noted for later. -->
 ### Next milestone
 <!-- Name it, what it proves, and its one-line Done-when. -->
+
+<!-- BOTTOM NAV — the SAME line-2 milestone nav, after a --- rule, as the last thing in the file. -->
+---
+> <Phase/Section · milestone K of N · prev: [<prev>](../<prev>/00_overview.md) · next: [<next>](../<next>/00_overview.md)>

@@ -36,3 +36,6 @@ be **index 0**.
 - **Only one scene listed** → you clicked **Add Open Scenes** with the same scene open twice. Open the missing
   scene first, then Add Open Scenes.
 - **Indices are swapped** → drag `MainMenu` to the top; the number on the right updates to 0.
+
+---
+> Nav: [← Game scene](04_game-scene.md) · [Overview](00_overview.md) · [MenuController script →](06_menucontroller-script.md)

@@ -27,3 +27,6 @@ though you're welcome to paste it into the project README.)
 ## If it breaks
 - **Your symptom isn't listed** — check the per-step "If it breaks" note in the milestone where the relevant
   file was created; it names the failure closest to that code.
+
+---
+> Nav: [← Run-both README](02_run-both.md) · [Overview](00_overview.md) · [Verify →](04_verify.md)

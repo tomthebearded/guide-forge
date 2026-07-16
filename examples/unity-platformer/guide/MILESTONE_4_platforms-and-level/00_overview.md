@@ -61,3 +61,6 @@ ShapeJumper/
 ### Next milestone
 [M5 — Coins, goal & win](../MILESTONE_5_coins-goal-win/00_overview.md): add collectible coins, a goal, an
 on-screen score, and a win state.
+
+---
+> Section: The game · milestone 4 of 8 (M0–M7) · next: [Coins, goal & win](../MILESTONE_5_coins-goal-win/00_overview.md)

@@ -169,3 +169,6 @@ export class HomePage implements OnInit {
   `unknown`.
 - **Filter resets on every add** — that's expected only if you re-created the signal; `filter` must be a field
   initialized once, not reassigned.
+
+---
+> Nav: [← Edit + delete](03_edit-and-delete.md) · [Overview](00_overview.md) · [Verify →](05_verify.md)

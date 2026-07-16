@@ -67,3 +67,6 @@ shape-jumper/
 ### Next milestone
 None — this is the last. Run the whole-game gate in [04_verify.md](04_verify.md), then mark the guide done in
 [foundation/status.md](../foundation/status.md).
+
+---
+> Section: The game · milestone 7 of 7 · prev: [The random twist: gravity flips](../MILESTONE_6_gravity-twist/00_overview.md)

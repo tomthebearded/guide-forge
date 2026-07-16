@@ -25,7 +25,9 @@ later (see [conventions](../foundation/conventions.md#structure--architecture)).
 2. **WHAT each field is:**
    - `width` / `height` — the canvas pixel size. **Cosmetic** — change freely.
    - `colors` — a small palette. **Cosmetic.**
-   - `maxDt` — the delta-time **clamp** (max seconds simulated in one frame). `1 / 30` ≈ 0.0333 s. This is
+   - `maxDt` — the **delta-time** clamp. *Delta time* (`dt`) is the seconds elapsed since the previous frame;
+     we cap it so one slow frame can't teleport the player. You'll build and fully understand `dt` in
+     [step 05](05_delta-time.md); here you're just setting the ceiling. `1 / 30` ≈ 0.0333 s. This is
      **load-bearing for correctness** later (it stops the player tunnelling through platforms after the tab
      sleeps — see [decision D2](../foundation/decision-log.md#d2--delta-time-loop-clamped-dt)). Keep it small.
    - `demoSpeed` — how fast the M1 demo square moves, in **pixels per second**. Temporary; goes away in M2.
@@ -67,3 +69,6 @@ Game.config = {
   are comma-separated `key: value` pairs.
 - **Console says `Game is not defined` (later)** — `config.js` isn't loading *first*, or its `<script>` tag is
   missing/misspelled in `index.html`. It must be the first game script.
+
+---
+> Nav: [← Page skeleton](01_page-skeleton.md) · [Overview](00_overview.md) · [Canvas context →](03_canvas-context.md)
