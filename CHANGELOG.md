@@ -3,6 +3,131 @@
 All notable changes to GuideForge are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/); this project uses date-stamped versions.
 
+Four new pedagogy rules, a glossary-hygiene pass, a provenance rule, a suite of deterministic maintenance
+scripts + CI, and a **restructure of the pedagogy contract from a flat rule list into seven named principles**
+— most from real reader-friction observations plus two process failures (a drifted/phantom version and a stale
+install cache) worth preventing in code, not prose. The contract is now advertised as **7 principles** (holding
+the rules as dotted `3.1`-style ids). The bundled **worked example guides and their showcase/tooling were
+retired** (see "Worked examples removed" in `Changed`).
+
+> The `Added` items below describe the four new rules by their original `R11`–`R14` ids (how they landed this
+> cycle); the restructure at the end of `Changed` re-homes every rule under a principle and gives the new
+> ids — R11→4.2, R12→4.3, R13→3.5, R14→7.1.
+
+### Added
+
+- **R11 — Put each code block directly under the instruction it implements.** When a step's code has 2+
+  distinct parts, each part's fenced block now sits **immediately below the numbered action that introduces
+  it** (interleaved), not batched in a trailing `## Code` dump. `reference/pedagogy-rules.md` gains the rule
+  with a before/after; `plan-guide`, `draft-milestone`, and `clarify-step` author to it; `audit-guide` flags a
+  trailing code dump, an interleaved fragment with no location, and a redundant consolidated "complete file"
+  copy.
+- **R12 — When a file already exists, add to it; don't reproduce the whole file.** For a file that already has
+  code, a step shows only the fragment to add plus a **unique** placement anchor (a named function/block or a
+  once-occurring line) — never the entire file re-pasted (which invites overwriting the reader's real code), and
+  never an anchor like "under `x = true;`" that matches several lines. `reference/pedagogy-rules.md` gains the
+  rule with a before/after; `plan-guide`, `draft-milestone`, and `clarify-step` author to it; `audit-guide`
+  flags a whole pre-existing file re-pasted and an ambiguous anchor. Two new `EXPLAINER.md` table rows
+  (R11 + R12) plus updates across `README.md`, `templates/step.md`, `templates/verify.md`, and the skills.
+- **R13 — Reuse a value; define it once (whole-guide consistency).** Split out of R4, which conflated a
+  *per-step* "be exact" rule with a *cross-step* "same figure everywhere" property. A figure that recurs (jump
+  height, tick rate, timeout, colour hex, port) must read identically in the code, prose, gate, glossary, and
+  overview. `reference/pedagogy-rules.md` gains R13 (R4 slimmed, with a cross-reference); `plan-guide`,
+  `draft-milestone`, `clarify-step` author to it; `audit-guide` checks it as a whole-guide value-consistency
+  sweep.
+- **R14 — Declare the step's starting state (don't silently assume a prerequisite).** The proactive,
+  authoring-time twin of the review-gate "list implied/missing steps" corollary, targeting the #1 field-failure
+  class (`report-issue`'s most common root cause). A step states what must already be installed/running/
+  logged-in/built — or points to the step that established it — before its first action. Added to
+  `reference/pedagogy-rules.md`, `plan-guide`, `draft-milestone` (contract + self-audit), `clarify-step`, and
+  `audit-guide` (flags a first action depending on unestablished environment/runtime state).
+- **Deterministic maintenance scripts + CI (`scripts/`, `package.json`, `.github/workflows/ci.yml`).** The
+  version-drift and stale-cache problems that motivated this release are now guarded by code, not prose:
+  `check-version.mjs` (stamps agree **and** a released version is git-tagged — catches a phantom bump),
+  `check-consistency.mjs` (skill frontmatter, wrapper delegation, skill/rule counts, dead links),
+  `doctor.mjs` (installed cache vs working tree — surfaces staleness), `release.mjs` (the *only* way the version
+  moves: bumps `plugin.json` + README badge + promotes `## [Unreleased]` atomically). `npm test` runs
+  `check-version` + `check-consistency`; CI runs them on every PR.
+- **Provenance rule — every guide records the GuideForge version that produced it.** Just as `stack.md` pins
+  the *subject* tools, a guide now pins the *method*: `scaffold-guide` reads the `version` field from the
+  plugin's `.claude-plugin/plugin.json` and stamps it verbatim into the `README.md` (a provenance line + the
+  Updates-log seed, `Guide created with GuideForge v<x.y.z>.`) and into `foundation/status.md` (a provenance
+  line). It's set once at scaffold time and left as-is on later edits — it marks the method revision the guide
+  was built against. Documented in `skills/scaffold-guide/prompt.md` + `SKILL.md`, `templates/readme.md`, and
+  `templates/status.md`. Not enforced by `audit-guide` (documented convention, not a lint check).
+
+### Changed
+
+- **Fixed: the plugin failed to load — removed the redundant `hooks` key from the manifest.**
+  `.claude-plugin/plugin.json` declared `"hooks": "./hooks/hooks.json"`, but Claude Code auto-loads the
+  standard `hooks/hooks.json` path; re-declaring it double-loaded and threw *"Duplicate hooks file detected"*,
+  marking the whole plugin **failed to load**. Dropped the key — the bundled Stop/SubagentStop hook still
+  auto-loads from the standard path, so token tracking is unaffected. `README.md`'s "turn it off" note updated
+  (delete/rename `hooks/hooks.json` or `claude plugin disable`, since there's no longer a key to remove).
+- **The complete-file guarantee moved entirely to the checkpoint.** The old step-level rule *"any code block
+  is a complete file, no partial snippets"* is retired — intra-step **fragments are now expected** for
+  multi-part code. The single authoritative, paste-able copy of every file a milestone touches is guaranteed
+  **only** by that milestone's `NN_verify.md` checkpoint (unchanged; its MAJOR completeness lint is now the
+  sole guarantor). Each interleaved fragment must state **where it goes** (file + position) so the reader can
+  still reassemble the whole. Updated in `templates/step.md`, `templates/verify.md`, `plan-guide`,
+  `draft-milestone`, `clarify-step`, `audit-guide`, and `EXPLAINER.md`.
+- **Glossary is words/concepts only — functions get an inline code comment.** R1 no longer sends functions to
+  the glossary: a **function** (built-in method like `toFixed()`/`ctx.fillRect()` *and* one the guide writes
+  like `spawnEnemy()`) is explained with an inline code comment on its line, never a glossary `### entry`.
+  Non-function concept terms (`delta time`, `middleware`, `Transform`, Gamma color space) still go in the
+  glossary. Updated in `reference/pedagogy-rules.md`, `templates/glossary.md`, `plan-guide`, `draft-milestone`,
+  `clarify-step`, and `audit-guide` (which now flags a function used as a glossary entry).
+- **The glossary is linked once, from the step's block — not after every term.** Body inline-glosses and "New
+  concept" callouts stop appending a `see [glossary](…)` link; the `## Glossary for this step` block is the one
+  door to the glossary (its per-term `../glossary.md#slug` deep-links and the audit's anchor-resolution check
+  are unchanged). An external-API *docs* link in a body callout is still fine (the sourcing principle).
+  Updated in `reference/pedagogy-rules.md`, `templates/step.md`, `plan-guide`, `draft-milestone`, `clarify-step`.
+- **Checkpoint carve-out for pre-existing files.** The `NN_verify.md` file checkpoint renders whole only the
+  files the **guide authored**; a pre-existing file the milestone only adds to is shown as its added region +
+  unique anchor under a new "Pre-existing files modified" list, not reproduced whole. Reconciled in
+  `templates/verify.md`, `reference/canonical-layout.md`, `audit-guide`, and `draft-milestone`.
+- **`pre-pr-check` now runs the scripts instead of describing the checks.** Its "machine-checkable half" was
+  prose a model re-performed by hand (and had miscounted before); it now runs `check-version.mjs` +
+  `check-consistency.mjs` + `doctor.mjs` as a hard gate and only applies judgment where a script can't. Its
+  wrapper-delegation check exempts the self-contained `pre-pr-check` (no `prompt.md`), matching the script's
+  "only skills with a `prompt.md`" logic.
+- **Non-interactive `plan-guide` defaults to the current stable LTS, not bleeding-edge `latest`.** A teaching
+  guide wants the most stable ecosystem and fewest breaking-change surprises; Phase 0.5 still confirms what the
+  current LTS actually is, and a reader can opt into the newest major.
+- **Token-hook rates single-sourced.** The per-model USD rates now live only in `MODEL_RATES` in
+  `hooks/track-tokens.js`; `reference/token-tracking.md` and `README.md` point to the code instead of
+  restating figures that had already drifted (the docs listed only Opus while the code priced Sonnet/Haiku
+  too). The hook also prunes `state.seen` to the most-recent 5000 message ids so the dedup state can't grow
+  unbounded.
+- **Contract sync set documented.** `reference/pedagogy-rules.md` is the canonical rule text; the skill prompts
+  deliberately re-state it inline to stay usable as standalone paste-prompts. A "contract sync set" note now
+  lists every file a rule change must touch, and `check-consistency.mjs` enforces that the stated rule/skill
+  counts agree — a half-applied change fails CI instead of shipping.
+- **CONTRIBUTING gains a "Developing on the plugin" section.** Explains that install *copies* the plugin to a
+  cache (so working-tree edits need a reinstall — the exact trap that let weeks of edits run against a July-7
+  copy), and documents `doctor.mjs`, `release.mjs`, and `npm test`.
+- **The pedagogy contract is restructured from a flat 14-rule list into seven named principles.** A review
+  found the flat numbering hid real hierarchy (R12 was "R2 + R11 for existing files", R13 was split from R4,
+  R14 twinned a review corollary) and that R1 alone bundled five sub-rules. The rules are now grouped under
+  **P1 Explain what's new · P2 Anchor every action · P3 Leave nothing ambiguous · P4 Structure steps & code ·
+  P5 Anticipate failure · P6 Prove the gate · P7 Declare the starting state**, cited by dotted ids
+  (`principle.rule`, e.g. `3.1`). R1's five clauses are now named `1.1a`–`1.1e`; the former standalone "gate
+  principle" is promoted to a numbered rule (`6.1`). **Full old→new map:** R1→1.1, R2→2.1, R3→2.2, R4→3.1,
+  R5→3.2, R6→3.3, R7→1.2, R8→3.4, R9→4.1, R10→5.1, R11→4.2, R12→4.3, R13→3.5, R14→7.1, gate→6.1. Applied
+  across `reference/pedagogy-rules.md`, `EXPLAINER.md` §7 (regrouped table), `README.md` ("pedagogy in one
+  screen" is now genuinely one screen — the 7 principles), all skill prompts + self-audit, `templates/`, and
+  the count docs. The advertised count is **7 principles** (not a flat rule count); `check-consistency.mjs`
+  now verifies the principle count.
+- **Worked examples removed as a shipped feature.** The bundled example guides are being retired, so the plugin
+  no longer showcases or tools them: dropped the `examples/`-facing docs (the README repo-map row and the
+  EXPLAINER §5 "worked runs" section), the cross-guide dashboard (`scripts/guide-status.mjs` + `examples/INDEX.md`
+  and its `guide-status` npm script), the `/harvest-feedback` skill (its only data source was example
+  feedback-logs), and `pre-pr-check`'s "worked examples match the canonical layout" check + `examples/` link
+  sweep. Specific-guide names in the pedagogy rules' `(Observed: …)` provenance notes were **generalized** — the
+  concrete lesson kept, the guide name dropped. **Skill count 12 → 11.** The domain-agnostic-core /
+  domain-content-lives-under-`examples/` architecture principle stays; only the shipped worked guides and their
+  machinery are gone.
+
 ## [1.2.0] — 2026-07-16
 
 A drafting-cadence change (whole guide in one pass), structural hardening of the skill layer, two correctness

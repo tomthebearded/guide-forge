@@ -1,16 +1,20 @@
-# Reference — The pedagogy rules (the writing contract)
+# Reference — The pedagogy principles (the writing contract)
 
-> These ten rules are the heart of GuideForge. Each one exists because of a *real* way a reader gets lost.
-> They turn "teach well" from a vibe into a checklist a model can satisfy and you can audit. This file
-> explains each rule, why it exists, and shows a before/after.
+> These **seven principles** are the heart of GuideForge. Each groups a small family of rules, and each rule
+> exists because of a *real* way a reader gets lost. Together they turn "teach well" from a vibe into a
+> checklist a model can satisfy and you can audit. This file explains each principle, its rules (cited by a
+> dotted id like `3.1`), why each exists, and shows a before/after.
 >
-> The **first six** are for *writing/rewriting* a step (prompts 01–03). The **last four** overlap with the
-> *review-before-follow* gate (prompt 04) — they're what you check before executing a step. In practice all
-> ten belong in every finished step.
+> **Principles 1–4 and 7** are things you apply while *writing/rewriting* a step (prompts 01–03).
+> **Principle 5** (anticipate failure) and **Principle 6** (prove the gate) are also what you check at the
+> *review-before-follow* gate (prompt 04). Rule **3.5** is a *whole-guide* consistency property, checked across
+> steps rather than within one. In practice all seven belong in every finished step.
 
 ---
 
-## The audience principle (the rule behind the rules)
+## The principles behind the rules (three lenses applied to every rule below)
+
+### The audience principle
 
 Every rule below is applied *relative to the audience model* — a **per-topic expertise matrix** plus a
 **granularity** dial (full treatment: [audience-model.md](audience-model.md)).
@@ -25,9 +29,7 @@ Every rule below is applied *relative to the audience model* — a **per-topic e
 When in doubt, match depth to the reader's level *on that specific topic*. A guide for a reader who is
 "Expert in Python, New to Kubernetes" explains every `kubectl` verb with a doc link and no Python syntax.
 
----
-
-## The sourcing principle (facts come from the docs, not from memory)
+### The sourcing principle (facts come from the docs, not from memory)
 
 A teaching guide loses all trust the moment a version number is wrong or an API doesn't exist. So:
 
@@ -35,13 +37,11 @@ A teaching guide loses all trust the moment a version number is wrong or an API 
   online Phase 0.5) is the single reference; every step builds against those exact versions.
 - **Verify APIs against the current official docs before writing code** — names, signatures, flags,
   config keys. Training memory is stale; the docs are truth. If they disagree, the docs win.
-- **Link the authoritative source.** When rule R1 introduces an external API/tool concept, deep-link its
+- **Link the authoritative source.** When rule 1.1 introduces an external API/tool concept, deep-link its
   official docs page so the reader can go further at the source — and so the claim is checkable.
 - **No link → no claim.** If you can't verify a version or API online, say "unverified" rather than assert it.
 
----
-
-## The voice principle (address the reader directly as "you")
+### The voice principle (address the reader directly as "you")
 
 The person following the guide is **"you"** — always second person, spoken to directly. **Never refer to the
 reader in the third person** — not "the Human", "the human", "the user", "the developer", "the reader", or
@@ -59,44 +59,68 @@ third person is fine; the rule is only about naming the guide-follower.)
 
 ---
 
-## R1 — Explain every concept on first use (inline, or a callout right above)
+## P1 — Explain what's new
+*Build the reader's understanding: define concepts as they arrive, and teach the framing ideas where they bite.*
+
+### 1.1 — Explain every concept on first use (inline, or a callout right above)
 **Why:** an undefined term stops a reader cold; they either guess (dangerous) or leave to look it up (lost
 momentum). The worst case is a term stated as a **bare rule or decision** — "use Gamma color space, PPU 32,
 Point filter" — with neither a definition nor a pointer to where it's explained: the reader can't even tell
-there's something they're missing. **Do:** the first time a term outside "knows already" appears, explain it
-*at or before* that point, using whichever form fits the sentence:
+there's something they're missing.
 
-- **Inline gloss** — a one-sentence plain-language definition in dashes or parentheses, then link the
-  glossary. Best when the term sits inside prose.
+**(a) Use whichever form fits the sentence — and explain *before or at* first use, never after.**
+- **Inline gloss** — a one-sentence plain-language definition in dashes or parentheses. Best when the term
+  sits inside prose.
 - **"New concept" callout right above** — when the term first lands on a command, menu, or code line where
   an inline aside would wreck the flow, put a one-line callout on its own line *immediately above* that line:
-  `> 📚 New concept — [term](glossary-or-doc-link): one-sentence definition.` (The emoji is optional; match
-  the guide's other callouts.)
+  `> 📚 New concept — **term**: one-sentence definition.` (The emoji is optional; match the guide's other
+  callouts. Deep-link the term's *official docs* here when it's an external API — the sourcing principle
+  requires it — but **not** the glossary; see 1.1b.)
 
-Either way the term is explained *before or at* first use, never after. If a step introduces many terms, also
-add a "Glossary for this step" block at the top. **Never leave a load-bearing term as a bare rule with no
-gloss and no link** — if a decision names a concept, either define it or point to where it's defined.
-
-**Built-in library methods are R1 terms too.** When the reader is **New/Beginner** on a language or engine,
-its standard-library and built-in surface counts as first-use terms — `Math.round()`, `Math.PI`,
-`Number.toFixed()`, `ctx.fillRect()` for JS-new; `Transform`, `Clear Flags`, `IL2CPP` for Unity-new. Gloss
-them at first use, at the topic's depth. The defect is an **inconsistent bar**: glossing `const` but using
-`toFixed()` bare on the next line. If the bar is high enough to explain `const`, apply it to the built-in too.
-
-- ❌ "Use `angle.toFixed(2)` to round the readout." (built-in method, bar set high elsewhere, left bare)
-- ✅ `> 📚 New concept — Number.toFixed(n): rounds a number to n decimal places and returns it as a string. See`
-  `[glossary](../glossary.md#numbertofixed).` then "Use `angle.toFixed(2)` to round the readout."
-- ❌ (web-platformer) glossed `const` but used `Math.round`, `Math.PI`, `toFixed` with no definition.
+If a step introduces many terms, also add a "Glossary for this step" block at the top. **Never leave a
+load-bearing term as a bare rule with no gloss and no pointer** — if a decision names a concept, either define
+it or point to where it's defined.
 
 - ❌ "Register the middleware and it'll wrap every handler."
 - ✅ (inline) "Register the **middleware** — a function that runs on every request *before* your handler,
   used here for logging — and it'll wrap every handler."
-- ❌ "Set **Color Space** to Gamma." (a load-bearing term as a bare rule — no gloss, no link)
+- ❌ "Set **Color Space** to Gamma." (a load-bearing term as a bare rule — no gloss, no pointer)
 - ✅ (callout, on its own line right above the action):
   `> 📚 New concept — Gamma color space: texture values render exactly as authored (no sRGB curve), so`
-  `hand-picked palettes look right. See [glossary](../glossary.md#gamma).`
+  `hand-picked palettes look right.` (its glossary link lives once in `## Glossary for this step`, not here.)
 
-**Forward-explained concepts — gloss + point forward at first use.** A concept is often *used* (in a config
+**(b) Link the glossary once, in the step's block — not after every term.** The body gloss/callout *defines*
+the term; it does **not** append a `see [glossary](…)` link. The glossary is pointed to a single time, from the
+step's `## Glossary for this step` block (which carries the per-term `../glossary.md#slug` deep-links). Trailing
+"see glossary" after each term is repetitive noise — drop it from the body and let the block be the one door to
+the glossary.
+
+- ❌ (body callout) `> 📚 New concept — middleware: code that runs on every request. See [glossary](../glossary.md#middleware).`
+- ✅ (body callout) `> 📚 New concept — middleware: code that runs on every request before your handler.`
+  — the glossary link for `middleware` lives once, in `## Glossary for this step`.
+
+**(c) Built-in library methods are first-use terms too.** When the reader is **New/Beginner** on a language or
+engine, its standard-library and built-in surface counts as first-use terms — `Math.round()`,
+`Number.toFixed()`, `ctx.fillRect()` for JS-new. Explain them at first use, at the topic's depth. The defect is
+an **inconsistent bar**: explaining `const` but using `toFixed()` bare on the next line. If the bar is high
+enough to explain `const`, apply it to the built-in too. Non-function concept terms — `Math.PI`, `Transform`,
+`Clear Flags`, `IL2CPP`, Gamma color space — are words, so they get glossed and go in the glossary as usual.
+
+- ❌ explained `const` but used `Math.round`, `Math.PI`, `toFixed` with no definition.
+
+**(d) Explain a *function* with an inline code comment, not a glossary entry.** A function's explanation belongs
+in an inline code comment right on its line, never as a glossary `### entry` — the glossary holds *words/
+concepts* only. (Deep-link the function's official docs from the prose if it's an external API; that's the
+sourcing principle, separate from the glossary ban.)
+
+- ❌ "Use `angle.toFixed(2)` to round the readout." (built-in method, bar set high elsewhere, left bare)
+- ❌ a `### Number.toFixed()` entry in the glossary. (a function does not belong in the glossary)
+- ✅ an inline comment on the code line:
+  ```js
+  const readout = angle.toFixed(2); // toFixed(n) → rounds to n decimals, returns a string
+  ```
+
+**(e) Forward-explained concepts — gloss + point forward at first use.** A concept is often *used* (in a config
 key, a code comment, a value) a few steps before the step that *teaches* it in depth. "First use" is still
 first use: the reader meets the term there, so it can't be left bare just because a later step will explain it.
 At the **first appearance**, give a **one-line mini-gloss AND a forward pointer** to the step that teaches it
@@ -105,13 +129,25 @@ deep-dive stays where the ladder puts it; the first mention just needs a plain-l
 signpost. (This is the pedagogy twin of the structural *dependency-ordering* rule, which forbids a code
 identifier being *used* before it's *defined*.)
 
-- ❌ (web-platformer M1/02, a config comment) "`maxDt` — the delta-time **clamp** (max seconds simulated in
-  one frame)." — names *delta time* three steps before it's taught in M1/05, with no gloss and no pointer.
+- ❌ (a config comment) "`maxDt` — the delta-time **clamp** (max seconds simulated in
+  one frame)." — names *delta time* three steps before it's taught later, with no gloss and no pointer.
 - ✅ "`maxDt` — the **delta-time** clamp. *Delta time* (`dt`) is the seconds elapsed since the previous frame;
   we cap it so one slow frame can't teleport the player. You'll build and fully understand `dt` in
   [step 05](05_delta-time.md); here you're just setting the ceiling."
 
-## R2 — Every action says WHERE
+### 1.2 — Teach the recurring mental model at the point of use
+**Why:** one or two framing ideas make dozens of later steps obvious — but only if introduced where they
+first bite, then reinforced. **Do:** state the model in place, and note where it'll recur.
+
+- ✅ "Remember: in Go an interface is satisfied *implicitly* — you never write `implements`. A type just has
+  the methods. We rely on this again when we swap the storage backend in M3."
+
+---
+
+## P2 — Anchor every action
+*Every instruction says where it happens and why, so the reader never guesses location or purpose.*
+
+### 2.1 — Every action says WHERE
 **Why:** "add the route" is useless if the reader doesn't know which file/panel/menu. Locating things is
 half the friction for a newcomer. **Do:** name the exact file + location, or the exact menu path, or the
 exact command context.
@@ -119,7 +155,7 @@ exact command context.
 - ❌ "Add the route."
 - ✅ "In `cmd/server/main.go`, inside the `setupRoutes()` function, add the route."
 
-## R3 — Every action says WHAT it does and WHY
+### 2.2 — Every action says WHAT it does and WHY
 **Why:** copying without understanding produces brittle knowledge — the "learn" fails. **Do:** one clause on
 the mechanism/purpose, not just the keystroke.
 
@@ -127,26 +163,20 @@ the mechanism/purpose, not just the keystroke.
 - ✅ "Run `go mod init example/api` — this creates `go.mod`, which declares your module path so imports
   resolve and dependencies get tracked."
 
-## R4 — Be exact where the outcome depends on it
+---
+
+## P3 — Leave nothing ambiguous
+*Remove every "which one? / how much? / can I change this?" — be exact, and stay exact across the whole guide.*
+
+### 3.1 — Be exact where the outcome depends on it
 **Why:** "a reasonable value" makes the reader guess, and a wrong guess breaks the gate. **Do:** give the
-concrete value. If a value is genuinely free, *say so* — that's also information.
+concrete value. If a value is genuinely free, *say so* — that's also information. (Once you've chosen a value,
+keep it identical everywhere it recurs — that whole-guide property is **rule 3.5**.)
 
 - ❌ "Set a sensible timeout."
 - ✅ "Set the timeout to `5 * time.Second`. (Any value ≥ 1s works; we use 5s.)"
 
-**Compute a value once, reuse the same figure everywhere.** A value that is *derived* or *cited* more than
-once — a jump height, a tick rate, a timeout, a grid size, a colour hex — must be **identical** in every place
-it appears: the code, the prose that explains it, the Done-when gate, the glossary, the overview. Calculate it
-once, then quote that exact figure; never re-derive it (you'll round differently) or eyeball a "close enough"
-number in prose. If the value changes, change it everywhere in the same pass.
-
-- ❌ code sets `jumpHeight = 2.5f` but the prose says "the character jumps 2 units" and the gate says "~2.5".
-- ✅ code, prose, and gate all say **`2.5`** units — one figure, quoted verbatim wherever it recurs.
-
-> **The defect this prevents:** a jump height that reads `2` in one file and `2.5` in another, so the reader
-> can't tell which is right. (Observed: unity example.)
-
-## R5 — Separate MANDATORY from ILLUSTRATIVE
+### 3.2 — Separate MANDATORY from ILLUSTRATIVE
 **Why:** readers can't tell your arbitrary example choice from a load-bearing requirement, so they either
 cargo-cult everything or change something critical. **Do:** mark which is which.
 
@@ -154,28 +184,42 @@ cargo-cult everything or change something critical. **Do:** mark which is which.
 - ✅ "The struct's *fields* are up to your domain (illustrative: `Title`, `Author`). The **JSON tags are
   mandatory** — the API contract depends on `\"title\"` and `\"author\"` exactly."
 
-## R6 — State which fields to change and which to LEAVE AT DEFAULT
+### 3.3 — State which fields to change and which to LEAVE AT DEFAULT
 **Why:** a config screen with 20 fields makes the reader wonder "did I miss one?" **Do:** be exhaustive for
 the object in hand; explicitly say "leave the rest at defaults."
 
 - ❌ "Configure the server."
 - ✅ "On the `http.Server`, set `Addr` and `Handler`. **Leave every other field at its default.**"
 
-## R7 — Teach the recurring mental model at the point of use
-**Why:** one or two framing ideas make dozens of later steps obvious — but only if introduced where they
-first bite, then reinforced. **Do:** state the model in place, and note where it'll recur.
-
-- ✅ "Remember: in Go an interface is satisfied *implicitly* — you never write `implements`. A type just has
-  the methods. We rely on this again when we swap the storage backend in M3."
-
-## R8 — Flag load-bearing names vs cosmetic ones
+### 3.4 — Flag load-bearing names vs cosmetic ones
 **Why:** the reader doesn't know which strings are safe to rename. Rename a load-bearing one and it breaks
 mysteriously. **Do:** say which before they type.
 
 - ✅ "The handler *function* name is cosmetic — call it what you like. The route string `/books` is
   **load-bearing**: the tests and the frontend hit it exactly."
 
-## R9 — Sequences are numbered lists, never arrow-chains
+### 3.5 — Reuse a value; define it once (whole-guide consistency)
+**Why:** a value that is *derived* or *cited* more than once — a jump height, a tick rate, a timeout, a grid
+size, a colour hex — breaks trust the moment two places disagree: the reader can't tell which figure is right.
+This is a **cross-step** property, not a within-step one (which is why it's separated from rule 3.1, the
+per-step "be exact" rule). **Do:** calculate the value **once**, then quote that exact figure in every place it
+appears — the code, the prose that explains it, the Done-when gate, the glossary, the overview. Never re-derive
+it (you'll round differently) or eyeball a "close enough" number in prose. If the value changes, change it
+everywhere in the same pass. (`audit-guide` checks this as a consistency sweep across the guide, not just inside
+one step.)
+
+- ❌ code sets `jumpHeight = 2.5f` but the prose says "the character jumps 2 units" and the gate says "~2.5".
+- ✅ code, prose, and gate all say **`2.5`** units — one figure, quoted verbatim wherever it recurs.
+
+> **The defect this prevents:** a jump height that reads `2` in one file and `2.5` in another, so the reader
+> can't tell which is right. (Observed in an earlier worked example.)
+
+---
+
+## P4 — Structure steps & code
+*Order actions and place code so the reader reads-then-does in one motion, and never overwrites their own work.*
+
+### 4.1 — Sequences are numbered lists, never arrow-chains
 **Why:** an arrow chain hides how many distinct actions there are and where one ends. **Do:** number
 distinct actions. Reserve `→` for a *single* menu-navigation path inside one action.
 
@@ -183,7 +227,64 @@ distinct actions. Reserve `→` for a *single* menu-navigation path inside one a
 - ✅ "1. Open `main.go`. 2. Edit `booksHandler`. 3. Save. 4. Run `go test ./...`."
 - ✅ (arrow OK — one action) "Menu: **File → New → Go File**."
 
-## R10 — Name the likely failure and its usual cause
+### 4.2 — Put each code block directly under the instruction it implements
+**Why:** when a step lists every "Do this" action and *then* dumps all the code in a trailing block, the
+reader has to re-pair each block with the action that described it — scrolling back and forth, guessing which
+block goes where. That pairing is exactly the thing that teaches: read "do X", see X's code right there. A
+batched code dump breaks the read-then-see rhythm and hides which snippet answers which instruction. **Do:**
+when a step's code has **two or more distinct parts**, place each part's fenced block **immediately below the
+numbered instruction that introduces it**, so the reader never moves between the words and the code they
+describe. A single small block explained by one instruction can stay under one heading — the rule targets
+*multi-part* code, the case in the observed defect.
+
+**Interleave-only — the whole file lives in the checkpoint, not at the step's end.** Because the code is split
+across the instructions, a step shows **fragments**, not one complete file. That is deliberate, not a defect:
+the single authoritative, paste-able copy of every file is rendered whole in the milestone's `NN_verify.md`
+checkpoint (see [canonical-layout.md](canonical-layout.md)). Do **not** also append a consolidated
+end-of-step "complete file" block — it duplicates the checkpoint and re-introduces the code dump this rule
+removes.
+
+**Each fragment must say WHERE it goes — clarity is mandatory.** With no consolidated block to assemble from,
+every fragment must name its **file** and its **position in that file** (append, replace region, inside which
+function/block), so the reader can place it unambiguously and still reconstruct the whole. An interleaved
+fragment with no location is worse than the old dump — this is rule 2.1 (WHERE) applied to code placement. If
+the reader can't tell how the pieces assemble, the interleave has failed.
+
+- ❌ (multi-part step) all of `## Do this` — "1. Add the config. 2. Add the loader. 3. Wire it up." — then a
+  single trailing `## Code` block containing config + loader + wiring, leaving the reader to split it back
+  apart and match each region to a step.
+- ✅ under instruction 1, the config block (`In game.js, at the top:`); under instruction 2, the loader block
+  (`In game.js, below the config:`); under instruction 3, the wiring block (`In game.js, inside init():`).
+  No trailing `## Code` section; the whole `game.js` is shown complete in `NN_verify.md`.
+
+> **The defect this prevents:** a step that explains every action first and stacks the code blocks at the
+> bottom, so "what to do" and "the code that does it" sit paragraphs apart and the reader has to re-pair them.
+
+### 4.3 — When a file already exists, add to it; don't reproduce the whole file
+**Why:** re-pasting an entire file the reader already has just to add one function is wasteful *and* dangerous —
+it invites them to overwrite their real file (losing edits, or clobbering code a later step added). The twin
+defect is an **ambiguous insertion anchor**: "place it under `x = true;`" when the file has three `x = true;`
+lines, so the reader can't tell *which* one and guesses. **Do:** for a file that already has code, show only the
+**fragment** to add plus a placement instruction whose anchor is **unique** — name a function, block, or a line
+that occurs exactly once, and quote enough of it to pin a single location. If the natural anchor recurs, add
+surrounding context until it matches one spot only. Never reproduce a pre-existing file whole to make a small
+addition. (This is rule 2.1 (WHERE) and rule 4.2's fragment-placement clause applied to files that already
+exist.)
+
+- ❌ "Add `spawnEnemy()` — here's the full `game.js`:" followed by the entire 200-line file re-pasted.
+- ❌ "In `game.js`, add `spawnEnemy()` under `let ready = true;`." (the file has three `let ready = true;` lines)
+- ✅ "In `game.js`, add `spawnEnemy()` **immediately after the `init()` function** (the block that ends with
+  `canvas.focus();`) — leave the rest of the file untouched." Then just the `spawnEnemy()` fragment.
+
+> **The defect this prevents:** a step that dumps a whole existing file to add one function, or points at an
+> anchor that appears several times so the reader inserts the code in the wrong place.
+
+---
+
+## P5 — Anticipate failure
+*Pre-empt the error the reader is most likely to hit, and turn it into a one-line diagnosis.*
+
+### 5.1 — Name the likely failure and its usual cause
 **Why:** the first error a newcomer hits is where most give up. Pre-empting it turns panic into a
 one-line diagnosis and teaches the underlying cause. **Do:** for each step's common error, give the first
 thing to check.
@@ -192,8 +293,10 @@ thing to check.
 
 ---
 
-## The gate principle (a Done-when must exercise what it claims to prove)
+## P6 — Prove the gate
+*A Done-when must exercise exactly the property it claims, or the green check certifies nothing.*
 
+### 6.1 — A Done-when must exercise what it claims to prove
 A `Done-when` gate is a *proof*, not a label. Its observable action must **exercise exactly the property it
 claims to prove** — otherwise a green check certifies nothing.
 
@@ -211,7 +314,31 @@ claims to prove** — otherwise a green check certifies nothing.
   output, run it again, diff: no differences."
 
 > **The defect this prevents:** a gate that claims to "prove the ordering is deterministic" but only queries
-> once, so it never exercises the re-run that determinism is about. (Observed: spotify-angular M5.)
+> once, so it never exercises the re-run that determinism is about. (Observed: a guide claimed determinism without re-querying.)
+
+---
+
+## P7 — Declare the starting state
+*Never let a step assume a prerequisite the reader was never told to set up.*
+
+### 7.1 — Declare the step's starting state (don't silently assume a prerequisite)
+**Why:** the single most common field failure is a step that silently assumes something the reader hasn't done —
+a tool installed, a server already running, a login completed, a previous file present, an earlier command still
+in effect. The reader, missing that state, hits an error the author never saw because *their* environment
+already had it. This is the proactive, authoring-time twin of the review-gate corollary "list implied/missing
+steps" (which only catches the gap *after* a reader trips). **Do:** before a step's first action, state what
+must **already** be true — installed, running, logged-in, built, or created by an earlier step — either as a
+one-line "Before you start" note **or** by pointing to the step/milestone that established it. If a prerequisite
+isn't yet established anywhere, make it its own step; don't fold it into an action's preamble.
+
+- ❌ (M2/03) "Run `npm run dev` and open the app." — but `.env` was never created and the DB was never started;
+  the reader gets a connection error the author's already-configured machine never showed.
+- ✅ "**Before you start:** the API from [M1](../MILESTONE_1_api/00_overview.md) must be running (`npm run dev`
+  in `server/`) and `.env` present (M1/04). Then, in a second terminal, run `npm run dev` in `web/`."
+
+> **The defect this prevents:** a step that works only because the author's environment already had a piece of
+> state the reader was never told to set up. (Root-cause class: `report-issue` names "silently-assumed
+> prerequisite" as its most common finding.)
 
 ---
 
@@ -220,13 +347,35 @@ claims to prove** — otherwise a green check certifies nothing.
 When you're about to *follow* a guide rather than write it, three extra checks apply:
 
 - **No unclear operation survives.** If a step leaves a "how exactly?" question, resolve it before acting.
-- **List implied/missing steps.** Enumerate any silently-assumed prerequisite as its own numbered step.
+- **List implied/missing steps.** Enumerate any silently-assumed prerequisite as its own numbered step. (This
+  is the review-time backstop for **rule 7.1**, which declares starting state proactively at authoring time.)
 - **Reconcile — reality wins.** Diff assumptions (versions, labels, paths, API names) against the real tool;
   patch the guide and log the drift. A clear-but-stale step is the dangerous kind.
 
 ---
 
-## How to add a rule
+## How to add or change a rule
 
 Only add a rule that comes from a **real** point of confusion. Write it as: the confusion → the rule → a
-before/after. Speculative rules bloat the contract and get ignored. See [CONTRIBUTING](../CONTRIBUTING.md).
+before/after, and home it under the principle it belongs to. Speculative rules bloat the contract and get
+ignored. See [CONTRIBUTING](../CONTRIBUTING.md).
+
+### The contract sync set (this file is canonical; these mirror it)
+
+This file is the **single source of truth** for the principles and rules. The skill prompts deliberately
+**re-state** the contract inline rather than link here, because each `prompt.md` is also a **paste-prompt twin**
+that must work standalone in a plain chat — so the duplication is intentional, not accidental. The cost is that
+adding or changing a rule (or re-homing one under a different principle) is a **multi-file edit**. When you
+touch the contract, update **every** place in the same pass:
+
+- `reference/pedagogy-rules.md` (here — the canonical text + before/after)
+- `skills/plan-guide/prompt.md` (Phase 4 writing rules)
+- `skills/draft-milestone/prompt.md` (the numbered writing contract **and** the self-audit checklist)
+- `skills/clarify-step/prompt.md` (the in-place rules list)
+- `skills/audit-guide/prompt.md` (the pedagogy-check enumeration + any per-rule detail check)
+- `EXPLAINER.md` §7 (the before/after table) and any "N principles" count in `README.md`, `EXPLAINER.md`,
+  `templates/step.md`, `templates/verify.md`, and the affected `SKILL.md` descriptions.
+
+`scripts/check-consistency.mjs` (run by `/pre-pr-check` and CI) verifies the stated **principle count** (seven)
+agrees across the docs, so a half-applied change fails the check instead of shipping silently. The count check
+is the backstop; keeping the *wording* and the rule ids in sync is still on you.

@@ -29,6 +29,23 @@ Group the changed files by area: `skills/` (each skill's `SKILL.md` wrapper **an
 `CHANGELOG.md`), `.claude-plugin/`, `hooks/`. The checks below key off which areas changed — skip a check
 only when nothing in its area changed, and say so.
 
+## Step 1 — Run the automated gate (do this FIRST, don't eyeball it)
+The deterministic checks are **scripts**, not prose you re-perform by hand. Run them and **paste their real
+output** into your report; a non-zero exit is a **blocker**, full stop.
+
+- `node scripts/check-version.mjs` — version stamps agree across `plugin.json`, the README badge, and the top
+  released `CHANGELOG.md` header, **and** a released version has a matching `git tag v<x.y.z>` (the arm that
+  catches a phantom/never-shipped bump). A "no git" warning is acceptable outside a git checkout.
+- `node scripts/check-consistency.mjs` — skill frontmatter `name` matches folder; every skill with a
+  `prompt.md` inlines it via the cat-injection line; the stated skill **count** in `README.md` /
+  `marketplace.json` matches the actual folder count; no dead relative `.md` links in the docs/skills/templates.
+- `node scripts/doctor.mjs` — **advisory:** whether your installed plugin cache is stale vs the working tree.
+  Not a blocker, but if it reports STALE, remind the contributor their `/plugin` install won't reflect these
+  changes until they reinstall — so any "I tested it" claim may be against old code.
+
+If `npm test` (which runs the first two) exits non-zero, the PR is a **FAIL** regardless of the judgment checks
+below. The sections that follow are the **judgment half** — the things a script can't decide.
+
 ## Ground rules (from CONTRIBUTING.md — objective, pass/fail)
 1. **Domain-agnostic core.** Any change to a skill's `prompt.md` contract (`skills/*/prompt.md`),
    `templates/`, or `reference/` must contain **no domain-specific content** (no game/web/API-specific nouns
@@ -50,41 +67,36 @@ only when nothing in its area changed, and say so.
 - [ ] `README.md` **and** `EXPLAINER.md` updated if a file was **added, moved, or removed**.
 - [ ] `CHANGELOG.md` updated (a new entry under the top version section, or a new version block).
 
-## Repo-consistency checks (objective — the machine-checkable half)
-- **Skill frontmatter.** For every `skills/*/SKILL.md` touched (or added): frontmatter parses; `name` matches
-  the folder name exactly; `description` and `argument-hint` are present.
-- **Skill wrappers delegate, don't duplicate.** Each of the ten guide-authoring `skills/*/SKILL.md` must be
-  a **thin wrapper** that inlines its **co-located** `prompt.md` twin (the file beside it in the same skill
-  folder) via a bash-injection line — exactly `` !`cat "${CLAUDE_SKILL_DIR}/prompt.md"` `` — not a re-inlined
-  copy of the contract (the prompt is the single source of truth). Flag any wrapper that (a) has no
-  `prompt.md` beside its `SKILL.md`, or points the injection anywhere other than `${CLAUDE_SKILL_DIR}/prompt.md`
-  (a stale `../../prompts/…` traversal is a defect — that path no longer exists), (b) has re-grown into a full
-  copy of its prompt's phases/rules (drift risk — that's the whole thing this design prevents), or (c)
-  references the prompt only as a **prose path** (e.g. a bare `${CLAUDE_SKILL_DIR}/…` outside a `` !`…` ``
-  injection block): `CLAUDE_SKILL_DIR` only expands inside bash injection, so a prose reference is not
-  guaranteed to resolve. `pre-pr-check` is exempt: it has no prompt twin and is self-contained.
-- **Skill registry in sync.** If a skill was added or removed, the skill list in `README.md` and the count in
-  the `.claude-plugin/marketplace.json` `plugins[].description` (e.g. "Seven skills, one install") and any
-  "N skills" phrasing in `README.md`/`EXPLAINER.md` must all reflect the new total. Report the old vs new count.
-- **Version single-sourced.** `.claude-plugin/plugin.json` `version` is the **single source of truth**. If it
-  changed, confirm the README status badge and the top `CHANGELOG.md` block match it — those are the only two
-  other places a version number should appear. **Prompt headers must NOT stamp a version number** (they point
-  to `plugin.json` instead); flag any `skills/*/prompt.md` header that reintroduces a `vX.Y.Z`. If `version` did
-  **not** change but the change is user-visible, flag that a bump is likely needed.
-- **No dead links.** For each Markdown file changed, resolve relative links (`](...)`) and flag any target
-  that doesn't exist or overshoots the repo root with `../`. **Also sweep the whole `examples/` tree** when
-  the change touches `reference/canonical-layout.md`, `templates/`, or a skill's `prompt.md` — a layout/template change
-  can dead-link a worked example *without* editing it (e.g. moving foundation docs under `foundation/` breaks
-  a `../decision-log.md` link that no diff line touched), so a changed-files-only sweep misses it.
-- **Worked examples match the canonical layout.** For each guide under `examples/*/guide/`, confirm it
-  conforms to `reference/canonical-layout.md`: a `README.md` at the guide root, foundation docs under
-  `foundation/`, `00_overview.md` + `NN_verify.md` present per milestone folder, and step→foundation links of
-  the form `../foundation/<doc>.md`. Report any divergence (this is what keeps the "see real output" artifact
-  honest). **Exception:** a partial example (one whose `README.md`/`examples/README.md` declares only the
-  first N milestones are drafted) will have `next →` nav links pointing at the next, undrafted milestone's
-  `00_overview.md` — the nav contract *requires* that forward link. Treat those specific forward-references as
-  an expected **warning**, not a blocker, as long as the drafted scope is stated; every *other* link must
-  resolve.
+## Repo-consistency checks (mostly automated — verify the script covered them, then judge the rest)
+The first four items are enforced by `scripts/check-consistency.mjs` + `check-version.mjs` from Step 1 — you
+don't re-perform them by hand; you confirm the scripts passed and add the judgment only where noted. The last
+two (examples layout) are still yours to check.
+- **Skill frontmatter.** *(script)* `name` matches folder, frontmatter parses. If a `SKILL.md` you touched is
+  missing `description`/`argument-hint`, flag it — those two aren't in the script's assertions.
+- **Skill wrappers delegate, don't duplicate.** *(script checks the injection line exists)* Each skill that
+  **has** a co-located `prompt.md` must inline it via exactly `` !`cat "${CLAUDE_SKILL_DIR}/prompt.md"` `` — not
+  a re-inlined copy of the contract, and never a stale `../../prompts/…` traversal (that path no longer exists)
+  or a bare prose `${CLAUDE_SKILL_DIR}/…` outside a `` !`…` `` block (`CLAUDE_SKILL_DIR` only expands inside
+  bash injection). **Self-contained skills have no `prompt.md` and are correctly exempt** — currently only
+  `pre-pr-check` (the repo-maintenance skill that only runs inside this repo). Your
+  judgment add: eyeball a touched wrapper for a re-grown full copy of its prompt's phases/rules (the drift the
+  script can't measure).
+- **Skill registry in sync.** *(script checks the count)* If a skill was added or removed, confirm the count in
+  `.claude-plugin/marketplace.json` `plugins[].description` (e.g. "Eleven skills, one install") and every
+  "N skills" phrasing in `README.md`/`EXPLAINER.md` reflects the new total — and that the skill **tables/lists**
+  in both docs actually gained/lost the row (the script counts the number, not the list rows). Report old vs new.
+- **Version single-sourced & tagged.** *(script)* `plugin.json` `version` is the single source of truth; the
+  README badge and top released `CHANGELOG.md` header must match, and a released version must be `git tag`-ged
+  (`check-version.mjs` fails a phantom bump). **Never hand-edit the version** — it moves only via
+  `node scripts/release.mjs <x.y.z>`. **Prompt headers must NOT stamp a version number** (they point to
+  `plugin.json`); flag any `skills/*/prompt.md` header that reintroduces a `vX.Y.Z`. If `version` did **not**
+  change but the change is user-visible, flag that a bump is likely needed.
+- **Rule count in sync.** *(script, via the skill/doc count check + the pedagogy-rules sync set)* If
+  `reference/pedagogy-rules.md` gained/lost a rule, confirm every "N rules" reference agrees (see that file's
+  **contract sync set**). The script's count check is the backstop; the *wording* across the mirrored prompts
+  is your judgment call.
+- **No dead links.** *(script covers docs/skills/templates)* The script resolves relative `.md` links in the
+  plugin's own docs; flag any target that doesn't exist or overshoots the repo root with `../`.
 
 ## Deliverable
 1. A **verdict**: PASS / PASS-WITH-WARNINGS / FAIL.

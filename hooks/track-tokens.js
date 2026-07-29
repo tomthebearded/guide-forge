@@ -247,6 +247,12 @@ function loadState() {
   }
 }
 
+// NOTE: `state.seen` is intentionally NOT pruned. The hook re-scans the ENTIRE transcript tree
+// every run and treats any id absent from `seen` as fresh, so `seen` must stay a superset of every
+// message still on disk — capping it (an earlier attempt) re-counted the oldest messages on every
+// run once the tree passed the cap, inflating totals. Unbounded growth of this dedup set is a
+// tolerated, minor cost; double-counting is not. If pruning is ever revisited, key it to whether a
+// transcript file still exists, never to a blind count.
 function saveState(state) {
   fs.mkdirSync(path.dirname(STATE_PATH), { recursive: true });
   fs.writeFileSync(STATE_PATH, JSON.stringify(state));

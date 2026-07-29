@@ -47,19 +47,22 @@ If any of these is missing from the conversation, ask for it before drafting.
   that level — **Expert** (name only, no gloss/link), **Intermediate** (one-line reminder + doc link),
   **Beginner** (define + link + why), **New** (define + link + short deep-dive callout + extra failure notes).
   Don't explain concepts in a topic the reader is Expert in — over-explaining is a defect too.
-- **Built-ins count as terms.** When the reader is New/Beginner on a language or engine, its **built-in
-  library methods and objects** are first-use terms too — `Math.round()`, `Math.PI`, `Number.toFixed()`,
-  `ctx.fillRect()` for JS-new; `Transform`, `Clear Flags`, `IL2CPP` for Unity-new. Gloss them at first use,
-  at the topic's depth. Keep the bar consistent: if the guide glosses `const`, it must gloss `toFixed()` on
-  the next line too. (Observed: web-platformer glossed `const` but left `toFixed`/`Math.round`/`Math.PI`
-  bare; unity left `Transform`/`IL2CPP`/`Clear Flags` unglossed.)
+- **Built-ins count as terms — but explain a *function* with an inline comment, not a glossary entry.** When
+  the reader is New/Beginner on a language or engine, its **built-in library methods and objects** are
+  first-use terms too — `Math.round()`, `Number.toFixed()`, `ctx.fillRect()` for JS-new. Explain them at first
+  use, at the topic's depth. Keep the bar consistent: if the guide explains `const`, it must explain `toFixed()`
+  on the next line too. **A function's explanation goes in an inline code comment on its line — never as a
+  glossary `### entry`** (the glossary holds words/concepts only): this covers built-in methods *and*
+  functions you write (`spawnEnemy()`). Non-function concept terms — `Math.PI`, `Transform`, `Clear Flags`,
+  `IL2CPP` — are words and still go in the glossary. (Observed: a guide glossed `const` but left
+  `toFixed`/`Math.round`/`Math.PI` bare; another left `Transform`/`IL2CPP`/`Clear Flags` unglossed.)
 - **Track each concept's first appearance — gloss + point forward if it's taught later.** As you draft in
   order, note where each concept first *appears* (a config key, a code comment, a value), not just where you
   plan to *teach* it. If a concept surfaces before its dedicated teaching step, give it a **one-line mini-gloss
   plus a forward pointer** at that first appearance (e.g. "*delta time* — seconds since the last frame; you'll
   build it fully in step 05") — never leave it bare because "step 05 explains it." The deep-dive stays where the
-  ladder puts it. (Observed: web-platformer named *delta time* in M1/02's `maxDt` comment but only taught it in
-  M1/05.)
+  ladder puts it. (Observed: a guide named *delta time* in a `maxDt` comment but only taught it in
+  a later step.)
 - **Granularity:** cut steps to the setting — **Terse** bundles more per step and skips obvious sub-actions;
   **Standard** is default atomic; **Highly granular** splits further and spells out every sub-action.
 
@@ -70,7 +73,7 @@ If any of these is missing from the conversation, ask for it before drafting.
   config key a step uses, confirm online (fetch the docs page from the Verified stack) that it exists and has
   that signature/name in the pinned version. Do **not** write code from memory — memory is stale. If an API
   moved or was renamed since your training data, use what the docs say now and note it.
-- **Link the official docs** in each "New concept" callout (rule 1), deep-linking to the exact page when
+- **Link the official docs** in each "New concept" callout (rule 1.1), deep-linking to the exact page when
   practical.
 - If the web check surfaces something that contradicts the plan (a version is EOL, an API was removed),
   **stop and flag it** — don't quietly work around it.
@@ -94,7 +97,7 @@ not a suggestion. Check every step against the boundary *before* you draft it:
   milestone adds must be **called within that same milestone** (exercised by its Done-when). The one exception
   is a genuine early definition consumed later — mark it inline with a `[Mn]` comment naming the consuming
   milestone (e.g. `clear() { … } // [M10] used by the reset flow`); an unmarked, uncalled member is
-  gold-plating. (Observed: spotify-angular M8/05 built M11's marker system, leaving dead members.)
+  gold-plating. (Observed: a guide built a later milestone's marker system early, leaving dead members.)
 - **Only** exception: a genuine **hard prerequisite** the plan missed — something the milestone literally
   cannot run without. Even then, stop and flag it as a plan gap; don't silently absorb it.
 
@@ -117,7 +120,7 @@ before you close each milestone (see [milestone-design.md](../../reference/miles
   ladder with my approval) or the use must move later. Never draft the milestone with the dangling reference.
 
 > **The defect this prevents:** M9 calling `LikedIndex.clear()` when `clear()` isn't introduced until M10 —
-> the reader following in order hits a build that cannot pass. (Observed: spotify-angular M9→M10.)
+> the reader following in order hits a build that cannot pass. (Observed: a guide used a method introduced only in a later milestone.)
 
 ---
 
@@ -140,11 +143,24 @@ under `foundation/`, `00_overview.md` … `NN_verify.md` per milestone):
 
 ## Every step file MUST obey the writing contract
 
-1. Explain every concept on first use — inline gloss, or a "New concept" callout right above the line (then link the glossary). 2. Say WHERE each action happens. 3. Say WHAT
-it does and WHY. 4. Exact values, not ranges (and say when a value is free). 5. Separate mandatory from
-illustrative. 6. Say which fields to change and which to leave at default. 7. Teach the recurring mental
-model at the point of use. 8. Flag load-bearing vs cosmetic names. 9. Numbered lists, not arrow-chains.
-10. Name the likely failure and its usual cause.
+Seven principles (rules cited by dotted id; full contract in
+[reference/pedagogy-rules.md](../../reference/pedagogy-rules.md)):
+- **P1 Explain what's new** — **1.1** explain every concept on first use (inline gloss, or a "New concept"
+  callout right above the line; link the glossary ONCE in the step's Glossary block, not after every term; and
+  explain a *function* with an inline code comment, never a glossary entry); **1.2** teach the recurring mental
+  model at the point of use.
+- **P2 Anchor every action** — **2.1** say WHERE each action happens; **2.2** say WHAT it does and WHY.
+- **P3 Leave nothing ambiguous** — **3.1** exact values, not ranges (and say when a value is free); **3.2**
+  separate mandatory from illustrative; **3.3** say which fields to change and which to leave at default;
+  **3.4** flag load-bearing vs cosmetic names; **3.5** reuse a value, define it once — a figure that recurs
+  (jump height, tick rate, timeout, colour hex) is identical in the code, prose, gate, glossary, and overview.
+- **P4 Structure steps & code** — **4.1** numbered lists, not arrow-chains; **4.2** put each code block under
+  the instruction it implements; **4.3** don't reproduce an existing file whole to add to it — give the
+  fragment + a unique placement anchor.
+- **P5 Anticipate failure** — **5.1** name the likely failure and its usual cause.
+- **P6 Prove the gate** — **6.1** every Done-when exercises the exact property it claims.
+- **P7 Declare the starting state** — **7.1** before the first action, say what must already be
+  installed/running/logged-in/built or name the step that established it; never silently assume a prerequisite.
 
 **Voice — address the reader as "you".** The guide-follower is always second person. Never call them "the
 Human"/"the human"/"the user"/"the developer"/"the reader"/"one" — write every action and gate as something
@@ -156,30 +172,42 @@ Plus the structural rules — the ones drafters most often drop:
   "(similar to above)", "…", "TODO", or any placeholder — a reader can't follow a step that isn't there. If a
   milestone has so many near-identical steps that writing them all out feels wasteful, that's a signal to
   re-check the **granularity** setting (bundle more per step), *not* a licence to skip them.
-- **Complete code, never partial snippets.** A reader must be able to paste a whole file. A step may teach an
-  edit as a fragment ("add below `foo`"), but every file a milestone creates or modifies MUST appear
-  **complete** by the milestone's end — render the full current contents of each touched file in
-  `NN_verify.md`'s "Files after this milestone" checkpoint. Never let a file's final state exist only as
-  scattered fragments. Short files fully written in one step are shown complete inline.
+- **Interleave code under its instruction (rule 4.2); guarantee the whole file in the checkpoint.** When a
+  step's code has 2+ distinct parts, put each part's fenced block **right under the numbered instruction that
+  introduces it**, labelled with WHERE it lands (file + position) — never stack all the code in a trailing
+  `## Code` dump the reader has to re-pair with the actions. A step therefore shows **fragments**, not one
+  complete file, and that's correct: the single paste-able copy of every **guide-authored** file a milestone
+  creates or modifies MUST appear **complete** by the milestone's end — render the full current contents of each
+  such file in `NN_verify.md`'s "Files after this milestone" checkpoint. Never let a guide-authored file's final
+  state exist only as scattered fragments with no checkpoint copy, and never append a consolidated "complete
+  file" block to a step (it duplicates the checkpoint and re-creates the dump). A step whose code is a single
+  small block may keep it under one `## Code` heading. **Rule 4.3 exception:** a **pre-existing file the
+  milestone only adds to** is *not* rendered whole (that would invite the reader to overwrite their real code) —
+  in both the step and the checkpoint's "Pre-existing files modified" list, show only the added fragment plus a
+  **unique** placement anchor (a named function/block or a once-occurring line), never an anchor that matches
+  several lines.
 - **Canonical nav line, at the top AND bottom of every step/overview/verify — generated from the template,
   not hand-written.** Line 2, directly under the H1, exactly:
   `> Nav: [← <prev>](<prev>.md) · [Overview](00_overview.md) · [<next> →](<next>.md)` — same format in every
   milestone. The middle anchor label is **exactly `Overview`** — never `Milestone overview` or any other
-  wording (that drift spread across 140 files in one guide). The **first step of a milestone** has **`—` (a
+  wording (that drift spread across a guide's files). The **first step of a milestone** has **`—` (a
   bare em-dash, no link) as its prev** — the Overview anchor already points there, so a prev→`00_overview.md`
   link is redundant: `> Nav: — · [Overview](00_overview.md) · [<next> →](<next>.md)`. `NN_verify.md`'s
   `next →` = the next milestone's `../MILESTONE_<n+1>_<slug>/00_overview.md`. Milestone→milestone links are
   clickable, never prose. **Repeat the same nav line verbatim at the very bottom of the file, after a `---`
-  rule** — top and bottom must be identical. (Observed: spotify-angular mixed `[Overview]`/`[Milestone overview]`
+  rule** — top and bottom must be identical. (Observed: a guide mixed `[Overview]`/`[Milestone overview]`
   labels and gave first steps a redundant prev.)
 - **Cumulative handoff.** The overview's `Handoff` carries `Done so far (cumulative)` and `Artifacts now in
   the project` — the running inventory carried forward from the previous milestone and appended — not just a
   forward-looking "what the next milestone assumes" paragraph.
-- **Glossary deep-links must resolve.** When a gloss or "New concept" callout links a term, use
-  `../glossary.md#<slug>` where `<slug>` is the term's heading slug (lowercase, spaces → `-`, punctuation
-  dropped). Every term in `glossary.md` is a `### <term>` heading, never a bullet — bulleted terms have no
-  anchor and the link silently fails. Add the term as a heading when you introduce it. (Observed: spotify-angular
-  shipped 39 dead `glossary.md#term` links because the glossary used bullets.)
+- **Glossary deep-links must resolve — and live in the step's Glossary block, once.** The `## Glossary for this
+  step` block deep-links each term with `../glossary.md#<slug>` (`<slug>` = the term's heading slug: lowercase,
+  spaces → `-`, punctuation dropped). Every term in `glossary.md` is a `### <term>` heading, never a bullet —
+  bulleted terms have no anchor and the link silently fails; add the term as a heading when you introduce it.
+  Body glosses/callouts do **not** repeat a `see [glossary]` link after each term (the block is the one door to
+  the glossary). And the glossary holds **words/concepts only** — never a **function**; a function that needs
+  explaining gets an inline code comment on its line. (Observed: a guide shipped dead
+  `glossary.md#term` links because the glossary used bullets.)
 - **Required code lives in a step, never in "If it breaks."** The failure section lists diagnoses only; if a
   fix needs new code/config, it's a numbered step (or a clearly-flagged optional one).
 - **Every step ends in its own "Done when"** — the sub-slice of the milestone gate it satisfies.
@@ -190,11 +218,11 @@ Plus the structural rules — the ones drafters most often drop:
 - **Gates prove what they claim.** When a `Done when` names a *property* (deterministic, persistent,
   idempotent, cached), its action must **exercise that property's code-path** — re-run and diff for
   determinism, restart and re-read for persistence. If the property isn't observable, reword the claim to what
-  the action actually shows. (Observed: spotify-angular M5 claimed determinism without re-querying.)
+  the action actually shows. (Observed: a guide claimed determinism without re-querying.)
 - **Commands are cross-platform for the targeted shells.** Every command in a step or a `Done when` must run on
   **every** shell listed in `stack.md`'s *Target OS / shell(s)*. When a command differs between shells, give
   the variant for each (e.g. bash `grep -q` **and** PowerShell `Select-String -Quiet`) — never a Unix-only
-  command as the sole gate check when the guide also targets Windows/PowerShell. (Observed: spotify-angular M0's
+  command as the sole gate check when the guide also targets Windows/PowerShell. (Observed: a guide's
   zone.js check was bash `grep` only, unrunnable on the reader's PowerShell.)
 - **Keep versions and names consistent.** Every command and code block uses the pinned Verified-stack versions
   (never mix versions between steps), and every load-bearing name, path, or identifier is spelled **identically**
@@ -217,9 +245,12 @@ yourself. Confirm:
 - every step file has the canonical **nav line at both top (line 2) and bottom (after a `---`), identical**,
   three anchors, and its own **"Done when"**;
 - `00_overview.md` has all its sections and a **cumulative** handoff (`Done so far` / `Artifacts now`);
-- `NN_verify.md` renders the **complete current contents** of every file this milestone touched — no file left
-  as scattered fragments;
-- **no step is stubbed or summarized**, and no code block is a partial snippet;
+- `NN_verify.md` renders the **complete current contents** of every **guide-authored** file this milestone
+  touched — no such file left as scattered fragments; a **pre-existing file the milestone only added to** (rule
+  4.3) is shown as its added region + unique anchor under "Pre-existing files modified", never reproduced whole;
+- **no step is stubbed or summarized**; multi-part code is interleaved under its instructions (rule 4.2), not
+  batched in a trailing block, and no step carries a redundant consolidated "complete file" copy; **no
+  pre-existing file is re-pasted whole and no insertion anchor is ambiguous** (rule 4.3);
 - no required code hides in an "If it breaks" note; every milestone→milestone link is clickable and resolves;
 - **no step crossed the scope-discipline gate** — every step stays inside the milestone's declared Scope
   discipline; anything out of scope was deferred and flagged, not silently absorbed;
@@ -228,7 +259,11 @@ yourself. Confirm:
   (dependency-ordering gate);
 - **every Done-when shows its expected output** — a concrete observable result, not "it works";
 - **versions and load-bearing names are consistent** — every command/code block uses the pinned Verified-stack
-  versions, and every recurring name/path/identifier matches how earlier steps spelled it (no drift).
+  versions, and every recurring name/path/identifier matches how earlier steps spelled it (no drift);
+- **recurring values are consistent (rule 3.5)** — a figure quoted more than once (jump height, tick rate, timeout,
+  colour hex, port) reads identically in the code, the prose, the gate, the glossary, and the overview;
+- **every step declares its starting state (rule 7.1)** — no step's first action silently assumes a tool, service,
+  login, env file, or prior artifact that wasn't established (or back-referenced) earlier.
 
 (This is the `audit-guide` structural checklist run on your own output — passing it here saves a round-trip.)
 
@@ -238,8 +273,8 @@ against what the milestones **actually do**, and fix any promise the content con
 ("no C# until M3", "no code before the setup milestone", "everything is data-driven") are the usual offenders:
 if M1 already writes a C# script, the "no C# until M3" promise is false and must be **qualified** ("you write
 your first *gameplay* script in M3; M1 has a one-line bootstrap") or dropped. Check each headline claim against
-the milestone that first breaks it; reword the front-door, not the milestone (the build wins). (Observed: unity
-W1 promised "no C# until M3" while M1 wrote a script.)
+the milestone that first breaks it; reword the front-door, not the milestone (the build wins). (Observed: a guide
+promised "no C# until M3" while an earlier milestone wrote a script.)
 
 Then, once the **whole guide** is drafted, **stop** and tell me:
 - a per-milestone summary of the **Done-when** checklists — the gates the reader will verify as they build, and

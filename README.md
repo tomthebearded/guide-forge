@@ -76,7 +76,7 @@ GuideForge encodes that discipline as reusable prompts and skills, so Claude pro
 | **Per-topic expertise + granularity dials** | Rates the reader **per topic** (Expert → New) so an expert gets names-only and a junior gets definitions, doc links, and deep dives — on that exact topic. A separate granularity dial sets how finely steps are cut. |
 | **Live stack verification** | Interviews you for languages/versions/stack, then **checks the web** for the latest stable versions and pins them with official doc links — so the guide is built on current facts, not stale training memory. |
 | **A drafting prompt** | Expands one approved milestone into atomic, teaching step-files — built against the pinned versions, APIs re-checked against the live docs. |
-| **A clarity prompt** | Runs the 10-rule pedagogy pass over any existing step to remove confusion. |
+| **A clarity prompt** | Runs the 7-principle pedagogy pass over any existing step to remove confusion. |
 | **A review-before-follow prompt** | The gate you run before *acting on* any guide, so stale/ambiguous steps get fixed first. |
 | **A Claude Code plugin** | Installs as one plugin — ten guide-authoring slash-command skills (the four pipeline stages plus `/modernize-guide`, `/audit-guide`, `/scaffold-guide`, `/update-stack`, `/report-issue`, `/log-feedback`), each also accepting optional attached files, plus `/pre-pr-check` for contributors to the plugin itself. |
 | **Copy-paste templates** | Guide README (front door), milestone overview, step file, verified-stack table, status authority, glossary, conventions, decision log. |
@@ -95,7 +95,7 @@ Eleven skills, one plugin. What each does *for you* — invoke any as a `/slash-
 |---|---|
 | `/plan-guide` | Turns a one-line idea into a full milestone-laddered build plan — after an audience + live-stack interview. |
 | `/draft-milestone` | Expands the approved plan into atomic, teaching step-files — the whole guide (all milestones) in one pass, built against the pinned versions. |
-| `/clarify-step` | Runs the 10-rule pedagogy pass over one existing step to remove confusion — without changing what it does. |
+| `/clarify-step` | Runs the 7-principle pedagogy pass over one existing step to remove confusion — without changing what it does. |
 | `/review-before-follow` | Reconciles a guide with reality *before* you follow it — catches stale APIs, moved files, renamed UI. |
 
 **Set up, QA & maintain:**
@@ -232,9 +232,9 @@ A bundled **Stop / SubagentStop hook** ([`hooks/track-tokens.js`](hooks/track-to
 - **It's a meter, not a bill — subscription-agnostic.** The hook doesn't know or care how you pay (Pro/Max subscription, API credits, pay-as-you-go). It just reports what your usage *would* cost at API list rates, so you can see how much you spent. On a subscription those dollars are informational, not an actual charge.
 - **Real numbers, not estimates.** Figures come straight from the transcript's token counts (input / output / cache-write / cache-read), not a guess.
 - **Zero token cost.** It's a plain Node script — it consumes no Claude tokens, prints nothing, and always exits 0, so it can never block or delay a response. (Needs `node` on your PATH.)
-- **Prices built in.** Opus 4.8, Sonnet 4.6, Haiku 4.5 (cache read 0.1×, 5-min write 1.25×, 1-hour write 2×). Unknown models are still counted and flagged with a `?` in the log.
+- **Prices built in.** Per-model rates live in one place — `MODEL_RATES` in [`hooks/track-tokens.js`](hooks/track-tokens.js) (the single source of truth; not restated here so they can't drift). Cache read 0.1×, 5-min write 1.25×, 1-hour write 2×. Unknown models are still counted and flagged with a `?` in the log.
 - **Backfill past sessions:** `node "$CLAUDE_PLUGIN_ROOT/hooks/track-tokens.js" --backfill "<your project's transcript dir>"` — adds one row per past session.
-- **Turn it off:** remove the `"hooks"` key from `.claude-plugin/plugin.json`, or delete `hooks/hooks.json`.
+- **Turn it off:** delete or rename `hooks/hooks.json` — the bundled hook auto-loads from that standard path (the plugin manifest deliberately does **not** re-declare it, which would double-load and fail) — or disable the plugin with `claude plugin disable guide-forge@guide-forge`.
 
 Using the paste prompts instead (Option A)? There's no hook, so the skills fall back to appending a rough **estimated** row to the same in-guide ledger (`guide/TOKEN_USAGE.md`); when the hook next runs it replaces the file with metered figures. See [reference/token-tracking.md](reference/token-tracking.md) for both mechanisms.
 
@@ -279,14 +279,12 @@ guide-forge/                      ← a single project = one Claude Code plugin
 │   ├── decision-log.md
 │   └── feedback-log.md            ← append-only reader-friction log (seeded by scaffold-guide)
 │
-├── reference/                    ← the method, explained
-│   ├── pedagogy-rules.md
-│   ├── milestone-design.md
-│   ├── audience-model.md
-│   ├── canonical-layout.md        ← the one fixed on-disk skeleton every guide uses
-│   └── token-tracking.md          ← per-guide cost tracking (the hook + the estimate fallback)
-│
-└── examples/                     ← full worked runs (being redone)
+└── reference/                    ← the method, explained
+    ├── pedagogy-rules.md
+    ├── milestone-design.md
+    ├── audience-model.md
+    ├── canonical-layout.md        ← the one fixed on-disk skeleton every guide uses
+    └── token-tracking.md          ← per-guide cost tracking (the hook + the estimate fallback)
 ```
 
 ---
@@ -300,7 +298,7 @@ New here? Follow this order.
 | 1 | [EXPLAINER.md](EXPLAINER.md) → "Philosophy" | 10 min | Why learn-as-you-go beats a wall of steps. |
 | 2 | [reference/audience-model.md](reference/audience-model.md) | 10 min | The single most important input to any guide. |
 | 3 | [reference/milestone-design.md](reference/milestone-design.md) | 15 min | How to cut a ladder that always builds on a proven base. |
-| 4 | [reference/pedagogy-rules.md](reference/pedagogy-rules.md) | 20 min | The 10 writing rules that make a step *teach*. |
+| 4 | [reference/pedagogy-rules.md](reference/pedagogy-rules.md) | 20 min | The 7 principles that make a step *teach*. |
 | 5 | Run [skills/plan-guide/prompt.md](skills/plan-guide/prompt.md) on your own idea | 30 min | The whole thing, hands-on. |
 
 ---
@@ -319,18 +317,15 @@ New here? Follow this order.
 
 ## The pedagogy in one screen
 
-Every generated step obeys these. (Full detail + before/after in [reference/pedagogy-rules.md](reference/pedagogy-rules.md).)
+Every generated step obeys **seven principles** (full detail + before/after in [reference/pedagogy-rules.md](reference/pedagogy-rules.md)):
 
-1. **Explain every concept on first use — at the depth its topic's expertise level demands** (Expert → name only; New → define + doc link + deep-dive), inline or as a "New concept" callout right above the line.
-2. **Every action says WHERE** (file / menu / command / URL).
-3. **Every action says WHAT it does and WHY** — not just the keystrokes.
-4. **Exact values, not ranges** — and say when a value is genuinely free.
-5. **Separate MANDATORY from ILLUSTRATIVE.**
-6. **Say which fields to change and which to LEAVE AT DEFAULT.**
-7. **Teach the recurring mental model at the point of use.**
-8. **Flag load-bearing names vs cosmetic ones.**
-9. **Sequences are numbered lists, never arrow-chains.**
-10. **Name the likely failure and its usual cause.**
+1. **Explain what's new** — define every concept on first use at its topic's depth (inline, or a "New concept" callout right above the line); teach the recurring mental model where it first bites.
+2. **Anchor every action** — say WHERE it happens (file / menu / command / URL), and WHAT it does and WHY.
+3. **Leave nothing ambiguous** — exact values not ranges; mandatory vs illustrative marked; what to change vs leave at default; load-bearing vs cosmetic names flagged; a recurring value defined once and identical everywhere.
+4. **Structure steps & code** — numbered lists, never arrow-chains; each code block directly under the instruction it implements; add to an existing file (fragment + a unique anchor), never re-paste it whole.
+5. **Anticipate failure** — name the likely error and its usual cause.
+6. **Prove the gate** — a Done-when must exercise the exact property it claims.
+7. **Declare the starting state** — never silently assume an install, a running service, a login, or a prior artifact.
 
 ---
 
@@ -361,7 +356,7 @@ No. Each skill's `prompt.md` is a paste-into-any-chat prompt that works in any C
 Yes — once you approve the plan, `draft-milestone` drafts every milestone in one pass, so you have the finished guide before you build. The human gate is **plan approval** (get the ladder right before ten milestones are written off it); you then build against the guide, verifying each milestone's *Done-when* gate as you go.
 
 **How is this different from "write me a tutorial" prompts?**
-Those generate content. GuideForge generates a *verified, milestone-gated, audience-modeled plan* and then teaching step-files — with an explicit 10-rule writing contract. See [Why this exists](#why-this-exists).
+Those generate content. GuideForge generates a *verified, milestone-gated, audience-modeled plan* and then teaching step-files — with an explicit 7-principle writing contract. See [Why this exists](#why-this-exists).
 
 **Can I use it for non-code guides?**
 It's tuned for software, but the method (audience model → ladder → gated steps) transfers to anything procedural. Your mileage varies.
@@ -381,7 +376,7 @@ Distilled from a real doc-driven, solo-dev build system. See [Credits](#credits-
 | Plan feels generic | Audience interview answered vaguely | Re-run Phase 0; rate each topic concretely on the per-topic matrix (Expert → New). |
 | Milestones can't be run on their own | Ladder was cut into horizontal layers | Re-cut into vertical slices — see [milestone-design.md](reference/milestone-design.md). |
 | Steps are too long / do many things | Atomicity rule ignored | Run [clarify-step](skills/clarify-step/prompt.md); split by "one indivisible action." |
-| Reader keeps hitting undefined terms | Rule 1 not applied | Run clarify-step; add a per-step glossary. |
+| Reader keeps hitting undefined terms | Rule 1.1 not applied | Run clarify-step; add a per-step glossary. |
 | Guide worked once, breaks now | Drifted from reality | Run [review-before-follow](skills/review-before-follow/prompt.md). |
 
 ---

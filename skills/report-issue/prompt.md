@@ -48,9 +48,9 @@ Name *why* the guide let this happen. Almost always it's one of:
 - a **wrong or stale value / command / flag / API** (if it's a version/API question, **verify online against
   the official docs — never assert a version or API from memory**; if web tools are unavailable, say so and
   mark that fix `UNVERIFIED — confirm` rather than guessing);
-- a **pedagogy-rule miss** — an undefined term (R1), a missing WHERE (R2), an unmarked mandatory-vs-
-  illustrative (R5), a value given as a range where it was load-bearing (R4), or **no failure note for the
-  exact error the reader hit** (R10);
+- a **pedagogy-rule miss** — an undefined term (rule 1.1), a missing WHERE (rule 2.1), an unmarked mandatory-vs-
+  illustrative (rule 3.2), a value given as a range where it was load-bearing (rule 3.1), or **no failure note
+  for the exact error the reader hit** (rule 5.1);
 - a genuine **reader mistake outside the guide's instructions** — in which case say so plainly, and still ask
   whether the guide *invited* it (an ambiguous instruction that any reader would trip on **is** a defect).
 
@@ -61,7 +61,7 @@ on a single root-cause statement per issue before you touch anything.
 Edit the step where the reader got stuck so the *cause* is gone — not just the symptom:
 - a missing prerequisite becomes **its own numbered step** in the right place (not a footnote);
 - a wrong value/command/API is corrected to the verified form;
-- an undefined term gets its R1 gloss or "New concept" callout + glossary link;
+- an undefined term gets its rule 1.1 gloss or "New concept" callout + glossary link;
 - add or tighten the **Done-when** so the reader observes the correct result and can't sail past a broken step.
 
 The rewritten step obeys **every** pedagogy rule (WHERE/WHAT/WHY, exact values, mandatory-vs-illustrative,
@@ -74,13 +74,13 @@ the same pattern and fix each occurrence:
 - the same stale command / flag / API form used elsewhere → correct all of them (one pinned form across the
   guide);
 - the same term left undefined at another first-use site → gloss it there;
-- a symptom that could recur at analogous steps → add the R10 failure note at each.
+- a symptom that could recur at analogous steps → add the rule 5.1 failure note at each.
 
 **Report what you swept and what you found** — including "swept for X, no other occurrences." A silent sweep
 that missed a sibling defect is the failure mode to avoid.
 
 ### 5. Guard the next reader
-At the step(s) involved, add an **R10 "likely failure + its usual cause"** note naming the exact symptom the
+At the step(s) involved, add a **rule 5.1 "likely failure + its usual cause"** note naming the exact symptom the
 reader reported and the first thing to check — so the next person diagnoses it in one line instead of getting
 stuck.
 
@@ -97,12 +97,12 @@ stuck.
   even though it's now fixed. Create the log from `templates/feedback-log.md` if it's missing.
 
 ### 7. Propose a pedagogy rule (only if it's a general confusion)
-If the root cause is a *recurring kind* of confusion not already covered by R1–R10, **propose** a new rule in
+If the root cause is a *recurring kind* of confusion not already covered by the seven principles, **propose** a new rule in
 the [CONTRIBUTING](../../CONTRIBUTING.md) format — the confusion it prevents → the rule → a before/after — for
 the user to approve. **Propose, don't silently add:** the pedagogy contract is repo-level and every rule must
 earn its place from a real point of confusion (this field report is exactly that evidence). If the user
-approves, add it to [reference/pedagogy-rules.md](../../reference/pedagogy-rules.md). If R1–R10 already cover it,
-say which rule the guide *violated* and skip the proposal.
+approves, add it to [reference/pedagogy-rules.md](../../reference/pedagogy-rules.md) under the principle it
+belongs to. If an existing rule already covers it, say which rule the guide *violated* and skip the proposal.
 
 ### 8. Refresh the guide README
 Prepend an **Updates** line to the guide's `README.md`: `<date> — fixed: <one-line issue> (<milestone/step>)`.

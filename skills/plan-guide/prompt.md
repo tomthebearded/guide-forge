@@ -56,8 +56,12 @@ The brief isn't only the one-line prompt. It can come from **any context you giv
 - **Non-interactive mode** (if I say "no questions" / you're running in automation): the ONLY mode that skips
   the interview — do not ask; instead make **every** Phase 0 assumption explicit and loud at the top of the
   plan (especially the guessed audience model) and proceed. Since you can't ask the latest-vs-specific
-  question here, **default every version to `latest`** and say so explicitly. **Still run Phase 0.5** — the
-  online version/doc check does not need me and must always happen.
+  question here, **default every version to the current stable LTS (or, where there's no LTS track, the latest
+  stable release minus any brand-new major still in its first weeks)** — a teaching guide wants the version
+  with the most stable ecosystem and the fewest breaking-change surprises, not the bleeding edge. Say the
+  choice explicitly and note that a reader who wants the newest major can opt in. **Still run Phase 0.5** — the
+  online version/doc check does not need me and must always happen; it's where you confirm what the current LTS
+  actually is.
 
 > ⚠️ **Never invent version numbers, API names, or doc URLs from memory.** Your training data is stale by the
 > time anyone runs this. Anything version- or API-specific in the plan must be verified online in Phase 0.5
@@ -241,8 +245,8 @@ Start from this and adapt it to the domain:
 
 ## Glossary for this step        (only terms THIS step introduces; omit if none)
 ## Why / design                  (the rationale the reader needs to understand this step; omit if pure mechanics)
-## Do this                       (the exact numbered actions — see pedagogical rules below)
-## Code                          (complete file(s), never partial snippets; omit if no code)
+## Do this                       (the exact numbered actions; multi-part code interleaves under each action — rule 4.2)
+## Code                          (single-block steps only; multi-part code goes under "Do this"; whole file in NN_verify.md)
 ## Done when (this step)         (the sub-slice of the milestone gate this step satisfies)
 ```
 
@@ -257,34 +261,72 @@ milestone. The reader always knows where they are in the arc.
 
 ## Phase 4 — The pedagogical rules (this is what makes it *teach*)
 
-Every step in the plan must be written to satisfy these. State them in the plan as the guide's writing
+Every step in the plan must be written to satisfy these — **seven principles**, each holding a few rules cited
+by a dotted id (like `3.1`). The full contract with before/afters is
+[reference/pedagogy-rules.md](../../reference/pedagogy-rules.md). State them in the plan as the guide's writing
 contract:
 
-1. **Explain every concept on first use — at the depth its topic's expertise level demands.** Look up the
-   concept's topic in the per-topic matrix and apply that depth: **Expert** → just name it; **Intermediate**
-   → one-line reminder + doc link; **Beginner** → define on first use + doc link + brief why; **New** →
-   define + doc link + a short deep-dive callout + extra failure notes. Definitions go inline, or as a "New
-   concept" callout on its own line right above the command/menu/code line it lands on, then link the
-   Glossary; for an external API/tool/library concept, **link the official docs page** (from the Verified
-   stack) too. Never a bare term with no gloss and no link *for a topic the reader isn't Expert in*.
-2. **Every action says WHERE.** Which file / menu / panel / command / URL the action happens in. Never
-   assume the reader can locate it.
-3. **Every action says WHAT it does and WHY** — not just the keystrokes. The reader should finish the step
-   understanding the mechanism, not just having copied it.
-4. **Be exact where the outcome depends on it.** Concrete values, not ranges; exact names, exact commands.
-   Where a value is genuinely free, say so explicitly ("any value works here").
-5. **Separate MANDATORY from ILLUSTRATIVE.** Mark what the gate actually requires vs what's just an example
-   or an embellishment beyond the spec.
-6. **State which fields/flags to change and which to LEAVE AT DEFAULT.** Be exhaustive for the thing in hand
-   so the reader never wonders "is there something else I was supposed to touch?"
-7. **Teach the mental model where it recurs.** The one or two framing ideas that, once understood, make many
-   later steps obvious. Repeat the model at the point of use, not just once up front.
-8. **Flag load-bearing names vs cosmetic ones.** Which identifiers/paths/strings *must* match exactly
-   (things break otherwise) vs which are free to rename. Say which before the reader types anything.
-9. **Sequences are numbered lists, never arrow-chains.** Reserve arrows for a single navigation path within
-   one action; the moment a chain spans two things the reader *does*, split it into numbered steps.
-10. **Name the common failure and its usual cause.** For each step's likely error, give the first thing to
-    check — turning "it broke" into a diagnosis the reader can act on and learn from.
+**P1 — Explain what's new**
+- **1.1 Explain every concept on first use — at the depth its topic's expertise level demands.** Look up the
+  concept's topic in the per-topic matrix and apply that depth: **Expert** → just name it; **Intermediate**
+  → one-line reminder + doc link; **Beginner** → define on first use + doc link + brief why; **New** →
+  define + doc link + a short deep-dive callout + extra failure notes. Definitions go inline, or as a "New
+  concept" callout on its own line right above the command/menu/code line it lands on. Link the Glossary
+  **once**, from the step's `## Glossary for this step` block — not with a trailing `see [glossary]` after every
+  term in the body; for an external API/tool/library concept, **link the official docs page** (from the
+  Verified stack) too. The glossary holds **words/concepts only** — a **function** (built-in method or one the
+  guide writes) is explained with an **inline code comment** on its line, never as a glossary entry. Never a
+  bare term with no gloss and no pointer *for a topic the reader isn't Expert in*.
+- **1.2 Teach the mental model where it recurs.** The one or two framing ideas that, once understood, make many
+  later steps obvious. Repeat the model at the point of use, not just once up front.
+
+**P2 — Anchor every action**
+- **2.1 Every action says WHERE.** Which file / menu / panel / command / URL the action happens in. Never
+  assume the reader can locate it.
+- **2.2 Every action says WHAT it does and WHY** — not just the keystrokes. The reader should finish the step
+  understanding the mechanism, not just having copied it.
+
+**P3 — Leave nothing ambiguous**
+- **3.1 Be exact where the outcome depends on it.** Concrete values, not ranges; exact names, exact commands.
+  Where a value is genuinely free, say so explicitly ("any value works here").
+- **3.2 Separate MANDATORY from ILLUSTRATIVE.** Mark what the gate actually requires vs what's just an example
+  or an embellishment beyond the spec.
+- **3.3 State which fields/flags to change and which to LEAVE AT DEFAULT.** Be exhaustive for the thing in hand
+  so the reader never wonders "is there something else I was supposed to touch?"
+- **3.4 Flag load-bearing names vs cosmetic ones.** Which identifiers/paths/strings *must* match exactly
+  (things break otherwise) vs which are free to rename. Say which before the reader types anything.
+- **3.5 Reuse a value; define it once (whole-guide consistency).** A figure that recurs — a jump height, tick
+  rate, timeout, grid size, colour hex, port — is **identical** everywhere it appears: the code, the prose
+  that explains it, the Done-when gate, the glossary, the overview. Compute it once and quote that exact
+  figure; never re-derive or eyeball a "close enough" number. If it changes, change it everywhere in one pass.
+
+**P4 — Structure steps & code**
+- **4.1 Sequences are numbered lists, never arrow-chains.** Reserve arrows for a single navigation path within
+  one action; the moment a chain spans two things the reader *does*, split it into numbered steps.
+- **4.2 Put each code block directly under the instruction it implements.** When a step's code has 2+ distinct
+  parts, interleave: each part's fenced block goes right below the numbered action that introduces it,
+  labelled with WHERE it lands — never all the actions first and then a trailing code dump. The step shows
+  fragments; the one complete, paste-able copy of each file lives in that milestone's `NN_verify.md`
+  checkpoint (don't duplicate it at the step's end). A single small block under one instruction is fine as-is.
+- **4.3 When a file already exists, add to it — don't reproduce the whole file.** For a file that already has
+  code, show only the fragment to add plus a placement instruction whose anchor is **unique** (a named
+  function/block or a line that occurs exactly once) — never re-paste the entire file (it invites the reader
+  to overwrite their real code), and never an anchor like "under `x = true;`" that matches several lines. In
+  the `NN_verify.md` checkpoint, such a pre-existing file is shown as its added region, not rendered whole.
+
+**P5 — Anticipate failure**
+- **5.1 Name the common failure and its usual cause.** For each step's likely error, give the first thing to
+  check — turning "it broke" into a diagnosis the reader can act on and learn from.
+
+**P7 — Declare the starting state**
+- **7.1 Declare each step's starting state — never silently assume a prerequisite.** Before a step's first
+  action, state what must **already** be true (installed, running, logged-in, built, or created by an earlier
+  step), as a one-line "Before you start" note or a pointer to the step that established it. If a prerequisite
+  isn't established anywhere yet, give it its own step — don't bury it in an action's preamble. (This is the
+  #1 field-failure class; planning for it here prevents it at the source.)
+
+*(Principle 6 — **prove the gate** — is designed in Phase 5: every Done-when must exercise the exact property
+it claims. See rule 6.1 in the pedagogy reference.)*
 
 ---
 

@@ -33,7 +33,7 @@ and makes every step conform. Fill with YOUR stack's rules.
      step or a Done-when gate must run on EVERY targeted shell — give a variant per shell when they differ
      (e.g. a bash `grep -q zone.js package.json` AND its PowerShell `Select-String -Quiet zone.js package.json`).
      Never ship a Unix-only command as the sole gate check when the guide also targets Windows/PowerShell.
-     (Observed: spotify-angular M0's zone.js check was bash `grep` only, which fails on the reader's PowerShell.) -->
+     (Observed: a guide's zone.js check was bash `grep` only, which fails on the reader's PowerShell.) -->
 
 ## Testing / verification
 <!-- How "done" is proven in this project (the shape of Done-when gates). -->

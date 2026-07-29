@@ -12,6 +12,12 @@ Scaffolded by prompt/skill `scaffold-guide`; the Updates log grows as the guide 
 > The front door to this guide. Skim this, then follow the milestones. **Progress lives in
 > [foundation/status.md](foundation/status.md), not here** — this page describes intent; `status.md` states reality.
 
+> _Generated with **GuideForge v<x.y.z>** on <YYYY-MM-DD>._
+<!-- Provenance: the GuideForge plugin version that produced this guide. Read the `version` field from the
+     plugin's `.claude-plugin/plugin.json` at generation time; stamp it verbatim. Lets a reader know which
+     revision of the method (which rules, layout, conventions) this guide was built against. -->
+
+
 ## Objective
 <!-- The observable "done" — what the reader can run/see at the end (from the plan's Target end state). -->
 <one paragraph: what you'll have built, stated as something observable — a running app, a passing suite,
@@ -30,7 +36,7 @@ a published package, a deployed URL.>
 ## Updates
 <!-- Reverse-chronological log of significant changes to the guide itself: stack bumps, scope changes,
      drift reconciliations. One line each: `<YYYY-MM-DD> — <what changed>`. Newest on top. -->
-- <YYYY-MM-DD> — Guide created.
+- <YYYY-MM-DD> — Guide created with GuideForge v<x.y.z>.
 
 ## Following this guide
 1. Read **[foundation/status.md](foundation/status.md)** first — the single source of truth for what's done and verified.

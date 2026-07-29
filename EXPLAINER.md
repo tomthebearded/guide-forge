@@ -17,7 +17,7 @@
 4. [How the pieces fit: the pipeline](#4-how-the-pieces-fit-the-pipeline)
 5. [Every file, explained](#5-every-file-explained)
 6. [The four prompts, in depth](#6-the-four-prompts-in-depth)
-7. [The 10 pedagogy rules, with before/after](#7-the-10-pedagogy-rules-with-beforeafter)
+7. [The 7 pedagogy principles, with before/after](#7-the-7-pedagogy-principles-with-beforeafter)
 8. [The templates, and why each field exists](#8-the-templates-and-why-each-field-exists)
 9. [Design decisions & trade-offs](#9-design-decisions--trade-offs)
 10. [How to customize it for your world](#10-how-to-customize-it-for-your-world)
@@ -35,7 +35,7 @@ in one line — the deep dives are in [§6](#6-the-four-prompts-in-depth) and th
 *Pipeline (build a guide):*
 - **`/plan-guide`** — one-line idea → milestone-laddered plan, after an audience + live-stack interview.
 - **`/draft-milestone`** — expands the approved plan into atomic, teaching step-files — the whole guide (all milestones) in one pass.
-- **`/clarify-step`** — the 10-rule pedagogy pass over one step; removes confusion without changing behavior.
+- **`/clarify-step`** — the 7-principle pedagogy pass over one step; removes confusion without changing behavior.
 - **`/review-before-follow`** — reconciles a guide with reality before you follow it (stale APIs, moved files).
 
 *Auxiliary (set up, QA, maintain):*
@@ -114,8 +114,9 @@ Inside a milestone, each **step file** is *one indivisible action* and follows a
 → [templates/step.md](templates/step.md)
 
 ### Pillar 4 — A written pedagogy contract
-Ten rules ("explain every concept on first use", "every action says where", …) turn "teach well" from a vibe into a
-checklist Claude can actually satisfy and you can actually audit.
+Seven principles ("explain what's new", "anchor every action", "leave nothing ambiguous", …), each grouping a
+few concrete rules, turn "teach well" from a vibe into a checklist Claude can actually satisfy and you can
+actually audit.
 → [reference/pedagogy-rules.md](reference/pedagogy-rules.md)
 
 ### Pillar 5 — Truth lives in one place
@@ -128,7 +129,7 @@ guide and reality disagree, reality wins, and you log the drift.
 
 ## 4. How the pieces fit: the pipeline
 
-GuideForge's core pipeline is four prompts you run in sequence, with a human gate between each (three
+GuideForge's core pipeline is four prompts you run in sequence, with a human gate between each (six
 auxiliary tools sit outside it — see §5). You never hand the whole job to the model unattended — that's a
 feature, because the gates are where quality is enforced.
 
@@ -151,7 +152,7 @@ sequenceDiagram
         P4-->>You: patched steps + drift log
         opt a step is confusing
             You->>P3: "clarify step NN"
-            P3-->>You: revised step (10 rules applied)
+            P3-->>You: revised step (7 principles applied)
         end
         Note over You: verify the milestone's Done-when gate
     end
@@ -187,7 +188,7 @@ source of truth**. It doubles as the paste-into-any-chat twin (Option A in the R
 |------|-----|---------------|
 | `plan-guide/prompt.md` | Interview the user, then produce a full milestone-laddered plan. | "Approve the plan." |
 | `draft-milestone/prompt.md` | Expand the approved plan into atomic step files — the whole guide, all milestones, in one pass. | "The finished guide is drafted." |
-| `clarify-step/prompt.md` | Apply the 10 pedagogy rules to one existing step. | (loops back to Done-when) |
+| `clarify-step/prompt.md` | Apply the 7 pedagogy principles to one existing step. | (loops back to Done-when) |
 | `review-before-follow/prompt.md` | Reconcile a guide against reality before executing it. | Safe to execute. |
 
 **Auxiliary contracts** (not part of the linear pipeline): `modernize-guide/prompt.md` (convert an existing tutorial
@@ -244,11 +245,6 @@ The deep-dives behind the pillars: [pedagogy-rules.md](reference/pedagogy-rules.
 [canonical-layout.md](reference/canonical-layout.md) (the one fixed on-disk skeleton every guide uses), and
 [token-tracking.md](reference/token-tracking.md) (how per-guide cost is metered and where each ledger lives).
 
-### `examples/` — worked runs
-
-Full worked runs of the pipeline — a complete plan plus drafted milestones — so you can see real output
-before running anything yourself. **Being redone; the folder is currently empty.**
-
 ---
 
 ## 6. The four prompts, in depth
@@ -280,8 +276,8 @@ before running anything yourself. **Being redone; the folder is currently empty.
 
 ### `draft-milestone` — the drafter
 - **Input:** the approved plan (with the Verified stack); by default "draft the guide" (or a single milestone to re-draft one).
-- **Output:** every milestone's folder in one pass — each with its `00_overview.md` and numbered atomic step files, each obeying the 10
-  pedagogy rules, ending in a `NN_verify.md` gate — carrying the cumulative handoff forward from one milestone to the next.
+- **Output:** every milestone's folder in one pass — each with its `00_overview.md` and numbered atomic step files, each obeying the 7
+  pedagogy principles, ending in a `NN_verify.md` gate — carrying the cumulative handoff forward from one milestone to the next.
 - **Builds against the pinned versions**, and **re-verifies each API against the live official docs before
   writing code** — memory is stale, the docs are truth — linking those docs in the concept callouts.
 - **Rule of thumb it enforces:** one step = one indivisible action (bundling only code files written in the
@@ -300,24 +296,38 @@ before running anything yourself. **Being redone; the folder is currently empty.
 
 ---
 
-## 7. The 10 pedagogy rules, with before/after
+## 7. The 7 pedagogy principles, with before/after
 
 These are the heart of the toolkit. Each rule exists because of a *real* way readers get lost. Full
 treatment (and the origin of each) is in [reference/pedagogy-rules.md](reference/pedagogy-rules.md); here's
 the essence with a concrete contrast.
 
+The rules are grouped under **seven principles**; each id (like `3.1`) is `principle.rule`.
+
 | # | Rule | Before | After |
 |---|------|----------|---------|
-| 1 | Explain every concept on first use (inline gloss, or a "New concept" callout right above the line) | "Register the middleware." | "Register the **middleware** — code that runs on every request before your handler — by …" |
-| 2 | Say WHERE | "Add the route." | "In `cmd/server/main.go`, inside `setupRoutes()`, add the route." |
-| 3 | Say WHAT + WHY | "Run `go mod init`." | "Run `go mod init example/api` — this creates `go.mod`, which pins your module path so imports resolve." |
-| 4 | Exact values | "Set a reasonable timeout." | "Set the timeout to `5 * time.Second` (any value ≥1s is fine; we use 5s)." |
-| 5 | Mandatory vs illustrative | "Name it `BookStore`." | "The struct name is free; the JSON tag `\"id\"` is **load-bearing** — the API contract depends on it." |
-| 6 | Change vs leave default | "Configure the server." | "Set `Addr` and `Handler`; **leave every other `http.Server` field at its default.**" |
-| 7 | Teach the recurring model | (silent) | "Remember: in Go, an interface is satisfied implicitly — you never write `implements`. We'll rely on this again in step 4." |
-| 8 | Load-bearing vs cosmetic names | "Call the handler whatever." | "The function name is cosmetic; the route string `/books` is load-bearing — tests hit it exactly." |
-| 9 | Numbered lists, not arrows | "Open file → edit → save → run." | "1. Open the file. 2. Edit the handler. 3. Save. 4. Run `go test ./...`." |
-| 10 | Name the likely failure | (silent) | "If you get `undefined: mux`, you forgot the import in step 2 — check the top of the file first." |
+| **P1 — Explain what's new** | | | |
+| 1.1 | Explain every concept on first use (inline gloss, or a "New concept" callout right above the line) | "Register the middleware." | "Register the **middleware** — code that runs on every request before your handler — by …" |
+| 1.2 | Teach the recurring mental model at the point of use | (silent) | "Remember: in Go, an interface is satisfied implicitly — you never write `implements`. We'll rely on this again in step 4." |
+| **P2 — Anchor every action** | | | |
+| 2.1 | Say WHERE | "Add the route." | "In `cmd/server/main.go`, inside `setupRoutes()`, add the route." |
+| 2.2 | Say WHAT + WHY | "Run `go mod init`." | "Run `go mod init example/api` — this creates `go.mod`, which pins your module path so imports resolve." |
+| **P3 — Leave nothing ambiguous** | | | |
+| 3.1 | Be exact where the outcome depends on it | "Set a reasonable timeout." | "Set the timeout to `5 * time.Second` (any value ≥1s is fine; we use 5s)." |
+| 3.2 | Mandatory vs illustrative | "Name it `BookStore`." | "The struct name is free; the JSON tag `\"id\"` is **load-bearing** — the API contract depends on it." |
+| 3.3 | Change vs leave default | "Configure the server." | "Set `Addr` and `Handler`; **leave every other `http.Server` field at its default.**" |
+| 3.4 | Load-bearing vs cosmetic names | "Call the handler whatever." | "The function name is cosmetic; the route string `/books` is load-bearing — tests hit it exactly." |
+| 3.5 | Reuse a value; define it once (whole-guide) | Code sets `jumpHeight = 2.5f`; the prose says "jumps 2 units"; the gate says "~2.5". | `2.5` everywhere it recurs — code, prose, Done-when gate, glossary, overview — one figure, quoted verbatim. |
+| **P4 — Structure steps & code** | | | |
+| 4.1 | Numbered lists, not arrows | "Open file → edit → save → run." | "1. Open the file. 2. Edit the handler. 3. Save. 4. Run `go test ./...`." |
+| 4.2 | Code sits under the instruction it implements | All actions listed, then one trailing block with the config, loader, and wiring stacked together. | Config block under step 1, loader block under step 2, wiring block under step 3 — each labelled with where it goes; the whole file lives in `NN_verify.md`. |
+| 4.3 | Add to an existing file; don't reproduce it whole | "Add `spawnEnemy()` — here's the full `game.js`:" [entire file re-pasted] / "put it under `let ready = true;`" (three such lines). | "In `game.js`, add `spawnEnemy()` immediately after the `init()` function (the block ending `canvas.focus();`) — leave the rest untouched." Fragment + a unique anchor. |
+| **P5 — Anticipate failure** | | | |
+| 5.1 | Name the likely failure | (silent) | "If you get `undefined: mux`, you forgot the import in step 2 — check the top of the file first." |
+| **P6 — Prove the gate** | | | |
+| 6.1 | A Done-when exercises what it claims | "Done when: the query is deterministic — run it and see the list." (one run proves nothing) | "Done when: running it **twice** returns byte-identical order — run, copy, run again, diff: no differences." |
+| **P7 — Declare the starting state** | | | |
+| 7.1 | Declare the step's starting state | "Run `npm run dev` and open the app." (but `.env` was never created and the DB never started) | "**Before you start:** the API from M1 must be running and `.env` present (M1/04). Then run `npm run dev` in `web/`." |
 
 ---
 
@@ -328,16 +338,16 @@ the essence with a concrete contrast.
 # <Milestone> · Step NN of <TOTAL> — <single action title>
 > Nav: [← prev] · [Overview] · [next →]    ← label is exactly "Overview"; first step's prev is a bare "—"
 
-## Glossary for this step    ← only terms THIS step introduces (rule 1). Omit if none.
-## Why / design              ← the rationale the reader needs (rule 3). Omit if pure mechanics.
-## Do this                   ← the numbered actions (rules 2,4,6,9).
-## Code                      ← complete file(s), never partial snippets.
+## Glossary for this step    ← only terms THIS step introduces (rule 1.1). Omit if none.
+## Why / design              ← the rationale the reader needs (rule 2.2). Omit if pure mechanics.
+## Do this                   ← the numbered actions (rules 2.1, 3.1, 3.3, 4.1), each with its code block right under it (rule 4.2).
+## Code                      ← only for a single-block step; multi-part code interleaves under "Do this" instead.
 ## Done when (this step)     ← the sub-slice of the milestone gate this step satisfies.
 ```
 - **Nav line** — a reader in the middle of a folder of files needs to know where they are and how to move.
-- **Per-step glossary** — keeps rule 1 local; you don't hunt a global list mid-step.
+- **Per-step glossary** — keeps rule 1.1 local; you don't hunt a global list mid-step.
 - **Why before Do** — understanding precedes action; that's the "learn" in learn-as-you-go.
-- **Complete code, never snippets** — partial snippets are the #1 source of "wait, where does this go?"
+- **Code under its instruction (rule 4.2)** — a trailing code dump forces "wait, which block was that?"; the whole paste-able file is guaranteed in `NN_verify.md` instead.
 - **Done-when** — the atomic verification; the milestone gate is just the sum of these.
 
 ### Milestone overview ([templates/milestone-overview.md](templates/milestone-overview.md))

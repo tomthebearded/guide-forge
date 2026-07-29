@@ -30,12 +30,32 @@ sharpen those are especially welcome.
    make sure you understand *why* it says what it says, and edit it until it's genuinely yours. Don't open a PR
    with AI output you haven't fully reviewed.
 
+## Developing on the plugin (read this first — it will save you an afternoon)
+
+**Installing the plugin *copies* it into a cache; it does not run from your working tree.** When you
+`/plugin install`, Claude Code copies the repo to
+`~/.claude/plugins/cache/guide-forge/guide-forge/<version>/` and loads skills, templates, and reference docs
+from **that copy**. Editing files here in your clone has **no effect** on the running plugin until you
+reinstall — a stale cache is the single most common way to spend an hour confused about why a change "isn't
+working."
+
+- **See whether your cache is stale:** `node scripts/doctor.mjs` diffs your working tree against the installed
+  cache and tells you if they differ (and lists any leftover older-version cache dirs).
+- **Pick up your edits:** re-run `/plugin` → reinstall **guide-forge** from the `guide-forge` marketplace, then
+  restart the session. (The marketplace already points at your local checkout.)
+- **Never hand-bump the version.** The version lives in three places (`.claude-plugin/plugin.json`, the
+  `README.md` badge, the top released `CHANGELOG.md` header) and drifts if edited by hand. Move it only with
+  `node scripts/release.mjs <x.y.z>`, which updates all three and promotes `## [Unreleased]`; then create the
+  matching `git tag v<x.y.z>` (a "released" version with no tag fails `scripts/check-version.mjs`).
+- **Before pushing:** `npm test` runs `check-version` + `check-consistency` (version stamps aligned + tagged,
+  skill frontmatter valid, wrappers delegate, counts agree, no dead links). CI runs the same on every PR.
+
 ## PR checklist
 
 > **Before you open the PR, run `/pre-pr-check`** (the repo-maintenance skill in `skills/pre-pr-check/`). It
-> verifies every item below plus repo consistency — valid skill frontmatter, README/EXPLAINER skill list in
-> sync, version stamps aligned, no dead links — and reports PASS/FAIL. It's read-only; fix any blockers it
-> flags, re-run until it passes, then open the PR.
+> runs the automated checks (`npm test`) and verifies every item below plus repo consistency — valid skill
+> frontmatter, README/EXPLAINER skill list in sync, version stamps aligned **and tagged**, no dead links — and
+> reports PASS/FAIL. It's read-only; fix any blockers it flags, re-run until it passes, then open the PR.
 
 - [ ] Change is domain-agnostic, or lives under `examples/`.
 - [ ] New rules cite the confusion they prevent.

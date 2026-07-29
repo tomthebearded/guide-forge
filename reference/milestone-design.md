@@ -53,7 +53,7 @@ earlier milestones" as a vibe — it's a mechanical property you can check:
 
 > **The defect this prevents:** a guide where M9's step calls `LikedIndex.clear()` but `clear()` isn't
 > introduced until M10. The reader following in order hits a build that cannot pass — the guide is broken at
-> M9 even though every file "looks right" in isolation. (Observed: spotify-angular M9→M10.)
+> M9 even though every file "looks right" in isolation. (Observed: a guide used a method introduced only in a later milestone.)
 
 **Self-check before closing each milestone:** for every load-bearing identifier a step *uses*, confirm its
 **first definition** lives in this milestone or an earlier one. If a step needs a symbol that a later
@@ -75,7 +75,7 @@ what. Make it a mechanical test:
   auditable promise. An unmarked, uncalled member is a defect.
 
 > **The defect this prevents:** M8 building the full marker system that only M11 uses, leaving dead members
-> scattered across intervening milestones. (Observed: spotify-angular M8/05.) Build the capability in the
+> scattered across intervening milestones. (Observed in an earlier worked example.) Build the capability in the
 > milestone that consumes it — or mark the deferral.
 
 ## Ordering the ladder

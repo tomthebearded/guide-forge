@@ -42,11 +42,14 @@
 - **Step files:** `NN_<slug>.md`, `NN` zero-padded to two digits (`01`, `02`, …), numbered in the exact order
   the reader performs them.
 - **Verify step:** always **`NN_verify.md`** — the last file in the milestone folder (its `NN` is the next
-  number after the last step). Its **file checkpoint** renders the **complete** contents of every file the
-  milestone *created or modified*, and its completeness claim covers **only those files**. A file the milestone
-  didn't touch is listed as unchanged (named, not rendered) — never swept into a blanket "authoritative copy of
-  every file" claim the checkpoint doesn't actually keep. A file named as touched but shown only as a fragment
-  is a broken checkpoint. (Observed: spotify-angular M10/M11 and unity M7/07 over-claimed completeness.)
+  number after the last step). Its **file checkpoint** renders the **complete** contents of every
+  **guide-authored** file the milestone *created or modified*, and its completeness claim covers **only those
+  files**. A **pre-existing file the milestone only adds to** (rule 4.3) is the one exception — it's shown as its
+  added region + unique placement anchor, never reproduced whole (that would invite the reader to overwrite
+  their real code); list it under "Pre-existing files modified". A file the milestone didn't touch is listed as
+  unchanged (named, not rendered) — never swept into a blanket "authoritative copy of every file" claim the
+  checkpoint doesn't actually keep. A guide-authored file named as touched but shown only as a fragment is a
+  broken checkpoint. (Observed: guides over-claimed completeness.)
 - **Foundation docs** live under **`foundation/`**, never loose at the guide root. Their filenames are exactly
   `stack.md`, `status.md`, `glossary.md`, `conventions.md`, `decision-log.md`.
 - **`README.md`** sits at the guide root (above `foundation/`).

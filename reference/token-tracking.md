@@ -79,14 +79,14 @@ Claude **cannot read its own exact token usage mid-run.** Approximate from the s
 The only exact figures come from the session transcript after the fact (that's what the hook reads). If the
 user needs real numbers, point them there — or let the hook run — rather than dressing up an estimate.
 
-## Rates (Claude Opus 4.8, per 1M tokens)
+## Rates (single source of truth: the hook)
 
-| input | output | cache write | cache read |
-|--:|--:|--:|--:|
-| $5.00 | $25.00 | $6.25 | $0.50 |
-
-Cache write assumes the 5-minute TTL (1.25× input); a 1-hour TTL is 2×. If a guide is built with a different
-model, use that model's rates and name the model in the ledger header.
+**The per-model USD rates live in one place — `MODEL_RATES` in
+[`hooks/track-tokens.js`](../hooks/track-tokens.js).** Do not restate the dollar figures here or in `README.md`;
+they drift the moment a price changes or a model is added. Read them from the code. As a shape reference only,
+each entry is per-1M-tokens `{ input, output, cacheWrite, cacheRead }`; cache write assumes the 5-minute TTL
+(1.25× input) and a 1-hour TTL is 2×. If a guide is built with a model the table doesn't list, the hook still
+counts it and flags it with `?`; name the model in the ledger header.
 
 ## `guide/TOKEN_USAGE.md` template (estimate-fallback shape)
 

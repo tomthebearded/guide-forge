@@ -7,6 +7,11 @@ Read it first every session; update it last.
 
 # STATUS — <project name>
 
+> _Generated with **GuideForge v<x.y.z>** on <YYYY-MM-DD>._
+<!-- Provenance: the GuideForge plugin version that scaffolded this guide (the `version` field of the
+     plugin's `.claude-plugin/plugin.json` at generation time). Stamp it verbatim; leave it as-is on later
+     edits — it records the method revision the guide was built against, not the last-touched date. -->
+
 ## Frontier
 <!-- The single most important line: which milestone is currently being worked, and what's the next unverified one. -->
 - **Current frontier:** <milestone ID> — <status: not started / in progress / verified>.

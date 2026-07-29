@@ -28,6 +28,11 @@ As you follow it, adapt for the fact that you're a Claude Code skill, not a past
   `templates/feedback-log.md`. Then list what you created.
 - Where the prompt hands off to another prompt by filename, use the sibling **skill** of the same name
   (`/draft-milestone`).
+- **Read the GuideForge version yourself** — the prompt's provenance rule needs the plugin `version`. Read it
+  with your file tools from the plugin's `.claude-plugin/plugin.json` (it sits two levels up from this skill
+  folder: `${CLAUDE_SKILL_DIR}/../../.claude-plugin/plugin.json`), then stamp that exact value into the
+  `README.md` provenance line + Updates seed and the `status.md` provenance line. Don't ask the user for it —
+  you can read it.
 
 Plan / args:
 ```

@@ -80,14 +80,16 @@ The expertise level for a topic applies to **everything** on that topic — incl
 built-in API surface, not just the "big" concepts. If the reader is **New** or **Beginner** on a language or
 engine, its **built-in methods and objects** are first-use terms exactly like any other: `Math.round()`,
 `Math.PI`, `Number.toFixed()`, `ctx.fillRect()`, `Array.map()` for a JS-new reader; `Transform`, `Clear
-Flags`, `IL2CPP` for a Unity-new reader. Gloss them at first use (define + link) at the topic's declared
-depth.
+Flags`, `IL2CPP` for a Unity-new reader. Explain them at first use at the topic's declared depth — but a
+**function** (`toFixed()`, `ctx.fillRect()`, `Array.map()`) gets an **inline code comment** on its line, not a
+glossary entry (the glossary holds words/concepts only, per rule 1.1); non-function terms (`Math.PI`, `Transform`,
+`Clear Flags`, `IL2CPP`) still go in the glossary as usual.
 
 The tell-tale defect is an **inconsistent bar**: a guide that carefully defines `const` but then uses
 `toFixed()` or `Math.PI` bare, or names `Transform`/`IL2CPP` without a word. If the bar is high enough to
-explain `const`, it's high enough to explain the built-in method on the next line — treat built-ins as R1
-terms, not as "obvious." (Observed: web-platformer glossed `const` but not `toFixed`/`Math.round`/`Math.PI`;
-unity left `Transform`/`IL2CPP`/`Clear Flags` unglossed.)
+explain `const`, it's high enough to explain the built-in method on the next line — treat built-ins as rule 1.1
+terms, not as "obvious." (Observed: a guide glossed `const` but not `toFixed`/`Math.round`/`Math.PI`;
+another left `Transform`/`IL2CPP`/`Clear Flags` unglossed.)
 
 ## The rule of thumb
 
