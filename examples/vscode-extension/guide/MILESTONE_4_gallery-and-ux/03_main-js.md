@@ -2,10 +2,8 @@
 > Nav: [← Externalize the CSS](02_styles.md) · [Overview](00_overview.md) · [Rewrite the provider →](04_provider-externalize.md)
 
 ## Glossary for this step
-- **`acquireVsCodeApi()`** — the once-only function inside a webview that returns the object used to `postMessage`
-  to the extension. — [glossary.md](../foundation/glossary.md)
-- **Contrast ratio (WCAG)** — how distinguishable two colors are, 1:1 → 21:1; **AA** text wants ≥ **4.5:1**, **AAA**
-  wants ≥ **7:1**. — [glossary.md](../foundation/glossary.md)
+- **[Contrast ratio (WCAG)](../foundation/glossary.md#contrast-ratio-wcag)** — how distinguishable two colors are,
+  1:1 → 21:1; **AA** text wants ≥ **4.5:1**, **AAA** wants ≥ **7:1**.
 
 ## Why / design
 This is the panel's brain and the largest step in M4. `main.js` receives the list of combos and styles from the
@@ -50,125 +48,146 @@ The DOM code here is plain, intermediate JavaScript — a tiny `el()` helper tha
 props, and a `section()` helper that wraps a titled block. No framework.
 
 ## Do this
-This step creates **one file**: `media/webview/main.js`.
+This step creates **one file**: `media/webview/main.js`. It's built as a single IIFE; the fragments below assemble
+**top-to-bottom inside that closure** in the order given. (The complete file is also shown whole in
+[the M4 checkpoint](06_verify.md) under `### media/webview/main.js` if you want to diff.)
+
+> **Before you start:** `media/webview/` must already exist with `styles.css` in it (step 02). This file is its
+> sibling.
 
 1. In **`media/webview/`** (from step 02), create the file **`media/webview/main.js`** (load-bearing path — step
-   04's `asWebviewUri` points here).
-2. Paste the code below verbatim. Orientation to the pieces:
-   - **`state`** — the single source of UI truth: the received `combos`/`profiles` and the current `comboId` /
-     `profileId` / `variant` selection.
-   - **The `message` listener** — routes `init` (store data, pick defaults, `render()`, then `apply()` **once** so
-     the first selection lands) and `applied` (`renderPreview`).
-   - **`apply()`** — posts the current selection; guards against firing before defaults exist.
-   - **`render()`** — **pure draw (never calls `apply()`)**: draws combo chips, style chips, and (only when the
-     selected profile has `variants`) a variant row, plus an empty `#preview` box the extension fills, plus
-     Revert/Reset. Clicking a **style** chip resets `variant` to `null` so a fresh style starts on its default
-     variant.
-   - **`renderPreview(palette, contrast)`** — draws the 8 swatches in a fixed role order and the contrast badge,
-     choosing `ok`/`warn`/`bad` by the AAA (≥7) / AA (≥4.5) / fail thresholds.
-   - **The last line** posts `ready`.
-3. This is the **M4 subset**. It deliberately has **no** language input, **no** Save/Export/Import, and **no**
-   saved-sets list — those are M5. Don't add them now.
-4. Save.
+   04's `asWebviewUri` points here). Open the IIFE and declare **`state`** — the single source of UI truth: the
+   received `combos`/`profiles` and the current `comboId` / `profileId` / `variant` selection.
 
-## Code
-`media/webview/main.js`:
-```js
-(function () {
-  const vscode = acquireVsCodeApi();
-  const app = document.getElementById('app');
-  const state = { combos: [], profiles: [], comboId: null, profileId: null, variant: null };
+   At the **top of `media/webview/main.js`** (this opens the closure; it's closed in the last fragment):
+   ```js
+   (function () {
+     const vscode = acquireVsCodeApi();
+     const app = document.getElementById('app');
+     const state = { combos: [], profiles: [], comboId: null, profileId: null, variant: null };
+   ```
+2. Add the **`message` listener** — it routes `init` (store data, pick defaults, `render()`, then `apply()`
+   **once** so the first selection lands) and `applied` (`renderPreview`).
 
-  window.addEventListener('message', (event) => {
-    const msg = event.data;
-    if (msg.type === 'init') {
-      state.combos = msg.combos;
-      state.profiles = msg.profiles;
-      if (!state.comboId && state.combos[0]) state.comboId = state.combos[0].id;
-      if (!state.profileId && state.profiles[0]) state.profileId = state.profiles[0].id;
-      render();
-      apply(); // apply the initial selection once, right after the first draw
-    } else if (msg.type === 'applied') {
-      renderPreview(msg.palette, msg.contrast);
-    }
-  });
+   In `main.js`, **directly below the `state` declaration**:
+   ```js
+   window.addEventListener('message', (event) => {
+     const msg = event.data;
+     if (msg.type === 'init') {
+       state.combos = msg.combos;
+       state.profiles = msg.profiles;
+       if (!state.comboId && state.combos[0]) state.comboId = state.combos[0].id;
+       if (!state.profileId && state.profiles[0]) state.profileId = state.profiles[0].id;
+       render();
+       apply(); // apply the initial selection once, right after the first draw
+     } else if (msg.type === 'applied') {
+       renderPreview(msg.palette, msg.contrast);
+     }
+   });
+   ```
+3. Add **`apply()`** — it posts the current selection and guards against firing before defaults exist.
 
-  function apply() {
-    if (!state.comboId || !state.profileId) return;
-    vscode.postMessage({ type: 'apply', comboId: state.comboId, profileId: state.profileId, variant: state.variant || undefined });
-  }
+   In `main.js`, **below the message listener**:
+   ```js
+   function apply() {
+     if (!state.comboId || !state.profileId) return;
+     vscode.postMessage({ type: 'apply', comboId: state.comboId, profileId: state.profileId, variant: state.variant || undefined });
+   }
+   ```
+4. Add the two DOM helpers **`el()`** (create an element and assign props) and **`section()`** (wrap a titled
+   block).
 
-  function el(tag, props, ...kids) {
-    const n = document.createElement(tag);
-    Object.assign(n, props || {});
-    for (const k of kids) n.append(k);
-    return n;
-  }
-  function section(title, body) {
-    return el('div', { className: 'section' }, el('h4', { textContent: title }), body);
-  }
+   In `main.js`, **below `apply()`**:
+   ```js
+   function el(tag, props, ...kids) {
+     const n = document.createElement(tag);
+     Object.assign(n, props || {});
+     for (const k of kids) n.append(k);
+     return n;
+   }
+   function section(title, body) {
+     return el('div', { className: 'section' }, el('h4', { textContent: title }), body);
+   }
+   ```
+5. Add **`render()`** — **pure draw (never calls `apply()`)**: it draws combo chips, style chips, and (only when
+   the selected profile has `variants`) a variant row, plus an empty `#preview` box the extension fills, plus
+   Revert/Reset. Clicking a **style** chip resets `variant` to `null` so a fresh style starts on its default
+   variant.
 
-  function render() {
-    app.innerHTML = '';
+   In `main.js`, **below the helpers**:
+   ```js
+   function render() {
+     app.innerHTML = '';
 
-    const combosBox = el('div', { className: 'row' });
-    for (const c of state.combos) {
-      const b = el('button', { textContent: c.label, className: c.id === state.comboId ? 'chip active' : 'chip' });
-      b.addEventListener('click', () => { state.comboId = c.id; render(); apply(); });
-      combosBox.append(b);
-    }
-    app.append(section('Starter combination', combosBox));
+     const combosBox = el('div', { className: 'row' });
+     for (const c of state.combos) {
+       const b = el('button', { textContent: c.label, className: c.id === state.comboId ? 'chip active' : 'chip' });
+       b.addEventListener('click', () => { state.comboId = c.id; render(); apply(); });
+       combosBox.append(b);
+     }
+     app.append(section('Starter combination', combosBox));
 
-    const profBox = el('div', { className: 'row' });
-    for (const p of state.profiles) {
-      const b = el('button', { textContent: p.label, className: p.id === state.profileId ? 'chip active' : 'chip' });
-      b.addEventListener('click', () => { state.profileId = p.id; state.variant = null; render(); apply(); });
-      profBox.append(b);
-    }
-    app.append(section('Style', profBox));
+     const profBox = el('div', { className: 'row' });
+     for (const p of state.profiles) {
+       const b = el('button', { textContent: p.label, className: p.id === state.profileId ? 'chip active' : 'chip' });
+       b.addEventListener('click', () => { state.profileId = p.id; state.variant = null; render(); apply(); });
+       profBox.append(b);
+     }
+     app.append(section('Style', profBox));
 
-    const sel = state.profiles.find((p) => p.id === state.profileId);
-    if (sel && sel.variants && sel.variants.length) {
-      const vbox = el('div', { className: 'row' });
-      for (const v of sel.variants) {
-        const active = (state.variant || sel.variants[0]) === v;
-        const b = el('button', { textContent: v, className: active ? 'chip active' : 'chip' });
-        b.addEventListener('click', () => { state.variant = v; render(); apply(); });
-        vbox.append(b);
-      }
-      app.append(section('Variant', vbox));
-    }
+     const sel = state.profiles.find((p) => p.id === state.profileId);
+     if (sel && sel.variants && sel.variants.length) {
+       const vbox = el('div', { className: 'row' });
+       for (const v of sel.variants) {
+         const active = (state.variant || sel.variants[0]) === v;
+         const b = el('button', { textContent: v, className: active ? 'chip active' : 'chip' });
+         b.addEventListener('click', () => { state.variant = v; render(); apply(); });
+         vbox.append(b);
+       }
+       app.append(section('Variant', vbox));
+     }
 
-    app.append(el('div', { id: 'preview', className: 'section' }));
+     app.append(el('div', { id: 'preview', className: 'section' }));
 
-    const actions = el('div', { className: 'row' });
-    const mk = (label, type) => { const b = el('button', { textContent: label, className: 'btn' }); b.addEventListener('click', () => vscode.postMessage({ type })); return b; };
-    actions.append(mk('Revert', 'revert'), mk('Reset', 'reset'));
-    app.append(section('Actions', actions));
-  }
+     const actions = el('div', { className: 'row' });
+     const mk = (label, type) => { const b = el('button', { textContent: label, className: 'btn' }); b.addEventListener('click', () => vscode.postMessage({ type })); return b; };
+     actions.append(mk('Revert', 'revert'), mk('Reset', 'reset'));
+     app.append(section('Actions', actions));
+   }
+   ```
+6. Add **`renderPreview(palette, contrast)`** — it draws the 8 swatches in a fixed role order and the contrast
+   badge, choosing `ok`/`warn`/`bad` by the AAA (≥7) / AA (≥4.5) / fail thresholds.
 
-  function renderPreview(palette, contrast) {
-    const box = document.getElementById('preview');
-    if (!box) return;
-    box.innerHTML = '';
-    box.append(el('h4', { textContent: 'Palette' }));
-    const strip = el('div', { className: 'swatches' });
-    for (const key of ['bg', 'surface', 'surfaceAlt', 'text', 'textMuted', 'accent1', 'accent2', 'border']) {
-      const sw = el('div', { className: 'swatch', title: key + ' ' + palette[key] });
-      sw.style.background = palette[key];
-      strip.append(sw);
-    }
-    box.append(strip);
-    const aa = contrast >= 4.5, aaa = contrast >= 7;
-    box.append(el('span', {
-      className: 'badge ' + (aaa ? 'ok' : aa ? 'warn' : 'bad'),
-      textContent: 'text/bg contrast ' + contrast + ':1 ' + (aaa ? 'AAA' : aa ? 'AA' : 'FAIL'),
-    }));
-  }
+   In `main.js`, **below `render()`**:
+   ```js
+   function renderPreview(palette, contrast) {
+     const box = document.getElementById('preview');
+     if (!box) return;
+     box.innerHTML = '';
+     box.append(el('h4', { textContent: 'Palette' }));
+     const strip = el('div', { className: 'swatches' });
+     for (const key of ['bg', 'surface', 'surfaceAlt', 'text', 'textMuted', 'accent1', 'accent2', 'border']) {
+       const sw = el('div', { className: 'swatch', title: key + ' ' + palette[key] });
+       sw.style.background = palette[key];
+       strip.append(sw);
+     }
+     box.append(strip);
+     const aa = contrast >= 4.5, aaa = contrast >= 7;
+     box.append(el('span', {
+       className: 'badge ' + (aaa ? 'ok' : aa ? 'warn' : 'bad'),
+       textContent: 'text/bg contrast ' + contrast + ':1 ' + (aaa ? 'AAA' : aa ? 'AA' : 'FAIL'),
+     }));
+   }
+   ```
+7. Finally, post **`ready`** and close the IIFE.
 
-  vscode.postMessage({ type: 'ready' });
-})();
-```
+   As the **last lines of `main.js`**:
+   ```js
+   vscode.postMessage({ type: 'ready' });
+   })();
+   ```
+8. This is the **M4 subset**. It deliberately has **no** language input, **no** Save/Export/Import, and **no**
+   saved-sets list — those are M5. Don't add them now. Save.
 
 ### Reading notes (intermediate JS one-liners)
 - **`(function () { … })();`** — an IIFE: it runs immediately and keeps `vscode`, `state`, and the helpers out of

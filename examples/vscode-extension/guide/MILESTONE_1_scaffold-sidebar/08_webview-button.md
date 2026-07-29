@@ -17,64 +17,14 @@ webview toward the extension. This step only sends; step 09 receives.
 > [Webview → content security](https://code.visualstudio.com/api/extension-guides/webview#content-security-policy).
 
 ## Do this
-This step **edits one file**: `src/panel/ThemePanelProvider.ts`. Three changes:
-1. Add a `getNonce()` helper (bottom of the file).
-2. In `getHtml`, compute a `nonce` and add `script-src 'nonce-${nonce}'` to the CSP.
-3. Add the `<button>` and the `<script nonce="${nonce}">…</script>` to the body.
+This step **edits** `src/panel/ThemePanelProvider.ts` (the provider you created in [step 06](06_provider.md)). Make the three changes below, then save (it recompiles on save).
 
 The message payload shape — `{ type: 'ping', text: 'hello from the webview' }` — is **load-bearing**: step 09
 reads `type` and logs the object, and the verify gate checks this exact text. The button's visible label is
 cosmetic.
 
-Replace the whole file with the version below, then save (it recompiles on save).
-
-## Code
-`src/panel/ThemePanelProvider.ts`
+**1. Add a `getNonce()` helper** at the **bottom of the file**, after the `ThemePanelProvider` class's closing `}`:
 ```ts
-import * as vscode from 'vscode';
-
-export class ThemePanelProvider implements vscode.WebviewViewProvider {
-  // Must match the view id declared in package.json (contributes.views).
-  public static readonly viewType = 'liveRecolor.panel';
-
-  resolveWebviewView(
-    webviewView: vscode.WebviewView,
-    _context: vscode.WebviewViewResolveContext,
-    _token: vscode.CancellationToken,
-  ): void {
-    // Allow the page to run scripts.
-    webviewView.webview.options = { enableScripts: true };
-
-    // Fill the panel with our HTML.
-    webviewView.webview.html = this.getHtml(webviewView.webview);
-  }
-
-  private getHtml(webview: vscode.Webview): string {
-    const nonce = getNonce();
-    return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy"
-    content="default-src 'none'; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';" />
-  <title>Live Recolor</title>
-</head>
-<body>
-  <h3>Live Recolor</h3>
-  <p>The control panel will grow here.</p>
-  <button id="ping">Say hello to the extension</button>
-  <script nonce="${nonce}">
-    const vscode = acquireVsCodeApi();
-    document.getElementById('ping').addEventListener('click', () => {
-      vscode.postMessage({ type: 'ping', text: 'hello from the webview' });
-    });
-  </script>
-</body>
-</html>`;
-  }
-}
-
 function getNonce(): string {
   let text = '';
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -84,6 +34,31 @@ function getNonce(): string {
   return text;
 }
 ```
+
+**2. Compute the nonce and widen the CSP.** In `getHtml`, add `const nonce = getNonce();` as the first line, right after the signature `private getHtml(webview: vscode.Webview): string {`:
+```ts
+  private getHtml(webview: vscode.Webview): string {
+    const nonce = getNonce();
+    return `<!DOCTYPE html>
+```
+Then change the CSP `<meta>` line (the one starting `content="default-src 'none';`) to add `script-src 'nonce-${nonce}'`:
+```ts
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'none'; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';" />
+```
+
+**3. Add the button and script** inside `<body>`, immediately after the `<p>The control panel will grow here.</p>` line:
+```ts
+  <button id="ping">Say hello to the extension</button>
+  <script nonce="${nonce}">
+    const vscode = acquireVsCodeApi(); // → the object for postMessage back to the extension; call once per webview
+    document.getElementById('ping').addEventListener('click', () => {
+      vscode.postMessage({ type: 'ping', text: 'hello from the webview' });
+    });
+  </script>
+```
+
+*(The complete `src/panel/ThemePanelProvider.ts` after this step is shown whole in [10_verify.md](10_verify.md).)*
 
 ## Done when (this step)
 - Reopen/relaunch the panel in the EDH (<kbd>F5</kbd> or restart): it now shows a button labelled

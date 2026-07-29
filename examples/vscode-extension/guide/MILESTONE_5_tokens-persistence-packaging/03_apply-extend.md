@@ -34,59 +34,63 @@ Value shapes (both are objects VS Code merges into the setting):
   load-bearing** — without it, semantic coloring is off and your `rules` are ignored.
 
 ## Do this
-This step edits **one file**: `src/theme/apply.ts`.
+This step edits **one file**: `src/theme/apply.ts` — the M2 file. `applyChrome` stays **exactly** as M2 wrote it
+(don't re-type it); you're widening the import and adding three functions below it. (The complete file is in
+[the M5 checkpoint](10_verify.md) under `### src/theme/apply.ts`.)
 
-1. Open `src/theme/apply.ts`. It currently imports `CHROME, TARGET` and exports `applyChrome`.
-2. **Widen the import** from `./settings` to include `TOKENS` and `SEMANTIC` (the two `editor.*` setting descriptors
-   defined back in M2's `settings.ts`), and import `ThemeResult` from `../engine/types`.
-3. **Add `applyTokens(tokens, languageId?)`** — builds the seven-key value, gets `editor` config (scoped to the
-   language when `languageId` is given), and updates with the 4th arg `true` **only** when scoping.
-4. **Add `applySemantic(semantic, languageId?)`** — same pattern, value `{ enabled: true, rules: semantic }`.
-5. **Add `applyTheme(theme, languageId?)`** — writes chrome **only when no `languageId`**, then always writes
-   tokens + semantic (scoped or global to match).
+> **Before you start:** M2's `src/theme/apply.ts` must exist (it imports `CHROME, TARGET` and exports
+> `applyChrome`), and step 01's `TokenColors`/`SemanticColors` types must be in place.
+
+1. Open `src/theme/apply.ts`.
+2. **Widen the imports** — include `TOKENS` and `SEMANTIC` from `./settings` (the two `editor.*` setting
+   descriptors defined back in M2's `settings.ts`), and import `ThemeResult` from `../engine/types`. Replace the
+   import lines at the top with:
+   ```ts
+   import * as vscode from 'vscode';
+   import { CHROME, TOKENS, SEMANTIC, TARGET } from './settings';
+   import { ThemeResult } from '../engine/types';
+   ```
+3. **Add `applyTokens(tokens, languageId?)`** directly **below `applyChrome`** — it builds the seven-key value,
+   gets `editor` config (scoped to the language when `languageId` is given), and updates with the 4th arg `true`
+   **only** when scoping.
+   ```ts
+   export async function applyTokens(tokens: ThemeResult['tokens'], languageId?: string): Promise<void> {
+     const value = { comments: tokens.comments, keywords: tokens.keywords, strings: tokens.strings,
+       numbers: tokens.numbers, types: tokens.types, functions: tokens.functions, variables: tokens.variables };
+     const cfg = vscode.workspace.getConfiguration(TOKENS.section, languageId ? { languageId } : undefined);
+     await cfg.update(TOKENS.key, value, TARGET, languageId ? true : undefined);
+   }
+   ```
+4. **Add `applySemantic(semantic, languageId?)`** directly **below `applyTokens`** — same pattern, value
+   `{ enabled: true, rules: semantic }`.
+   ```ts
+   export async function applySemantic(semantic: ThemeResult['semantic'], languageId?: string): Promise<void> {
+     const value = { enabled: true, rules: semantic };
+     const cfg = vscode.workspace.getConfiguration(SEMANTIC.section, languageId ? { languageId } : undefined);
+     await cfg.update(SEMANTIC.key, value, TARGET, languageId ? true : undefined);
+   }
+   ```
+5. **Add `applyTheme(theme, languageId?)`** directly **below `applySemantic`** — writes chrome **only when no
+   `languageId`**, then always writes tokens + semantic (scoped or global to match).
+   ```ts
+   // Accepts anything carrying the three color maps — a generated ThemeResult OR a saved set.
+   export async function applyTheme(
+     theme: Pick<ThemeResult, 'chrome' | 'tokens' | 'semantic'>,
+     languageId?: string,
+   ): Promise<void> {
+     if (!languageId) { await applyChrome(theme.chrome); } // chrome can't be language-scoped
+     await applyTokens(theme.tokens, languageId);
+     await applySemantic(theme.semantic, languageId);
+   }
+   ```
 6. Leave `applyChrome` exactly as it was. Save.
 
 **Load-bearing:** `TOKENS`/`SEMANTIC` resolve to `editor.tokenColorCustomizations` /
 `editor.semanticTokenColorCustomizations`; the `{ enabled: true, rules }` shape; the `languageId ? true :
 undefined` 4th arg; and the `if (!languageId) applyChrome(...)` guard. The local variable names are cosmetic.
 
-## Code
-`src/theme/apply.ts` (complete, final):
-```ts
-import * as vscode from 'vscode';
-import { CHROME, TOKENS, SEMANTIC, TARGET } from './settings';
-import { ThemeResult } from '../engine/types';
-
-export async function applyChrome(chrome: Record<string, string>): Promise<void> {
-  await vscode.workspace.getConfiguration(CHROME.section).update(CHROME.key, chrome, TARGET);
-}
-
-export async function applyTokens(tokens: ThemeResult['tokens'], languageId?: string): Promise<void> {
-  const value = { comments: tokens.comments, keywords: tokens.keywords, strings: tokens.strings,
-    numbers: tokens.numbers, types: tokens.types, functions: tokens.functions, variables: tokens.variables };
-  const cfg = vscode.workspace.getConfiguration(TOKENS.section, languageId ? { languageId } : undefined);
-  await cfg.update(TOKENS.key, value, TARGET, languageId ? true : undefined);
-}
-
-export async function applySemantic(semantic: ThemeResult['semantic'], languageId?: string): Promise<void> {
-  const value = { enabled: true, rules: semantic };
-  const cfg = vscode.workspace.getConfiguration(SEMANTIC.section, languageId ? { languageId } : undefined);
-  await cfg.update(SEMANTIC.key, value, TARGET, languageId ? true : undefined);
-}
-
-// Accepts anything carrying the three color maps — a generated ThemeResult OR a saved set.
-export async function applyTheme(
-  theme: Pick<ThemeResult, 'chrome' | 'tokens' | 'semantic'>,
-  languageId?: string,
-): Promise<void> {
-  if (!languageId) { await applyChrome(theme.chrome); } // chrome can't be language-scoped
-  await applyTokens(theme.tokens, languageId);
-  await applySemantic(theme.semantic, languageId);
-}
-```
-
 ## Done when (this step)
-- `src/theme/apply.ts` matches the block above and the project compiles clean.
+- `src/theme/apply.ts` matches the checkpoint version and the project compiles clean.
 - Nothing observable in the editor yet — the provider doesn't call `applyTheme` until step 06. This step is wiring;
   its real proof is in the verify gate (step 10), where a global apply recolors code and a `typescript`-scoped
   apply recolors only `.ts`.

@@ -2,9 +2,9 @@
 > Nav: [← Game scene](04_game-scene.md) · [Overview](00_overview.md) · [MenuController script →](06_menucontroller-script.md)
 
 ## Glossary for this step
-- **Scene List (Build Profiles)** — the list of scenes that ship with the game and their order; a scene must be
+- **[Scene List (Build Profiles)](../foundation/glossary.md#build-settings--build-profiles)** — the list of scenes that ship with the game and their order; a scene must be
   here to be loaded by name at runtime, and **index 0** is the scene that opens first. In Unity 6 this list lives
-  in the **Build Profiles** window (it was called "Build Settings" before Unity 6). See [glossary: Build Settings](../foundation/glossary.md).
+  in the **Build Profiles** window (it was called "Build Settings" before Unity 6).
 
 ## Why / design
 `SceneManager.LoadScene("Game")` (the code you'll write next) can only load a scene that's in the build's

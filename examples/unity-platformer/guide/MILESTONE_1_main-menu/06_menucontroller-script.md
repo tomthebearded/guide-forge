@@ -2,9 +2,8 @@
 > Nav: [← Build Settings](05_build-settings.md) · [Overview](00_overview.md) · [Wire the buttons →](07_wire-buttons.md)
 
 ## Glossary for this step
-- **`SceneManager.LoadScene`** — the call that swaps the running scene by name. See [glossary](../foundation/glossary.md).
-- **`MonoBehaviour`** — the base class every Unity script inherits from; inheriting it is what lets a class be
-  attached to a GameObject. See [glossary: MonoBehaviour](../foundation/glossary.md).
+- **[`MonoBehaviour`](../foundation/glossary.md#monobehaviour)** — the base class every Unity script inherits from; inheriting it is what lets a class be
+  attached to a GameObject.
 
 ## Why / design
 Your first script. It holds two **public methods** — `PlayGame` and `QuitGame` — that the buttons will call.
@@ -42,7 +41,7 @@ public class MenuController : MonoBehaviour
     // Wired to the Play button's OnClick in the Inspector.
     public void PlayGame()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Game");   // LoadScene(name) swaps the running scene for the one named "Game" (must be in Build Profiles)
     }
 
     // Wired to the Quit button's OnClick in the Inspector.

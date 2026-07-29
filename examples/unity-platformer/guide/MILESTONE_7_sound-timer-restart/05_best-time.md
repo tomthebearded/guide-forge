@@ -2,8 +2,8 @@
 > Nav: [← Timer HUD](04_timer-hud.md) · [Overview](00_overview.md) · [Restart & Menu →](06_restart-and-menu.md)
 
 ## Glossary for this step
-- **`PlayerPrefs`** — Unity's simple key/value store that persists small values across Play sessions and app
-  runs. See [glossary: PlayerPrefs](../foundation/glossary.md).
+- **[`PlayerPrefs`](../foundation/glossary.md#playerprefs)** — Unity's simple key/value store that persists small values across Play sessions and app
+  runs.
 
 ## Why / design
 On win, compare this run's time to the stored **best**; if it's faster, save it. `PlayerPrefs` stores an integer

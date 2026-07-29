@@ -3,8 +3,8 @@
 
 ## Glossary for this step
 - **RGB** — a color as three channels, **R**ed / **G**reen / **B**lue, each `0–255`. Hex `#rrggbb` is just those three bytes written in base-16 (`ff` = 255). *(defined inline below)*
-- **HSL** — a color as **H**ue (`0–360°`, the position on the color wheel), **S**aturation (`0–1`, grey→vivid), **L**ightness (`0–1`, black→white). — [glossary.md](../foundation/glossary.md)
-- **Contrast ratio (WCAG)** — a number from `1:1` (identical) to `21:1` (black vs. white) describing how distinguishable two colors are; text wants **≥ 4.5:1** (AA) or **≥ 7:1** (AAA). — [glossary.md](../foundation/glossary.md)
+- **[HSL](../foundation/glossary.md#hsl)** — a color as **H**ue (`0–360°`, the position on the color wheel), **S**aturation (`0–1`, grey→vivid), **L**ightness (`0–1`, black→white).
+- **[Contrast ratio (WCAG)](../foundation/glossary.md#contrast-ratio-wcag)** — a number from `1:1` (identical) to `21:1` (black vs. white) describing how distinguishable two colors are; text wants **≥ 4.5:1** (AA) or **≥ 7:1** (AAA).
 
 ## Why / design
 This is the first file of the **pure engine** (`src/engine/`) — plain TypeScript with **no `import * as vscode`**.
@@ -37,6 +37,8 @@ in HSL and painful in RGB.
 > [W3C — contrast (minimum)](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html).
 
 ## Do this
+**Before you start:** [M2](../MILESTONE_2_nondestructive-backbone/00_overview.md) is green and the `live-recolor` project compiles. The Node color check at the end of this step reuses the Node 24 + `tsc` you set up in [M1/01](../MILESTONE_1_scaffold-sidebar/01_prerequisites.md) — no new install needed.
+
 This step creates **one file**: `src/engine/color.ts`.
 
 1. In the Explorer, create a folder **`src/engine`** (this is the pure engine layer — nothing here may import

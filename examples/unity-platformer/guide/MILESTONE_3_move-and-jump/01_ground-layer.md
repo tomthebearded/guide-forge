@@ -2,9 +2,8 @@
 > Nav: — · [Overview](00_overview.md) · [PlayerController (move) →](02_playercontroller-move.md)
 
 ## Glossary for this step
-- **LayerMask** — a filter naming which physics layers a check considers. Our "am I standing on something?"
-  check will look only at the **Ground** layer, so coins and the player itself don't count as ground. See
-  [glossary: LayerMask](../foundation/glossary.md).
+- **[LayerMask](../foundation/glossary.md#layermask)** — a filter naming which physics layers a check considers. Our "am I standing on something?"
+  check will look only at the **Ground** layer, so coins and the player itself don't count as ground.
 
 ## Why / design
 In step 04 the jump uses a small overlap check to ask "is there ground beneath my feet?" To answer *only* about

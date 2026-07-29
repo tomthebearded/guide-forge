@@ -28,17 +28,64 @@ least a 3:1 ratio against the background — a color that's invisible on the the
 agree: a keyword and the semantic `keyword` type get the same hex.
 
 ## Do this
-This step edits **one file**: `src/engine/generate.ts`.
+This step edits **one file**: `src/engine/generate.ts` — the M4 file. `paletteToChrome` stays **exactly** as M4
+wrote it (don't re-type it); you're widening the imports, adding two functions below it, and rewriting `generate()`.
+(The complete file is in [the M5 checkpoint](10_verify.md) under `### src/engine/generate.ts`.)
+
+> **Before you start:** M4's `src/engine/generate.ts` must exist with `paletteToChrome` and a `generate()` that
+> returns `{ palette, chrome }`, and step 01's `TokenColors`/`SemanticColors` must already be in `types.ts`.
 
 1. Open `src/engine/generate.ts`.
-2. **Widen the imports.** Add `TokenColors, SemanticColors` to the `types` import, and add `mix, rotate,
-   ensureContrast` to the `color` import (they're used by the new functions). `readableOn` stays (chrome uses it).
-3. **Add `paletteToTokens(p: Palette): TokenColors`** below `paletteToChrome`. It maps each of the seven roles from
-   palette accents/text/muted, each clamped for contrast against `p.bg`.
-4. **Add `paletteToSemantic(t: TokenColors): SemanticColors`** below that. It fans the seven token colors out to
-   the semantic **token type** names a language server emits (several types share a color on purpose — e.g.
+2. **Widen the imports.** Add `TokenColors, SemanticColors` to the `types` import, and `mix, rotate,
+   ensureContrast` to the `color` import (they're used by the new functions; `readableOn` stays — chrome uses it).
+   **Replace the two import lines at the top** with:
+   ```ts
+   import { ChromeColors, Palette, StarterCombo, StyleProfile, ThemeResult, TokenColors, SemanticColors } from './types';
+   import { readableOn, mix, rotate, ensureContrast } from './color';
+   ```
+3. **Add `paletteToTokens`** directly **below the unchanged `paletteToChrome` function**. It maps each of the seven
+   roles from palette accents/text/muted, each clamped for contrast against `p.bg`.
+   ```ts
+   function paletteToTokens(p: Palette): TokenColors {
+     const on = (c: string) => ensureContrast(c, p.bg, 3);
+     return {
+       comments: on(p.textMuted),
+       keywords: on(p.accent1),
+       strings: on(p.accent2),
+       numbers: on(rotate(p.accent2, 20)),
+       types: on(rotate(p.accent1, -20)),
+       functions: on(mix(p.accent2, p.text, 0.2)),
+       variables: on(p.text),
+     };
+   }
+   ```
+4. **Add `paletteToSemantic`** directly **below `paletteToTokens`**. It fans the seven token colors out to the
+   semantic **token type** names a language server emits (several types share a color on purpose — e.g.
    `class`/`type`/`interface`/`enum` all use `types`).
-5. **Update `generate()`** to compute `tokens` and return `tokens` + `semantic` alongside `palette` and `chrome`.
+   ```ts
+   function paletteToSemantic(t: TokenColors): SemanticColors {
+     return {
+       variable: t.variables, parameter: t.variables, property: t.variables,
+       function: t.functions, method: t.functions,
+       class: t.types, type: t.types, interface: t.types, enum: t.types,
+       keyword: t.keywords, string: t.strings, number: t.numbers, comment: t.comments,
+     };
+   }
+   ```
+5. **Replace `generate()`** so it computes `tokens` and returns `tokens` + `semantic` alongside `palette` and
+   `chrome`:
+   ```ts
+   export function generate(combo: StarterCombo, profile: StyleProfile, variant?: string): ThemeResult {
+     const palette = profile.buildPalette(combo, variant);
+     const tokens = paletteToTokens(palette);
+     return {
+       palette,
+       chrome: paletteToChrome(palette),
+       tokens,
+       semantic: paletteToSemantic(tokens),
+     };
+   }
+   ```
 6. Save — this clears the `ThemeResult` error left over from step 01.
 
 **Load-bearing:** the seven `TokenColors` keys (from step 01) and the semantic **type names** on the left of
@@ -46,74 +93,8 @@ This step edits **one file**: `src/engine/generate.ts`.
 `enum`, `keyword`, `string`, `number`, `comment`) — these are the standard type names VS Code recognizes. The
 specific *derivation math* (which accent maps where, the `rotate` degrees) is **cosmetic** — tune it freely.
 
-## Code
-`src/engine/generate.ts` (complete, final):
-```ts
-import { ChromeColors, Palette, StarterCombo, StyleProfile, ThemeResult, TokenColors, SemanticColors } from './types';
-import { readableOn, mix, rotate, ensureContrast } from './color';
-
-function paletteToChrome(p: Palette): ChromeColors {
-  const onAccent = readableOn(p.accent1);
-  return {
-    'editor.background': p.bg,
-    'editor.foreground': p.text,
-    'sideBar.background': p.surface,
-    'sideBar.foreground': p.text,
-    'sideBarSectionHeader.background': p.surfaceAlt,
-    'activityBar.background': p.surfaceAlt,
-    'activityBar.foreground': p.accent1,
-    'activityBar.activeBorder': p.accent1,
-    'statusBar.background': p.accent1,
-    'statusBar.foreground': onAccent,
-    'titleBar.activeBackground': p.surfaceAlt,
-    'titleBar.activeForeground': p.text,
-    'tab.activeBackground': p.bg,
-    'tab.inactiveBackground': p.surface,
-    'tab.activeForeground': p.text,
-    'tab.inactiveForeground': p.textMuted,
-    'editorGroupHeader.tabsBackground': p.surface,
-    'panel.background': p.surface,
-    'panel.border': p.border,
-    'focusBorder': p.accent2,
-  };
-}
-
-function paletteToTokens(p: Palette): TokenColors {
-  const on = (c: string) => ensureContrast(c, p.bg, 3);
-  return {
-    comments: on(p.textMuted),
-    keywords: on(p.accent1),
-    strings: on(p.accent2),
-    numbers: on(rotate(p.accent2, 20)),
-    types: on(rotate(p.accent1, -20)),
-    functions: on(mix(p.accent2, p.text, 0.2)),
-    variables: on(p.text),
-  };
-}
-
-function paletteToSemantic(t: TokenColors): SemanticColors {
-  return {
-    variable: t.variables, parameter: t.variables, property: t.variables,
-    function: t.functions, method: t.functions,
-    class: t.types, type: t.types, interface: t.types, enum: t.types,
-    keyword: t.keywords, string: t.strings, number: t.numbers, comment: t.comments,
-  };
-}
-
-export function generate(combo: StarterCombo, profile: StyleProfile, variant?: string): ThemeResult {
-  const palette = profile.buildPalette(combo, variant);
-  const tokens = paletteToTokens(palette);
-  return {
-    palette,
-    chrome: paletteToChrome(palette),
-    tokens,
-    semantic: paletteToSemantic(tokens),
-  };
-}
-```
-
 ## Done when (this step)
-- `src/engine/generate.ts` matches the block above and the **whole engine compiles with no errors** (`npm run
+- `src/engine/generate.ts` matches the checkpoint version and the **whole engine compiles with no errors** (`npm run
   compile` is clean).
 - Optional Node-runnable sanity check (the engine is pure, so no F5 needed). From the project root:
   ```powershell

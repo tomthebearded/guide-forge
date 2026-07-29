@@ -2,9 +2,9 @@
 > Nav: — · [Overview](00_overview.md) · [Apply function →](02_apply.md)
 
 ## Glossary for this step
-- **Chrome (workbench chrome)** — the editor's surrounding UI (title bar, activity bar, sidebar, status bar, tabs, panels), as opposed to the code text; recolored via `workbench.colorCustomizations`. — [glossary.md](../foundation/glossary.md)
-- **Workbench color key** — one of VS Code's named themeable UI colors (e.g. `statusBar.background`) settable under `workbench.colorCustomizations`. — [glossary.md](../foundation/glossary.md)
-- **`ConfigurationTarget`** — the enum choosing *where* a settings write lands: `Global` (User settings, all workspaces) or `Workspace`/`WorkspaceFolder`. — [glossary.md](../foundation/glossary.md)
+- **[Chrome (workbench chrome)](../foundation/glossary.md#chrome-workbench-chrome)** — the editor's surrounding UI (title bar, activity bar, sidebar, status bar, tabs, panels), as opposed to the code text; recolored via `workbench.colorCustomizations`.
+- **[Workbench color key](../foundation/glossary.md#workbench-color-key)** — one of VS Code's named themeable UI colors (e.g. `statusBar.background`) settable under `workbench.colorCustomizations`.
+- **[`ConfigurationTarget`](../foundation/glossary.md#configurationtarget)** — the enum choosing *where* a settings write lands: `Global` (User settings, all workspaces) or `Workspace`/`WorkspaceFolder`.
 
 ## Why / design
 Before anything writes a setting, we make **one** place that names the settings and the write target. The convention
@@ -28,6 +28,8 @@ pre-split into `{ section, key }`, ready for step 02 to consume.
 > `Workspace`, open a folder first. Verified against the current API — see [stack.md](../foundation/stack.md#verified-api-facts-steps-must-honor-exact-spelling--load-bearing).
 
 ## Do this
+**Before you start:** [M1](../MILESTONE_1_scaffold-sidebar/00_overview.md) is green — the `live-recolor` project is open in VS Code and `src/panel/` exists (this step's folder sits beside it). Dependencies are already installed from M1's scaffold.
+
 This step creates **one file**: `src/theme/settings.ts`.
 
 1. In the Explorer, create a folder **`src/theme`** (sibling of `src/panel`), then a file **`src/theme/settings.ts`**.

@@ -2,10 +2,10 @@
 > Nav: [← Ground](02_ground.md) · [Overview](00_overview.md) · [Colliders land →](04_colliders-land.md)
 
 ## Glossary for this step
-- **`Rigidbody2D`** — the component that hands a GameObject to the 2D physics engine so it falls under gravity,
-  carries velocity, and collides. See [glossary: Rigidbody2D](../foundation/glossary.md).
-- **`Physics2D.gravity`** — the engine's single global gravity vector, default `(0, -9.81)` (9.81 units/s²
-  downward). See [glossary](../foundation/glossary.md).
+- **[`Rigidbody2D`](../foundation/glossary.md#rigidbody2d)** — the component that hands a GameObject to the 2D physics engine so it falls under gravity,
+  carries velocity, and collides.
+- **[`Physics2D.gravity`](../foundation/glossary.md#physics2dgravity)** — the engine's single global gravity vector, default `(0, -9.81)` (9.81 units/s²
+  downward).
 
 ## Why / design
 Adding a **`Rigidbody2D`** to the Player is the entire "make it fall" step. The physics engine then applies

@@ -2,8 +2,8 @@
 > Nav: [← Player triggers](04_player-triggers.md) · [Overview](00_overview.md) · [HUD & win panel →](06_hud-and-winpanel.md)
 
 ## Glossary for this step
-- **`Time.timeScale`** — a global multiplier on game time; `0` freezes all physics/animation (our win state),
-  `1` is normal. It **persists** across Play sessions, so we reset it in `Start()`. See [glossary](../foundation/glossary.md).
+- **[`Time.timeScale`](../foundation/glossary.md#timetimescale)** — a global multiplier on game time; `0` freezes all physics/animation (our win state),
+  `1` is normal. It **persists** across Play sessions, so we reset it in `Start()`.
 
 ## Why / design
 `GameManager` is the game's brain: it tracks the coin **score**, shows it on the HUD, and handles the **win**

@@ -2,9 +2,9 @@
 > Nav: [← Icon asset](04_icon-asset.md) · [Overview](00_overview.md) · [Provider →](06_provider.md)
 
 ## Glossary for this step
-- **Contribution point** — a section of `package.json` where an extension declares what it adds to VS Code (commands, views, menus…). *(See [glossary.md](../foundation/glossary.md).)*
-- **View Container** — a group in the Activity Bar that holds one or more Views. — [glossary.md](../foundation/glossary.md)
-- **Webview View** — a View whose body is an HTML page (a mini web app) rather than a tree. — [glossary.md](../foundation/glossary.md)
+- **Contribution point** — a section of `package.json` where an extension declares what it adds to VS Code (commands, views, menus…).
+- **[View Container](../foundation/glossary.md#view-container)** — a group in the Activity Bar that holds one or more Views.
+- **[Webview View](../foundation/glossary.md#webview-view)** — a View whose body is an HTML page (a mini web app) rather than a tree.
 
 ## Why / design
 An extension tells VS Code what UI it adds **declaratively**, in the `package.json` manifest, *before* any code

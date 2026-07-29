@@ -3,6 +3,8 @@
 > The front door to this guide. Skim this, then follow the milestones. **Progress lives in
 > [foundation/status.md](foundation/status.md), not here** — this page describes intent; `status.md` states reality.
 
+> _Generated with **GuideForge v1.2.0**._
+
 ## Objective
 You'll build a small to-do app end to end: an **Ionic-Angular** app running in the browser that lists, adds,
 toggles-done, edits, filters, and deletes todos by calling a **.NET 10 minimal API**, whose data lives in an
@@ -19,6 +21,7 @@ full verified table + check date: **[foundation/stack.md](foundation/stack.md)**
 - **Frontend follows the Ionic scaffold (Angular 20.3 + Karma), not a forced upgrade** — the guide matches what `ionic start` actually produces today. → [foundation/decision-log.md](foundation/decision-log.md#d5--follow-the-ionic-scaffolds-angular-203--karma-not-a-forced-upgrade)
 
 ## Updates
+- 2026-07-21 — Retrofitted to the GuideForge v1.2.0 pedagogy contract: provenance stamp, glossary hygiene (concept headings + deep-links, `addIcons`/`computed()`→inline comments), code interleaved under its instruction (4.2), existing-file edits shown as fragments (4.3), and "Before you start" starting-state notes (7.1). All milestones flagged for re-verify.
 - 2026-07-11 — Audit-fix pass (guide had FAILed on stale version labels): propagated D5 across the front-door docs (no more "Vitest"/"Angular 22" where the guide builds Angular 20.3 + Karma), declared the `angular.json` partial edit, gave the build gates concrete output, reworded title-validation to client-side-only, and backfilled 5 glossary terms.
 - 2026-07-10 — Audit pass: fixed the spinner-on-every-mutation flash, a dead anchor, an unpinned test count, a namespace-convention mismatch, and added Ionic-term glosses.
 - 2026-07-10 — All milestones M0–M8 drafted (backend then frontend, complete code + verify gates).

@@ -2,9 +2,9 @@
 > Nav: [← Color utilities](01_color-utils.md) · [Overview](00_overview.md) · [Combos →](03_combos.md)
 
 ## Glossary for this step
-- **Starter combination** — one of the 5 base color sets (`bg` / `surface` / `text` / `accent1` / `accent2`) you pick as a starting point. — [glossary.md](../foundation/glossary.md)
-- **Style profile** — the data object (rules or fixed values) defining one style; collected in one registry. — [glossary.md](../foundation/glossary.md)
-- **Seed color** — the base color a generative profile expands into a full palette (here, the combo's colors are the seed). — [glossary.md](../foundation/glossary.md)
+- **[Starter combination](../foundation/glossary.md#starter-combination)** — one of the 5 base color sets (`bg` / `surface` / `text` / `accent1` / `accent2`) you pick as a starting point.
+- **[Style profile](../foundation/glossary.md#style-profile)** — the data object (rules or fixed values) defining one style; collected in one registry.
+- **[Seed color](../foundation/glossary.md#seed-color)** — the base color a generative profile expands into a full palette (here, the combo's colors are the seed).
 
 ## Why / design
 Before any profile or combo exists, we fix the **shapes** they all agree on. This one file is the contract between

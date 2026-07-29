@@ -2,15 +2,13 @@
 > Nav: [← Ground layer](01_ground-layer.md) · [Overview](00_overview.md) · [Attach & test →](03_attach-and-test-move.md)
 
 ## Glossary for this step
-- **`MonoBehaviour`** — the base class every Unity script inherits from (you met it on the menu script in
+- **[`MonoBehaviour`](../foundation/glossary.md#monobehaviour)** — the base class every Unity script inherits from (you met it on the menu script in
   [M1/06](../MILESTONE_1_main-menu/06_menucontroller-script.md)); the `: MonoBehaviour` in the class line is what
-  lets this script be **attached to the Player GameObject** and receive the lifecycle callbacks below. See
-  [glossary](../foundation/glossary.md).
-- **`Awake` / `Update` / `FixedUpdate`** — lifecycle methods Unity calls for you: `Awake` once at load, `Update`
-  every rendered frame (read input here), `FixedUpdate` every physics tick (apply velocity here). See
-  [glossary](../foundation/glossary.md).
-- **`[SerializeField]`** — an attribute that exposes a *private* field in the Inspector so you can tune it
-  without making it public. See [glossary](../foundation/glossary.md).
+  lets this script be **attached to the Player GameObject** and receive the lifecycle callbacks below.
+- **[`Awake` / `Update` / `FixedUpdate`](../foundation/glossary.md#monobehaviour-lifecycle-methods)** — lifecycle methods Unity calls for you: `Awake` once at load, `Update`
+  every rendered frame (read input here), `FixedUpdate` every physics tick (apply velocity here).
+- **[`[SerializeField]`](../foundation/glossary.md#serializefield)** — an attribute that exposes a *private* field in the Inspector so you can tune it
+  without making it public.
 
 ## Why / design
 This first version only moves the player left/right. It reads the **`"Horizontal"`** axis and sets the

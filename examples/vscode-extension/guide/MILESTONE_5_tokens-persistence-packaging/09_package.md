@@ -26,11 +26,21 @@ adding it silences that warning and is good hygiene.
 ## Do this
 This step edits **one file** (`package.json`) then runs two commands.
 
+> **Before you start:** steps 01–07 must be done and the extension must **compile clean** — `vsce package` runs
+> `vscode:prepublish` (→ `npm run compile`) first and aborts on any TypeScript error.
+
 1. Open `package.json`.
-2. **Add** `"publisher": "example"` (any lowercase id) and a `"repository"` object. Below is the complete final
-   `package.json` — the only new lines vs. M1 are `publisher` and `repository`; everything else (name, version,
-   engines, contributes, scripts, devDependencies) is **exactly as scaffolded/M1**. Do **not** hand-edit the
-   dependency versions.
+2. **Add** two fields — `"publisher": "example"` (any lowercase id) and a `"repository"` object — **directly after
+   the `"version": "0.0.1",` line**. Touch nothing else: the dependency versions and every other field (name,
+   engines, contributes, scripts, devDependencies) stay **exactly as M1 scaffolded them**. (The complete final
+   `package.json` is in [the M5 checkpoint](10_verify.md) under `### package.json`.)
+   ```jsonc
+   "publisher": "example",
+   "repository": {
+     "type": "git",
+     "url": "https://github.com/example/live-recolor"
+   },
+   ```
 3. Save.
 4. Install the packaging CLI (once) and package. From the project root terminal:
    ```powershell
@@ -43,69 +53,6 @@ This step edits **one file** (`package.json`) then runs two commands.
 **Load-bearing:** the **presence** of `publisher`; the emitted filename `live-recolor-0.0.1.vsix` is derived from
 `name` (`live-recolor`) + `version` (`0.0.1`) — both already fixed since M1. The `publisher` value and the
 `repository` URL are cosmetic.
-
-## Code
-`package.json` (complete, final — `publisher` + `repository` are the only additions):
-```jsonc
-{
-  "name": "live-recolor",
-  "displayName": "Live Recolor",
-  "description": "Live-recolor the whole editor from a sidebar panel.",
-  "version": "0.0.1",
-  "publisher": "example",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/example/live-recolor"
-  },
-  "engines": {
-    "vscode": "^1.128.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [],
-  "main": "./out/extension.js",
-  "contributes": {
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "liveRecolor",
-          "title": "Live Recolor",
-          "icon": "media/icon.svg"
-        }
-      ]
-    },
-    "views": {
-      "liveRecolor": [
-        {
-          "id": "liveRecolor.panel",
-          "name": "Live Recolor",
-          "type": "webview"
-        }
-      ]
-    }
-  },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src",
-    "test": "vscode-test"
-  },
-  "devDependencies": {
-    "@types/vscode": "^1.128.0",
-    "@types/node": "24.x",
-    "@types/mocha": "^10.0.10",
-    "@typescript-eslint/eslint-plugin": "^8.0.0",
-    "@typescript-eslint/parser": "^8.0.0",
-    "eslint": "^9.0.0",
-    "typescript": "^5.9.0",
-    "@vscode/test-cli": "^0.0.11",
-    "@vscode/test-electron": "^2.4.0"
-  }
-}
-```
 
 ## Done when (this step)
 - `vsce package` completes and prints a line ending in **`live-recolor-0.0.1.vsix`**.

@@ -24,75 +24,62 @@ Note both token settings live under the `editor` section, so `capture`/`restore`
 (`ed`) for both — one `getConfiguration('editor')` call, two keys.
 
 ## Do this
-This step edits **one file**: `src/theme/history.ts`.
+This step edits **one file**: `src/theme/history.ts` — the M2 file. The mechanism is unchanged; you're widening the
+import, adding two fields to `Snapshot`, and adding two lines each to `capture()`/`restore()`. `apply`, `revert`,
+and `depth` stay **exactly** as M2 wrote them (don't re-type them). (The complete file is in
+[the M5 checkpoint](10_verify.md) under `### src/theme/history.ts`.)
+
+> **Before you start:** M2's `src/theme/history.ts` must exist with the `ThemeHistory` class
+> (`capture`/`restore`/`apply`/`revert`/`reset`/`depth`) capturing **chrome only**, and step 01's types in place.
 
 1. Open `src/theme/history.ts`.
-2. **Widen the import** from `./settings` to include `TOKENS` and `SEMANTIC` alongside `CHROME, TARGET`.
-3. **Extend the `Snapshot` interface** to `{ chrome: unknown; tokens: unknown; semantic: unknown; }`.
-4. In **`capture()`**, add an `editor` config read and capture `tokens` + `semantic` globalValues.
-5. In **`restore()`**, write all three back (chrome via the workbench config, tokens + semantic via the editor
-   config).
-6. Confirm **`reset()`** passes all-`undefined` for the three fields (so it deletes every customization).
+2. **Widen the import** from `./settings` to include `TOKENS` and `SEMANTIC` alongside `CHROME, TARGET`. Replace the
+   `./settings` import line with:
+   ```ts
+   import { CHROME, TOKENS, SEMANTIC, TARGET } from './settings';
+   ```
+3. **Extend the `Snapshot` interface** to carry all three settings:
+   ```ts
+   interface Snapshot { chrome: unknown; tokens: unknown; semantic: unknown; }
+   ```
+4. **Replace `capture()`** so it also reads an `editor` config and captures `tokens` + `semantic` globalValues
+   (both token settings live under `editor`, so one `ed` config serves both):
+   ```ts
+     private capture(): Snapshot {
+       const wb = vscode.workspace.getConfiguration(CHROME.section);
+       const ed = vscode.workspace.getConfiguration(TOKENS.section);
+       return {
+         chrome: wb.inspect(CHROME.key)?.globalValue,
+         tokens: ed.inspect(TOKENS.key)?.globalValue,
+         semantic: ed.inspect(SEMANTIC.key)?.globalValue,
+       };
+     }
+   ```
+5. **Replace `restore()`** so it writes all three back (chrome via the workbench config, tokens + semantic via the
+   editor config):
+   ```ts
+     private async restore(s: Snapshot): Promise<void> {
+       const wb = vscode.workspace.getConfiguration(CHROME.section);
+       const ed = vscode.workspace.getConfiguration(TOKENS.section);
+       await wb.update(CHROME.key, s.chrome, TARGET);
+       await ed.update(TOKENS.key, s.tokens, TARGET);
+       await ed.update(SEMANTIC.key, s.semantic, TARGET);
+     }
+   ```
+6. **Confirm `reset()`** passes all-`undefined` for the three fields (so it deletes every customization):
+   ```ts
+     async reset(): Promise<void> {
+       await this.restore({ chrome: undefined, tokens: undefined, semantic: undefined });
+       this.stack = [];
+     }
+   ```
 7. Leave `apply`, `revert`, and `depth` unchanged. Save.
 
 **Load-bearing:** the three `Snapshot` fields must line up with the three settings; `restore` writing `undefined`
 is what makes Reset *delete* keys. The private method names are cosmetic.
 
-## Code
-`src/theme/history.ts` (complete, final):
-```ts
-import * as vscode from 'vscode';
-import { CHROME, TOKENS, SEMANTIC, TARGET } from './settings';
-
-interface Snapshot { chrome: unknown; tokens: unknown; semantic: unknown; }
-
-export class ThemeHistory {
-  private stack: Snapshot[] = [];
-
-  private capture(): Snapshot {
-    const wb = vscode.workspace.getConfiguration(CHROME.section);
-    const ed = vscode.workspace.getConfiguration(TOKENS.section);
-    return {
-      chrome: wb.inspect(CHROME.key)?.globalValue,
-      tokens: ed.inspect(TOKENS.key)?.globalValue,
-      semantic: ed.inspect(SEMANTIC.key)?.globalValue,
-    };
-  }
-
-  private async restore(s: Snapshot): Promise<void> {
-    const wb = vscode.workspace.getConfiguration(CHROME.section);
-    const ed = vscode.workspace.getConfiguration(TOKENS.section);
-    await wb.update(CHROME.key, s.chrome, TARGET);
-    await ed.update(TOKENS.key, s.tokens, TARGET);
-    await ed.update(SEMANTIC.key, s.semantic, TARGET);
-  }
-
-  // Snapshot current state, THEN run the apply function. This is the non-destructive backbone.
-  async apply(fn: () => Promise<void>): Promise<void> {
-    this.stack.push(this.capture());
-    await fn();
-  }
-
-  // Step back one apply. Returns false if nothing to revert.
-  async revert(): Promise<boolean> {
-    const snap = this.stack.pop();
-    if (!snap) return false;
-    await this.restore(snap);
-    return true;
-  }
-
-  // Remove ALL customizations (undefined = delete the keys). Clears history.
-  async reset(): Promise<void> {
-    await this.restore({ chrome: undefined, tokens: undefined, semantic: undefined });
-    this.stack = [];
-  }
-
-  get depth(): number { return this.stack.length; }
-}
-```
-
 ## Done when (this step)
-- `src/theme/history.ts` matches the block above and the project compiles clean.
+- `src/theme/history.ts` matches the checkpoint version and the project compiles clean.
 - Behavior is verified in step 10: after applying a themed set (chrome + tokens + semantic), **Revert** restores
   the previous state of *all three* settings, and **Reset** removes all three from `settings.json` entirely.
 

@@ -2,8 +2,8 @@
 > Nav: [← Install Unity](01_install-unity.md) · [Overview](00_overview.md) · [Editor tour →](03_editor-tour.md)
 
 ## Glossary for this step
-- **Project** — a folder Unity manages that holds your game's assets (scenes, scripts, sprites) plus a lot of
-  generated bookkeeping. See [glossary: Project window](../foundation/glossary.md).
+- **[Project](../foundation/glossary.md#project-window)** — a folder Unity manages that holds your game's assets (scenes, scripts, sprites) plus a lot of
+  generated bookkeeping.
 - **Template** — a starting configuration for a new project. The **2D** template sets up an orthographic camera
   and 2D-friendly defaults so you don't have to.
 

@@ -2,10 +2,8 @@
 > Nav: — · [Overview](00_overview.md) · [Audio object →](02_audio-object.md)
 
 ## Glossary for this step
-- **`AudioSource` / `AudioListener`** — the component that *plays* a clip (`AudioSource`) and the component (on
-  the camera) that *hears* it (`AudioListener`). See [glossary](../foundation/glossary.md).
-- **`AudioClip.Create`** — builds an audio clip from raw sample data at runtime — we fill it with a sine wave to
-  synthesize a beep, no sound files. See [glossary](../foundation/glossary.md).
+- **[`AudioSource` / `AudioListener`](../foundation/glossary.md#audiosource--audiolistener)** — the component that *plays* a clip (`AudioSource`) and the component (on
+  the camera) that *hears* it (`AudioListener`).
 
 ## Why / design
 Rather than import `.wav` files, we **generate** three short beeps in code (jump, coin, win) — the engine analogue
@@ -72,7 +70,7 @@ public class Sfx : MonoBehaviour
             float fade = 1f - (float)i / sampleCount;                 // taper to avoid an end click
             samples[i] = Mathf.Sin(2f * Mathf.PI * frequency * t) * 0.3f * fade;
         }
-        AudioClip clip = AudioClip.Create("beep", sampleCount, 1, sampleRate, false);
+        AudioClip clip = AudioClip.Create("beep", sampleCount, 1, sampleRate, false);   // Create(name, samples, channels, rate, stream) → an empty clip we fill below
         clip.SetData(samples, 0);
         return clip;
     }

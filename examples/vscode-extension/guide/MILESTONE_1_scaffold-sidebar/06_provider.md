@@ -2,8 +2,8 @@
 > Nav: [← Contribute view](05_contribute-view.md) · [Overview](00_overview.md) · [Register provider →](07_register-provider.md)
 
 ## Glossary for this step
-- **`WebviewViewProvider`** — the object VS Code calls to fill a webview view with content. — [glossary.md](../foundation/glossary.md)
-- **CSP (Content-Security-Policy)** — an HTML rule set that restricts what a page may load/run; webviews demand a strict one. — [glossary.md](../foundation/glossary.md)
+- **`WebviewViewProvider`** — the object VS Code calls to fill a webview view with content.
+- **CSP (Content-Security-Policy)** — an HTML rule set that restricts what a page may load/run; webviews demand a strict one.
 
 ## Why / design
 Declaring the view (step 05) reserved the space; a **provider** fills it. VS Code calls your provider's

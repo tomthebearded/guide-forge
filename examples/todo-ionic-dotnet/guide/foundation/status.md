@@ -1,5 +1,7 @@
 # STATUS — Todo (Ionic + .NET)
 
+> _Generated with **GuideForge v1.2.0**._
+
 ## Frontier
 - **Current frontier:** M0 — Workspace & tooling — ⬜ not started.
 
@@ -10,15 +12,15 @@ _Planned from the idea and the audience interview alone — no external source f
 ## Milestone status
 | Milestone | Status | Verified on | Notes |
 |-----------|--------|-------------|-------|
-| M0 — Workspace & tooling | ⬜ | — | |
-| M1 — Backend read path | ⬜ | — | |
-| M2 — Backend full CRUD + CORS | ⬜ | — | |
-| M3 — Backend tests (xUnit v3) | ⬜ | — | |
-| M4 — Frontend scaffold | ⬜ | — | |
-| M5 — Frontend read path | ⬜ | — | |
-| M6 — Frontend CRUD UI (reality-check gate) | ⬜ | — | |
-| M7 — Frontend tests (Karma/Jasmine) | ⬜ | — | |
-| M8 — Polish & full-stack ship-check | ⬜ | — | |
+| M0 — Workspace & tooling | ⬜ | — | 2026-07-21: pedagogy-contract retrofit — needs re-verify |
+| M1 — Backend read path | ⬜ | — | 2026-07-21: pedagogy-contract retrofit — needs re-verify |
+| M2 — Backend full CRUD + CORS | ⬜ | — | 2026-07-21: pedagogy-contract retrofit — needs re-verify |
+| M3 — Backend tests (xUnit v3) | ⬜ | — | 2026-07-21: pedagogy-contract retrofit — needs re-verify |
+| M4 — Frontend scaffold | ⬜ | — | 2026-07-21: pedagogy-contract retrofit — needs re-verify |
+| M5 — Frontend read path | ⬜ | — | 2026-07-21: pedagogy-contract retrofit — needs re-verify |
+| M6 — Frontend CRUD UI (reality-check gate) | ⬜ | — | 2026-07-21: pedagogy-contract retrofit — needs re-verify |
+| M7 — Frontend tests (Karma/Jasmine) | ⬜ | — | 2026-07-21: pedagogy-contract retrofit — needs re-verify |
+| M8 — Polish & full-stack ship-check | ⬜ | — | 2026-07-21: pedagogy-contract retrofit — needs re-verify |
 
 <!-- Status key: ✅ verified (Done-when passed by hand) · ⏳ in progress · ⬜ not started -->
 
@@ -30,6 +32,7 @@ _Planned from the idea and the audience interview alone — no external source f
 | 2026-07-11 | README objective, status M7 row, M0/01 Node WHY, decision-log D3 | Still said "Vitest" / "Angular 22" (D5 not fully propagated) | D5 pins Angular 20.3 + Karma/Jasmine | Fixed the stray D5 labels incl. D3's "Angular 22 is standalone-by-default / matches the app's architecture" (caught by re-audit); added a whole-file "superseded by D5" banner + §2 footnote to PLAN.md (kept as historical). |
 
 ## Session log
+- 2026-07-21 — Retrofitted to the GuideForge v1.2.0 pedagogy contract (provenance stamps, glossary concept-headings + deep-links with `addIcons`/`computed()` demoted to inline comments, 4.2 interleaved code, 4.3 existing-file fragments, 7.1 "Before you start" notes). Foundation docs done this pass; step files retrofitted separately. **All milestones M0–M8 flagged for re-verify — none marked verified.**
 - 2026-07-10 — Guide planned and scaffolded. Backend (M0–M3) drafted. Frontend re-pinned to Angular 20.3 + Karma (drift D5) before drafting M4–M8. **Whole guide (M0–M8) now drafted** — 45 step files, dead-link + nav-line + milestone-completeness checks pass. Awaiting a person to follow it and verify each Done-when gate (all milestones remain ⬜ until run by hand).
 - 2026-07-11 — Cleared the last re-audit nit: backfilled dedicated glossary entries for every Ionic component / Angular-template term the steps teach (`@for`, `AlertController`, `computed()`, `ion-button/checkbox/input/item-sliding/list/segment/spinner/text`, `ionChange`, Ionic page shell), so "See glossary" pointers now resolve term-specifically rather than to the generic `ion-*` umbrella.
 - 2026-07-11 — `audit-guide` re-run (had FAILed: 3 blockers) → **all findings fixed**. Blockers: propagated D5 (removed stray "Vitest"/"Angular 22" from README objective, status M7 row, M0/01 Node WHY; footnoted PLAN §2 as historical). Warnings: declared the `angular.json` serve-target edit as a deliberate partial-of-a-generated-file + rendered the full serve block in M4/04; gave the three "`dotnet build` succeeds" gates the concrete `Build succeeded` form. Lows: reworded the title-required claim to client-side-only (M2 overview + conventions.md — API does no server-side validation); backfilled 5 glossary terms (`addIcons`, `HttpTestingController`, Ionic CLI, Ionic standalone starter, `TestBed`); fixed a garbled sentence (M6/02) and a test mislabel (M3/03). Milestones stay ⬜ pending verification by hand.

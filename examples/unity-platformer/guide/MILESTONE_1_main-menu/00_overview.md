@@ -37,8 +37,7 @@ scene** that exists only to prove the Play button loads it. No score, no setting
 - **Menu-first, two scenes** — [decision D3](../foundation/decision-log.md#d3--menu-first-two-scenes). Scene
   names `MainMenu` (build index 0) and `Game` (index 1) are **load-bearing** ([conventions](../foundation/conventions.md#naming)).
 - **uGUI, not UI Toolkit** — [decision D7](../foundation/decision-log.md#d7--ugui-not-ui-toolkit).
-- New [glossary](../foundation/glossary.md) terms: Scene, Canvas, EventSystem, Button, Build Settings,
-  `SceneManager.LoadScene`, uGUI.
+- New [glossary](../foundation/glossary.md) terms: Scene, Canvas, EventSystem, Button, Build Settings, uGUI.
 
 ## Done-when gate
 - [ ] Press **Play** (with `MainMenu` open) → a title, a **Play** button, and a **Quit** button appear.

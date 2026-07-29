@@ -1,6 +1,8 @@
 # Milestone 1 · Step 01 of 5 — Create the API project + add EF Core InMemory
 > Nav: — · [Overview](00_overview.md) · [Todo & DbContext →](02_todo-and-dbcontext.md)
 
+**Before you start:** the .NET 10 SDK must be installed ([M0 step 01](../MILESTONE_0_workspace/01_prerequisites.md)) and the `backend/` folder must exist ([M0 step 02](../MILESTONE_0_workspace/02_folder-skeleton.md)).
+
 ## Do this
 1. **From the `backend/` folder**, scaffold an empty ASP.NET Core project named `Api`:
    ```bash
@@ -20,25 +22,23 @@
    contents with the file below. This gives a single `http` profile on port **5080** (load-bearing — the
    frontend proxy and CORS both target it) and disables HTTPS redirection and auto-launching a browser, which
    only get in the way for an API.
-
-## Code
-```json
-// backend/Api/Properties/launchSettings.json
-{
-  "$schema": "https://json.schemastore.org/launchsettings.json",
-  "profiles": {
-    "http": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": false,
-      "applicationUrl": "http://localhost:5080",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    }
-  }
-}
-```
+   ```json
+   // backend/Api/Properties/launchSettings.json — replace the whole file
+   {
+     "$schema": "https://json.schemastore.org/launchsettings.json",
+     "profiles": {
+       "http": {
+         "commandName": "Project",
+         "dotnetRunMessages": true,
+         "launchBrowser": false,
+         "applicationUrl": "http://localhost:5080",
+         "environmentVariables": {
+           "ASPNETCORE_ENVIRONMENT": "Development"
+         }
+       }
+     }
+   }
+   ```
 
 ## Done when (this step)
 - [ ] `backend/Api/Api.csproj` exists and lists the `Microsoft.EntityFrameworkCore.InMemory` package.

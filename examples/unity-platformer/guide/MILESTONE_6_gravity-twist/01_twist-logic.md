@@ -2,8 +2,8 @@
 > Nav: — · [Overview](00_overview.md) · [Telegraph panel →](02_telegraph-ui.md)
 
 ## Glossary for this step
-- **Telegraph** — a short visual warning shown before something happens (here ~1 s before a flip) so it feels
-  fair. See [glossary: Telegraph](../foundation/glossary.md).
+- **[Telegraph](../foundation/glossary.md#telegraph)** — a short visual warning shown before something happens (here ~1 s before a flip) so it feels
+  fair.
 - **`[Header("…")]`** — a Unity attribute placed above a field; it draws a bold section label over the following
   `[SerializeField]` fields in the Inspector. Purely organizational (groups "HUD" vs "Twist" here) — no runtime effect. See [Unity docs: HeaderAttribute](https://docs.unity3d.com/6000.5/Documentation/ScriptReference/HeaderAttribute.html).
 
@@ -28,24 +28,21 @@ the player immediately starts falling the other way.
 > the background never changes there, that setting is the first thing to check.
 
 ## Do this
-This step **replaces** `GameManager.cs` with the expanded version below (it's still small, so the whole file is
-shown). The new parts: the **Twist** fields, twist **state**, an `Update` that drives the schedule, and the
-`UpdateTwist` / `ScheduleNextFlip` / `FlipGravity` / `ApplyBackground` methods. **Save** after replacing.
+**Before you start:** `GameManager.cs` already exists from [M5](../MILESTONE_5_coins-goal-win/08_verify.md)
+(score + win). You'll **add** the twist to that existing file — new fields, twist state, an `Update` loop, and
+four methods — leaving the M5 score/win code in place. **Don't recreate the file.** Work through the fragments
+top-to-bottom; each one names exactly where it goes. The complete post-M6 file is rendered whole in the
+[verify checkpoint](04_verify.md) if you want to diff against it. **Save** when you're done (last instruction).
 
-## Code
-`Assets/Scripts/GameManager.cs` — complete file (score + win from M5, **plus** the twist):
+**1. Group the existing HUD fields.** Add a `[Header("HUD")]` attribute on its own line **directly above** the existing `[SerializeField] private TMP_Text scoreText;` field:
+
 ```csharp
-using UnityEngine;
-using TMPro;
-
-public class GameManager : MonoBehaviour
-{
-    public static GameManager Instance { get; private set; }
-
     [Header("HUD")]
-    [SerializeField] private TMP_Text scoreText;
-    [SerializeField] private GameObject winPanel;
+```
 
+**2. Add the Twist fields.** Immediately **below** the existing `[SerializeField] private GameObject winPanel;` line, add the twist configuration block:
+
+```csharp
     [Header("Twist")]
     [SerializeField] private bool twistEnabled = true;
     [SerializeField] private float minFlipInterval = 6f;      // shortest wait before a flip (seconds)
@@ -55,22 +52,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Camera mainCamera;               // for the background tint (wired in step 03)
     [SerializeField] private Color normalBackground = new Color(0.10f, 0.12f, 0.18f);
     [SerializeField] private Color flippedBackground = new Color(0.20f, 0.10f, 0.14f);
+```
 
-    private int coins;
-    private bool playing = true;
+**3. Add the twist state.** Below the existing `private bool playing = true;` line, add the runtime state the schedule needs:
 
+```csharp
     // twist state
     private float nextFlipTime;
     private bool telegraphing;
     private float telegraphEndsAt;
 
     private static readonly Vector2 GravityDown = new Vector2(0f, -9.81f);
+```
 
-    private void Awake()
-    {
-        Instance = this;
-    }
+**4. Initialize the twist in `Start()`.** The existing `Start()` gains a gravity reset and the twist bootstrapping. **Replace the whole `Start()` method** with:
 
+```csharp
     private void Start()
     {
         Time.timeScale = 1f;
@@ -84,7 +81,11 @@ public class GameManager : MonoBehaviour
         ApplyBackground();
         ScheduleNextFlip();
     }
+```
 
+**5. Drive the schedule every frame.** Add an `Update()` method **immediately after `Start()`** (M5 had none):
+
+```csharp
     private void Update()
     {
         if (playing)
@@ -92,13 +93,11 @@ public class GameManager : MonoBehaviour
             UpdateTwist();
         }
     }
+```
 
-    public void AddCoin()
-    {
-        coins++;
-        UpdateScoreText();
-    }
+**6. Clear the telegraph on win.** So a warning flash can't linger on the win screen, **replace the whole `Win()` method** with:
 
+```csharp
     public void Win()
     {
         if (!playing) return;
@@ -108,7 +107,11 @@ public class GameManager : MonoBehaviour
         telegraphPanel.SetActive(false);   // don't leave a warning flash on the win screen
         winPanel.SetActive(true);
     }
+```
 
+**7. Add the four twist methods.** Add these **after `Win()`** (above the existing `UpdateScoreText()` method) — they run the schedule, flip gravity, and tint the background:
+
+```csharp
     private void UpdateTwist()
     {
         if (!twistEnabled) return;
@@ -152,13 +155,9 @@ public class GameManager : MonoBehaviour
         bool flipped = Physics2D.gravity.y > 0f;
         mainCamera.backgroundColor = flipped ? flippedBackground : normalBackground;
     }
-
-    private void UpdateScoreText()
-    {
-        scoreText.text = "Coins: " + coins;
-    }
-}
 ```
+
+**8. Save** the file, return to Unity, and wait for the recompile (see Done-when).
 
 ## Done when (this step)
 - [ ] `GameManager.cs` matches the code above and **compiles with no errors**. *(It will `NullReference` at

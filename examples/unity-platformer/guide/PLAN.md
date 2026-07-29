@@ -344,7 +344,7 @@ Done-when gate (aggregated, observable in the Editor) · Handoff (what now exist
 - **Consistency check before ship** — every script uses the same scene names, tags, input names, and
   `[SerializeField]` field names; no step reintroduces the obsolete `Rigidbody2D.velocity` or hard-codes a
   gravity direction; the two scenes and their build indices match everywhere.
-- **Troubleshooting sheet** — the first-timer traps from rule 10, each with the one-line fix, plus the "accept
+- **Troubleshooting sheet** — the first-timer traps from rule 5.1, each with the one-line fix, plus the "accept
   TMP Essentials import" note and the "keep legacy Input in Active Input Handling" note.
 - **Reconcile-before-follow** — Unity moves fast and 6.5 is non-LTS: if a menu path, default, or API has
   drifted when the reader follows, **reality wins** — patch the step and log the drift in `status.md`.

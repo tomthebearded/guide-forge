@@ -2,8 +2,8 @@
 > Nav: — · [Overview](00_overview.md) · [Title text →](02_title-text.md)
 
 ## Glossary for this step
-- **Scene** — one screen or level of the game, saved as a `.unity` file. This game has two: `MainMenu` and
-  `Game`. See [glossary: Scene](../foundation/glossary.md).
+- **[Scene](../foundation/glossary.md#scene)** — one screen or level of the game, saved as a `.unity` file. This game has two: `MainMenu` and
+  `Game`.
 
 ## Why / design
 Each screen of the game is its own scene file. We'll make `MainMenu` first. Creating it as a fresh scene (rather

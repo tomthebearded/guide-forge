@@ -40,7 +40,7 @@ demo; we swap in the M2 version).
 4. Press <kbd>F5</kbd> (or stop the EDH with <kbd>Shift</kbd>+<kbd>F5</kbd> and F5 again) and open the Live Recolor panel.
 
 ## Code
-`src/panel/ThemePanelProvider.ts`
+`src/panel/ThemePanelProvider.ts` *(the M2 version — a near-total rewrite of the M1 provider; the complete file is also in [06_verify.md](06_verify.md))*
 ```ts
 import * as vscode from 'vscode';
 import { ThemeHistory } from '../theme/history';

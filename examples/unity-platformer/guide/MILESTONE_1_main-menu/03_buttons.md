@@ -2,8 +2,8 @@
 > Nav: [← Title text](02_title-text.md) · [Overview](00_overview.md) · [Game scene →](04_game-scene.md)
 
 ## Glossary for this step
-- **Button** — a uGUI component that shows a clickable rectangle and exposes an **OnClick** event you point at a
-  method. See [glossary: uGUI](../foundation/glossary.md).
+- **[Button](../foundation/glossary.md#ugui)** — a uGUI component that shows a clickable rectangle and exposes an **OnClick** event you point at a
+  method.
 
 ## Why / design
 Two buttons — **Play** and **Quit**. We just place and label them now; the *behavior* (what they call) gets

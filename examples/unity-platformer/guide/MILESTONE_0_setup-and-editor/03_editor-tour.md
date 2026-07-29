@@ -2,11 +2,11 @@
 > Nav: [← Create the 2D project](02_create-project.md) · [Overview](00_overview.md) · [First square →](04_first-square.md)
 
 ## Glossary for this step
-- **GameObject** — the basic thing in a scene: a container with a position that gains behavior only from the
-  Components attached to it. See [glossary: GameObject](../foundation/glossary.md).
-- **Component** — a reusable piece of behavior/data you attach to a GameObject. See [glossary: Component](../foundation/glossary.md).
-- **Play mode** — pressing Play runs the game *inside* the Editor. See [glossary: Play mode](../foundation/glossary.md).
-- **Transform** — the Component *every* GameObject has: its Position, Rotation, and Scale in the scene. It's the one you'll edit constantly (you set it hands-on in step 04). See [glossary: Transform](../foundation/glossary.md).
+- **[GameObject](../foundation/glossary.md#gameobject)** — the basic thing in a scene: a container with a position that gains behavior only from the
+  Components attached to it.
+- **[Component](../foundation/glossary.md#component)** — a reusable piece of behavior/data you attach to a GameObject.
+- **[Play mode](../foundation/glossary.md#play-mode)** — pressing Play runs the game *inside* the Editor.
+- **Transform** — the Component *every* GameObject has: its Position, Rotation, and Scale in the scene. It's the one you'll edit constantly (you set it hands-on in step 04).
 
 ## Why / design
 Every later step says things like "in the **Hierarchy**, select the Player" or "in the **Inspector**, set Body

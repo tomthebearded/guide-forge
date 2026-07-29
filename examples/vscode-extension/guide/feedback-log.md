@@ -16,5 +16,5 @@
 - **Severity:** medium (functional bug; Revert visibly wrong on the first click).
 - **Tags:** `double-apply` `history` `webview`
 - **Quote:** "each chip click handler does `render(); apply();` but render() already ends with apply()."
-- **Status:** fixed via /report-issue (2026-07-13) — `render()` made pure; apply once per click + once from `init`; verify copies + gate/Revert wording reconciled; R10 guard added.
+- **Status:** fixed via /report-issue (2026-07-13) — `render()` made pure; apply once per click + once from `init`; verify copies + gate/Revert wording reconciled; rule 5.1 guard added.
 

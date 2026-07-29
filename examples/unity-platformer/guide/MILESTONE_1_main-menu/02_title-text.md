@@ -2,11 +2,11 @@
 > Nav: [← MainMenu scene](01_mainmenu-scene.md) · [Overview](00_overview.md) · [Buttons →](03_buttons.md)
 
 ## Glossary for this step
-- **Canvas** — the root of all uGUI: every UI element must be a child of a Canvas, which decides how the UI is
-  drawn on screen. See [glossary: Canvas](../foundation/glossary.md).
-- **EventSystem** — the object that routes clicks/keys to UI so buttons can fire; Unity adds it automatically
-  with your first UI element. See [glossary: EventSystem](../foundation/glossary.md).
-- **uGUI** — Unity's classic GameObject-based UI (Canvas + Button + Text). See [glossary: uGUI](../foundation/glossary.md).
+- **[Canvas](../foundation/glossary.md#canvas)** — the root of all uGUI: every UI element must be a child of a Canvas, which decides how the UI is
+  drawn on screen.
+- **[EventSystem](../foundation/glossary.md#eventsystem)** — the object that routes clicks/keys to UI so buttons can fire; Unity adds it automatically
+  with your first UI element.
+- **[uGUI](../foundation/glossary.md#ugui)** — Unity's classic GameObject-based UI (Canvas + Button + Text).
 - **Rect Transform** — the UI version of a Transform that every Canvas element has. Instead of a plain position
   it uses **anchors** (which edge/corner of the parent it sticks to) plus **Pos X/Y** offsets from that anchor.
   It's why UI elements are placed with "anchor + Pos", not raw world coordinates.

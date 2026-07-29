@@ -2,8 +2,8 @@
 > Nav: [← Rigidbody falls](03_rigidbody-falls.md) · [Overview](00_overview.md) · [Verify →](05_verify.md)
 
 ## Glossary for this step
-- **`BoxCollider2D`** — a component that gives a GameObject a rectangular collision shape so the physics engine
-  can detect contact. See [glossary](../foundation/glossary.md).
+- **[`BoxCollider2D`](../foundation/glossary.md#boxcollider2d--circlecollider2d)** — a component that gives a GameObject a rectangular collision shape so the physics engine
+  can detect contact.
 
 ## Why / design
 A `Rigidbody2D` makes something *move*; a **`BoxCollider2D`** makes something *solid*. Two objects only stop each

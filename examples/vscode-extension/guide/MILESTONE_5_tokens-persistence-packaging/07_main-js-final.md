@@ -23,163 +23,144 @@ once from `init`) — one apply per pick, one history snapshot per pick. The onl
 also sends `state.languageId`, so if the box has `typescript`, selecting a style scopes to TS.
 
 ## Do this
-This step edits **one file**: `media/webview/main.js`.
+This step edits **one file**: `media/webview/main.js` — M4's webview script. `el()`, `section()`, and
+`renderPreview()` are unchanged from M4, so the **complete paste-able file is in [the M5 checkpoint](10_verify.md)**
+under `### media/webview/main.js` — select-all and paste that. The fragments below walk only the regions that
+changed from M4.
 
-1. Open `media/webview/main.js`, select all, and replace it with the final version below.
-2. Note the additions vs. M4: `savedSets`/`languageId` on `state`; the `savedSets` branch in the `message`
-   listener; `languageId` on the `apply()` payload; the language `<input>` section; the name input + Save/Export/
-   Import buttons in the Actions section; the `saved` container + `renderSaved()`.
-3. Save. (Webview assets aren't compiled — but VS Code caches them, so relaunch the EDH to pick up changes.)
+> **Before you start:** M4's `media/webview/main.js` must exist, and the final provider (step 06) must be posting
+> `savedSets` and understanding `save`/`applySet`/`delete`/`export`/`import` — this UI drives those handlers.
+
+1. **Add `savedSets` and `languageId` to `state`.** Replace the `state` declaration with:
+   ```js
+   const state = { combos: [], profiles: [], savedSets: [], comboId: null, profileId: null, variant: null, languageId: '' };
+   ```
+2. **Add the `savedSets` branch** to the `message` listener (it stores the list and re-renders "My sets"), and
+   store `savedSets` on `init`. Replace the listener with:
+   ```js
+   window.addEventListener('message', (event) => {
+     const msg = event.data;
+     if (msg.type === 'init') {
+       state.combos = msg.combos;
+       state.profiles = msg.profiles;
+       state.savedSets = msg.savedSets || [];
+       if (!state.comboId && state.combos[0]) state.comboId = state.combos[0].id;
+       if (!state.profileId && state.profiles[0]) state.profileId = state.profiles[0].id;
+       render();
+       apply(); // apply the initial selection once, right after the first draw
+     } else if (msg.type === 'applied') {
+       renderPreview(msg.palette, msg.contrast);
+     } else if (msg.type === 'savedSets') {
+       state.savedSets = msg.savedSets || [];
+       renderSaved();
+     }
+   });
+   ```
+3. **Add `languageId` to the `apply()` payload** (blank = all languages). Replace `apply()` with:
+   ```js
+   function apply() {
+     if (!state.comboId || !state.profileId) return;
+     vscode.postMessage({
+       type: 'apply', comboId: state.comboId, profileId: state.profileId,
+       variant: state.variant || undefined, languageId: state.languageId || undefined,
+     });
+   }
+   ```
+4. **Rebuild `render()`** — same combo/style/variant chips and `#preview`, now plus a **Per-language (tokens only)**
+   input, a set-name input with **Save/Export/Import** buttons in Actions, and a **My sets** container. It stays
+   **pure draw** (each click handler applies once). Replace `render()` with:
+   ```js
+   function render() {
+     app.innerHTML = '';
+
+     // Combos
+     const combosBox = el('div', { className: 'row' });
+     for (const c of state.combos) {
+       const b = el('button', { textContent: c.label, className: c.id === state.comboId ? 'chip active' : 'chip' });
+       b.addEventListener('click', () => { state.comboId = c.id; render(); apply(); });
+       combosBox.append(b);
+     }
+     app.append(section('Starter combination', combosBox));
+
+     // Profiles
+     const profBox = el('div', { className: 'row' });
+     for (const p of state.profiles) {
+       const b = el('button', { textContent: p.label, className: p.id === state.profileId ? 'chip active' : 'chip' });
+       b.addEventListener('click', () => { state.profileId = p.id; state.variant = null; render(); apply(); });
+       profBox.append(b);
+     }
+     app.append(section('Style', profBox));
+
+     // Variant (only if the selected profile has variants)
+     const sel = state.profiles.find((p) => p.id === state.profileId);
+     if (sel && sel.variants && sel.variants.length) {
+       const vbox = el('div', { className: 'row' });
+       for (const v of sel.variants) {
+         const active = (state.variant || sel.variants[0]) === v;
+         const b = el('button', { textContent: v, className: active ? 'chip active' : 'chip' });
+         b.addEventListener('click', () => { state.variant = v; render(); apply(); });
+         vbox.append(b);
+       }
+       app.append(section('Variant', vbox));
+     }
+
+     // Preview placeholder (filled by renderPreview on 'applied')
+     app.append(el('div', { id: 'preview', className: 'section' }));
+
+     // Per-language (tokens only)
+     const lang = el('input', { id: 'lang', type: 'text', placeholder: 'languageId e.g. typescript (blank = all)', value: state.languageId, className: 'text' });
+     lang.addEventListener('change', () => { state.languageId = lang.value.trim(); });
+     app.append(section('Per-language (tokens only)', lang));
+
+     // Actions
+     const actions = el('div', { className: 'row' });
+     const mk = (label, type) => { const b = el('button', { textContent: label, className: 'btn' }); b.addEventListener('click', () => vscode.postMessage({ type })); return b; };
+     actions.append(mk('Revert', 'revert'), mk('Reset', 'reset'));
+     const saveBtn = el('button', { textContent: 'Save set…', className: 'btn' });
+     saveBtn.addEventListener('click', () => {
+       const name = (document.getElementById('setname')).value.trim();
+       if (name) vscode.postMessage({ type: 'save', name });
+     });
+     actions.append(mk('Export', 'export'), mk('Import', 'import'), saveBtn);
+     const nameInput = el('input', { id: 'setname', type: 'text', placeholder: 'set name', className: 'text' });
+     app.append(section('Actions', el('div', {}, nameInput, actions)));
+
+     // Saved sets
+     app.append(el('div', { id: 'saved', className: 'section' }));
+     renderSaved();
+   }
+   ```
+5. **Add `renderSaved()`** (new) — one row per saved set: click the name to apply it, click ✕ to delete it. Add it
+   directly **below `renderPreview()`**:
+   ```js
+   function renderSaved() {
+     const box = document.getElementById('saved');
+     if (!box) return;
+     box.innerHTML = '';
+     box.append(el('h4', { textContent: 'My sets' }));
+     if (!state.savedSets.length) { box.append(el('p', { className: 'muted', textContent: 'No saved sets yet.' })); return; }
+     for (const name of state.savedSets) {
+       const row = el('div', { className: 'row' });
+       const apply = el('button', { textContent: name, className: 'chip' });
+       apply.addEventListener('click', () => vscode.postMessage({ type: 'applySet', name }));
+       const del = el('button', { textContent: '✕', className: 'chip' });
+       del.addEventListener('click', () => vscode.postMessage({ type: 'delete', name }));
+       row.append(apply, del);
+       box.append(row);
+     }
+   }
+   ```
+6. Leave `el()`, `section()`, and `renderPreview()` as M4 wrote them (in the checkpoint), and keep the final
+   `vscode.postMessage({ type: 'ready' });` line. Save. (Webview assets aren't compiled — but VS Code caches them,
+   so relaunch the EDH to pick up changes.)
 
 **Load-bearing:** the message types posted (`save`, `applySet`, `delete`, `export`, `import`) and the `languageId`
 field name must match the provider (step 06); the name input's `id="setname"` is read by the Save handler. Button
 labels, placeholder text, and the ✕ glyph are cosmetic.
 
-## Code
-`media/webview/main.js` (complete, final):
-```js
-(function () {
-  const vscode = acquireVsCodeApi();
-  const app = document.getElementById('app');
-  const state = { combos: [], profiles: [], savedSets: [], comboId: null, profileId: null, variant: null, languageId: '' };
-
-  window.addEventListener('message', (event) => {
-    const msg = event.data;
-    if (msg.type === 'init') {
-      state.combos = msg.combos;
-      state.profiles = msg.profiles;
-      state.savedSets = msg.savedSets || [];
-      if (!state.comboId && state.combos[0]) state.comboId = state.combos[0].id;
-      if (!state.profileId && state.profiles[0]) state.profileId = state.profiles[0].id;
-      render();
-      apply(); // apply the initial selection once, right after the first draw
-    } else if (msg.type === 'applied') {
-      renderPreview(msg.palette, msg.contrast);
-    } else if (msg.type === 'savedSets') {
-      state.savedSets = msg.savedSets || [];
-      renderSaved();
-    }
-  });
-
-  function apply() {
-    if (!state.comboId || !state.profileId) return;
-    vscode.postMessage({
-      type: 'apply', comboId: state.comboId, profileId: state.profileId,
-      variant: state.variant || undefined, languageId: state.languageId || undefined,
-    });
-  }
-
-  function el(tag, props, ...kids) {
-    const n = document.createElement(tag);
-    Object.assign(n, props || {});
-    for (const k of kids) n.append(k);
-    return n;
-  }
-  function section(title, body) {
-    return el('div', { className: 'section' }, el('h4', { textContent: title }), body);
-  }
-
-  function render() {
-    app.innerHTML = '';
-
-    // Combos
-    const combosBox = el('div', { className: 'row' });
-    for (const c of state.combos) {
-      const b = el('button', { textContent: c.label, className: c.id === state.comboId ? 'chip active' : 'chip' });
-      b.addEventListener('click', () => { state.comboId = c.id; render(); apply(); });
-      combosBox.append(b);
-    }
-    app.append(section('Starter combination', combosBox));
-
-    // Profiles
-    const profBox = el('div', { className: 'row' });
-    for (const p of state.profiles) {
-      const b = el('button', { textContent: p.label, className: p.id === state.profileId ? 'chip active' : 'chip' });
-      b.addEventListener('click', () => { state.profileId = p.id; state.variant = null; render(); apply(); });
-      profBox.append(b);
-    }
-    app.append(section('Style', profBox));
-
-    // Variant (only if the selected profile has variants)
-    const sel = state.profiles.find((p) => p.id === state.profileId);
-    if (sel && sel.variants && sel.variants.length) {
-      const vbox = el('div', { className: 'row' });
-      for (const v of sel.variants) {
-        const active = (state.variant || sel.variants[0]) === v;
-        const b = el('button', { textContent: v, className: active ? 'chip active' : 'chip' });
-        b.addEventListener('click', () => { state.variant = v; render(); apply(); });
-        vbox.append(b);
-      }
-      app.append(section('Variant', vbox));
-    }
-
-    // Preview placeholder (filled by renderPreview on 'applied')
-    app.append(el('div', { id: 'preview', className: 'section' }));
-
-    // Per-language (tokens only)
-    const lang = el('input', { id: 'lang', type: 'text', placeholder: 'languageId e.g. typescript (blank = all)', value: state.languageId, className: 'text' });
-    lang.addEventListener('change', () => { state.languageId = lang.value.trim(); });
-    app.append(section('Per-language (tokens only)', lang));
-
-    // Actions
-    const actions = el('div', { className: 'row' });
-    const mk = (label, type) => { const b = el('button', { textContent: label, className: 'btn' }); b.addEventListener('click', () => vscode.postMessage({ type })); return b; };
-    actions.append(mk('Revert', 'revert'), mk('Reset', 'reset'));
-    const saveBtn = el('button', { textContent: 'Save set…', className: 'btn' });
-    saveBtn.addEventListener('click', () => {
-      const name = (document.getElementById('setname')).value.trim();
-      if (name) vscode.postMessage({ type: 'save', name });
-    });
-    actions.append(mk('Export', 'export'), mk('Import', 'import'), saveBtn);
-    const nameInput = el('input', { id: 'setname', type: 'text', placeholder: 'set name', className: 'text' });
-    app.append(section('Actions', el('div', {}, nameInput, actions)));
-
-    // Saved sets
-    app.append(el('div', { id: 'saved', className: 'section' }));
-    renderSaved();
-  }
-
-  function renderPreview(palette, contrast) {
-    const box = document.getElementById('preview');
-    if (!box) return;
-    box.innerHTML = '';
-    box.append(el('h4', { textContent: 'Palette' }));
-    const strip = el('div', { className: 'swatches' });
-    for (const key of ['bg', 'surface', 'surfaceAlt', 'text', 'textMuted', 'accent1', 'accent2', 'border']) {
-      const sw = el('div', { className: 'swatch', title: key + ' ' + palette[key] });
-      sw.style.background = palette[key];
-      strip.append(sw);
-    }
-    box.append(strip);
-    const aa = contrast >= 4.5, aaa = contrast >= 7;
-    const badge = el('span', { className: 'badge ' + (aaa ? 'ok' : aa ? 'warn' : 'bad'),
-      textContent: 'text/bg contrast ' + contrast + ':1 ' + (aaa ? 'AAA' : aa ? 'AA' : 'FAIL') });
-    box.append(badge);
-  }
-
-  function renderSaved() {
-    const box = document.getElementById('saved');
-    if (!box) return;
-    box.innerHTML = '';
-    box.append(el('h4', { textContent: 'My sets' }));
-    if (!state.savedSets.length) { box.append(el('p', { className: 'muted', textContent: 'No saved sets yet.' })); return; }
-    for (const name of state.savedSets) {
-      const row = el('div', { className: 'row' });
-      const apply = el('button', { textContent: name, className: 'chip' });
-      apply.addEventListener('click', () => vscode.postMessage({ type: 'applySet', name }));
-      const del = el('button', { textContent: '✕', className: 'chip' });
-      del.addEventListener('click', () => vscode.postMessage({ type: 'delete', name }));
-      row.append(apply, del);
-      box.append(row);
-    }
-  }
-
-  vscode.postMessage({ type: 'ready' });
-})();
-```
-
 ## Done when (this step)
-- `media/webview/main.js` matches the block above.
+- `media/webview/main.js` matches the fragments above (the complete file is in
+  [the M5 checkpoint](10_verify.md)).
 - Relaunch the EDH and open the panel. You now see, below the swatch preview: a **Per-language (tokens only)** text
   box, an **Actions** section with a set-name input + **Revert / Reset / Export / Import / Save set…** buttons, and a
   **My sets** section (showing "No saved sets yet." on a clean install).

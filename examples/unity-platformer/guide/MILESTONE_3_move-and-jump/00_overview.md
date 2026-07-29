@@ -36,7 +36,7 @@ down this whole milestone. One player, one ground.
 - **Sign-aware physics so the twist is cheap** — [decision D5](../foundation/decision-log.md#d5--twist--flip-physics2dgravity-sign-aware-jump).
 - **Legacy Input Manager, zero setup** — [decision D6](../foundation/decision-log.md#d6--legacy-input-manager-not-the-input-system) · axes `"Horizontal"`/`"Jump"` from [stack.md](../foundation/stack.md).
 - **`linearVelocity`, not the obsolete `velocity`** · **input in `Update`, physics in `FixedUpdate`** — [conventions](../foundation/conventions.md#language--framework-specifics).
-- New [glossary](../foundation/glossary.md) terms: `MonoBehaviour`, `Awake`/`Start`/`Update`/`FixedUpdate`,
+- New [glossary](../foundation/glossary.md) terms: `MonoBehaviour`, MonoBehaviour lifecycle methods,
   `[SerializeField]`, LayerMask, Grounded, Active Input Handling.
 
 ## Done-when gate

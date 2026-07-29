@@ -15,34 +15,23 @@ folder in, closing the gap. It's a one-line change to the `new ThemePanelProvide
 > [ExtensionContext.extensionUri](https://code.visualstudio.com/api/references/vscode-api#ExtensionContext).
 
 ## Do this
-This step **edits one file**: `src/extension.ts`.
+This step **edits one file**: `src/extension.ts` — a **one-line** change to the `new ThemePanelProvider(...)` call.
+It's the only place that line occurs, so the anchor is unambiguous. (The complete file is in
+[the M4 checkpoint](06_verify.md) under `### src/extension.ts (M4)`.)
+
+> **Before you start:** step 04 changed the provider's constructor to `(extensionUri, history)`, which is why
+> `extension.ts` currently has the one compile error you're about to fix.
 
 1. Open `src/extension.ts`.
-2. Change the provider construction to pass `context.extensionUri` **first**, then the existing `history`:
-   `new ThemePanelProvider(context.extensionUri, history)`. The argument **order matters** — it must match the
-   constructor signature from step 04 (`extensionUri, history`).
+2. In `activate()`, **replace M3's provider-construction line** `const provider = new ThemePanelProvider(history);`
+   with the version that passes `context.extensionUri` **first**, then the existing `history`. The argument
+   **order matters** — it must match the constructor from step 04 (`extensionUri, history`):
+   ```ts
+   const provider = new ThemePanelProvider(context.extensionUri, history);
+   ```
 3. Everything else stays as M2/M3 left it: `history` is still created, the `registerWebviewViewProvider` call and
    `context.subscriptions.push(...)` are unchanged, `deactivate` stays empty.
 4. Save; it recompiles. With this in place there should be **no** compile errors anywhere.
-
-## Code
-`src/extension.ts` — the complete M4 version:
-```ts
-import * as vscode from 'vscode';
-import { ThemePanelProvider } from './panel/ThemePanelProvider';
-import { ThemeHistory } from './theme/history';
-
-export function activate(context: vscode.ExtensionContext): void {
-  const history = new ThemeHistory();
-  const provider = new ThemePanelProvider(context.extensionUri, history);
-
-  context.subscriptions.push(
-    vscode.window.registerWebviewViewProvider(ThemePanelProvider.viewType, provider),
-  );
-}
-
-export function deactivate(): void {}
-```
 
 > Forward note (no action): in M5 the constructor gains `context` for `globalState` — the extension's built-in
 > key→value store that VS Code persists across reloads (used to save named sets; taught in full in
@@ -50,7 +39,7 @@ export function deactivate(): void {}
 > `new ThemePanelProvider(context.extensionUri, context, history)`. Not now — M4 needs only `extensionUri`.
 
 ## Done when (this step)
-- `src/extension.ts` matches the code above and the whole project **compiles with zero errors** (the step-04 error
+- `src/extension.ts` has the one-line change above and the whole project **compiles with zero errors** (the step-04 error
   in `extension.ts` is gone).
 - The extension is now fully wired: pressing <kbd>F5</kbd> and opening the panel should render the gallery. Prove
   it fully in step 06 — but a quick smoke test: F5, open Live Recolor, and confirm you see chip rows rather than a

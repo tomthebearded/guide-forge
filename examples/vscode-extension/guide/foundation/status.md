@@ -1,5 +1,7 @@
 # STATUS — Live Recolor (VS Code extension)
 
+> _Generated with **GuideForge v1.2.0**._
+
 ## Frontier
 - **Current frontier:** whole guide (M1→M5) **drafted + audited (twice) + fixes applied; F5 hand-verification pending**. `/audit-guide` ran 2026-07-10 → PASS-WITH-WARNINGS; all findings fixed; re-audit confirmed 4/4 resolved with zero structural/consistency/pedagogy issues. No milestone is ✅ yet — a person must run each Done-when gate (F5 flow + `vsce package`) by hand before any milestone is marked verified.
 
@@ -11,11 +13,11 @@
 ## Milestone status
 | Milestone | Status | Verified on | Notes |
 |-----------|--------|-------------|-------|
-| M1 — Scaffold + sidebar panel | ⏳ ⚠ re-verify | — | drafted (10 steps + verify); not yet F5-verified by hand; **2026-07-13: audit-fix — M1/09 rendered as a complete file (doc-only, no behavior change)** |
-| M2 — Non-destructive backbone | ⏳ ⚠ re-verify | — | drafted (5 steps + verify); not yet F5-verified by hand; **2026-07-13: audit-fix — count-reconciliation note added to 06_verify (doc-only)** |
-| M3 — Color-formula engine (chrome) | ⏳ ⚠ re-verify | — | drafted (7 steps + verify); engine is Node-checkable, F5 not yet run; **2026-07-13: audit-fix — count-reconciliation note added to 08_verify (doc-only)** |
-| M4 — Preset gallery + panel UX (reality-check gate) | ⏳ ⚠ re-verify | — | drafted (5 steps + verify); not yet F5-verified by hand; **2026-07-13: double-apply bug fixed in `main.js`** |
-| M5 — Tokens, persistence, packaging | ⏳ ⚠ re-verify | — | drafted (9 steps + verify); not yet F5-verified / packaged by hand; **2026-07-13: double-apply bug fixed in final `main.js`** |
+| M1 — Scaffold + sidebar panel | ⏳ needs re-verify | — | drafted (10 steps + verify); not yet F5-verified by hand; **2026-07-13: audit-fix — M1/09 rendered as a complete file (doc-only, no behavior change)**; **2026-07-21: flagged for re-verify by the pedagogy-contract retrofit** |
+| M2 — Non-destructive backbone | ⏳ needs re-verify | — | drafted (5 steps + verify); not yet F5-verified by hand; **2026-07-13: audit-fix — count-reconciliation note added to 06_verify (doc-only)**; **2026-07-21: flagged for re-verify by the pedagogy-contract retrofit** |
+| M3 — Color-formula engine (chrome) | ⏳ needs re-verify | — | drafted (7 steps + verify); engine is Node-checkable, F5 not yet run; **2026-07-13: audit-fix — count-reconciliation note added to 08_verify (doc-only)**; **2026-07-21: flagged for re-verify by the pedagogy-contract retrofit** |
+| M4 — Preset gallery + panel UX (reality-check gate) | ⏳ needs re-verify | — | drafted (5 steps + verify); not yet F5-verified by hand; **2026-07-13: double-apply bug fixed in `main.js`**; **2026-07-21: flagged for re-verify by the pedagogy-contract retrofit** |
+| M5 — Tokens, persistence, packaging | ⏳ needs re-verify | — | drafted (9 steps + verify); not yet F5-verified / packaged by hand; **2026-07-13: double-apply bug fixed in final `main.js`**; **2026-07-21: flagged for re-verify by the pedagogy-contract retrofit** |
 
 <!-- Status key: ✅ verified (Done-when passed by hand) · ⏳ in progress · ❌ not started -->
 
@@ -39,3 +41,4 @@
 - 2026-07-10 — Re-ran `/audit-guide` after the fixes: **PASS-WITH-WARNINGS**, 4/4 prior findings RESOLVED, type chain compiles, 0 structural blockers, 0 cross-milestone drift, 0 pedagogy violations. Only item was this frontier line being stale ("Audit not yet run") — now corrected. Guide is ready for a person to follow. Still nothing executed.
 - 2026-07-13 — **Report-issue: double-apply bug.** The webview `render()` ended with `apply()` while every chip handler also called `apply()`, so each pick posted two `apply` messages → two history snapshots → the first Revert looked inert (broke the M4/06 "one snapshot per apply" gate). Fix: `render()` is now pure draw; apply once per click handler + once from `init`. Applied to M4/03, M5/07 and both verify checkpoints; gate/Revert wording reconciled; R10 guard added. M4/M5 flagged ⚠ re-verify. Nothing executed — awaiting F5 by hand.
 - 2026-07-13 — Confirmation re-audit of the double-apply fix: **PASS** (no bare `apply()` in `render()`, init applies once in all 4 files, fences balanced, no new dead links). Still awaiting F5 by hand.
+- 2026-07-21 — **Retrofit to the GuideForge v1.2.0 pedagogy contract.** Foundation-docs pass (Part 1): stamped provenance on README/status, converted `foundation/glossary.md` from bullets to `### <term>` concept headings so `#slug` deep-links resolve, and removed the `acquireVsCodeApi()` entry (it's a function → inline code comment, not a glossary concept; per rule 1.1d). Step files (code-under-instruction 4.2, existing-file edits as fragments 4.3, "Before you start" starting-state notes 7.1, and the `acquireVsCodeApi()` inline comment) are handled by a separate step-files pass. All milestones M1–M5 flagged ⏳ needs re-verify; nothing executed — F5 hand-verification still pending.

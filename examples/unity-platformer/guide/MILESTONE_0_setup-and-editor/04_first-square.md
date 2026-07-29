@@ -2,8 +2,8 @@
 > Nav: [← Editor tour](03_editor-tour.md) · [Overview](00_overview.md) · [Verify →](05_verify.md)
 
 ## Glossary for this step
-- **Sprite** — a 2D image. Here always a plain **Square** or **Circle** primitive Unity generates for you — no
-  imported art. See [glossary: Sprite](../foundation/glossary.md).
+- **[Sprite](../foundation/glossary.md#sprite)** — a 2D image. Here always a plain **Square** or **Circle** primitive Unity generates for you — no
+  imported art.
 
 ## Why / design
 Before trusting the tools, prove the simplest end-to-end path: create a shape, see it in the Scene, see it in

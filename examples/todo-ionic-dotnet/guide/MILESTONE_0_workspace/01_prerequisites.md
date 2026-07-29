@@ -1,6 +1,9 @@
 # Milestone 0 · Step 01 of 3 — Verify Node & .NET, install the Ionic CLI
 > Nav: — · [Overview](00_overview.md) · [Folder skeleton →](02_folder-skeleton.md)
 
+## Glossary for this step
+- **[Ionic CLI](../foundation/glossary.md#ionic-cli)** — the command-line tool that scaffolds and serves Ionic apps (like `ng` for Angular, but Ionic-aware).
+
 ## Why / design
 Every later step assumes exact tool versions (see [foundation/stack.md](../foundation/stack.md)). A version
 mismatch is the single most common reason a multi-tool guide breaks halfway through, so we confirm all three
@@ -21,7 +24,7 @@ installers; the Ionic CLI is an npm global you install here.
 3. **Install the Ionic CLI** — run `npm install -g @ionic/cli@7`. This installs the command named `ionic`
    globally.
    - **New concept — Ionic CLI:** the command-line tool that scaffolds and serves Ionic apps (like `ng` for
-     Angular, but Ionic-aware). Docs: https://ionicframework.com/docs/cli. See [glossary](../foundation/glossary.md).
+     Angular, but Ionic-aware). Docs: https://ionicframework.com/docs/cli.
    - The `@7` pins the major version to the one this guide verified (7.2.x). MANDATORY — a different major
      could change the `ionic start` prompts.
 4. **Confirm the Ionic CLI** — run `ionic -v`. It should print **7.2.x**.

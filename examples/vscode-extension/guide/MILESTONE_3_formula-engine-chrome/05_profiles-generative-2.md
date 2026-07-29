@@ -34,70 +34,20 @@ Reading each new profile as *rules with reasons*:
 no variant still works. `const warm = (h, t) => mix(h, '#c98a3c', t)` is a local helper, scoped to that one profile.)*
 
 ## Do this
-This step **edits one file**: `src/engine/profiles.ts` — replace it with the complete version below.
-
-1. **Widen the `./color` import** to add the helpers the new profiles use: `setHue` (Warm Sepia, Nature) and
-   `ensureContrast` (High Contrast). The full import line is now
-   `{ darken, lighten, saturate, desaturate, setHue, mix, ensureContrast }`.
-2. **Add the six new objects** to the `GENERATIVE` array, after `midnight`, in this order: `warm-sepia`, `material`,
-   `nature`, `high-contrast`, `muted`, `monochrome`. Order is cosmetic (it's the dropdown order) but keeping it
-   matches the verify step.
-3. Leave `base()`, the first three profiles, `PROFILES = [...GENERATIVE]`, and `profileById` exactly as they were.
-4. The simplest, safe move is to **replace the whole file** with the block below. Save.
+This step **edits one file**: `src/engine/profiles.ts` (from [step 04](04_profiles-generative-1.md)). Two changes —
+leave `base()`, the first three profiles (`neon`, `pastel`, `midnight`), `PROFILES = [...GENERATIVE]`, and
+`profileById` exactly as they were.
 
 **Load-bearing:** the six new `id`s (`warm-sepia`, `material`, `nature`, `high-contrast`, `muted`, `monochrome`),
 `family: 'generative'`, and Nature's `variants: ['ocean', 'forest']`. Labels are cosmetic.
 
-## Code
-`src/engine/profiles.ts` *(complete — all 9 generative profiles; M4 appends the 4 signature presets)*
+**1. Widen the `./color` import** to add `setHue` (Warm Sepia, Nature) and `ensureContrast` (High Contrast). Replace the existing `import … from './color';` line with:
 ```ts
-// [M3] exports GENERATIVE (9 profiles) + PROFILES = [...GENERATIVE]. [M4] appends SIGNATURE.
-import { Palette, StarterCombo, StyleProfile } from './types';
 import { darken, lighten, saturate, desaturate, setHue, mix, ensureContrast } from './color';
+```
 
-// Shared base: map a combo's 5 colors to the 8 palette roles.
-function base(combo: StarterCombo): Palette {
-  return {
-    bg: combo.bg,
-    surface: combo.surface,
-    surfaceAlt: lighten(combo.surface, 0.04),
-    text: combo.text,
-    textMuted: mix(combo.text, combo.surface, 0.5),
-    accent1: combo.accent1,
-    accent2: combo.accent2,
-    border: mix(combo.surface, combo.text, 0.15),
-  };
-}
-
-export const GENERATIVE: StyleProfile[] = [
-  {
-    id: 'neon', label: 'Neon', family: 'generative',
-    buildPalette: (c) => {
-      const p = base(c);
-      return { ...p,
-        bg: darken(p.bg, 0.03), surface: darken(p.surface, 0.02),
-        accent1: saturate(lighten(p.accent1, 0.05), 0.3),
-        accent2: saturate(lighten(p.accent2, 0.05), 0.3),
-        text: lighten(p.text, 0.02) };
-    },
-  },
-  {
-    id: 'pastel', label: 'Pastel', family: 'generative',
-    buildPalette: (c) => {
-      const p = base(c);
-      return { ...p,
-        surface: lighten(p.surface, 0.06), surfaceAlt: lighten(p.surfaceAlt, 0.06),
-        accent1: lighten(desaturate(p.accent1, 0.25), 0.12),
-        accent2: lighten(desaturate(p.accent2, 0.25), 0.12) };
-    },
-  },
-  {
-    id: 'midnight', label: 'Midnight / OLED', family: 'generative',
-    buildPalette: (c) => {
-      const p = base(c);
-      return { ...p, bg: '#000000', surface: darken(p.surface, 0.06), surfaceAlt: darken(p.surfaceAlt, 0.05) };
-    },
-  },
+**2. Add the six new profile objects** to the `GENERATIVE` array — immediately after the `midnight` profile object (the one whose `buildPalette` returns `bg: '#000000'`) and before the array's closing `];`, in this order (`warm-sepia`, `material`, `nature`, `high-contrast`, `muted`, `monochrome`):
+```ts
   {
     id: 'warm-sepia', label: 'Warm Sepia', family: 'generative',
     buildPalette: (c) => {
@@ -166,15 +116,11 @@ export const GENERATIVE: StyleProfile[] = [
         accent1: p.accent1, accent2: p.accent1 };
     },
   },
-];
-
-// [M3] PROFILES = [...GENERATIVE]. [M4] becomes [...GENERATIVE, ...SIGNATURE].
-export const PROFILES: StyleProfile[] = [...GENERATIVE];
-
-export function profileById(id: string): StyleProfile {
-  return PROFILES.find((p) => p.id === id) ?? PROFILES[0];
-}
 ```
+
+3. Save. It compiles against `types.ts` (step 02) and `color.ts` (step 01).
+
+*(The complete `src/engine/profiles.ts` — all 9 generative profiles — is shown whole in [08_verify.md](08_verify.md).)*
 
 ## Done when (this step)
 - `src/engine/profiles.ts` compiles with no errors and `GENERATIVE` now has exactly **9** entries in the order

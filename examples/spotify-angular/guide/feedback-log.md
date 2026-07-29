@@ -16,5 +16,5 @@
 - **Severity:** blocker (breaks the build gate of every milestone from M5 on).
 - **Tags:** `forward-ref` `build-gate` `store-surface`
 - **Quote:** "GlobeStore.clearData() chiama this.likedIndex.clear(), ma LikedIndex.clear() nasce solo in M10."
-- **Status:** fixed via /report-issue (2026-07-13) — `clear()` defined in M3 step 06; M10/05 reframed; verify copies synced; R10 guards added at M3/06 + M5/06.
+- **Status:** fixed via /report-issue (2026-07-13) — `clear()` defined in M3 step 06; M10/05 reframed; verify copies synced; rule 5.1 guards added at M3/06 + M5/06.
 

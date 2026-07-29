@@ -12,30 +12,27 @@ needed. See the [Todo contract](../foundation/conventions.md#the-todo-contract-l
 `TodoDb` is the `DbContext` exposing a single `DbSet<Todo>`. It uses the primary-constructor form (C# 14).
 
 ## Do this
-1. **Create `backend/Api/Todo.cs`** with the entity below. `Title` defaults to `""` so the non-nullable
-   string is always initialized.
-2. **Create `backend/Api/TodoDb.cs`** with the context below.
+1. **Create `backend/Api/Todo.cs`** (new file) with the entity below. `Title` defaults to `""` so the
+   non-nullable string is always initialized.
+   ```csharp
+   // backend/Api/Todo.cs (new file)
+   public class Todo
+   {
+       public int Id { get; set; }
+       public string Title { get; set; } = "";
+       public bool IsDone { get; set; }
+   }
+   ```
+2. **Create `backend/Api/TodoDb.cs`** (new file) with the context below.
+   ```csharp
+   // backend/Api/TodoDb.cs (new file)
+   using Microsoft.EntityFrameworkCore;
 
-## Code
-```csharp
-// backend/Api/Todo.cs
-public class Todo
-{
-    public int Id { get; set; }
-    public string Title { get; set; } = "";
-    public bool IsDone { get; set; }
-}
-```
-
-```csharp
-// backend/Api/TodoDb.cs
-using Microsoft.EntityFrameworkCore;
-
-public class TodoDb(DbContextOptions<TodoDb> options) : DbContext(options)
-{
-    public DbSet<Todo> Todos => Set<Todo>();
-}
-```
+   public class TodoDb(DbContextOptions<TodoDb> options) : DbContext(options)
+   {
+       public DbSet<Todo> Todos => Set<Todo>();
+   }
+   ```
 
 ## Done when (this step)
 - [ ] Both files exist under `backend/Api/`.

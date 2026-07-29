@@ -3,6 +3,8 @@
 > The front door to this guide. Skim this, then follow the milestones. **Progress lives in
 > [foundation/status.md](foundation/status.md), not here** — this page describes intent; `status.md` states reality.
 
+> _Generated with **GuideForge v1.2.0**._
+
 ## Objective
 You'll build a small but complete 2D platformer **in the Unity Editor**, made entirely of Unity's primitive
 **Square and Circle sprites** — no imported art. It opens on a **Main Menu** (Play + Quit); pressing **Play**
@@ -42,6 +44,7 @@ version notes, and check date: **[foundation/stack.md](foundation/stack.md)**.
   of the sibling's signed-gravity integrator. → [decision-log D5](foundation/decision-log.md#d5--twist--flip-physics2dgravity-sign-aware-jump)
 
 ## Updates
+- 2026-07-21 — Retrofitted to the GuideForge v1.2.0 pedagogy contract: provenance stamp, glossary hygiene (concept headings + deep-links, functions→inline comments), code interleaved under its instruction (M6), existing-file edit shown as a fragment (M6). M6 flagged for re-verify.
 - 2026-07-13 — fixed: the "no C# until M3" framing (M1 does write a small `MenuController.cs`) → now "no **gameplay** C# until M3" everywhere; and 3 dead D8 anchor links (`#d8--playerprefs-for-the-best-time`). M0/M2/M7 flagged for re-verify.
 - 2026-07-11 — Audit pass (PASS-WITH-WARNINGS, 0 blockers): fixed the Unity-6 **Build Profiles** menu path, a jump-height physics error (`jumpSpeed` 12→7), a broken decision-log anchor, the script-create submenu path, and several pedagogy nits. Link check clean (374 links). Still awaiting Editor verification by a person.
 - 2026-07-11 — Whole guide drafted (M0–M7, 56 files). Author-cross-checked vs Unity 6.5 docs but **not run in the Editor** — awaiting verification by a person (see [status](foundation/status.md)).

@@ -2,11 +2,11 @@
 > Nav: — · [Overview](00_overview.md) · [Place coins →](02_place-coins.md)
 
 ## Glossary for this step
-- **Trigger (Is Trigger)** — a collider that detects overlap **without** blocking movement, firing
-  `OnTriggerEnter2D` instead of a solid collision. See [glossary](../foundation/glossary.md).
-- **Tag** — a short label on a GameObject (`Coin`, `Goal`) you test with `CompareTag`, so one handler can tell
-  what it touched. See [glossary: Tag](../foundation/glossary.md).
-- **Prefab** — a saved GameObject template; you spawn many identical instances from it. See [glossary: Prefab](../foundation/glossary.md).
+- **[Trigger (Is Trigger)](../foundation/glossary.md#trigger-is-trigger)** — a collider that detects overlap **without** blocking movement, firing
+  `OnTriggerEnter2D` instead of a solid collision.
+- **[Tag](../foundation/glossary.md#tag)** — a short label on a GameObject (`Coin`, `Goal`) you test with `CompareTag`, so one handler can tell
+  what it touched.
+- **[Prefab](../foundation/glossary.md#prefab)** — a saved GameObject template; you spawn many identical instances from it.
 
 ## Why / design
 A coin is a **Circle** sprite the player walks *through* (not into), so its collider is a **trigger**. We tag it

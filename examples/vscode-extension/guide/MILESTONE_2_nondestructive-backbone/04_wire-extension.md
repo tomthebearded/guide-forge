@@ -17,38 +17,26 @@ the shared instance; step 05 declares it as `private readonly history`.)*
 > clearer half; don't press F5 until step 05 is done.
 
 ## Do this
-This step **replaces** the whole contents of `src/extension.ts`.
-
-1. Open `src/extension.ts`.
-2. Select all and replace it with the code below. Two changes from the M1 version:
-   - **Add** `import { ThemeHistory } from './theme/history';` (note the path — `./theme/history`, the file from step 03).
-   - **Add** `const history = new ThemeHistory();` and **change** `new ThemePanelProvider()` to
-     `new ThemePanelProvider(history)`.
-3. Leave the registration line unchanged — `registerWebviewViewProvider(ThemePanelProvider.viewType, provider)` is
-   exactly as M1 wrote it, and `context.subscriptions.push(...)` still disposes it on unload.
-4. Save. Expect the compile error described in the callout above until step 05.
+This step **edits** `src/extension.ts` (the M1 version from [step 07](../MILESTONE_1_scaffold-sidebar/07_register-provider.md)).
+Two small changes — leave the registration line and `deactivate` exactly as M1 wrote them (`registerWebviewViewProvider(ThemePanelProvider.viewType, provider)`, still pushed onto `context.subscriptions`).
 
 **Load-bearing:** the provider now receives `history` — `new ThemePanelProvider(history)`. The import path
 `./theme/history` and the class name `ThemeHistory` must match step 03.
 
-## Code
-`src/extension.ts`
+**1. Add the history import**, immediately after the `import { ThemePanelProvider } from './panel/ThemePanelProvider';` line:
 ```ts
-import * as vscode from 'vscode';
-import { ThemePanelProvider } from './panel/ThemePanelProvider';
 import { ThemeHistory } from './theme/history';
+```
 
-export function activate(context: vscode.ExtensionContext): void {
+**2. Create the shared history and inject it** — inside `activate`, replace the line `const provider = new ThemePanelProvider();` with these two lines:
+```ts
   const history = new ThemeHistory();
   const provider = new ThemePanelProvider(history);
-
-  context.subscriptions.push(
-    vscode.window.registerWebviewViewProvider(ThemePanelProvider.viewType, provider),
-  );
-}
-
-export function deactivate(): void {}
 ```
+
+3. Save. Expect the compile error described in the callout above until step 05.
+
+*(The complete `src/extension.ts` for M2 is shown whole in [06_verify.md](06_verify.md).)*
 
 ## Done when (this step)
 - `src/extension.ts` reads exactly as above.

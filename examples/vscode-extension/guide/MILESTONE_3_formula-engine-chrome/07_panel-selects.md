@@ -45,7 +45,7 @@ dropdown `<option value>` must be the combo/profile **id** (not the label), sinc
 by id. The `viewType` and the CSP/nonce pattern are unchanged from M1/M2.
 
 ## Code
-`src/panel/ThemePanelProvider.ts` *(END OF M3 — inline `<select>`s, generated chrome via the history)*
+`src/panel/ThemePanelProvider.ts` *(END OF M3 — inline `<select>`s, generated chrome via the history; a near-total rewrite of the M2 provider, shown whole also in [08_verify.md](08_verify.md))*
 ```ts
 import * as vscode from 'vscode';
 import { ThemeHistory } from '../theme/history';

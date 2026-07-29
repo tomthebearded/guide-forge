@@ -57,6 +57,10 @@ case 'import': {
 count for the confirmation toast. The final `post({ type: 'savedSets', … })` refreshes "My sets" in the panel.
 
 ## Do this
+> **Before you start:** steps 06 and 07 must be done — the provider's `export`/`import` handlers must exist (step
+> 06) and the webview must show the **Save set… / Export / Import** buttons and **My sets** list (step 07). Then
+> launch the Extension Development Host with <kbd>F5</kbd>.
+
 No code changes. Run the round-trip in the Extension Development Host:
 
 1. Press <kbd>F5</kbd> and open the Live Recolor panel. Create a set: pick a combo + style, type a name (e.g.

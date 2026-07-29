@@ -3,7 +3,7 @@
 
 ## Glossary for this step
 - **Yeoman / `yo code`** — the official project generator for VS Code extensions; it asks a few questions and
-  writes a complete starter project so you don't assemble one by hand. *(See [glossary.md](../foundation/glossary.md).)*
+  writes a complete starter project so you don't assemble one by hand.
 
 ## Why / design
 Rather than hand-write a `package.json`, `tsconfig.json`, and debug config, we use the tool the VS Code team

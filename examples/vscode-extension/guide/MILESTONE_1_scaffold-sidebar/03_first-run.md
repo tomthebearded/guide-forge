@@ -1,6 +1,9 @@
 # M1 · Step 03 of 10 — First F5 run: the generated Hello World
 > Nav: [← Scaffold](02_scaffold.md) · [Overview](00_overview.md) · [Icon asset →](04_icon-asset.md)
 
+## Glossary for this step
+- **[Extension Development Host](../foundation/glossary.md#extension-development-host)** — the second VS Code window <kbd>F5</kbd> launches with your extension loaded; your testing sandbox.
+
 ## Why / design
 The scaffold already includes one working command. Running it **before** we change anything proves your dev loop
 (compile → launch → debug) works, so when something breaks later you know it's *your* change, not your setup.
@@ -10,9 +13,10 @@ The scaffold already includes one working command. Running it **before** we chan
 > testing sandbox. The *first* window (where your code is open) is the debugger and is where your `console.log`
 > output appears. Two windows, two roles — keep them straight; it matters in step 09. Docs:
 > [Your First Extension → Debugging](https://code.visualstudio.com/api/get-started/your-first-extension#_debugging-the-extension).
-> *(Glossary: [Extension Development Host](../foundation/glossary.md).)*
 
 ## Do this
+**Before you start:** the `live-recolor` window from [step 02](02_scaffold.md) is open as the workspace root (you ran `code live-recolor` at the end of that step).
+
 1. In the `live-recolor` window, press <kbd>F5</kbd>.
    - The first time, VS Code may ask which debug environment to use — choose **VS Code Extension Development** (the
      scaffold already wrote a launch config named **Run Extension**; if a dropdown appears, pick that).

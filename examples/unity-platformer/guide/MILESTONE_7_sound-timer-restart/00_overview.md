@@ -38,7 +38,7 @@ existing single level into a complete loop.
 - **Synthesized audio, no files** — parallels the sibling's Web Audio; a complete helper with an optional
   deep-dive.
 - **Reset `Time.timeScale = 1` before leaving to the menu** — [conventions](../foundation/conventions.md#language--framework-specifics).
-- New [glossary](../foundation/glossary.md) terms: `AudioSource`/`AudioListener`, `AudioClip.Create`, `PlayerPrefs`.
+- New [glossary](../foundation/glossary.md) terms: `AudioSource`/`AudioListener`, `PlayerPrefs`.
 
 ## Done-when gate
 - [ ] **Jump**, **coin pickup**, and **win** each produce an audible **beep**.

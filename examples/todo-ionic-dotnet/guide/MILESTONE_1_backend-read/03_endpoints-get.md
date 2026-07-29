@@ -7,28 +7,27 @@ extension method grouped under `/api/todos`, keeping `Program.cs` thin. We start
 adds the rest to this same file. `MapGet("/")` on the group resolves to `GET /api/todos`.
 
 ## Do this
-1. **Create `backend/Api/TodoEndpoints.cs`** with the extension below. It defines `MapTodoEndpoints`, creates
-   the `/api/todos` route group, and maps the list handler. `TodoDb` is injected straight into the handler by
-   the DI container. `TypedResults.Ok(...)` returns 200 with the JSON-serialized list.
+1. **Create `backend/Api/TodoEndpoints.cs`** (new file) with the extension below. It defines
+   `MapTodoEndpoints`, creates the `/api/todos` route group, and maps the list handler. `TodoDb` is injected
+   straight into the handler by the DI container. `TypedResults.Ok(...)` returns 200 with the JSON-serialized
+   list.
+   ```csharp
+   // backend/Api/TodoEndpoints.cs (new file)
+   using Microsoft.EntityFrameworkCore;
 
-## Code
-```csharp
-// backend/Api/TodoEndpoints.cs
-using Microsoft.EntityFrameworkCore;
+   public static class TodoEndpoints
+   {
+       public static RouteGroupBuilder MapTodoEndpoints(this WebApplication app)
+       {
+           var group = app.MapGroup("/api/todos");
 
-public static class TodoEndpoints
-{
-    public static RouteGroupBuilder MapTodoEndpoints(this WebApplication app)
-    {
-        var group = app.MapGroup("/api/todos");
+           group.MapGet("/", async (TodoDb db) =>
+               TypedResults.Ok(await db.Todos.ToListAsync()));
 
-        group.MapGet("/", async (TodoDb db) =>
-            TypedResults.Ok(await db.Todos.ToListAsync()));
-
-        return group;
-    }
-}
-```
+           return group;
+       }
+   }
+   ```
 
 ## Done when (this step)
 - [ ] `backend/Api/TodoEndpoints.cs` exists.

@@ -3,6 +3,8 @@
 > The front door to this guide. Skim this, then follow the milestones. **Progress lives in
 > [foundation/status.md](foundation/status.md), not here** — this page describes intent; `status.md` states reality.
 
+> _Generated with **GuideForge v1.2.0**._
+
 ## Objective
 You'll build a VS Code extension (TypeScript) with a **sidebar panel in the Activity Bar** that generates and
 instantly applies a full editor color theme — **workbench chrome *and* syntax/semantic tokens** — from a
@@ -27,6 +29,7 @@ full verified table + official docs + check date: **[foundation/stack.md](founda
   [foundation/decision-log.md](foundation/decision-log.md#d4--all-13-styles-taught-in-full-data-driven)
 
 ## Updates
+- 2026-07-21 — Retrofitted to the GuideForge v1.2.0 pedagogy contract: provenance stamp, glossary hygiene (concept headings + deep-links, `acquireVsCodeApi()`→inline comment), code interleaved under its instruction (4.2), existing-file edits shown as fragments (4.3), and "Before you start" starting-state notes (7.1). All milestones flagged for re-verify.
 - 2026-07-13 — fixed: webview double-apply — `render()` no longer calls `apply()`, so each pick makes exactly one history snapshot (M4/03, M5/07 + verifies; M4/M5 flagged for re-verify).
 - 2026-07-10 — M2–M5 drafted in one pass (against a locked code spec). Whole guide now drafted; audit + F5 hand-verification pending.
 - 2026-07-10 — M1 (Scaffold + sidebar panel) drafted — 10 steps + verify; awaiting F5 hand-verification.

@@ -2,7 +2,7 @@
 > Nav: [← Apply function](02_apply.md) · [Overview](00_overview.md) · [Wire extension →](04_wire-extension.md)
 
 ## Glossary for this step
-- **Snapshot** — a saved copy of the color settings taken *before* an apply, so the change can be reverted exactly. — [glossary.md](../foundation/glossary.md)
+- **[Snapshot](../foundation/glossary.md#snapshot)** — a saved copy of the color settings taken *before* an apply, so the change can be reverted exactly.
 
 ## Why / design
 Here's the whole safety net. `ThemeHistory` wraps every write so it's reversible. The mental model — the one that

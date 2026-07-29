@@ -2,8 +2,8 @@
 > Nav: [← Attach & test](03_attach-and-test-move.md) · [Overview](00_overview.md) · [Freeze rotation →](05_freeze-rotation.md)
 
 ## Glossary for this step
-- **Grounded** — true when the player rests on a surface on the **gravity-facing side**; the only time a jump is
-  allowed. See [glossary: Grounded](../foundation/glossary.md).
+- **[Grounded](../foundation/glossary.md#grounded)** — true when the player rests on a surface on the **gravity-facing side**; the only time a jump is
+  allowed.
 
 ## Why / design
 A jump is a one-time upward push — but only when standing on something (no mid-air jumps). We detect "standing on

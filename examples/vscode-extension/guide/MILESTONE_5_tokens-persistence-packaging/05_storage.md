@@ -2,7 +2,8 @@
 > Nav: [← History extend](04_history-extend.md) · [Overview](00_overview.md) · [Final provider →](06_provider-final.md)
 
 ## Glossary for this step
-- **Custom set** — a user-saved, named theme (the full set of color customizations) persisted by the extension and shown in "My sets". — [glossary.md](../foundation/glossary.md)
+- **[Custom set](../foundation/glossary.md#custom-set)** — a user-saved, named theme (the full set of color
+  customizations) persisted by the extension and shown in "My sets".
 
 ## Why / design
 A saved set is **extension data**, not a user color setting — so it does **not** belong in `settings.json`. It

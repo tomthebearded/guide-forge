@@ -2,7 +2,7 @@
 > Nav: [← Combos](03_combos.md) · [Overview](00_overview.md) · [Generative profiles II →](05_profiles-generative-2.md)
 
 ## Glossary for this step
-- **Generative profile** — a style whose full palette is *derived* from the seed combo by the profile's rules (as opposed to a fixed palette). — [glossary.md](../foundation/glossary.md)
+- **[Generative profile](../foundation/glossary.md#generative-profile)** — a style whose full palette is *derived* from the seed combo by the profile's rules (as opposed to a fixed palette).
 
 ## Why / design
 Now the engine earns its name. A **generative profile** is a `StyleProfile` whose `buildPalette` takes a combo and
