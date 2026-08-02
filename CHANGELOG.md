@@ -3,6 +3,10 @@
 All notable changes to GuideForge are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/); this project uses date-stamped versions.
 
+## [Unreleased]
+
+## [1.3.0] — 2026-08-02
+
 Four new pedagogy rules, a glossary-hygiene pass, a provenance rule, a suite of deterministic maintenance
 scripts + CI, and a **restructure of the pedagogy contract from a flat rule list into seven named principles**
 — most from real reader-friction observations plus two process failures (a drifted/phantom version and a stale

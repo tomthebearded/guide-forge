@@ -1,10 +1,9 @@
 {
   "name": "guide-forge",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Turn any idea — or an existing tutorial — into a step-by-step build guide that teaches while it builds. A gated pipeline of skills that plan, draft, clarify, review, modernize, audit, scaffold, and version-update learn-as-you-go developer guides.",
   "author": { "name": "GuideForge" },
   "license": "MIT",
-  "hooks": "./hooks/hooks.json",
   "keywords": [
     "documentation",
     "tutorial",
