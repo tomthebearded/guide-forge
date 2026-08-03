@@ -40,8 +40,3 @@ $ARGUMENTS
 one entry per distinct piece of friction, faithful to what the reader experienced, guesses labelled as
 guesses; point the user to `/report-issue` if the guide should actually be fixed. Leave the entry in the
 working tree — do not commit.
-
-**Log the run:** before you finish, append this run to `guide/TOKEN_USAGE.md` — date + time (UTC),
-`log-feedback`, what it did, an **estimated** token breakdown + cost — and update the `TOTAL`. See
-[reference/token-tracking.md](../../reference/token-tracking.md); create the ledger from its template if it's
-missing. Numbers are estimates (Claude can't meter its own tokens mid-run) — label them so.

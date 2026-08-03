@@ -35,10 +35,3 @@ $ARGUMENTS
 
 **Gate:** run the Phase 0 interview and **stop and wait** for answers before producing any plan (unless the
 user said "no questions"); then stop again for plan approval before any drafting.
-
-**Log the run:** the cost ledger doesn't exist yet (scaffold owns it), so don't write one — even though you
-just created `guide/` for `PLAN.md`. End your reply with a `Planning cost (est.)` line — date + time (UTC),
-`plan-guide`, an **estimated** token count + cost — so `/scaffold-guide` seeds `guide/TOKEN_USAGE.md`'s first
-row from it. See
-[reference/token-tracking.md](../../reference/token-tracking.md). It's an estimate (Claude can't meter its own
-tokens mid-run) — label it so.

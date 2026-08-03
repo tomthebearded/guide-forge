@@ -21,7 +21,7 @@ You do **not** write step content — only the scaffolding.
 
 ## Produce — under `guide/` (follow the canonical layout exactly)
 Use the one canonical skeleton — don't invent a per-guide structure. The fixed tree + naming rules:
-`README.md`, `PLAN.md`, `TOKEN_USAGE.md`, and `feedback-log.md` at the guide root; foundation docs under
+`README.md`, `PLAN.md`, and `feedback-log.md` at the guide root; foundation docs under
 `foundation/`; one `MILESTONE_<N>_<slug>/` folder per milestone with `00_overview.md` … `NN_verify.md`.
 
 1. **`README.md` at the guide root** — the front door (objective ← Target end state; one-line stack summary

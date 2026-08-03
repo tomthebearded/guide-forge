@@ -21,8 +21,8 @@ The guide file(s) to audit (attach or point at them). If a foundation doc (`stat
 ## Structural checks (objective — pass/fail)
 - **Canonical layout:** `README.md` at the guide root; foundation docs under `foundation/`; one
   `MILESTONE_<N>_<slug>/` folder per milestone. Flag `overview.md` (must be `00_overview.md`), foundation docs loose at
-  the root, or a missing README. `PLAN.md`, `TOKEN_USAGE.md`, and `feedback-log.md` are expected guide-root
-  files (not foundation docs) — don't flag them.
+  the root, or a missing README. `PLAN.md` and `feedback-log.md` are expected guide-root files (not foundation
+  docs) — don't flag them.
 - Each milestone has a `00_overview.md` with every section (Goal · Scope discipline · Prerequisite · Steps at
   a glance grouped into sittings · Design/decisions · Done-when gate · Handoff) and ends in an `NN_verify.md`.
 - **Cumulative handoff:** the overview's `Handoff` carries a running `Done so far (cumulative)` /

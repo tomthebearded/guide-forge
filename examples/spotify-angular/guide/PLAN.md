@@ -275,7 +275,6 @@ examples/spotify-angular/
 └─ guide/
    ├─ README.md                        # thin front door (§3)
    ├─ PLAN.md                          # ← this file
-   ├─ TOKEN_USAGE.md                   # the one cost ledger (hook meters it; scaffold seeds row 1 from the line below)
    ├─ feedback-log.md                  # reader-friction log (/log-feedback)
    ├─ foundation/
    │  ├─ stack.md
@@ -320,9 +319,3 @@ verifying each Done-when gate as you build.
 > **STOP — approval gate.** This is the plan, not the guide. Tell me your calls on **S1–S6** and **R1–R7**
 > (or "use your defaults"), and approve the ladder — then I'll scaffold and draft M0. Nothing else under
 > `guide/` has been written.
-
----
-
-*Planning cost (est.): 2026-07-10 ~14:20 UTC · `plan-guide` · ~90k tokens in / ~11k out (est., incl. 2
-source-mapping subagents ~213k combined) ≈ $2.1 (est., Opus 4.8). Labeled an estimate — Claude can't meter
-its own tokens mid-run. `/scaffold-guide` seeds `guide/TOKEN_USAGE.md`'s first row from this line.*

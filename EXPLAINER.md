@@ -176,7 +176,6 @@ improvable — and lets you re-run just the stage that went wrong.
 | `CHANGELOG.md` | Version history. | Every release. |
 | `CONTRIBUTING.md` | How to add examples/rules and the PR checklist. | When accepting contributions. |
 | `.claude-plugin/` | `plugin.json` (manifest) + `marketplace.json` (local marketplace) — makes the repo installable as one Claude Code plugin. | When you cut a release / bump the version. |
-| `hooks/` | `hooks.json` + `track-tokens.js` — the bundled Stop/SubagentStop hook that meters **real** per-guide token cost into `examples/<name>/guide/TOKEN_USAGE.md` (see [reference/token-tracking.md](reference/token-tracking.md)). Costs zero Claude tokens. | When you change cost tracking. |
 
 ### The prompt contracts — `skills/*/prompt.md`
 
@@ -241,9 +240,8 @@ you the exact shape of a GuideForge guide.
 ### `reference/` — the method, explained
 
 The deep-dives behind the pillars: [pedagogy-rules.md](reference/pedagogy-rules.md),
-[milestone-design.md](reference/milestone-design.md), [audience-model.md](reference/audience-model.md),
-[canonical-layout.md](reference/canonical-layout.md) (the one fixed on-disk skeleton every guide uses), and
-[token-tracking.md](reference/token-tracking.md) (how per-guide cost is metered and where each ledger lives).
+[milestone-design.md](reference/milestone-design.md), [audience-model.md](reference/audience-model.md), and
+[canonical-layout.md](reference/canonical-layout.md) (the one fixed on-disk skeleton every guide uses).
 
 ---
 

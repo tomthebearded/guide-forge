@@ -5,6 +5,21 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Removed
+
+- **Token-usage tracking, entirely.** The bundled Stop/SubagentStop hook (`hooks/track-tokens.js` +
+  `hooks/hooks.json`, so the whole `hooks/` folder) is gone, along with `reference/token-tracking.md`, every
+  generated `guide/TOKEN_USAGE.md` ledger under `examples/`, and the hook's `.claude/.token-usage-state.json`
+  scratch state. GuideForge no longer meters, estimates, or records what a guide costs to build.
+- **The `TOKEN_USAGE.md` guide-root file.** It is no longer part of the canonical layout
+  (`reference/canonical-layout.md`), so `scaffold-guide` no longer stamps it and `audit-guide` no longer
+  expects it.
+- **The per-skill "Log the run" ledger rule.** Removed from all eleven `SKILL.md` wrappers; skills no longer
+  append estimated cost rows, and `plan-guide` / `modernize-guide` no longer emit a `Planning cost (est.)`
+  line for `scaffold-guide` to seed from.
+- Cost-tracking sections in `README.md` and `EXPLAINER.md`, and the cost-line references in the four example
+  guides' `PLAN.md` / `status.md`.
+
 ## [1.3.0] — 2026-08-02
 
 Four new pedagogy rules, a glossary-hygiene pass, a provenance rule, a suite of deterministic maintenance

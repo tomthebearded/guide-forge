@@ -35,8 +35,3 @@ $ARGUMENTS
 
 **Gate:** touch only what the version bump actually affects; never mark a rewritten milestone `✅` — the code
 changed, so the user must re-run the Done-when gates. Leave all changes in the working tree — do not commit.
-
-**Log the run:** before you finish, append this run to `guide/TOKEN_USAGE.md` — date + time (UTC),
-`update-stack`, what it did, an **estimated** token breakdown + cost — and update the `TOTAL`. See
-[reference/token-tracking.md](../../reference/token-tracking.md); create the ledger from its template if it's
-missing. Numbers are estimates (Claude can't meter its own tokens mid-run) — label them so.

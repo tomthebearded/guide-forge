@@ -242,7 +242,6 @@ examples/vscode-extension/
   guide/
     PLAN.md                           ← THIS FILE (the only thing written now)
     README.md                         ← front door (scaffold)
-    TOKEN_USAGE.md                    ← the one cost ledger (metered by the hook; scaffold seeds row 1 from the cost line below)
     feedback-log.md                   ← reader-friction log (scaffold)
     foundation/
       stack.md  audience.md  conventions.md  glossary.md  status.md  decision-log.md

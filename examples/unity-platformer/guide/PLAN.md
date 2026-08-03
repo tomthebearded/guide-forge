@@ -360,7 +360,6 @@ examples/unity-platformer/
   guide/
     PLAN.md                           ← THIS FILE (the only thing written now)
     README.md                         ← front door (scaffold)
-    TOKEN_USAGE.md                    ← the one cost ledger (metered by the hook; scaffold seeds row 1 from the cost line below)
     feedback-log.md                   ← reader-friction log (scaffold)
     foundation/
       stack.md  audience.md  conventions.md  glossary.md  status.md  decision-log.md
@@ -407,9 +406,3 @@ gate in the Editor — that first hands-on follow-through *is* the verification 
 1. You approve (or adjust) this plan.
 2. `/scaffold-guide` stamps the README + 6 foundation docs + milestone-overview placeholders.
 3. `/draft-milestone` drafts the whole guide (M0→M7).
-
----
-
-*Planning cost (est.): 2026-07-11 ~10:40 UTC · `plan-guide` · ~55k tokens in / ~9k out ≈ 64k total ·
-rough est. (Claude can't meter its own tokens mid-run) — `/scaffold-guide` seeds `TOKEN_USAGE.md` row 1 from
-this line.*

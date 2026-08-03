@@ -26,7 +26,7 @@ Determine what this PR touches. Run:
 
 Group the changed files by area: `skills/` (each skill's `SKILL.md` wrapper **and** its co-located
 `prompt.md` contract), `templates/`, `reference/`, `examples/`, root docs (`README.md`, `EXPLAINER.md`,
-`CHANGELOG.md`), `.claude-plugin/`, `hooks/`. The checks below key off which areas changed — skip a check
+`CHANGELOG.md`), `.claude-plugin/`, `scripts/`. The checks below key off which areas changed — skip a check
 only when nothing in its area changed, and say so.
 
 ## Step 1 — Run the automated gate (do this FIRST, don't eyeball it)
@@ -106,8 +106,3 @@ two (examples layout) are still yours to check.
 5. If PASS: a one-line "clear to open the PR". If FAIL: "fix the blockers and re-run `/pre-pr-check`."
 
 Do not run `git commit`, `git push`, or open the PR yourself — the contributor does that after a PASS.
-
-**Log the run:** only if this check is scoped to a single guide, append this run to its `guide/TOKEN_USAGE.md`
-(date + time UTC, `pre-pr-check`, an **estimated** token count + cost) and update the `TOTAL`; a repo-wide
-check touches no single ledger, so skip and say so. See
-[reference/token-tracking.md](../../reference/token-tracking.md). Estimates only — label them so.

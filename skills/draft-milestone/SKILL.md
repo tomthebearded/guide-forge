@@ -40,8 +40,3 @@ that honors the full contract, and each milestone's cumulative handoff feeds the
 the reader to "implement one" first — produce the finished guide, then the reader builds against it and
 verifies each Done-when gate as they go. Only when `$ARGUMENTS` names a specific milestone (or list) do you
 draft just those — for re-drafting or fixing one milestone in an existing guide.
-
-**Log the run:** before you finish, append this run to `guide/TOKEN_USAGE.md` — date + time (UTC),
-`draft-milestone`, what it did, an **estimated** token breakdown + cost — and update the `TOTAL`. See
-[reference/token-tracking.md](../../reference/token-tracking.md); create the ledger from its template if it's
-missing. Numbers are estimates (Claude can't meter its own tokens mid-run) — label them so.

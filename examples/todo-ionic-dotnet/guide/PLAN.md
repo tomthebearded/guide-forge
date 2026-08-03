@@ -197,7 +197,6 @@ examples/todo-ionic-dotnet/
 └─ guide/
    ├─ PLAN.md                     ← this file
    ├─ README.md                   (front door — scaffold)
-   ├─ TOKEN_USAGE.md              (the one cost ledger — scaffold seeds it; hook meters it)
    ├─ feedback-log.md             (scaffold)
    ├─ foundation/
    │  ├─ stack.md  audience-model.md  conventions.md  glossary.md  status.md  decision-log.md
@@ -214,8 +213,8 @@ examples/todo-ionic-dotnet/
 
 ## 8. First move
 
-On approval: run **`/scaffold-guide`** (stamps the skeleton + five foundation docs + placeholder overviews +
-`TOKEN_USAGE.md`), then **`/draft-milestone`** with no argument to draft the **whole guide in one pass**
+On approval: run **`/scaffold-guide`** (stamps the skeleton + five foundation docs + placeholder overviews),
+then **`/draft-milestone`** with no argument to draft the **whole guide in one pass**
 (M0→M8, each milestone atomic: `00_overview.md`, step files, `NN_verify.md`), reconciling `status.md`, the
 README Updates log, and `examples/README.md` as it goes, then a dead-link check and an `/audit-guide` pass.
 The reader then builds against the finished guide, checking each Done-when gate as they go.

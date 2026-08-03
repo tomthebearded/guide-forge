@@ -217,26 +217,7 @@ Append the pedagogy rules (the writing contract) from [`reference/pedagogy-rules
 
 **Templates** (in [`templates/`](templates/)): `readme.md`, `milestone-overview.md`, `step.md`, `verify.md`, `stack.md`, `status.md`, `glossary.md`, `conventions.md`, `decision-log.md`, `feedback-log.md`.
 
-**Reference** (in [`reference/`](reference/)): the deep-dives — [pedagogy rules](reference/pedagogy-rules.md), [milestone design](reference/milestone-design.md), [audience model](reference/audience-model.md), [canonical layout](reference/canonical-layout.md), [token tracking](reference/token-tracking.md).
-
----
-
-## Automatic cost tracking
-
-Install GuideForge as a plugin (Option B) and it tracks what your build actually costs — no setup, no extra tokens.
-
-A bundled **Stop / SubagentStop hook** ([`hooks/track-tokens.js`](hooks/track-tokens.js), wired by [`hooks/hooks.json`](hooks/hooks.json)) runs after every finished request. It reads the session transcript's real `usage` records, dedupes them by message id, prices each message per model, fetches the live USD→EUR rate, and writes a **per-guide `examples/<name>/guide/TOKEN_USAGE.md`** — running totals plus a per-request log, one ledger per guide.
-
-- **Tracked per guide, not per project.** A guide is an `examples/<name>/` folder; each session's usage is credited to the guide its tool calls reference most, and the ledger sits **inside** that guide's `guide/` folder (`TOKEN_USAGE.md`, beside `README.md`). Work that touches no guide — building the plugin itself — is **not** tracked. (A plain single-guide project with no `examples/` dir writes one `guide/TOKEN_USAGE.md`, or a root `TOKEN_USAGE.md` if it has no `guide/` folder.)
-
-- **It's a meter, not a bill — subscription-agnostic.** The hook doesn't know or care how you pay (Pro/Max subscription, API credits, pay-as-you-go). It just reports what your usage *would* cost at API list rates, so you can see how much you spent. On a subscription those dollars are informational, not an actual charge.
-- **Real numbers, not estimates.** Figures come straight from the transcript's token counts (input / output / cache-write / cache-read), not a guess.
-- **Zero token cost.** It's a plain Node script — it consumes no Claude tokens, prints nothing, and always exits 0, so it can never block or delay a response. (Needs `node` on your PATH.)
-- **Prices built in.** Per-model rates live in one place — `MODEL_RATES` in [`hooks/track-tokens.js`](hooks/track-tokens.js) (the single source of truth; not restated here so they can't drift). Cache read 0.1×, 5-min write 1.25×, 1-hour write 2×. Unknown models are still counted and flagged with a `?` in the log.
-- **Backfill past sessions:** `node "$CLAUDE_PLUGIN_ROOT/hooks/track-tokens.js" --backfill "<your project's transcript dir>"` — adds one row per past session.
-- **Turn it off:** delete or rename `hooks/hooks.json` — the bundled hook auto-loads from that standard path (the plugin manifest deliberately does **not** re-declare it, which would double-load and fail) — or disable the plugin with `claude plugin disable guide-forge@guide-forge`.
-
-Using the paste prompts instead (Option A)? There's no hook, so the skills fall back to appending a rough **estimated** row to the same in-guide ledger (`guide/TOKEN_USAGE.md`); when the hook next runs it replaces the file with metered figures. See [reference/token-tracking.md](reference/token-tracking.md) for both mechanisms.
+**Reference** (in [`reference/`](reference/)): the deep-dives — [pedagogy rules](reference/pedagogy-rules.md), [milestone design](reference/milestone-design.md), [audience model](reference/audience-model.md), [canonical layout](reference/canonical-layout.md).
 
 ---
 
@@ -283,8 +264,7 @@ guide-forge/                      ← a single project = one Claude Code plugin
     ├── pedagogy-rules.md
     ├── milestone-design.md
     ├── audience-model.md
-    ├── canonical-layout.md        ← the one fixed on-disk skeleton every guide uses
-    └── token-tracking.md          ← per-guide cost tracking (the hook + the estimate fallback)
+    └── canonical-layout.md        ← the one fixed on-disk skeleton every guide uses
 ```
 
 ---

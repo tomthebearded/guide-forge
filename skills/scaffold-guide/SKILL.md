@@ -41,9 +41,3 @@ $ARGUMENTS
 
 **Gate:** write only the skeleton + foundation docs, not step content; leave undecided template headings
 empty rather than guessing.
-
-**Log the run (ledger owner):** **create** `guide/TOKEN_USAGE.md` from the template in
-[reference/token-tracking.md](../../reference/token-tracking.md) as part of scaffolding, seeded with this run —
-date + time (UTC), `scaffold-guide`, what it did, an **estimated** token breakdown + cost — plus a first row
-from the plan's `Planning cost (est.)` line if it carries one. Numbers are estimates (Claude can't meter its
-own tokens mid-run) — label them so.
