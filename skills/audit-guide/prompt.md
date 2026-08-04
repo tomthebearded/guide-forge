@@ -161,6 +161,15 @@ Expert on that topic.
   (or a bare pointer with no definition) is the defect. This needs step order (ideally the whole milestone/
   guide) to resolve; say so if only a fragment was attached. (Observed: a guide named *delta time* in
   a `maxDt` comment but only taught it in a later step.)
+- **Sourcing — a declarative block must be clean in its validator, not just correct per the docs:** flag a
+  config/manifest block (an editor or plugin manifest, a build/compiler config, a CI or container file, any
+  schema-backed JSON/YAML/TOML) that looks **incomplete against the schema the reader's own tooling validates
+  it with** — typically a key the docs call optional but the shipped schema requires, or a block the docs
+  present abridged. The reader pastes it, gets a warning the guide never mentions, and can't tell whether the
+  guide or the tool is wrong. Confirming it needs the validator, so raise it as a **suspect**: name the block,
+  the key you suspect is missing, and the tool to re-check it in. The fix is a block that validates clean plus
+  a note on why it differs from the docs. (Observed: a guide's manifest snippet, correct per the official
+  docs, raised a `Missing property` warning from the editor's bundled schema.)
 
 ## Deliverable
 1. A **verdict**: PASS / PASS-WITH-WARNINGS / FAIL, with counts.

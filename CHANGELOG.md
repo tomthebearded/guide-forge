@@ -5,6 +5,21 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+
+- **Sourcing principle — when the reader's toolchain contradicts the docs, the toolchain wins.** The principle
+  previously resolved only one conflict (docs vs. training memory). It now also covers docs vs. the validator,
+  compiler, linter, formatter or type-checker the guide tells the reader to run: the docs describe *semantics*,
+  but the toolchain decides what the reader actually sees, so a code or config block is written the way it
+  comes out clean, with a note on why it differs from the docs. "The docs win" is scoped to names, signatures,
+  flags and versions — not weakened. `reference/pedagogy-rules.md` carries the canonical bullet;
+  `draft-milestone` authors to it. (A reader pasted a manifest snippet that matched the official docs and got
+  a `Missing property` warning from the editor's bundled schema.)
+- **`audit-guide` flags declarative blocks that are correct per the docs but incomplete against their
+  schema.** A new pedagogy (judgment) check: for every config/manifest block — an editor or plugin manifest, a
+  build/compiler config, a CI or container file, any schema-backed JSON/YAML/TOML — the auditor raises a
+  suspect naming the block, the key likely missing, and the validator to re-check it in.
+
 ### Removed
 
 - **Token-usage tracking, entirely.** The bundled Stop/SubagentStop hook (`hooks/track-tokens.js` +

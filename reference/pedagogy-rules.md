@@ -37,6 +37,12 @@ A teaching guide loses all trust the moment a version number is wrong or an API 
   online Phase 0.5) is the single reference; every step builds against those exact versions.
 - **Verify APIs against the current official docs before writing code** — names, signatures, flags,
   config keys. Training memory is stale; the docs are truth. If they disagree, the docs win.
+- **When the reader's toolchain contradicts the docs, the toolchain wins.** The docs describe *semantics*;
+  the schema validator, compiler, linter, formatter or type-checker you tell the reader to run decides what
+  they actually *see*. Where they disagree about what a code or config block must **contain**, write the
+  block that comes out clean and add a note saying why it differs from the docs — otherwise the reader who
+  checks the docs concludes the guide is wrong. (This scopes the bullet above to semantics; names,
+  signatures, flags and versions still come from the docs.)
 - **Link the authoritative source.** When rule 1.1 introduces an external API/tool concept, deep-link its
   official docs page so the reader can go further at the source — and so the claim is checkable.
 - **No link → no claim.** If you can't verify a version or API online, say "unverified" rather than assert it.

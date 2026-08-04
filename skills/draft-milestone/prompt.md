@@ -73,6 +73,12 @@ If any of these is missing from the conversation, ask for it before drafting.
   config key a step uses, confirm online (fetch the docs page from the Verified stack) that it exists and has
   that signature/name in the pinned version. Do **not** write code from memory — memory is stale. If an API
   moved or was renamed since your training data, use what the docs say now and note it.
+- **Where the reader's toolchain disagrees with the docs about a block's contents, follow the toolchain.** The
+  docs describe semantics; the schema validator, compiler, linter, formatter or type-checker you tell the
+  reader to run decides what they actually see. When the docs call a manifest/config key optional but the
+  shipped schema requires it, write the block that validates clean and add a one-line note on why it differs
+  from the docs — a reader who checks the docs must not conclude the guide is wrong. Names, signatures, flags
+  and versions still come from the docs.
 - **Link the official docs** in each "New concept" callout (rule 1.1), deep-linking to the exact page when
   practical.
 - If the web check surfaces something that contradicts the plan (a version is EOL, an API was removed),
