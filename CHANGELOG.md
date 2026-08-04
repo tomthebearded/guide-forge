@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.4.0] — 2026-08-04
+
 ### Added
 
 - **Sourcing principle — when the reader's toolchain contradicts the docs, the toolchain wins.** The principle

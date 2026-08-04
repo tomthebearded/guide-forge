@@ -10,6 +10,9 @@ dist/
 build/
 out/
 
+# Claude
+CLAUDE.md
+
 # Claude plugin / API keys
 .env
 .env.local

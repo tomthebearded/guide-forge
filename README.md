@@ -6,7 +6,7 @@
 
 A prompt-and-skill toolkit for Claude that plans, drafts, and hardens **learn-as-you-go** developer guides — for games, libraries, web apps, CLIs, APIs, anything. The reader follows it start to finish and *understands what they're doing*, even for the parts they've never seen.
 
-`MIT License` · `Works with Claude | Claude Code` · `Domain-agnostic` · `v1.3.0` · `PRs welcome`
+`MIT License` · `Works with Claude | Claude Code` · `Domain-agnostic` · `v1.4.0` · `PRs welcome`
 
 [Quick start](#quick-start-15-minutes) · [The toolkit](#the-toolkit) · [Learning path](#learning-path) · [Explainer](EXPLAINER.md) · [FAQ](#faq)
 
