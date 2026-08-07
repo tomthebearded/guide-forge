@@ -30,9 +30,10 @@ actually exists — but don't change behavior (see the box above).
 Read the whole step first. Then revise it so every one of these holds:
 
 Grouped by principle (rules cited by dotted id; full contract in
-[reference/pedagogy-rules.md](../../reference/pedagogy-rules.md)). **P6 "prove the gate" is a drafting /
-review-gate concern, not a clarity edit — it's intentionally absent here; clarifying a step never changes what
-its Done-when checks:**
+[reference/pedagogy-rules.md](../../reference/pedagogy-rules.md)). **P6 "prove the gate" (rules 6.1–6.2) is a
+drafting / review-gate concern, not a clarity edit — it's intentionally absent here; clarifying a step never
+changes what its Done-when checks. If the gate looks unprovable (6.1) or masked by the environment the step
+tells the reader to observe in (6.2), *flag it* for `report-issue`; don't rewrite the gate:**
 
 **P1 — Explain what's new**
 1.1. **Every concept explained on first use.** Any term on a topic the reader isn't **Expert** in is explained
@@ -59,6 +60,13 @@ its Done-when checks:**
    appears elsewhere in the guide, quote it **identically** — the same number in the code, the prose, and the
    Done-when gate. Don't round it one way here and another way in the gate. (Clarifying a step shouldn't
    introduce a value that drifts from the rest of the guide.)
+3.6. **Identifiers are self-describing.** Every name the step *invents* — variable, constant, function/method,
+   class, file, CSS class, config key — says what it holds or does when read with the prose covered up: nouns
+   for state, verbs for behavior, the unit in the name where it matters (`timeoutMs`, `widthPx`). Rename `d`,
+   `arr`, `data`, `temp`, `handle()`, `Manager`. **Keep the ecosystem's idiom** (`ctx`, `req`/`res`, `e`, a
+   loop `i`) — that's not a violation. ⚠️ Renaming an identifier **changes behavior** if anything outside this
+   step refers to it: rename only when the name is local to this step; otherwise **flag it** (deliverable 4)
+   with the rename you'd make and the other files that would have to follow.
 
 **P4 — Structure steps & code**
 4.1. **Sequences are numbered lists**, not arrow-chains. (Arrows only for one menu path inside one action.)

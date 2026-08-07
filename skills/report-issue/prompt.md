@@ -51,6 +51,12 @@ Name *why* the guide let this happen. Almost always it's one of:
 - a **pedagogy-rule miss** — an undefined term (rule 1.1), a missing WHERE (rule 2.1), an unmarked mandatory-vs-
   illustrative (rule 3.2), a value given as a range where it was load-bearing (rule 3.1), or **no failure note
   for the exact error the reader hit** (rule 5.1);
+- an **environment-masked gate** (rule 6.2) — the implementation is *correct*, but the environment the guide
+  told the reader to observe in overrides, suppresses, or duplicates the exact signal the `Done-when` reads
+  (a debug session repainting the UI, dev mode disabling the cache, strict mode double-invoking an effect,
+  hot-reload hiding a restart). The tell is a report shaped like "it works, but only when I…" or "nothing
+  happens until I close/restart X". Treat this as a **guide defect, not a non-issue**: the gate cannot go
+  green on correct code, so the reader can't tell success from failure;
 - a genuine **reader mistake outside the guide's instructions** — in which case say so plainly, and still ask
   whether the guide *invited* it (an ambiguous instruction that any reader would trip on **is** a defect).
 
@@ -83,6 +89,11 @@ that missed a sibling defect is the failure mode to avoid.
 At the step(s) involved, add a **rule 5.1 "likely failure + its usual cause"** note naming the exact symptom the
 reader reported and the first thing to check — so the next person diagnoses it in one line instead of getting
 stuck.
+
+> **False negatives get guarded in the gate, not in troubleshooting.** When the reader's code was *correct* and
+> only the observation was wrong (rule 6.2), a note in the "If it breaks" list is unreachable — nothing broke,
+> so nobody reads it. Put what the reader will actually see **inside the `Done-when` itself**, and keep the 5.1
+> note as a secondary net.
 
 ### 6. Log it (the guide's bookkeeping)
 - **`status.md` drift log:** one row per issue — `date · where · guide said (old) · reality is (new) ·

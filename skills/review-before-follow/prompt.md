@@ -41,6 +41,13 @@ Run these over the step(s) before approving execution:
    `status.md` (the status authority) and against the actual artifacts — not against the guide's own claims.
 6. **Confirm the base is real.** Make sure the *previous* milestone this one builds on is actually done, so
    you're not building on an unproven base.
+7. **Check the gate isn't masked by the environment you'll observe it in (rule 6.2).** For each `Done-when`,
+   name the environment the step has you watching — a debug session, a dev server, an emulator, a preview
+   build — and ask what that environment does to the exact signal the gate reads. Dev/debug overlays repaint
+   UI, dev mode disables caching, strict/dev mode double-invokes effects, hot-reload hides "survives a
+   restart". If it masks the signal, say so **before** execution and patch the gate (an unmasked channel, the
+   environment-specific variant set too, or the mask named inside the gate) — otherwise you will debug correct
+   code against a gate that cannot go green.
 
 ---
 

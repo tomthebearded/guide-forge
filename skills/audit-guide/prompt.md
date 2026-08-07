@@ -78,6 +78,18 @@ The guide file(s) to audit (attach or point at them). If a foundation doc (`stat
   can't demonstrate the property it names (e.g. "proves it's deterministic" but the action runs the query only
   once). Suggest either strengthening the action or rewording the claim to what's observed. (Observed:
   a guide claimed determinism without re-querying.)
+- **Gate masked by its own environment (rule 6.2) — BLOCKER when it's a milestone gate:** every gate is
+  observed inside an environment the guide prescribes (a debug session, a dev server, an emulator, a preview
+  build, a container). Flag a `Done when` whose observed signal that environment **overrides, suppresses, or
+  duplicates**, so a *correct* implementation shows the wrong thing — a debug/dev overlay repainting the UI
+  channel the gate reads, dev mode disabling the cache the gate claims to prove, strict/dev mode
+  double-invoking an effect a "runs once" gate counts, hot-reload masking "survives a restart". This is the
+  false-*negative* twin of the check above: the reader debugs working code, and the troubleshooting table is
+  unreachable because nothing broke. Confirming the override often needs the platform's docs, so raise it as a
+  **suspect** naming the gate, the environment, and the overriding mechanism. The fix is an unmasked channel,
+  the environment-specific variant set alongside the normal one, or the mask named **inside the gate**.
+  (Observed: a demo set a status-bar color that the debug host's own debugging colors override, so the
+  milestone's headline gate appeared to fail on correct code.)
 - **Cross-platform commands:** if `foundation/stack.md`'s *Target OS / shell(s)* lists more than one shell,
   flag any command in a step or `Done-when` gate that runs on only one of them with no variant for the others —
   e.g. a Unix-only `grep`/`ls`/`cat`/`rm`/`export` used as a gate check when the guide also targets
@@ -120,7 +132,7 @@ Per the seven principles: bare undefined terms (1.1) · a recurring mental model
 use (1.2) · actions with no WHERE (2.1) · keystroke-only, no WHY (2.2) · vague/ranged values (3.1) · mandatory
 vs illustrative unmarked (3.2) · change-vs-default unstated (3.3)
 · load-bearing names unflagged (3.4) · a value that drifts between places (3.5, checked as the whole-guide value
-consistency sweep above) · arrow-chains instead of numbered lists (4.1) · multi-part code batched in a trailing
+consistency sweep above) · cryptic guide-invented identifiers (3.6) · arrow-chains instead of numbered lists (4.1) · multi-part code batched in a trailing
 block instead of interleaved under its instructions (4.2) · a pre-existing file re-pasted whole or an ambiguous
 insertion anchor (4.3) · no likely-failure note (5.1) · a step that silently assumes unestablished starting
 state (7.1). Apply each **relative to the audience matrix** — a term is a violation only if the reader isn't
@@ -137,6 +149,15 @@ Expert on that topic.
   glossary. Also flag a body gloss/callout that still appends a **`see [glossary]` link after every term** — the
   glossary is linked **once**, from the step's `## Glossary for this step` block (per-term glossary links in
   that block are correct; a docs link in a body callout for an external API is also fine).
+- **Rule 3.6 — cryptic identifiers in guide code:** read every code block with the surrounding prose covered up
+  and flag each name **the guide invented** that doesn't say what it holds or does — single letters (`d`, `p`,
+  `x` outside a coordinate/loop idiom), `data`, `temp`, `tmp`, `val`, `obj`, `arr`, `res` used for something
+  other than an HTTP response, `handle()`, `process()`, `doStuff()`, `Manager`/`Helper` classes, and
+  abbreviations the domain doesn't already speak. Also flag a **unit-less number name** where the unit prevents
+  a mistake (`timeout` holding milliseconds → `timeoutMs`) and **one concept under two names** across steps.
+  **Not a violation:** the ecosystem's own idiom — `ctx`, `req`/`res`, `e`, `self`, a loop `i`, or any name the
+  official docs/API hands the reader. Suggest the rename, and note which other files cite it (a rename in guide
+  code is a cross-step edit).
 - **Rule 4.3 — existing files not rewritten whole; anchors unambiguous:** flag a step that reproduces an **entire
   pre-existing file** to make a small addition (invites overwriting the reader's real code), and flag an
   **ambiguous insertion anchor** — "place it under `x = true;`" when the file has several `x = true;` lines, so

@@ -220,6 +220,36 @@ one step.)
 > **The defect this prevents:** a jump height that reads `2` in one file and `2.5` in another, so the reader
 > can't tell which is right. (Observed in an earlier worked example.)
 
+### 3.6 — Every identifier you write is self-describing
+**Why:** in a teaching guide the **names are half the explanation**. A reader meets the code twice — once here,
+with your prose beside it, and once later in their own project, with nothing beside it. `const d = t2 - t1`
+teaches nothing the second time; `const elapsedMs = endedAtMs - startedAtMs` still does. Cryptic names also
+force a comment to do the name's job, and make the prose ambiguous: "check `res`" doesn't say which of the two
+`res` on screen. **Do:** name every identifier **you** introduce — variable, constant, function/method, class,
+file, CSS class, config key, test name — for **what it holds or what it does**, readable in isolation:
+
+- **Nouns for state, verbs for behavior.** `pendingSnapshots`, `applyPaletteToSettings()`, not `arr`, `handle()`.
+- **Include the unit or type when it prevents a mistake** — `timeoutMs`, `widthPx`, `priceCents`.
+- **Banned unless the ecosystem itself uses them:** single letters, `data`, `temp`, `tmp`, `val`, `obj`, `foo`,
+  `doStuff()`, `Manager`, `Helper`, and abbreviations the domain doesn't already speak (`cfgSvcRtr`).
+- **Match the ecosystem's idiom where one exists** — this rule never fights the docs. If the API, framework or
+  language convention names it `ctx`, `req`/`res`, `e`, `self`, or a loop index `i`, use that: matching the
+  idiom the reader will meet in the official docs *is* the teaching move. The rule targets the names **you**
+  invent, not the ones the platform hands you.
+- **One concept, one name.** The same thing is called the same thing in the code, the prose, the gate, and the
+  next step (the naming twin of rule 3.5).
+
+- ❌ `const d = Date.now() - t; if (d > 500) retry(x);`
+- ✅ `const elapsedMs = Date.now() - startedAtMs; if (elapsedMs > REQUEST_TIMEOUT_MS) retryRequest(request);`
+- ❌ `function handle(p) { … }` — and prose that then has to say "the handler that takes the palette".
+- ✅ `function applyPaletteToSettings(palette) { … }` — the prose just says "call it".
+
+> **The defect this prevents:** guide code the reader can only understand while the surrounding paragraph is on
+> screen — so what they paste into their project is a black box, and the guide taught the keystrokes instead of
+> the idea. (Related: rule 3.4 tells the reader *which* names are safe to change; this rule makes the names
+> worth keeping. Rule 1.1d still puts a *function's* explanation in an inline comment — a good name shortens
+> that comment, it doesn't delete it.)
+
 ---
 
 ## P4 — Structure steps & code
@@ -300,7 +330,8 @@ thing to check.
 ---
 
 ## P6 — Prove the gate
-*A Done-when must exercise exactly the property it claims, or the green check certifies nothing.*
+*A Done-when must exercise exactly the property it claims — and be observable in the environment you told the
+reader to look at.*
 
 ### 6.1 — A Done-when must exercise what it claims to prove
 A `Done-when` gate is a *proof*, not a label. Its observable action must **exercise exactly the property it
@@ -321,6 +352,40 @@ claims to prove** — otherwise a green check certifies nothing.
 
 > **The defect this prevents:** a gate that claims to "prove the ordering is deterministic" but only queries
 > once, so it never exercises the re-run that determinism is about. (Observed: a guide claimed determinism without re-querying.)
+
+### 6.2 — Observe the property where the environment can't mask it
+**Why:** a gate is always observed *somewhere* — a debug session, a dev server, an emulator, a preview build, a
+container. That environment routinely **overrides, suppresses, or duplicates** the very channel the gate reads,
+so a **correct** implementation shows the **wrong** thing. This is the mirror image of rule 6.1: 6.1 kills a
+false *positive* (a green check that proves nothing); 6.2 kills a false *negative* (working code that looks
+broken). The false negative costs more — the reader debugs code that was already right, and a troubleshooting
+table listing only real breakages sends them down a dead end, because nothing actually broke.
+
+**Do:** before shipping a gate, ask *"what does the environment I just told the reader to run in do to this
+exact signal?"* When it masks it, fix it in this order:
+1. **Observe an unmasked channel** — pick an effect that environment doesn't override.
+2. **Make the effect visible there too** — set the environment-specific variant alongside the normal one, so
+   the observation holds where the reader is actually looking.
+3. **Name the mask in the gate itself** — if neither is possible, the `Done-when` states what that environment
+   will show and how to see the real effect. A mask named in the gate is information; a mask left to the
+   troubleshooting table is unreachable, because the reader has no reason to look there.
+
+Common masks: a debug/dev overlay that repaints the UI; `NODE_ENV=development` disabling the cache a gate
+claims to prove; a framework's strict/dev mode double-invoking effects, so a "runs once" gate sees two;
+hot-reload hiding a "survives a restart" claim; a simulator or emulator overriding a system setting.
+
+- ❌ "**Done when:** clicking **Apply demo** turns the host window's status bar crimson — live, no reload."
+  The host runs under a debug session, which paints the status bar from its own *debugging* color keys and
+  overrides the one key the demo writes. Correct code → the bar stays orange → the reader reads the step as
+  broken.
+- ✅ The demo writes **both** the normal and the debugging color pairs, and the gate reads: "the status bar
+  turns crimson immediately — **including while the debug session is running**, because the demo sets the
+  debugging pair too."
+
+> **The defect this prevents:** a milestone's headline gate that fails on a *correct* implementation, because
+> the environment the guide prescribed for observing it overrides the exact key being observed. (Observed: a
+> reader's extension wrote the right setting, but the debug host's own status-bar colors masked it — "it works
+> but it applies the color only when i close the debug session.")
 
 ---
 

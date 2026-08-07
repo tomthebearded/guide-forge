@@ -316,6 +316,7 @@ The rules are grouped under **seven principles**; each id (like `3.1`) is `princ
 | 3.3 | Change vs leave default | "Configure the server." | "Set `Addr` and `Handler`; **leave every other `http.Server` field at its default.**" |
 | 3.4 | Load-bearing vs cosmetic names | "Call the handler whatever." | "The function name is cosmetic; the route string `/books` is load-bearing — tests hit it exactly." |
 | 3.5 | Reuse a value; define it once (whole-guide) | Code sets `jumpHeight = 2.5f`; the prose says "jumps 2 units"; the gate says "~2.5". | `2.5` everywhere it recurs — code, prose, Done-when gate, glossary, overview — one figure, quoted verbatim. |
+| 3.6 | Every identifier you write is self-describing | `const d = Date.now() - t; if (d > 500) retry(x);` | `const elapsedMs = Date.now() - startedAtMs; if (elapsedMs > REQUEST_TIMEOUT_MS) retryRequest(request);` (ecosystem idioms like `ctx`/`req`/`i` stay as they are) |
 | **P4 — Structure steps & code** | | | |
 | 4.1 | Numbered lists, not arrows | "Open file → edit → save → run." | "1. Open the file. 2. Edit the handler. 3. Save. 4. Run `go test ./...`." |
 | 4.2 | Code sits under the instruction it implements | All actions listed, then one trailing block with the config, loader, and wiring stacked together. | Config block under step 1, loader block under step 2, wiring block under step 3 — each labelled with where it goes; the whole file lives in `NN_verify.md`. |
@@ -324,6 +325,7 @@ The rules are grouped under **seven principles**; each id (like `3.1`) is `princ
 | 5.1 | Name the likely failure | (silent) | "If you get `undefined: mux`, you forgot the import in step 2 — check the top of the file first." |
 | **P6 — Prove the gate** | | | |
 | 6.1 | A Done-when exercises what it claims | "Done when: the query is deterministic — run it and see the list." (one run proves nothing) | "Done when: running it **twice** returns byte-identical order — run, copy, run again, diff: no differences." |
+| 6.2 | Observe the property where the environment can't mask it | "Done when: the host window's status bar turns crimson — live." (the debug session paints the bar from its own colors, so correct code shows orange) | The demo sets the debugging color pair too, and the gate says "crimson immediately — **including while the debug session runs**". |
 | **P7 — Declare the starting state** | | | |
 | 7.1 | Declare the step's starting state | "Run `npm run dev` and open the app." (but `.env` was never created and the DB never started) | "**Before you start:** the API from M1 must be running and `.env` present (M1/04). Then run `npm run dev` in `web/`." |
 

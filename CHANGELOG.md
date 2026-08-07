@@ -5,6 +5,35 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+
+- **Rule 6.2 — observe the property where the environment can't mask it.** New rule under P6 (*prove the
+  gate*), the false-**negative** twin of 6.1: every gate is watched inside an environment the guide prescribes
+  (debug session, dev server, emulator, preview build), and that environment routinely overrides, suppresses or
+  duplicates the exact signal the gate reads — so a *correct* implementation shows the wrong thing and the
+  reader debugs working code. A guide must observe an unmasked channel, set the environment-specific variant
+  alongside the normal one, or name what that environment shows **inside the `Done-when`** — never in the
+  troubleshooting table, which a reader whose code works never opens. (A reader's extension wrote the right
+  color setting, but the debug host's own status-bar debugging colors masked it: "it works but it applies the
+  color only when i close the debug session.")
+- **Rule 3.6 — every identifier the guide writes is self-describing.** New rule under P3 (*leave nothing
+  ambiguous*): variables, constants, functions/methods, classes, files, CSS classes, config keys and test names
+  say what they hold or do when read with the prose covered up — nouns for state, verbs for behavior, the unit
+  in the name where it prevents a mistake (`timeoutMs`, `widthPx`) — because the reader meets the code a second
+  time in their own project with no paragraph beside it. Banned: single letters, `data`/`temp`/`val`/`obj`,
+  `doStuff()`, `Manager`/`Helper`, domain-foreign abbreviations. Explicit exception: the ecosystem's own idiom
+  (`ctx`, `req`/`res`, `e`, a loop `i`) is matched, not fought — those names teach the platform.
+
+### Changed
+
+- **Contract sync for both rules.** `plan-guide` (Phase 4 + Phase 5 verification design), `draft-milestone`
+  (writing contract, structural bullets, self-audit checklist), `clarify-step` (3.6 with a rename-safety guard;
+  P6 stays out of scope and is now *flagged* rather than fixed), `audit-guide` (a 6.2 masked-gate check and a
+  3.6 cryptic-identifier check), `review-before-follow` (new check 7: the gate isn't masked by the environment
+  you're about to observe it in), `report-issue` (environment-masked gate added to the root-cause classes, plus
+  a note that false negatives are guarded *in the gate*, not in "If it breaks"), `templates/step.md`,
+  `templates/verify.md`, `README.md`, `EXPLAINER.md` §7.
+
 ## [1.4.0] — 2026-08-04
 
 ### Added

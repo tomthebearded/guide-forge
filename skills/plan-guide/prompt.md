@@ -299,6 +299,12 @@ contract:
   rate, timeout, grid size, colour hex, port — is **identical** everywhere it appears: the code, the prose
   that explains it, the Done-when gate, the glossary, the overview. Compute it once and quote that exact
   figure; never re-derive or eyeball a "close enough" number. If it changes, change it everywhere in one pass.
+- **3.6 Every identifier the guide writes is self-describing.** Variables, constants, functions/methods,
+  classes, files, CSS classes, config keys, test names — named for **what they hold or do**, readable with the
+  prose covered up: nouns for state, verbs for behavior, the unit in the name where it prevents a mistake
+  (`timeoutMs`, `widthPx`). No single letters, `data`/`temp`/`val`/`obj`, `doStuff()`, `Manager`, or
+  domain-foreign abbreviations. **Exception — match the ecosystem's idiom** (`ctx`, `req`/`res`, `e`, a loop
+  `i`): the names the platform hands you teach the platform. The rule governs the names *you* invent.
 
 **P4 — Structure steps & code**
 - **4.1 Sequences are numbered lists, never arrow-chains.** Reserve arrows for a single navigation path within
@@ -326,7 +332,8 @@ contract:
   #1 field-failure class; planning for it here prevents it at the source.)
 
 *(Principle 6 — **prove the gate** — is designed in Phase 5: every Done-when must exercise the exact property
-it claims. See rule 6.1 in the pedagogy reference.)*
+it claims (6.1) and stay observable in the environment the reader watches it in (6.2). See the pedagogy
+reference.)*
 
 ---
 
@@ -335,6 +342,12 @@ it claims. See rule 6.1 in the pedagogy reference.)*
 - **Per-step and per-milestone gates** as above — verification is built in, not bolted on. **Every gate shows
   its expected output**: pair each condition with the exact result the reader will observe (response body,
   console line, exit code, precise on-screen state), never a bare "it works".
+- **Name the environment each gate is observed in, and check it doesn't mask the signal (rule 6.2).** A gate
+  watched inside a debug session, dev server, emulator, or preview build can read a channel that environment
+  overrides — dev/debug overlays repaint UI, dev mode disables caching, strict mode double-invokes effects — so
+  correct code looks broken. When planning a milestone whose gate is visual or environment-sensitive, say which
+  environment the reader observes it in, so drafting can pick an unmasked signal instead of discovering the
+  clash in the field.
 - **Consistency check** before a guide ships: every command/code block uses the pinned Verified-stack versions,
   and every load-bearing name/path/identifier is spelled identically wherever it recurs — version or name drift
   between steps is a top cause of a multi-milestone guide breaking.

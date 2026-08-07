@@ -46,7 +46,9 @@ lines. Reproducing a pre-existing file whole invites the reader to overwrite the
 ## Do this
 <!-- Numbered actions (rule 4.1 — never arrow-chains). Each action says WHERE (rule 2.1), WHAT+WHY (rule 2.2),
      EXACT values (rule 3.1), MANDATORY vs illustrative (rule 3.2), change-vs-default (rule 3.3),
-     load-bearing vs cosmetic names (rule 3.4).
+     load-bearing vs cosmetic names (rule 3.4), SELF-DESCRIBING identifiers in every snippet (rule 3.6 — name
+     what it holds/does: `elapsedMs`, `applyPaletteToSettings()`, never `d`/`data`/`temp`/`handle()`; keep the
+     ecosystem's own idiom `ctx`/`req`/`res`/`i`).
      RULE 4.2 — code goes HERE, interleaved: when an action introduces code, put its fenced block right under
      that action, labelled with WHERE it lands. The block is a FRAGMENT (the part this action adds), not the
      whole file. Don't stack all the code in a trailing section. -->
@@ -68,7 +70,12 @@ lines. Reproducing a pre-existing file whole invites the reader to overwrite the
 
 ## Done when (this step)
 <!-- The observable sub-slice of the milestone gate this step satisfies. Where the step produces observable
-     output, show it: the exact action → the exact result the reader should see. Not "it works". -->
+     output, show it: the exact action → the exact result the reader should see. Not "it works".
+     RULE 6.2 — check the ENVIRONMENT you told the reader to observe in doesn't mask the signal: a debug
+     session repainting the UI, dev mode disabling caching, strict mode double-invoking effects, hot-reload
+     hiding "survives a restart". If it does, observe an unmasked channel, set the environment-specific
+     variant too, or state HERE what that environment shows — never leave it to "If it breaks", which a
+     reader whose code works will never read. -->
 - [ ] <action> → <exact expected output the reader should see>.
 
 ## If it breaks

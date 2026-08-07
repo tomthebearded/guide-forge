@@ -17,7 +17,11 @@ Every step must obey the 7 pedagogy principles — see ../reference/pedagogy-rul
 <!-- The full milestone acceptance test, aggregated from the per-step Done-whens. Observable conditions only,
      and each one shows its EXPECTED OUTPUT — the exact thing the reader sees if it worked (response body,
      console line, exit code, or the precise on-screen state). "It works" / "the endpoint responds" is not a
-     gate: a reader can't diff reality against it. If the outcome is visual, describe the exact visible state. -->
+     gate: a reader can't diff reality against it. If the outcome is visual, describe the exact visible state.
+     RULE 6.2 — each check must be observable in the environment this milestone tells the reader to run in. If
+     that environment (debug session, dev server, emulator, preview build) overrides or duplicates the signal
+     being read, a CORRECT build fails the gate: observe an unmasked channel, set the environment-specific
+     variant too, or say in the check itself what that environment shows. -->
 - [ ] <action — e.g. `curl -s localhost:8080/todos`> → <exact expected output — e.g. `[{"id":1,"title":"…"}]`, status 200>.
 - [ ] <action> → <exact expected output>.
 

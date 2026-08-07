@@ -159,12 +159,18 @@ Seven principles (rules cited by dotted id; full contract in
 - **P3 Leave nothing ambiguous** — **3.1** exact values, not ranges (and say when a value is free); **3.2**
   separate mandatory from illustrative; **3.3** say which fields to change and which to leave at default;
   **3.4** flag load-bearing vs cosmetic names; **3.5** reuse a value, define it once — a figure that recurs
-  (jump height, tick rate, timeout, colour hex) is identical in the code, prose, gate, glossary, and overview.
+  (jump height, tick rate, timeout, colour hex) is identical in the code, prose, gate, glossary, and overview;
+  **3.6** every identifier you write is self-describing — variables, functions, classes, files, config keys
+  named for what they hold or do (nouns for state, verbs for behavior, units in the name: `timeoutMs`), never
+  `d`/`data`/`temp`/`handle()`/`Manager`; the one exception is the ecosystem's own idiom (`ctx`, `req`/`res`,
+  a loop `i`), which you match rather than fight.
 - **P4 Structure steps & code** — **4.1** numbered lists, not arrow-chains; **4.2** put each code block under
   the instruction it implements; **4.3** don't reproduce an existing file whole to add to it — give the
   fragment + a unique placement anchor.
 - **P5 Anticipate failure** — **5.1** name the likely failure and its usual cause.
-- **P6 Prove the gate** — **6.1** every Done-when exercises the exact property it claims.
+- **P6 Prove the gate** — **6.1** every Done-when exercises the exact property it claims; **6.2** the property
+  is observable in the environment the step tells the reader to watch — never let a debug session, dev mode,
+  emulator or preview build mask the exact signal the gate reads.
 - **P7 Declare the starting state** — **7.1** before the first action, say what must already be
   installed/running/logged-in/built or name the step that established it; never silently assume a prerequisite.
 
@@ -225,6 +231,15 @@ Plus the structural rules — the ones drafters most often drop:
   idempotent, cached), its action must **exercise that property's code-path** — re-run and diff for
   determinism, restart and re-read for persistence. If the property isn't observable, reword the claim to what
   the action actually shows. (Observed: a guide claimed determinism without re-querying.)
+- **Gates are observable in the environment you prescribe (rule 6.2).** Every gate is watched *somewhere* — a
+  debug session, a dev server, an emulator, a preview build. Before you write it, ask what that environment
+  does to the exact signal the gate reads: dev/debug overlays repaint UI, dev mode disables caching, strict
+  mode double-invokes effects, hot-reload hides "survives a restart". If it masks the signal, either observe an
+  unmasked channel, or set the environment-specific variant alongside the normal one so the effect shows up
+  where the reader is looking, or say **in the `Done when` itself** what that environment displays and how to
+  see the real effect. Never leave the mask to the troubleshooting table — a reader whose code works has no
+  reason to read it. (Observed: a demo set a status-bar color the debug host overrides, so a correct
+  implementation showed the host's own color and the milestone's headline gate appeared to fail.)
 - **Commands are cross-platform for the targeted shells.** Every command in a step or a `Done when` must run on
   **every** shell listed in `stack.md`'s *Target OS / shell(s)*. When a command differs between shells, give
   the variant for each (e.g. bash `grep -q` **and** PowerShell `Select-String -Quiet`) — never a Unix-only
@@ -264,10 +279,18 @@ yourself. Confirm:
   milestone or an earlier one, and this milestone's gate is satisfiable from the current + earlier code alone
   (dependency-ordering gate);
 - **every Done-when shows its expected output** — a concrete observable result, not "it works";
+- **no gate is masked by its own environment (rule 6.2)** — for each gate, the debug session / dev server /
+  emulator / preview build the step runs in does **not** override, suppress, or duplicate the exact signal the
+  gate reads; where it would, the step observes an unmasked channel, sets the environment-specific variant too,
+  or names what that environment shows **inside the gate**;
 - **versions and load-bearing names are consistent** — every command/code block uses the pinned Verified-stack
   versions, and every recurring name/path/identifier matches how earlier steps spelled it (no drift);
 - **recurring values are consistent (rule 3.5)** — a figure quoted more than once (jump height, tick rate, timeout,
   colour hex, port) reads identically in the code, the prose, the gate, the glossary, and the overview;
+- **every identifier you invented is self-describing (rule 3.6)** — re-read each code block with the prose
+  covered: no `d`, `arr`, `data`, `temp`, `handle()`, `Manager`; units in names where they prevent a mistake;
+  and the same concept called the same thing in the code, the prose, and the gate (ecosystem idioms like
+  `ctx`/`req`/`res`/`i` are kept as-is);
 - **every step declares its starting state (rule 7.1)** — no step's first action silently assumes a tool, service,
   login, env file, or prior artifact that wasn't established (or back-referenced) earlier.
 
