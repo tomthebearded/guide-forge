@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.5.0] — 2026-08-07
+
 ### Added
 
 - **Rule 6.2 — observe the property where the environment can't mask it.** New rule under P6 (*prove the
