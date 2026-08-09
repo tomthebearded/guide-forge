@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.6.0] — 2026-08-09
+
 ### Added
 
 - **Layout rule — a milestone overview links its own first step (`start:`).** Every `00_overview.md` nav line
