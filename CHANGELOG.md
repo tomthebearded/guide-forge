@@ -17,6 +17,13 @@ All notable changes to GuideForge are documented here. Format loosely follows
   broken build (test-first stays legal), and a codegen command that makes the tree buildable belongs in the same
   step, before the gate. (A reader following a VS Code extension guide was told a constructor-signature error in
   `extension.ts` was expected until step 05.)
+- **README — "Tips for following a guide".** A new section placed before the table of contents, addressed to
+  the *reader* of a generated guide rather than its author: don't copy-paste past the explanation, follow the
+  whole guide before layering your own changes (later steps assume the exact state earlier ones left), keep
+  the glossary open, read the step's failure note before searching, don't hand a milestone to a model, assume
+  the guide can be stale — especially on external platforms whose consoles and dashboards move under it — and
+  report the friction you hit. The repo told authors how to write a teaching guide but never told readers how
+  to follow one, and the failure modes it names are the ones that waste a reader's afternoon.
 
 ### Changed
 
