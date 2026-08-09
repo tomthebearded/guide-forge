@@ -231,9 +231,11 @@ guide-forge/                      ← a single project = one Claude Code plugin
 │   └── marketplace.json
 ├── README.md                     ← you are here (the storefront)
 ├── EXPLAINER.md                  ← everything explained from scratch — read this second
+├── EXAMPLES.md                   ← guides the pipeline produced, each linked in its own repo
 ├── LICENSE                       ← MIT
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
+├── package.json                  ← repo tooling only (`npm test`); deliberately carries no version
 │
 ├── skills/                       ← one folder per tool: a SKILL.md wrapper + its prompt.md contract
 │   │                               (prompt.md = the paste-in-any-chat twin AND the single source of truth)
@@ -261,11 +263,17 @@ guide-forge/                      ← a single project = one Claude Code plugin
 │   ├── decision-log.md
 │   └── feedback-log.md            ← append-only reader-friction log (seeded by scaffold-guide)
 │
-└── reference/                    ← the method, explained
-    ├── pedagogy-rules.md
-    ├── milestone-design.md
-    ├── audience-model.md
-    └── canonical-layout.md        ← the one fixed on-disk skeleton every guide uses
+├── reference/                    ← the method, explained
+│   ├── pedagogy-rules.md
+│   ├── milestone-design.md
+│   ├── audience-model.md
+│   └── canonical-layout.md        ← the one fixed on-disk skeleton every guide uses
+│
+└── scripts/                      ← repo maintenance (run via `npm test` / `npm run …`)
+    ├── check-version.mjs          ← version stamps agree, and the released version is tagged
+    ├── check-consistency.mjs      ← skill frontmatter, wrappers, counts, dead links
+    ├── release.mjs                ← the ONLY intended way the version moves
+    └── doctor.mjs                 ← is your installed plugin cache stale vs this working tree?
 ```
 
 ---

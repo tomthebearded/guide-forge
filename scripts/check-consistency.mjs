@@ -164,6 +164,29 @@ if (existsSync(rulesFile)) {
   }
 }
 
+// --- Check 3d: package.json must NOT carry a version, and must keep its `test` script. --------
+// The version already lives in three places (plugin.json, README badge, top CHANGELOG header) and
+// release.mjs moves all three atomically. A fourth copy here would be invisible to release.mjs and
+// silently drift, so the repo's package.json is `private` and version-less by design. The `test`
+// script is what CONTRIBUTING and /pre-pr-check tell contributors to run — losing it breaks the gate.
+const pkgPath = path.join(ROOT, 'package.json');
+if (existsSync(pkgPath)) {
+  let pkg = null;
+  try {
+    pkg = JSON.parse(read(pkgPath));
+  } catch {
+    findings.push('[package] package.json is not valid JSON');
+  }
+  if (pkg && pkg.version !== undefined) {
+    findings.push(
+      `[package] package.json declares "version": "${pkg.version}" — a fourth version stamp release.mjs does not update. Remove it (the package is private).`,
+    );
+  }
+  if (pkg && !pkg.scripts?.test) {
+    findings.push('[package] package.json has no "test" script, but CONTRIBUTING tells contributors to run `npm test`');
+  }
+}
+
 // --- Check 4: dead relative markdown links (.md targets that don't exist). --------------------
 const DOC_DIRS = ['skills', 'reference', 'templates'];
 const ROOT_DOCS = ['README.md', 'EXPLAINER.md', 'CONTRIBUTING.md', 'CHANGELOG.md', 'EXAMPLES.md'];

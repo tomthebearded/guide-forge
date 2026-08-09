@@ -1,0 +1,12 @@
+{
+  "name": "guide-forge",
+  "private": true,
+  "description": "Repo tooling only. The plugin itself ships no JavaScript — this file exists so `npm test` runs the consistency gate. It deliberately carries NO \"version\" field: the version lives in .claude-plugin/plugin.json, the README badge and the top released CHANGELOG header, and a fourth copy here would drift (check-consistency.mjs fails the build if one appears).",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/check-version.mjs && node scripts/check-consistency.mjs",
+    "doctor": "node scripts/doctor.mjs",
+    "release": "node scripts/release.mjs"
+  }
+}
