@@ -42,7 +42,10 @@ Use the one canonical skeleton — don't invent a per-guide structure. The fixed
 3. **One folder per milestone**, named `MILESTONE_<N>_<slug>/` (`MILESTONE_0_…/`, `MILESTONE_1_…/`, …), each
    with a **placeholder `00_overview.md`** carrying that milestone's Goal + Done-when from the ladder and a
    `🔶 SCAFFOLD — not yet drafted` banner. Give the placeholder its canonical milestone nav line at **both**
-   the top (line 2) and the bottom (after a `---`), identical — see `reference/canonical-layout.md`.
+   the top (line 2) and the bottom (after a `---`), identical — see `reference/canonical-layout.md`. That line
+   ends with a `start:` segment linking the milestone's first step; at scaffold time no step file exists yet, so
+   write it as the literal text **`start: — not drafted yet`** (no link — a link to a missing `01_*.md` would be
+   a dead link). `draft-milestone` replaces it with `start: [<step 01 title>](01_<slug>.md)`.
 4. **`feedback-log.md` at the guide root**, from `templates/feedback-log.md` — the empty append-only field log
    for reader friction (header only, no entries yet). It's later appended by `/log-feedback` and `/report-issue`.
 

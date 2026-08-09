@@ -5,6 +5,24 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+
+- **Layout rule — a milestone overview links its own first step (`start:`).** Every `00_overview.md` nav line
+  now ends with a third anchor, `start: [<step 01 title>](01_<slug>.md)`, repeated identically at the top and
+  the bottom of the file. The map's nav offered only sideways moves: a reader who finished the overview and
+  scrolled to the bottom found `next` — the *following* milestone — as the nearest forward click, and actually
+  beginning the work meant scrolling back up to hunt for step 01 inside "Steps at a glance". A **scaffold
+  placeholder** overview carries the segment as the literal text `start: — not drafted yet` (no step file
+  exists yet to link), which `draft-milestone` replaces with the real link.
+
+### Changed
+
+- **Contract sync for the `start:` rule.** `reference/canonical-layout.md` (link conventions),
+  `templates/milestone-overview.md` (both nav lines + the rule comment), `draft-milestone` (structural nav
+  bullet + self-audit checklist), `scaffold-guide` (placeholder text, so the scaffold never stamps a dead link),
+  `audit-guide` (a structural check that flags a missing, one-ended, mistargeted, or dead `start:` anchor —
+  and exempts scaffold placeholders), `EXPLAINER.md` §8.
+
 ## [1.5.0] — 2026-08-07
 
 ### Added

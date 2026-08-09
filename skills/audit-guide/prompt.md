@@ -55,6 +55,13 @@ The guide file(s) to audit (attach or point at them). If a foundation doc (`stat
   reassemble the file; and (c) a step that **duplicates** interleaved fragments with a redundant consolidated
   "complete file" block (that copy belongs only in `NN_verify.md`). A single small block under one instruction
   is fine as-is.
+- **Overview links its first step (`start:`):** every `00_overview.md` nav line — **top and bottom, identical** —
+  ends with `start: [<step 01 title>](01_<slug>.md)`, pointing at that milestone's first step file. Flag a
+  missing `start:` segment, one present at only one end, a target that isn't the folder's `01_*.md`, or a dead
+  link. A **scaffold placeholder** overview (`🔶 SCAFFOLD — not yet drafted`) legitimately carries the literal
+  `start: — not drafted yet` — don't flag that; do flag it on a **drafted** milestone. (Observed: from an
+  overview's bottom nav the only forward click was `next`, which skipped the milestone the reader had just
+  decided to start.)
 - **Nav label + first-step prev (exact):** the middle anchor label is **exactly `Overview`** — flag any variant
   (`Milestone overview`, `Back to overview`, etc.) even if it links correctly, and flag the label drifting
   between files. The **first step of each milestone** must have `—` (a bare em-dash, no link) as its prev, not a

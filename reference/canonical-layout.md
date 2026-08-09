@@ -73,5 +73,15 @@
   get none.)
 - **Overview nav line:** `prev`/`next` point at the sibling milestones' maps
   (`../MILESTONE_<n-1>_<slug>/00_overview.md`, `../MILESTONE_<n+1>_<slug>/00_overview.md`) — at both top and bottom.
+- **The overview links its own first step — `start:`.** Every `00_overview.md` nav line ends with a third
+  segment pointing at the milestone's **first step file**, `01_<slug>.md`, labelled with that step's title:
+  `> <Phase> · milestone K of N · prev: [<prev>](../MILESTONE_<n-1>_<slug>/00_overview.md) · next: [<next>](../MILESTONE_<n+1>_<slug>/00_overview.md) · start: [<step 01 title>](01_<slug>.md)`
+  — in **both** the top and the bottom nav, identical like the rest of the line. The overview is the door into
+  the milestone, and its nav offered only sideways moves: a reader who finished the map had no forward link at
+  hand, so from the bottom nav the nearest click was **`next` — the following milestone** — and starting the
+  work meant scrolling back up to hunt for step 01 inside "Steps at a glance". `start:` is the one move the
+  overview was missing. A **scaffold placeholder** overview (steps not drafted yet) carries the segment as the
+  literal text `start: — not drafted yet` (no link, nothing to point at); `draft-milestone` replaces it with the
+  real link when it writes `01_<slug>.md`.
 
 > This layout is not optional styling — it is the contract the whole pipeline and the audit rely on.

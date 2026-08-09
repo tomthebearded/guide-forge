@@ -354,7 +354,9 @@ The rules are grouped under **seven principles**; each id (like `3.1`) is `princ
 Goal · **Scope discipline** (what it deliberately does NOT do) · Prerequisite · Steps-at-a-glance (grouped
 into "sittings" = natural stopping points) · Design/decisions folded in · Done-when gate · **Handoff**.
 The *Handoff* is what makes a *series* coherent: at each milestone's end it recaps what now exists and points
-to the next, so the reader always knows their place in the arc.
+to the next, so the reader always knows their place in the arc. Its nav line (top and bottom) carries a third
+anchor next to prev/next — **`start:`, a link to the milestone's first step** — so the map's forward click is
+"begin this milestone", not "skip to the next one".
 
 ### Status authority ([templates/status.md](templates/status.md))
 The one file that states *reality*: which milestones are actually verified, a drift log, and a session log.

@@ -4,7 +4,11 @@ This is the reader's map for the milestone AND the connective tissue to the rest
 -->
 
 # Milestone <ID> — <title>
-> <Phase/Section · milestone K of N · prev: [<prev>](../<prev>/00_overview.md) · next: [<next>](../<next>/00_overview.md)>
+> <Phase/Section · milestone K of N · prev: [<prev>](../<prev>/00_overview.md) · next: [<next>](../<next>/00_overview.md) · start: [<step 01 title>](01_<slug>.md)>
+<!-- The nav line ALWAYS ends with `start:` — a link to this milestone's FIRST step file (01_<slug>.md),
+     labelled with that step's title. It is the reader's way in: without it the only forward click on the map
+     is `next`, which skips the whole milestone. In a scaffold placeholder (steps not drafted yet) write the
+     segment as the literal text `start: — not drafted yet`. -->
 
 ## Goal
 <!-- What this milestone PROVES — a runnable, observable end state. One short paragraph. -->
@@ -47,6 +51,7 @@ This is the reader's map for the milestone AND the connective tissue to the rest
 ### Next milestone
 <!-- Name it, what it proves, and its one-line Done-when. -->
 
-<!-- BOTTOM NAV — the SAME line-2 milestone nav, after a --- rule, as the last thing in the file. -->
+<!-- BOTTOM NAV — the SAME line-2 milestone nav, `start:` segment included, after a --- rule, as the last
+     thing in the file. -->
 ---
-> <Phase/Section · milestone K of N · prev: [<prev>](../<prev>/00_overview.md) · next: [<next>](../<next>/00_overview.md)>
+> <Phase/Section · milestone K of N · prev: [<prev>](../<prev>/00_overview.md) · next: [<next>](../<next>/00_overview.md) · start: [<step 01 title>](01_<slug>.md)>

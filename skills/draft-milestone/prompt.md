@@ -209,6 +209,14 @@ Plus the structural rules — the ones drafters most often drop:
   clickable, never prose. **Repeat the same nav line verbatim at the very bottom of the file, after a `---`
   rule** — top and bottom must be identical. (Observed: a guide mixed `[Overview]`/`[Milestone overview]`
   labels and gave first steps a redundant prev.)
+- **The overview's nav line ends with `start:` — a link to the milestone's first step.** `00_overview.md`'s
+  nav (top *and* bottom, identical) is
+  `> <Phase> · milestone K of N · prev: [<prev>](../MILESTONE_<n-1>_<slug>/00_overview.md) · next: [<next>](../MILESTONE_<n+1>_<slug>/00_overview.md) · start: [<step 01 title>](01_<slug>.md)`.
+  The `start:` anchor points at **`01_<slug>.md`**, labelled with step 01's title — it's the reader's way *into*
+  the milestone. Without it the map's only forward click is `next`, which **skips the milestone entirely**, and
+  a reader who reached the bottom nav has to scroll back up into "Steps at a glance" to find where to begin.
+  If the milestone folder you're drafting still carries a scaffold placeholder overview with
+  `start: — not drafted yet`, replace that text with the real link.
 - **Cumulative handoff.** The overview's `Handoff` carries `Done so far (cumulative)` and `Artifacts now in
   the project` — the running inventory carried forward from the previous milestone and appended — not just a
   forward-looking "what the next milestone assumes" paragraph.
@@ -265,7 +273,9 @@ miss *before* showing it — run this check on **each** milestone you drafted, a
 yourself. Confirm:
 - every step file has the canonical **nav line at both top (line 2) and bottom (after a `---`), identical**,
   three anchors, and its own **"Done when"**;
-- `00_overview.md` has all its sections and a **cumulative** handoff (`Done so far` / `Artifacts now`);
+- `00_overview.md` has all its sections and a **cumulative** handoff (`Done so far` / `Artifacts now`), and its
+  nav line — top **and** bottom — ends with `start: [<step 01 title>](01_<slug>.md)`, resolving to the first
+  step file you actually wrote;
 - `NN_verify.md` renders the **complete current contents** of every **guide-authored** file this milestone
   touched — no such file left as scattered fragments; a **pre-existing file the milestone only added to** (rule
   4.3) is shown as its added region + unique anchor under "Pre-existing files modified", never reproduced whole;
