@@ -174,6 +174,7 @@ improvable — and lets you re-run just the stage that went wrong.
 | `EXPLAINER.md` | This file — the full walkthrough. | When you want the *why* behind anything. |
 | `LICENSE` | MIT. Without it, nobody can legally reuse the repo. | Once. |
 | `CHANGELOG.md` | Version history. | Every release. |
+| `EXAMPLES.md` | Index of guides the pipeline produced, each published as its own repo. | When a new worked example ships. |
 | `CONTRIBUTING.md` | How to add rules and prompt refinements, plus the PR checklist. | When accepting contributions. |
 | `.claude-plugin/` | `plugin.json` (manifest) + `marketplace.json` (local marketplace) — makes the repo installable as one Claude Code plugin. | When you cut a release / bump the version. |
 

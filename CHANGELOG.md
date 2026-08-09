@@ -5,6 +5,24 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+
+- **`EXAMPLES.md` — an index of worked examples, linked rather than vendored.** With the bundled `examples/`
+  gone, proof that the toolkit produces something real now lives in its own file: each guide the pipeline
+  produced is published as its **own repository** and gets a heading, a link, **the GuideForge version that
+  generated it**, and **two lines** here — anyone who wants the stack, the ladder or the caveats reads that
+  project's README, which is where they're already maintained. The version stamp is not decoration: structure
+  and conventions move between releases, so an example built on an older one won't match what the pipeline
+  produces today, and a reader comparing the two needs to know that before concluding the guide is wrong.
+  First entry:
+  [`guide-forge-web-platformer`](https://github.com/tomthebearded/guide-forge-web-platformer), a beginner's
+  guide to a vanilla-JS Canvas platformer. Reached from the README header nav, from a pointer under *What you
+  can build*, and from the `EXPLAINER.md` file table. A separate file rather than a README paragraph, so a
+  second example is a new section instead of a rewrite. `check-consistency.mjs` now scans it for dead links
+  along with the other root docs.
+- **`CONTRIBUTING.md` — the worked-example contribution route, restored in link-don't-vendor form.** Run the
+  pipeline on an uncovered domain, publish the output as your own repo, PR the entry into `EXAMPLES.md`.
+
 ### Removed
 
 - **The bundled worked examples (`examples/`).** The four example guides — `spotify-angular`,

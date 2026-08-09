@@ -8,7 +8,7 @@ A prompt-and-skill toolkit for Claude that plans, drafts, and hardens **learn-as
 
 `MIT License` · `Works with Claude | Claude Code` · `Domain-agnostic` · `v1.7.0` · `PRs welcome`
 
-[Quick start](#quick-start-15-minutes) · [The toolkit](#the-toolkit) · [Learning path](#learning-path) · [Explainer](EXPLAINER.md) · [FAQ](#faq)
+[Quick start](#quick-start-15-minutes) · [The toolkit](#the-toolkit) · [Learning path](#learning-path) · [Examples](EXAMPLES.md) · [Explainer](EXPLAINER.md) · [FAQ](#faq)
 
 </div>
 
@@ -293,6 +293,9 @@ New here? Follow this order.
 | A library tutorial | "a rate-limiter library in Rust" | Ownership, trait design, and testing — as the library grows. |
 | A workshop | "build a RAG chatbot in an afternoon" | Embeddings, vector search, and prompt design, milestone by milestone. |
 | A migration runbook | "move our REST API to gRPC" | The *why* behind each change, not just the diff. |
+
+**See one for real.** [**EXAMPLES.md**](EXAMPLES.md) indexes guides the pipeline produced, each published as
+its own repo — starting with a ~42-step one that takes a total beginner to a working 2D browser platformer.
 
 ---
 
