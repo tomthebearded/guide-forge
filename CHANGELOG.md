@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.7.0] — 2026-08-09
+
 ### Added
 
 - **Rule 4.4 — cut every step so it ends on a green build.** New rule under P4 (*structure steps & code*): no
