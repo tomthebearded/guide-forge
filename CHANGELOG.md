@@ -5,6 +5,42 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+
+- **`package.json` — `npm test` is now a real command.** `CONTRIBUTING.md` and `pre-pr-check` both named
+  `npm test` as the pre-push gate, but there was no `package.json`: running it failed with `ENOENT`, so the
+  gate a contributor was told to run did not exist. The package is `private` and **deliberately carries no
+  `version`** — the version already lives in three places that `release.mjs` moves atomically, and a fourth
+  copy here would be invisible to it and silently drift.
+- **`check-consistency.mjs` check 3d — `package.json` integrity.** Fails if that file ever grows a `version`
+  field (the drift above, caught the moment it appears) or loses its `test` script (which would quietly break
+  the gate again). Also indexes `EXAMPLES.md` in `ROOT_DOCS`, so the new root doc is scanned for dead links
+  like every other one.
+- **`CONTRIBUTING.md` — "Opening a PR, end to end".** Six numbered steps: fork and branch, **install the
+  plugin from your checkout** (the step that makes `/pre-pr-check` exist as a slash command — cloning alone
+  doesn't register it, and without it the gate the whole section rests on is unreachable), make the change,
+  add a `[Unreleased]` changelog entry, run `/pre-pr-check` until it passes, open the PR. Prerequisites
+  (Node 18+, Claude Code) are now stated.
+
+### Changed
+
+- **The version rule is split by role.** "Move it only with `release.mjs`, then create the tag" read as an
+  instruction to *contributors*, who can neither tag this repo nor safely claim a version number — two PRs
+  cutting the same release would collide. Contributors now put their entry under `## [Unreleased]` and touch
+  nothing else; cutting the release is the maintainer's step.
+- **The false CI claim is gone.** `CONTRIBUTING.md` promised "CI runs the same on every PR" and
+  `reference/pedagogy-rules.md` said the consistency script is "run by `/pre-pr-check` and CI", but this repo
+  has no workflows. Both now say plainly that nothing runs the checks for you and that the gate is a
+  **request**: run `/pre-pr-check` before opening the PR.
+- **`README.md` repository map** gained `EXAMPLES.md`, `package.json`, and `scripts/` — the last of which had
+  never been listed at all, despite holding the four maintenance scripts the docs tell you to run.
+
+### Removed
+
+- **`.claude/scheduled_tasks.lock` is untracked, and local `.claude/` state is ignored.** The file carried a
+  machine-local `sessionId`, pid and timestamp. `.gitignore` now excludes everything under `.claude/` while
+  allow-listing `.claude/settings.json`, so shareable project settings stay possible.
+
 ## [1.8.0] — 2026-08-09
 
 ### Added

@@ -46,12 +46,34 @@ working."
   cache and tells you if they differ (and lists any leftover older-version cache dirs).
 - **Pick up your edits:** re-run `/plugin` → reinstall **guide-forge** from the `guide-forge` marketplace, then
   restart the session. (The marketplace already points at your local checkout.)
-- **Never hand-bump the version.** The version lives in three places (`.claude-plugin/plugin.json`, the
-  `README.md` badge, the top released `CHANGELOG.md` header) and drifts if edited by hand. Move it only with
-  `node scripts/release.mjs <x.y.z>`, which updates all three and promotes `## [Unreleased]`; then create the
-  matching `git tag v<x.y.z>` (a "released" version with no tag fails `scripts/check-version.mjs`).
+- **Contributors never touch the version.** Put your changelog entry under `## [Unreleased]` and stop there —
+  don't bump `plugin.json`, don't run `release.mjs`, don't tag. Cutting the release is the maintainer's step
+  (two PRs both claiming `1.9.0` would collide, and you can't tag this repo anyway).
+- **Maintainers: never hand-bump either.** The version lives in three places (`.claude-plugin/plugin.json`,
+  the `README.md` badge, the top released `CHANGELOG.md` header) and drifts if edited by hand — which is why
+  `package.json` is private and carries **no** `version` field; `check-consistency.mjs` fails if one appears.
+  Move it only with `node scripts/release.mjs <x.y.z>`, which updates all three and promotes
+  `## [Unreleased]`; then create the matching `git tag v<x.y.z>` (a "released" version with no tag fails
+  `scripts/check-version.mjs`).
 - **Before pushing:** `npm test` runs `check-version` + `check-consistency` (version stamps aligned + tagged,
-  skill frontmatter valid, wrappers delegate, counts agree, no dead links). CI runs the same on every PR.
+  skill frontmatter valid, wrappers delegate, counts agree, no dead links). **There is no CI on this repo —
+  nothing runs these for you.** The gate is you: run `/pre-pr-check` before you open the PR (next section).
+
+## Opening a PR, end to end
+
+**You need:** Node 18+ (for the check scripts) and Claude Code (for `/pre-pr-check`).
+
+1. **Fork** this repo on GitHub, then clone your fork and branch:
+   `git clone https://github.com/<you>/guide-forge && cd guide-forge && git checkout -b my-change`
+2. **Install the plugin from your checkout** — this is what makes `/pre-pr-check` exist as a slash command;
+   cloning alone doesn't register it. In Claude Code: `/plugin marketplace add /path/to/your/guide-forge`,
+   then `/plugin install guide-forge@guide-forge` (same steps as the README's *Quick start*, Option B).
+   (Remember the cache: after editing, reinstall before you trust a manual test — see the section above.)
+3. **Make your change**, following the ground rules.
+4. **Add a `CHANGELOG.md` entry under `## [Unreleased]`** — what changed and *why*. Leave the version alone.
+5. **Run `/pre-pr-check`.** Fix every blocker, re-run until it passes.
+6. **Push to your fork and open the PR**, describing the confusion or defect your change addresses. If you
+   touched a `prompt.md`, include a short before/after in the description.
 
 ## PR checklist
 
@@ -59,12 +81,15 @@ working."
 > runs the automated checks (`npm test`) and verifies every item below plus repo consistency — valid skill
 > frontmatter, README/EXPLAINER skill list in sync, version stamps aligned **and tagged**, no dead links — and
 > reports PASS/FAIL. It's read-only; fix any blockers it flags, re-run until it passes, then open the PR.
+>
+> This is a **request, not a pipeline**. No bot will run it for you and no check will block the merge, so a PR
+> that skips it arrives unverified and costs the maintainer the review instead. Run it.
 
 - [ ] Change is domain-agnostic.
 - [ ] New rules cite the confusion they prevent.
 - [ ] Any prompt change includes a short before/after showing the improvement.
 - [ ] `README.md` and `EXPLAINER.md` updated if you added or moved a file.
-- [ ] `CHANGELOG.md` updated.
+- [ ] `CHANGELOG.md` updated **under `## [Unreleased]`** — version and tag left untouched.
 - [ ] `/pre-pr-check` run and passing.
 
 ## Style
