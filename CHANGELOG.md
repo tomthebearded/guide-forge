@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.9.0] — 2026-08-09
+
 ### Added
 
 - **`package.json` — `npm test` is now a real command.** `CONTRIBUTING.md` and `pre-pr-check` both named
