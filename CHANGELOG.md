@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.8.0] — 2026-08-09
+
 ### Added
 
 - **`EXAMPLES.md` — an index of worked examples, linked rather than vendored.** With the bundled `examples/`
@@ -33,9 +35,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
   escape clause in both ground rule 1 and the PR checklist; in `pre-pr-check`, that same clause, the
   `examples/` scope area, and a stale "the last two (examples layout) are still yours to check" note pointing
   at checks that no longer existed; and the `CONTRIBUTING.md` row of the `EXPLAINER.md` file table. The
-  domain-agnostic rule
-  itself is unchanged in force — it just no longer has an escape hatch: the repo ships the method, not guides
-  written with it. Historical changelog entries keep their `examples/` mentions, since they record what was
+  domain-agnostic rule itself is unchanged in force — it just no longer has an escape hatch: the repo ships
+  the method, not guides written with it. Historical changelog entries keep their `examples/` mentions, since they record what was
   true at the time.
 
 ## [1.7.0] — 2026-08-09
