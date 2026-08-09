@@ -63,6 +63,49 @@ working."
   judgment half (is the change domain-agnostic? does the new rule cite a real confusion? is a gate quietly
   skipped?) no script can decide, which is why `/pre-pr-check` is still asked of you (next section).
 
+## Which number moves — MAJOR, MINOR or PATCH
+
+Versions are semver. The question is never "how big was the change?" but **what breaks for someone who
+already uses GuideForge** — a guide author mid-project, or a reader following a guide that was generated with
+an earlier release. What counts as the public surface here is unusual, so it's spelled out:
+
+> the slash-command names · each skill's `prompt.md` contract (what it produces) · the canonical guide layout
+> (`reference/canonical-layout.md` — folder and file naming, nav lines) · the pedagogy **rule ids** · the
+> template structures · the plugin identity (`plugin.json` name, marketplace id).
+
+**MAJOR** — an existing user has to change something to keep working.
+
+- A skill is removed or renamed, so a `/slash-command` someone scripted or documented disappears.
+- The canonical layout changes such that **already-generated guides no longer conform** — a folder or file
+  naming rule, a nav-line format. Every guide out there is suddenly non-compliant, and `/audit-guide` starts
+  failing files it used to pass.
+- A pedagogy rule is **renumbered or removed**. Ids are cited across the prompts, in `/audit-guide` output and
+  in generated guides' decision logs, so shifting `3.6` breaks every reference to it.
+- A template's required structure changes incompatibly, or the plugin's install identity changes.
+
+**MINOR** — new capability; everything that worked still works.
+
+- A new skill, or a new option on an existing one.
+- A **new** pedagogy rule appended under an existing principle (this is the common case — `4.4` in 1.7.0).
+- A new template, reference doc, or root doc.
+- A prompt-contract change that improves what gets *drafted from now on* without invalidating existing guides.
+
+**PATCH** — nothing changes about what the toolkit produces.
+
+- Wording, typos, formatting, dead links, clarifications that don't alter a skill's output.
+- Repo-internal tooling a contributor sees but a user never does: the check scripts, CI, `.gitignore`,
+  `package.json`.
+- A fix that restores the behaviour the contract already promised.
+
+Two rules that settle most of the arguments:
+
+1. **A large internal change with no user-visible effect is a PATCH.** Effort is not a version — rewriting a
+   script wholesale, with identical results, moves the last number.
+2. **A one-character rename of a public name is MAJOR.** Reach is not size.
+
+If you're genuinely torn, say which two you're weighing in the PR and let the maintainer decide. Releases
+before 1.10.0 predate this policy and weren't all classified this way; it applies going forward.
+
 ## Opening a PR, end to end
 
 **You need:** Node 18+ (for the check scripts) and Claude Code (for `/pre-pr-check`).

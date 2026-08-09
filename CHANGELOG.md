@@ -18,6 +18,14 @@ All notable changes to GuideForge are documented here. Format loosely follows
   `git push` followed by `git push --tags` triggers CI on a release commit whose tag hasn't landed yet, so the
   tag check fails a build that is actually fine. Documented in `CONTRIBUTING.md`.
 
+- **`CONTRIBUTING.md` — "Which number moves — MAJOR, MINOR or PATCH".** The repo cut seven releases without a
+  written rule for which digit moves, and semver's usual "breaking change" phrasing doesn't map onto a
+  toolkit whose output is *other people's documents*. So the public surface is named explicitly (slash-command
+  names, each `prompt.md` contract, the canonical layout, the pedagogy **rule ids**, template structures,
+  plugin identity) and each level is defined against it: renumbering a rule id is MAJOR because ids are cited
+  in generated guides' decision logs; appending a new rule under an existing principle is MINOR; repo tooling
+  and wording are PATCH. Plus the two tie-breakers — effort is not a version, reach is not size.
+
 ### Changed
 
 - **CI green is stated as *not* a substitute for `/pre-pr-check`.** The workflow re-runs `npm test` and
