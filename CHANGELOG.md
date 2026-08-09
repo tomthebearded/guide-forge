@@ -5,6 +5,76 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Changed
+
+- **Every arbitrary constant in the toolkit was re-decided by the maintainer or removed.** A sweep looked for
+  values the docs asserted without deriving them — numbers a reader would have to take on faith, and an
+  authorship placeholder. Each was put to a decision rather than left standing:
+  - **The "2–4 headline decisions" cap is gone** (`templates/readme.md`, `plan-guide`, `scaffold-guide`). The
+    guide README now asks for "the headline decisions — the ones a reader must know before starting". A bound
+    nothing derives is a bound that drifts between the three places it was written.
+  - **Lite mode no longer carries numbers.** "A single doc under ~2 hours" becomes "one document, one
+    sitting"; "collapse to 2–3 milestones" becomes "collapse to the fewest rungs that each still prove
+    something runnable". The trigger and the ladder size were invented thresholds; the properties they were
+    proxies for are the real rule.
+  - **The README's time estimates are gone** — the "(15 minutes)" in the Quick start heading (and its TOC
+    anchor) and the learning path's `Time` column. None had ever been measured against a real reader.
+  - **`/audit-guide` has one severity scale, defined once: BLOCKER or WARNING.** It previously asked for a
+    `severity` column while using `MAJOR`, `BLOCKER`, `WARNING` and `suspect` ad hoc and never saying what any
+    of them meant. BLOCKER now means the reader is *stopped* (or proceeds on a false signal), WARNING means
+    the reader is *worse off*; the verdict follows mechanically from the two counts. Findings that can't be
+    settled from the guide alone — a gate the debug host may override, a manifest the reader's schema may
+    reject — keep their real severity and are marked **unconfirmed**, which was `suspect`'s actual job.
+    `feedback-log.md` keeps its finer reader-facing scale (`blocker`/`slowed-down`/`confusing`/`cosmetic`) and
+    now states how it maps onto the audit's two.
+  - **The contract is no longer advertised as "the 7 principles".** The principles are cited by id (`P1`…,
+    rules `N.N`) everywhere; the count was an editorial artefact of the 14→7 regrouping and had to be kept in
+    sync across a dozen files by a CI check. The prose says "the pedagogy principles", and
+    `check-consistency.mjs` drops the `principle-count` check — the `rule-id` check that actually matters
+    (every cited id resolves to a real heading) is untouched.
+  - **`check-consistency.mjs` parses number-words 1–99, not nine-to-twenty.** The old window meant a repo
+    outside it silently stopped having its stated skill count verified.
+  - **Authorship is real.** `plugin.json`, `marketplace.json`, `LICENSE` and the README's copyright line named
+    "GuideForge" / "GuideForge contributors" as author; they now name Tommaso Mastroberardino.
+
+- **The conventions that stay are marked as ratified, not accidental.** `reference/canonical-layout.md` says
+  outright that nothing forces `00_overview.md` over `overview.md` or `·` over `|` — the names were chosen and
+  fixed, and the value is that they're fixed. The rule-4.2 trigger ("2+ distinct parts") keeps its number and
+  now states why two: with a second block the reader starts guessing which instruction owns which code.
+- **Invented examples are labelled as invented.** The three reference docs open with a standing note that the
+  concrete values below show the *shape* of a good answer and are not recommended values — each note naming
+  only what that file actually uses (the bookstore ladder's ports and routes; the topics and reader profiles;
+  the jump heights and identifiers) — and the bookstore gate/ladder and the Unity reader profile say so inline.
+
+- **A second sweep, over the files the first one hadn't read.** It found the same class of defect again, plus
+  three stale claims the first sweep itself created:
+  - **"The five pillars" no longer carries a count, and the pillars are cited by name.** Same case as the
+    principles, and worse: `pillar 1`/`pillar 2`/`pillar 5` were used as cross-references from
+    `audience-model.md`, `milestone-design.md`, `templates/status.md` and `EXPLAINER.md`, with nothing
+    verifying they resolved — renumbering one would have made four files quietly wrong. They now read "the
+    *model the reader first* pillar", "the *vertical slices* pillar", "the *truth lives in one place* pillar".
+  - **CI runs the Node version the docs promise.** `ci.yml` pinned `node-version: '22'` while `CONTRIBUTING.md`
+    told contributors "Node 18+", so the stated floor was never actually exercised. CI now runs `18`, with a
+    note to move both together.
+  - **`doctor.mjs` prints every differing file.** It capped the list at 40 (with an "… and N more" tail); the
+    output is read once before a reinstall, so a cutoff only means running it again.
+  - **The `SCAFFOLD — not yet drafted` banner and the `New concept —` callout lost their emoji.** Both are
+    fixed strings the contract and `audit-guide` match on; plain text renders identically everywhere, and
+    rule 1.1 had already called its emoji optional.
+  - **Two undefended style rules relaxed.** `templates/glossary.md` demanded definitions of exactly ONE
+    sentence and alphabetical ordering; it now asks for definitions as short as the term allows and notes
+    alphabetical as the usual, not required, order. `CONTRIBUTING.md` drops "~100 cols" for "wrapped so diffs
+    stay readable — match the file you're editing", which is what the repo actually does.
+
+### Fixed
+
+- **Three docs described a CI check that had just been deleted.** Removing the principle-count check left
+  `reference/pedagogy-rules.md` claiming `check-consistency.mjs` "verifies the stated principle count (seven)",
+  `skills/pre-pr-check/SKILL.md` telling contributors the script backstops a rule count, and the rules file
+  still saying "all seven belong in every finished step". All three now describe the **rule-id integrity**
+  check that does exist — every cited `rule N.N` resolves, every rule homed under a real `## P#` — and state
+  that nothing counts principles, by design.
+
 ## [1.9.1] — 2026-08-09
 
 ### Added

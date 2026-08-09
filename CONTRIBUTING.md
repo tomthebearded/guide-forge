@@ -142,6 +142,6 @@ before 1.10.0 predate this policy and weren't all classified this way; it applie
 
 ## Style
 
-- Markdown, wrapped ~100 cols for prose where practical.
+- Markdown, with prose wrapped so diffs stay readable line-by-line. Match the file you're editing.
 - Callouts: `>` blockquotes for notes, emoji sparingly and consistently with existing files.
 - Link between files with relative paths so navigation works on GitHub and locally.

@@ -149,7 +149,7 @@ under `foundation/`, `00_overview.md` … `NN_verify.md` per milestone):
 
 ## Every step file MUST obey the writing contract
 
-Seven principles (rules cited by dotted id; full contract in
+The principles (rules cited by dotted id; full contract in
 [reference/pedagogy-rules.md](../../reference/pedagogy-rules.md)):
 - **P1 Explain what's new** — **1.1** explain every concept on first use (inline gloss, or a "New concept"
   callout right above the line; link the glossary ONCE in the step's Glossary block, not after every term; and
@@ -185,7 +185,9 @@ Plus the structural rules — the ones drafters most often drop:
   "(similar to above)", "…", "TODO", or any placeholder — a reader can't follow a step that isn't there. If a
   milestone has so many near-identical steps that writing them all out feels wasteful, that's a signal to
   re-check the **granularity** setting (bundle more per step), *not* a licence to skip them.
-- **Interleave code under its instruction (rule 4.2); guarantee the whole file in the checkpoint.** When a
+- **Interleave code under its instruction (rule 4.2); guarantee the whole file in the checkpoint.** The trigger
+  is **two** blocks, not more: the moment a step shows a second block, the reader has to work out which
+  instruction each one belongs to — and removing exactly that guesswork is what rule 4.2 is for. When a
   step's code has 2+ distinct parts, put each part's fenced block **right under the numbered instruction that
   introduces it**, labelled with WHERE it lands (file + position) — never stack all the code in a trailing
   `## Code` dump the reader has to re-pair with the actions. A step therefore shows **fragments**, not one

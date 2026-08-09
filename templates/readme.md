@@ -29,7 +29,8 @@ a published package, a deployed URL.>
 <language x.y> · <framework x.y> · <key library x.y> — full verified table + check date: **[foundation/stack.md](foundation/stack.md)**.
 
 ## Key decisions
-<!-- 2–4 headline choices only, each linking to its full entry in foundation/decision-log.md. -->
+<!-- The headline choices only — the ones a reader must know before starting — each linking to its full entry
+     in foundation/decision-log.md. -->
 - **<short decision>** — <one clause of why>. → [foundation/decision-log.md](foundation/decision-log.md#<anchor>)
 - **<short decision>** — <one clause of why>. → [foundation/decision-log.md](foundation/decision-log.md#<anchor>)
 

@@ -1,6 +1,6 @@
 <!--
 TEMPLATE: glossary.md — the running term list steps link into (supports rule 1.1).
-Grows as the ladder introduces concepts. Keep definitions ONE sentence, plain language.
+Grows as the ladder introduces concepts. Keep definitions as short as the term allows, in plain language.
 A step defines a term inline on first use, then links here for the reader who wants a little more.
 Only include terms on topics the reader isn't Expert in (per the audience matrix) — don't define what they already know.
 
@@ -19,12 +19,13 @@ links to a bulleted term silently fail (they scroll nowhere) — this is why ter
 
 # Glossary — <project name>
 
-> Terms the guide introduces, defined in plain language. Ordered alphabetically. **Words/concepts only — never a
+> Terms the guide introduces, defined in plain language. Alphabetical order is the usual choice — it
+> makes a growing list scannable — but any order a reader can predict works. **Words/concepts only — never a
 > function** (functions are explained by an inline code comment where they're used). Each `### heading` is a
 > stable deep-link target — steps link here with `../glossary.md#<slug>`.
 
 ### <term>
-<one-sentence definition>. *(Introduced in [<milestone/step>](<link>).)*
+<short plain-language definition>. *(Introduced in [<milestone/step>](<link>).)*
 
 ### <another term>
-<one-sentence definition>.
+<short plain-language definition>.

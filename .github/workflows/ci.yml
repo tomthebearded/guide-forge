@@ -15,8 +15,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      # Run the floor CONTRIBUTING promises ("Node 18+"), not the newest release: CI's job here is to
+      # catch a script that quietly depends on a newer API than contributors are told they need. Bump
+      # both together or neither.
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '18'
       # No install step: package.json is scripts-only, with zero dependencies.
       - run: npm test

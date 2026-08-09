@@ -3,7 +3,7 @@ TEMPLATE: atomic step file. One step = one indivisible action.
 Exception: code files created in the SAME commit may be bundled here under one sub-heading each — and the step
 says so at the top ("this step touches N files, committed together: …").
 Delete these comments and any section that doesn't apply (Glossary/Code are omittable).
-Every step must obey the 7 pedagogy principles — see ../reference/pedagogy-rules.md.
+Every step must obey the pedagogy principles — see ../reference/pedagogy-rules.md.
 
 NAV LINE IS CANONICAL AND REQUIRED — AT BOTH TOP AND BOTTOM: line 2 directly under the H1, AND repeated
 verbatim at the very bottom of the file after a "---" horizontal rule. Same EXACT format in both places, the
@@ -39,7 +39,7 @@ fixes it". Where the stack has a compiler/type-checker, the Done-when below ends
      BLOCK IS THE ONE PLACE THE GLOSSARY IS LINKED — body glosses/callouts define the term but do NOT append a
      "see glossary" link (rule 1.1). Omit the heading if none.
      Alternative for a term that first appears on a command/menu/code line below: skip this block for it and put a
-     "New concept" callout on its own line right above that line — > 📚 New concept — **term**: definition.
+     "New concept" callout on its own line right above that line — > New concept — **term**: definition.
      (No glossary link in the callout; deep-link the term's official docs there only if it's an external API.) -->
 > **[<term>](../glossary.md#<slug>)** — <one-sentence plain-language definition>.
 

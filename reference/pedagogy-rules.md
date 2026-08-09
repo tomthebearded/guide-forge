@@ -1,14 +1,18 @@
 # Reference — The pedagogy principles (the writing contract)
 
-> These **seven principles** are the heart of GuideForge. Each groups a small family of rules, and each rule
+> These **principles** are the heart of GuideForge. Each groups a small family of rules, and each rule
 > exists because of a *real* way a reader gets lost. Together they turn "teach well" from a vibe into a
 > checklist a model can satisfy and you can audit. This file explains each principle, its rules (cited by a
 > dotted id like `3.1`), why each exists, and shows a before/after.
 >
+> **Every example below is illustrative.** Concrete values — ports, endpoints, versions, file names,
+> jump heights, reader profiles — are there to show the *shape* of a good answer. None of them is a
+> recommended value; the right value always comes from your own build and your own reader.
+>
 > **Principles 1–4 and 7** are things you apply while *writing/rewriting* a step (prompts 01–03).
 > **Principle 5** (anticipate failure) and **Principle 6** (prove the gate) are also what you check at the
 > *review-before-follow* gate (prompt 04). Rule **3.5** is a *whole-guide* consistency property, checked across
-> steps rather than within one. In practice all seven belong in every finished step.
+> steps rather than within one. In practice they all belong in every finished step.
 
 ---
 
@@ -79,9 +83,9 @@ there's something they're missing.
   sits inside prose.
 - **"New concept" callout right above** — when the term first lands on a command, menu, or code line where
   an inline aside would wreck the flow, put a one-line callout on its own line *immediately above* that line:
-  `> 📚 New concept — **term**: one-sentence definition.` (The emoji is optional; match the guide's other
-  callouts. Deep-link the term's *official docs* here when it's an external API — the sourcing principle
-  requires it — but **not** the glossary; see 1.1b.)
+  `> New concept — **term**: one-sentence definition.` (The marker is this exact plain-text form — no emoji,
+  so it renders identically in every terminal and viewer. Deep-link the term's *official docs* here when it's
+  an external API — the sourcing principle requires it — but **not** the glossary; see 1.1b.)
 
 If a step introduces many terms, also add a "Glossary for this step" block at the top. **Never leave a
 load-bearing term as a bare rule with no gloss and no pointer** — if a decision names a concept, either define
@@ -92,7 +96,7 @@ it or point to where it's defined.
   used here for logging — and it'll wrap every handler."
 - ❌ "Set **Color Space** to Gamma." (a load-bearing term as a bare rule — no gloss, no pointer)
 - ✅ (callout, on its own line right above the action):
-  `> 📚 New concept — Gamma color space: texture values render exactly as authored (no sRGB curve), so`
+  `> New concept — Gamma color space: texture values render exactly as authored (no sRGB curve), so`
   `hand-picked palettes look right.` (its glossary link lives once in `## Glossary for this step`, not here.)
 
 **(b) Link the glossary once, in the step's block — not after every term.** The body gloss/callout *defines*
@@ -101,8 +105,8 @@ step's `## Glossary for this step` block (which carries the per-term `../glossar
 "see glossary" after each term is repetitive noise — drop it from the body and let the block be the one door to
 the glossary.
 
-- ❌ (body callout) `> 📚 New concept — middleware: code that runs on every request. See [glossary](../glossary.md#middleware).`
-- ✅ (body callout) `> 📚 New concept — middleware: code that runs on every request before your handler.`
+- ❌ (body callout) `> New concept — middleware: code that runs on every request. See [glossary](../glossary.md#middleware).`
+- ✅ (body callout) `> New concept — middleware: code that runs on every request before your handler.`
   — the glossary link for `middleware` lives once, in `## Glossary for this step`.
 
 **(c) Built-in library methods are first-use terms too.** When the reader is **New/Beginner** on a language or
@@ -480,9 +484,11 @@ touch the contract, update **every** place in the same pass:
 - `skills/draft-milestone/prompt.md` (the numbered writing contract **and** the self-audit checklist)
 - `skills/clarify-step/prompt.md` (the in-place rules list)
 - `skills/audit-guide/prompt.md` (the pedagogy-check enumeration + any per-rule detail check)
-- `EXPLAINER.md` §7 (the before/after table) and any "N principles" count in `README.md`, `EXPLAINER.md`,
-  `templates/step.md`, `templates/verify.md`, and the affected `SKILL.md` descriptions.
+- `EXPLAINER.md` §7 (the before/after table), plus `README.md`, `templates/step.md`, `templates/verify.md`, and
+  the affected `SKILL.md` descriptions wherever they name the contract.
 
-`scripts/check-consistency.mjs` (run by `/pre-pr-check` and CI) verifies the stated **principle count** (seven)
-agrees across the docs, so a half-applied change fails the check instead of shipping silently. The count check
-is the backstop; keeping the *wording* and the rule ids in sync is still on you.
+`scripts/check-consistency.mjs` (run by `/pre-pr-check` and CI) verifies **rule-id integrity**: no duplicate id
+headings, every rule homed under a real `## P#` principle, and every `rule N.N` cited anywhere in the docs
+resolving to a heading in this file — so a half-applied re-home fails the check instead of shipping silently.
+Nothing counts principles: the docs cite them by id, never by number, precisely so there is no count to drift.
+The id check is the backstop; keeping the *wording* in sync is still on you.

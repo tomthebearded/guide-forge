@@ -7,7 +7,7 @@ TEMPLATE: NN_verify.md — the LAST file in every milestone folder. Two jobs:
 Steps may teach an edit as a fragment ("add below X"); this file is where files the GUIDE AUTHORED are shown
 WHOLE, so a reader who lost the thread has one authoritative copy to diff against. Never let a guide-authored
 file's final state exist only as scattered fragments across steps — it must appear complete here.
-Every step must obey the 7 pedagogy principles — see ../reference/pedagogy-rules.md.
+Every step must obey the pedagogy principles — see ../reference/pedagogy-rules.md.
 -->
 
 # <Milestone ID> · Verify — <milestone title>

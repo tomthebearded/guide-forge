@@ -70,8 +70,9 @@ if (diffs.length) {
     `STALE: ${diffs.length} published file(s) differ between the installed cache and your working ` +
       `tree — run /plugin reinstall so the plugin reflects your edits:`,
   );
-  for (const d of diffs.slice(0, 40)) console.log('  ' + d);
-  if (diffs.length > 40) console.log(`  … and ${diffs.length - 40} more`);
+  // Every differing file, uncapped: this output is read once before a reinstall, and a truncated list
+  // would mean re-running the command to see the rest.
+  for (const d of diffs) console.log('  ' + d);
 } else {
   console.log(`cache in sync (guide-forge ${version}, ${cacheFiles.length} published files checked)`);
 }

@@ -51,8 +51,8 @@ The brief isn't only the one-line prompt. It can come from **any context you giv
 ## Modes
 - **Default:** run the full Phase 0 interview, verify the stack online, then all five phases.
 - **Lite mode** (if I say "lite"): still run the Phase 0 interview **and** Phase 0.5; skip Phases 1 and 5,
-  collapse the ladder to 2–3 milestones, keep the audience model + the pedagogy contract. Use for a
-  single-doc guide under ~2 hours.
+  collapse the ladder to the fewest rungs that each still prove something runnable, keep the audience model +
+  the pedagogy contract. Use for a small guide — one document, one sitting.
 - **Non-interactive mode** (if I say "no questions" / you're running in automation): the ONLY mode that skips
   the interview — do not ask; instead make **every** Phase 0 assumption explicit and loud at the top of the
   plan (especially the guessed audience model) and proceed. Since you can't ask the latest-vs-specific
@@ -182,7 +182,8 @@ Rules for this phase:
 Before decomposing the work, plan the shared docs every step will lean on. Propose:
 
 - **README (the guide's front door)** — a *thin* landing page: the objective (observable end state), a
-  one-line stack summary, the 2–4 headline decisions, an **Updates** log, and a short **"Following this
+  one-line stack summary, the headline decisions (only the ones a reader must know before starting), an
+  **Updates** log, and a short **"Following this
   guide"** note that invites the reader to *type the code rather than paste it* (the complete files are an
   authoritative reference to diff against, not an invitation to paste blindly) — each section *linking* to the
   detailed doc (`stack.md`, `decision-log.md`) rather than duplicating it. It summarizes; `status.md` still
@@ -261,7 +262,7 @@ milestone. The reader always knows where they are in the arc.
 
 ## Phase 4 — The pedagogical rules (this is what makes it *teach*)
 
-Every step in the plan must be written to satisfy these — **seven principles**, each holding a few rules cited
+Every step in the plan must be written to satisfy these — the **principles**, each holding a few rules cited
 by a dotted id (like `3.1`). The full contract with before/afters is
 [reference/pedagogy-rules.md](../../reference/pedagogy-rules.md). State them in the plan as the guide's writing
 contract:

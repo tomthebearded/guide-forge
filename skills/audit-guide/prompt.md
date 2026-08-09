@@ -18,6 +18,21 @@ don't rewrite anything.
 The guide file(s) to audit (attach or point at them). If a foundation doc (`status.md`, `glossary.md`,
 `stack.md`) is relevant to a check, ask for it.
 
+## Severity — two levels, no others
+Every finding carries exactly one of these. There is no third level: if you can't decide, ask whether the
+reader is *stopped* or merely *worse off*.
+
+- **BLOCKER** — the guide is **broken**: a reader following it in order cannot proceed, or proceeds on a false
+  signal. A gate that cannot pass, a build that cannot compile, a file the reader cannot reconstruct, a link
+  that goes nowhere they need, a claim the guide does not keep.
+- **WARNING** — the guide is **weaker**: the reader gets there, but slower, more confused, or with less
+  understanding than the contract promises. Every pedagogy finding is a WARNING unless it actually stops the
+  reader, in which case it is a BLOCKER.
+
+Some findings cannot be confirmed from the guide alone — a gate you suspect the debug host overrides, a
+manifest you suspect the reader's schema rejects. That is **not** a third severity: give it its real severity
+and mark it **unconfirmed**, naming the tool or environment needed to settle it.
+
 ## Structural checks (objective — pass/fail)
 - **Canonical layout:** `README.md` at the guide root; foundation docs under `foundation/`; one
   `MILESTONE_<N>_<slug>/` folder per milestone. Flag `overview.md` (must be `00_overview.md`), foundation docs loose at
@@ -33,8 +48,8 @@ The guide file(s) to audit (attach or point at them). If a foundation doc (`stat
   rendered whole — it's shown as its added region + unique placement anchor under "Pre-existing files modified".
   Do **not** flag such a file as an incomplete checkpoint; conversely, **flag a pre-existing file re-pasted
   whole** as a rule-4.3 violation.
-- **Completeness claim is kept — MAJOR:** cross-check the checkpoint's claim against what it renders. Flag as
-  **MAJOR** (a) a **guide-authored** file the milestone's steps *created or modified* that the checkpoint lists
+- **Completeness claim is kept — BLOCKER:** cross-check the checkpoint's claim against what it renders. Flag as
+  a **BLOCKER** (a) a **guide-authored** file the milestone's steps *created or modified* that the checkpoint lists
   but renders as a **fragment** (not the whole file), and (b) a **blanket completeness claim** ("the
   authoritative copy of every file", "every file in the project") when the checkpoint renders only some files —
   the claim must be scoped to the guide-authored files actually rendered, with pre-existing files shown as their
@@ -48,7 +63,8 @@ The guide file(s) to audit (attach or point at them). If a foundation doc (`stat
   (rule 4.2) — do NOT flag a step for showing a partial snippet; the complete-file guarantee is enforced only
   at the `NN_verify.md` checkpoint (above), never per step. Overviews and `NN_verify.md` also carry nav at
   both ends.
-- **Code placement — rule 4.2:** in a step whose code has **2+ distinct parts**, each part's fenced block must
+- **Code placement — rule 4.2:** in a step whose code has **2+ distinct parts** (two is the trigger: with a
+  second block the reader must start guessing which instruction owns which code), each part's fenced block must
   sit **directly under the numbered instruction that introduces it**. Flag (a) a step that lists all its
   actions and then **batches the code in a trailing block** the reader must re-pair with the actions; (b) an
   interleaved fragment that **doesn't say WHERE it goes** (file + position), so the reader can't place it or
@@ -58,7 +74,7 @@ The guide file(s) to audit (attach or point at them). If a foundation doc (`stat
 - **Overview links its first step (`start:`):** every `00_overview.md` nav line — **top and bottom, identical** —
   ends with `start: [<step 01 title>](01_<slug>.md)`, pointing at that milestone's first step file. Flag a
   missing `start:` segment, one present at only one end, a target that isn't the folder's `01_*.md`, or a dead
-  link. A **scaffold placeholder** overview (`🔶 SCAFFOLD — not yet drafted`) legitimately carries the literal
+  link. A **scaffold placeholder** overview (`SCAFFOLD — not yet drafted`) legitimately carries the literal
   `start: — not drafted yet` — don't flag that; do flag it on a **drafted** milestone. (Observed: from an
   overview's bottom nav the only forward click was `next`, which skipped the milestone the reader had just
   decided to start.)
@@ -92,8 +108,8 @@ The guide file(s) to audit (attach or point at them). If a foundation doc (`stat
   channel the gate reads, dev mode disabling the cache the gate claims to prove, strict/dev mode
   double-invoking an effect a "runs once" gate counts, hot-reload masking "survives a restart". This is the
   false-*negative* twin of the check above: the reader debugs working code, and the troubleshooting table is
-  unreachable because nothing broke. Confirming the override often needs the platform's docs, so raise it as a
-  **suspect** naming the gate, the environment, and the overriding mechanism. The fix is an unmasked channel,
+  unreachable because nothing broke. Confirming the override often needs the platform's docs, so mark the
+  finding **unconfirmed**, naming the gate, the environment, and the overriding mechanism. The fix is an unmasked channel,
   the environment-specific variant set alongside the normal one, or the mask named **inside the gate**.
   (Observed: a demo set a status-bar color that the debug host's own debugging colors override, so the
   milestone's headline gate appeared to fail on correct code.)
@@ -145,8 +161,8 @@ The guide file(s) to audit (attach or point at them). If a foundation doc (`stat
   qualifying the claim, not changing the step. (Observed: a guide promised "no C# until M3" but an earlier milestone wrote a
   script.)
 
-## Pedagogy checks (judgment — flag suspects)
-Per the seven principles: bare undefined terms (1.1) · a recurring mental model never taught at its point of
+## Pedagogy checks (judgment — WARNING unless the reader is stopped)
+Per the principles: bare undefined terms (1.1) · a recurring mental model never taught at its point of
 use (1.2) · actions with no WHERE (2.1) · keystroke-only, no WHY (2.2) · vague/ranged values (3.1) · mandatory
 vs illustrative unmarked (3.2) · change-vs-default unstated (3.3)
 · load-bearing names unflagged (3.4) · a value that drifts between places (3.5, checked as the whole-guide value
@@ -206,14 +222,17 @@ Expert on that topic.
   schema-backed JSON/YAML/TOML) that looks **incomplete against the schema the reader's own tooling validates
   it with** — typically a key the docs call optional but the shipped schema requires, or a block the docs
   present abridged. The reader pastes it, gets a warning the guide never mentions, and can't tell whether the
-  guide or the tool is wrong. Confirming it needs the validator, so raise it as a **suspect**: name the block,
-  the key you suspect is missing, and the tool to re-check it in. The fix is a block that validates clean plus
-  a note on why it differs from the docs. (Observed: a guide's manifest snippet, correct per the official
-  docs, raised a `Missing property` warning from the editor's bundled schema.)
+  guide or the tool is wrong. Confirming it needs the validator, so raise it as a **WARNING** marked
+  **unconfirmed**: name the block, the key you suspect is missing, and the tool to re-check it in. The fix is a
+  block that validates clean plus a note on why it differs from the docs. (Observed: a guide's manifest snippet,
+  correct per the official docs, raised a `Missing property` warning from the editor's bundled schema.)
 
 ## Deliverable
-1. A **verdict**: PASS / PASS-WITH-WARNINGS / FAIL, with counts.
-2. A **findings table**, most-severe first: `file:section · rule · severity · what's wrong · suggested fix`.
-3. **Structural blockers** listed separately from pedagogy suggestions.
+1. A **verdict**, decided by the counts alone: **FAIL** if there is one or more BLOCKER ·
+   **PASS-WITH-WARNINGS** if there are no BLOCKERs and one or more WARNINGs · **PASS** if there are neither.
+   State both counts.
+2. A **findings table**, BLOCKERs first: `file:section · rule · severity · what's wrong · suggested fix` —
+   `severity` is `BLOCKER` or `WARNING`, suffixed `(unconfirmed)` where you couldn't settle it from the guide.
+3. **BLOCKERs** listed separately from WARNINGs.
 4. A pointer: run the `clarify-step` skill to fix a flagged pedagogy issue; run `review-before-follow` before
    executing against real tooling.

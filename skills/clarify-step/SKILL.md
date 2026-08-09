@@ -1,7 +1,7 @@
 ---
 name: clarify-step
 description: >
-  Run the 7-principle pedagogy pass over ONE existing step of a learn-as-you-go guide to remove confusion —
+  Run the pedagogy pass over ONE existing step of a learn-as-you-go guide to remove confusion —
   without changing what the step does. Use when a step reads unclearly, a reader got stuck, or a term went
   undefined. Invoke with the step to clarify, e.g. "/clarify-step 03_first-route.md".
 argument-hint: "<step-file> [file ...]"

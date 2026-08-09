@@ -2,7 +2,7 @@
 name: modernize-guide
 description: >
   Restructure an EXISTING flat tutorial / README / runbook / legacy guide into a learn-as-you-go GuideForge
-  plan: reverse-engineer its implicit ladder, diagnose it against the 7 pedagogy principles, verify its (likely
+  plan: reverse-engineer its implicit ladder, diagnose it against the pedagogy principles, verify its (likely
   stale) stack online, and re-cast it as a plan with a source-map. Use when the user has an existing
   guide/tutorial to modernize or convert — not a from-scratch idea (that's plan-guide). Invoke with the doc,
   e.g. "/modernize-guide README.md", attaching the source file(s) and any real target code.

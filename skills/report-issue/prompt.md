@@ -114,7 +114,7 @@ stuck.
   even though it's now fixed. Create the log from `templates/feedback-log.md` if it's missing.
 
 ### 7. Propose a pedagogy rule (only if it's a general confusion)
-If the root cause is a *recurring kind* of confusion not already covered by the seven principles, **propose** a new rule in
+If the root cause is a *recurring kind* of confusion not already covered by the principles, **propose** a new rule in
 the [CONTRIBUTING](../../CONTRIBUTING.md) format — the confusion it prevents → the rule → a before/after — for
 the user to approve. **Propose, don't silently add:** the pedagogy contract is repo-level and every rule must
 earn its place from a real point of confusion (this field report is exactly that evidence). If the user

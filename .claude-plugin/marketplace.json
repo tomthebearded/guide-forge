@@ -1,6 +1,6 @@
 {
   "name": "guide-forge",
-  "owner": { "name": "GuideForge" },
+  "owner": { "name": "Tommaso Mastroberardino", "url": "https://github.com/tomthebearded" },
   "metadata": {
     "description": "The GuideForge plugin — learn-as-you-go guide authoring for Claude Code."
   },

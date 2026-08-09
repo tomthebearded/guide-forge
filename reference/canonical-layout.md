@@ -5,6 +5,10 @@
 > diverging — foundation docs at the root in one guide and under `foundation/` in another, `overview.md` vs
 > `00_overview.md`, a README in one and none in the other. A reader (and the audit) should never have to guess
 > where a file lives. **Do not invent a different structure per guide.**
+>
+> Every name and separator below is a **ratified convention**: nothing forces `00_overview.md` over
+> `overview.md`, or `·` over `|`. They were chosen deliberately and fixed, and their value *is* that they're
+> fixed — the pipeline and the audit both read them literally. Change one here and everywhere, or not at all.
 
 ---
 

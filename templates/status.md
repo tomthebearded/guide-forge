@@ -1,5 +1,5 @@
 <!--
-TEMPLATE: status.md — THE STATUS AUTHORITY (pillar 5).
+TEMPLATE: status.md — THE STATUS AUTHORITY (the "truth lives in one place" pillar).
 This file is the SINGLE SOURCE OF TRUTH for what is actually done and verified.
 Guides describe INTENT; only this file states REALITY. When a guide and this file disagree, this file wins.
 Read it first every session; update it last.

@@ -90,10 +90,12 @@ don't re-perform them by hand; you confirm the scripts passed and add the judgme
   `node scripts/release.mjs <x.y.z>`. **Prompt headers must NOT stamp a version number** (they point to
   `plugin.json`); flag any `skills/*/prompt.md` header that reintroduces a `vX.Y.Z`. If `version` did **not**
   change but the change is user-visible, flag that a bump is likely needed.
-- **Rule count in sync.** *(script, via the skill/doc count check + the pedagogy-rules sync set)* If
-  `reference/pedagogy-rules.md` gained/lost a rule, confirm every "N rules" reference agrees (see that file's
-  **contract sync set**). The script's count check is the backstop; the *wording* across the mirrored prompts
-  is your judgment call.
+- **Rule ids in sync.** *(script checks id integrity; the sync set is yours)* If
+  `reference/pedagogy-rules.md` gained, lost or re-homed a rule, `check-consistency.mjs` already proves every
+  cited `rule N.N` resolves and every rule sits under a real `## P#`. Your judgment add: the contract is
+  **re-stated inline** in five prompts (that file's **contract sync set**), so confirm the *wording* was
+  updated in each — a rule whose id still resolves but whose text says something else is invisible to the
+  script. Note that the docs never state a principle *count*, so there is no number to reconcile.
 - **No dead links.** *(script covers docs/skills/templates)* The script resolves relative `.md` links in the
   plugin's own docs; flag any target that doesn't exist or overshoots the repo root with `../`.
 

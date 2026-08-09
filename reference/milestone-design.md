@@ -1,7 +1,12 @@
 # Reference — Milestone design (cutting a good ladder)
 
 > How to decompose an idea into a **ladder** of milestones that always builds on a proven base. This is
-> pillar 2. Get the ladder right and the guide writes itself; get it wrong and no amount of clarity saves it.
+> the *vertical slices* pillar. Get the ladder right and the guide writes itself; get it wrong and no amount of
+> clarity saves it.
+>
+> **Every example below is illustrative.** Concrete values — the bookstore ladder, its ports, routes and
+> commands — are there to show the *shape* of a good answer. None of them is a recommended value; the right
+> value always comes from your own build and your own reader.
 
 ---
 
@@ -30,7 +35,8 @@ runnable until the very end — and no gate to verify against along the way.
 
 ## The Done-when gate
 
-A gate is **observable**, not aspirational. "The persistence layer is complete" is not a gate. These are:
+A gate is **observable**, not aspirational. "The persistence layer is complete" is not a gate. These are
+(illustrative — a bookstore API; the port, route and test command are this example's, not defaults):
 
 - [ ] `curl localhost:8080/books/1` returns `{"id":1,...}` with status 200.
 - [ ] Restarting the server and re-running the curl returns the same record (it persisted).
@@ -113,7 +119,8 @@ journey. The handoff is the connective tissue of the ladder.
 
 ## Presenting the ladder
 
-Always present it as a table so dependencies and gates are visible at a glance:
+Always present it as a table so dependencies and gates are visible at a glance (the rows below are an
+illustrative bookstore ladder, not a template to copy):
 
 | # | Milestone | Proves (end state) | Depends on | Done-when (one line) |
 |---|-----------|--------------------|------------|-----------------------|
@@ -125,10 +132,10 @@ Always present it as a table so dependencies and gates are visible at a glance:
 
 ## Lite mode
 
-For a **small guide** (single doc, under ~2 hours), the full apparatus is overkill. In lite mode:
+For a **small guide** — one document, one sitting — the full apparatus is overkill. In lite mode:
 
 - Skip Phase 1 (foundation docs) and Phase 5 (verification design) from the planner.
-- Collapse the ladder to **2–3 milestones**.
+- Collapse the ladder to **the fewest rungs that each still prove something runnable**.
 - Keep the two things that always matter: the **audience model** and the **pedagogy contract**.
 
 Invoke it by telling the planner "lite mode." Everything else in this reference still applies at smaller

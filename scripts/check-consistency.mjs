@@ -56,19 +56,31 @@ for (const name of skillNames) {
 }
 
 // --- Check 3: stated skill count (near the word "skills") matches the folder count. -----------
-const NUMWORDS = {
-  nine: 9, ten: 10, eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15,
-  sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19, twenty: 20,
+// The word list is complete for 1–99, not a hand-picked window: a repo that grows past an arbitrary ceiling
+// must not silently stop being checked.
+const UNITS = {
+  one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10,
+  eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, seventeen: 17,
+  eighteen: 18, nineteen: 19,
 };
+const TENS = { twenty: 20, thirty: 30, forty: 40, fifty: 50, sixty: 60, seventy: 70, eighty: 80, ninety: 90 };
+// "twenty-one" / "twenty one" / "twenty" / "seven" / "42" — anything a human would plausibly write.
+const NUMWORD_SRC = `(?:${Object.keys(TENS).join('|')})(?:[- ](?:${Object.keys(UNITS).slice(0, 9).join('|')}))?|${Object.keys(UNITS).join('|')}|\\d+`;
+function parseCount(raw) {
+  const s = raw.toLowerCase().trim();
+  if (/^\d+$/.test(s)) return parseInt(s, 10);
+  const [tens, unit] = s.split(/[- ]/);
+  if (TENS[tens] !== undefined) return TENS[tens] + (unit ? UNITS[unit] ?? 0 : 0);
+  return UNITS[s];
+}
 const actualCount = skillNames.length;
 // Only match a number DIRECTLY adjacent to "skills" (lenient, avoids false positives).
-const countRe = /\b(nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|\d+)\s+skills\b/gi;
+const countRe = new RegExp(`\\b(${NUMWORD_SRC})\\s+skills\\b`, 'gi');
 for (const rel of ['README.md', '.claude-plugin/marketplace.json']) {
   const txt = read(path.join(ROOT, rel));
   let m;
   while ((m = countRe.exec(txt))) {
-    const raw = m[1].toLowerCase();
-    const stated = NUMWORDS[raw] ?? parseInt(raw, 10);
+    const stated = parseCount(m[1]);
     if (Number.isFinite(stated) && stated !== actualCount) {
       findings.push(
         `[skill-count] ${rel} states "${m[1]} skills" but there are ${actualCount} skill folders`,
@@ -77,57 +89,32 @@ for (const rel of ['README.md', '.claude-plugin/marketplace.json']) {
   }
 }
 
-// --- Check 3b: stated pedagogy-PRINCIPLE count matches the canonical rules file. --------------
-// The contract is re-inlined across ~5 prompts (paste-prompt self-containment); this catches a
-// half-applied change (e.g. regrouping into 7 principles but missing a "14 rules" straggler that
-// should now read "7 principles"). We count principles (the advertised unit), not leaf rules.
+// --- Check 3b: rule-id integrity + every rule reference resolves. -----------------------------
+// The docs deliberately do NOT advertise a principle *count* — the principles are cited by id (P1…Pn,
+// rules `N.N`), never counted in prose, so there is no number to keep in sync and no count check here.
+// What must hold is that every id cited anywhere resolves to a real heading in the canonical file.
 const rulesFile = path.join(ROOT, 'reference', 'pedagogy-rules.md');
 if (existsSync(rulesFile)) {
   const rulesTxt = read(rulesFile);
-  // Canonical principle headers look like `## P1 — Explain what's new`.
-  const actualPrinciples = (rulesTxt.match(/^##\s+P\d+\s+—/gm) || []).length;
-  // Files that STATE a principle count. (CHANGELOG/CONTRIBUTING excluded: historical entries and
-  // prose legitimately mention old counts / transition text like "10 -> 14".)
-  const COUNT_FILES = [
+  // Files that cite rule ids. (CHANGELOG/CONTRIBUTING excluded: historical entries legitimately cite
+  // ids from older revisions of the contract.)
+  const CITING_FILES = [
     'README.md', 'EXPLAINER.md', 'reference/pedagogy-rules.md',
     'templates/step.md', 'templates/verify.md',
   ];
   for (const name of skillNames) {
     for (const f of ['SKILL.md', 'prompt.md']) {
       const rel = `skills/${name}/${f}`;
-      if (existsSync(path.join(ROOT, rel))) COUNT_FILES.push(rel);
+      if (existsSync(path.join(ROOT, rel))) CITING_FILES.push(rel);
     }
   }
   // Guard every read: a base file being renamed/deleted should surface as a finding elsewhere, not
   // crash this script with an uncaught ENOENT.
-  const presentFiles = COUNT_FILES.filter((rel) => existsSync(path.join(ROOT, rel)));
+  const presentFiles = CITING_FILES.filter((rel) => existsSync(path.join(ROOT, rel)));
 
-  // A number (worded or digits) bound to "principle(s)" — "7 principles", "7 pedagogy principles",
-  // "7-principle …", "seven core principles". Not "principle 7" (reversed) and not an ordinal like
-  // "Step 3 principles". The gap is `(?:\s+|-+)` — a run of whitespace (which spans NEWLINES, so a
-  // line-wrapped count is caught) OR a run of hyphens, but NOT a mix, so "5\n- principles" (a number
-  // ending a line above a bullet list) can't false-match across the boundary. An optional adjective
-  // word may sit between the number and "principles".
-  const countRe = /(?<!(?:phase|step|part|section|milestone|pillar)\s)\b(one|two|three|four|five|six|seven|eight|nine|ten|\d+)(?:\s+|-+)(?:(?:pedagogy|writing|core|named|teaching|key)\s+)?principles?\b/gi;
-  const WORDS1 = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10 };
-  for (const rel of presentFiles) {
-    const txt = read(path.join(ROOT, rel));
-    let m;
-    while ((m = countRe.exec(txt))) {
-      const raw = m[1].toLowerCase();
-      const stated = WORDS1[raw] ?? NUMWORDS[raw] ?? parseInt(raw, 10);
-      if (Number.isFinite(stated) && stated !== actualPrinciples) {
-        findings.push(
-          `[principle-count] ${rel} states "${m[0].replace(/\s+/g, ' ').trim()}" but reference/pedagogy-rules.md defines ${actualPrinciples} principles`,
-        );
-      }
-    }
-  }
-
-  // --- Check 3c: rule-id integrity + every rule reference resolves. ----------------------------
-  // Stronger than the count: catches a mis-mapped or dangling id (e.g. "rule 3.9" that doesn't
-  // exist, a duplicate heading, or a rule whose principle prefix has no `## P#` header) — the exact
-  // failure mode of a hand-applied re-home. Canonical rule headings look like `### 1.1 — …`.
+  // Catches a mis-mapped or dangling id (e.g. "rule 3.9" that doesn't exist, a duplicate heading, or a
+  // rule whose principle prefix has no `## P#` header) — the exact failure mode of a hand-applied
+  // re-home. Canonical rule headings look like `### 1.1 — …`.
   const ruleIdList = (rulesTxt.match(/^###\s+(\d+\.\d+)\s+—/gm) || []).map((h) => h.match(/(\d+\.\d+)/)[1]);
   const ruleIds = new Set(ruleIdList);
   const principleNums = new Set(
@@ -260,7 +247,7 @@ for (const file of mdFiles) {
 
 // --- Report. ----------------------------------------------------------------------------------
 if (findings.length) {
-  const groups = { frontmatter: [], inject: [], 'skill-count': [], 'principle-count': [], 'rule-id': [], 'dead-link': [] };
+  const groups = { frontmatter: [], inject: [], 'skill-count': [], 'rule-id': [], 'dead-link': [] };
   for (const f of findings) {
     const tag = f.match(/^\[([^\]]+)\]/)[1];
     (groups[tag] ||= []).push(f);

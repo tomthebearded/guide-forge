@@ -4,11 +4,11 @@
 
 **Turn any idea into a step-by-step build guide that _teaches while it builds_.**
 
-A prompt-and-skill toolkit for Claude that plans, drafts, and hardens **learn-as-you-go** developer guides — for games, libraries, web apps, CLIs, APIs, anything. The reader follows it start to finish and *understands what they're doing*, even for the parts they've never seen.
+A prompt-and-skill toolkit that plans, drafts, and hardens **learn-as-you-go** developer guides — built for Claude. For games, libraries, web apps, CLIs, APIs, anything. The reader follows it start to finish and *understands what they're doing*, even for the parts they've never seen.
 
 `MIT License` · `Works with Claude | Claude Code` · `Domain-agnostic` · `v1.9.1` · `PRs welcome`
 
-[Quick start](#quick-start-15-minutes) · [The toolkit](#the-toolkit) · [Learning path](#learning-path) · [Examples](EXAMPLES.md) · [Explainer](EXPLAINER.md) · [FAQ](#faq)
+[Quick start](#quick-start) · [The toolkit](#the-toolkit) · [Learning path](#learning-path) · [Examples](EXAMPLES.md) · [Explainer](EXPLAINER.md) · [FAQ](#faq)
 
 </div>
 
@@ -36,7 +36,7 @@ maintain the result, not just run it.
 - [What you get](#what-you-get)
 - [Skills at a glance](#skills-at-a-glance)
 - [How it works](#how-it-works)
-- [Quick start (15 minutes)](#quick-start-15-minutes)
+- [Quick start](#quick-start)
 - [The toolkit](#the-toolkit)
 - [Repository map](#repository-map)
 - [Learning path](#learning-path)
@@ -63,7 +63,7 @@ The best hand-written guides are different. They:
 - **say where every action happens and why**,
 - and **gate every milestone with an observable acceptance test**.
 
-GuideForge encodes that discipline as reusable prompts and skills, so Claude produces guides that *teach*, not guides that dictate.
+GuideForge encodes that discipline as reusable prompts and skills, so what comes out is a guide that *teaches*, not one that dictates.
 
 > A guide is only as good as its model of the reader; most of the design follows from that.
 
@@ -77,7 +77,7 @@ GuideForge encodes that discipline as reusable prompts and skills, so Claude pro
 | **Per-topic expertise + granularity dials** | Rates the reader **per topic** (Expert → New) so an expert gets names-only and a junior gets definitions, doc links, and deep dives — on that exact topic. A separate granularity dial sets how finely steps are cut. |
 | **Live stack verification** | Interviews you for languages/versions/stack, then **checks the web** for the latest stable versions and pins them with official doc links — so the guide is built on current facts, not stale training memory. |
 | **A drafting prompt** | Expands one approved milestone into atomic, teaching step-files — built against the pinned versions, APIs re-checked against the live docs. |
-| **A clarity prompt** | Runs the 7-principle pedagogy pass over any existing step to remove confusion. |
+| **A clarity prompt** | Runs the pedagogy pass over any existing step to remove confusion. |
 | **A review-before-follow prompt** | The gate you run before *acting on* any guide, so stale/ambiguous steps get fixed first. |
 | **A Claude Code plugin** | Installs as one plugin — ten guide-authoring slash-command skills (the four pipeline stages plus `/modernize-guide`, `/audit-guide`, `/scaffold-guide`, `/update-stack`, `/report-issue`, `/log-feedback`), each also accepting optional attached files, plus `/pre-pr-check` for contributors to the plugin itself. |
 | **Copy-paste templates** | Guide README (front door), milestone overview, step file, verified-stack table, status authority, glossary, conventions, decision log. |
@@ -96,7 +96,7 @@ Eleven skills, one plugin. What each does *for you* — invoke any as a `/slash-
 |---|---|
 | `/plan-guide` | Turns a one-line idea into a full milestone-laddered build plan — after an audience + live-stack interview. |
 | `/draft-milestone` | Expands the approved plan into atomic, teaching step-files — the whole guide (all milestones) in one pass, built against the pinned versions. |
-| `/clarify-step` | Runs the 7-principle pedagogy pass over one existing step to remove confusion — without changing what it does. |
+| `/clarify-step` | Runs the pedagogy pass over one existing step to remove confusion — without changing what it does. |
 | `/review-before-follow` | Reconciles a guide with reality *before* you follow it — catches stale APIs, moved files, renamed UI. |
 
 **Set up, QA & maintain:**
@@ -142,7 +142,7 @@ The plan is drafted into the **whole guide in one pass**, so you have it in hand
 
 ---
 
-## Quick start (15 minutes)
+## Quick start
 
 ### Option A — Plain Claude (any chat, no install)
 
@@ -186,7 +186,7 @@ Then in Claude Code:
 
 Append the pedagogy rules (the writing contract) from [`reference/pedagogy-rules.md`](reference/pedagogy-rules.md) to your `~/.claude/CLAUDE.md` so *every* guide Claude writes for you follows the rules by default.
 
-> **Small guide?** If your idea is a single doc under ~2 hours, tell Claude *"lite mode"* — it skips the heavy foundation/verification phases and collapses the ladder to 2–3 milestones. See [the lite-mode note](reference/milestone-design.md#lite-mode).
+> **Small guide?** If your idea fits one document and one sitting, tell Claude *"lite mode"* — it skips the heavy foundation/verification phases and collapses the ladder to the fewest rungs that each still prove something runnable. See [the lite-mode note](reference/milestone-design.md#lite-mode).
 
 ---
 
@@ -283,13 +283,13 @@ guide-forge/                      ← a single project = one Claude Code plugin
 
 New here? Follow this order.
 
-| Step | Read / do | Time | You'll understand… |
-|------|-----------|------|--------------------|
-| 1 | [EXPLAINER.md](EXPLAINER.md) → "Philosophy" | 10 min | Why learn-as-you-go beats a wall of steps. |
-| 2 | [reference/audience-model.md](reference/audience-model.md) | 10 min | The single most important input to any guide. |
-| 3 | [reference/milestone-design.md](reference/milestone-design.md) | 15 min | How to cut a ladder that always builds on a proven base. |
-| 4 | [reference/pedagogy-rules.md](reference/pedagogy-rules.md) | 20 min | The 7 principles that make a step *teach*. |
-| 5 | Run [skills/plan-guide/prompt.md](skills/plan-guide/prompt.md) on your own idea | 30 min | The whole thing, hands-on. |
+| Step | Read / do | You'll understand… |
+|------|-----------|--------------------|
+| 1 | [EXPLAINER.md](EXPLAINER.md) → "Philosophy" | Why learn-as-you-go beats a wall of steps. |
+| 2 | [reference/audience-model.md](reference/audience-model.md) | The single most important input to any guide. |
+| 3 | [reference/milestone-design.md](reference/milestone-design.md) | How to cut a ladder that always builds on a proven base. |
+| 4 | [reference/pedagogy-rules.md](reference/pedagogy-rules.md) | The principles that make a step *teach*. |
+| 5 | Run [skills/plan-guide/prompt.md](skills/plan-guide/prompt.md) on your own idea | The whole thing, hands-on. |
 
 ---
 
@@ -310,7 +310,7 @@ its own repo — starting with a ~42-step one that takes a total beginner to a w
 
 ## The pedagogy in one screen
 
-Every generated step obeys **seven principles** (full detail + before/after in [reference/pedagogy-rules.md](reference/pedagogy-rules.md)):
+Every generated step obeys the **pedagogy principles** (full detail + before/after in [reference/pedagogy-rules.md](reference/pedagogy-rules.md)):
 
 1. **Explain what's new** — define every concept on first use at its topic's depth (inline, or a "New concept" callout right above the line); teach the recurring mental model where it first bites.
 2. **Anchor every action** — say WHERE it happens (file / menu / command / URL), and WHAT it does and WHY.
@@ -379,7 +379,7 @@ No. Each skill's `prompt.md` is a paste-into-any-chat prompt that works in any C
 Yes — once you approve the plan, `draft-milestone` drafts every milestone in one pass, so you have the finished guide before you build. The human gate is **plan approval** (get the ladder right before ten milestones are written off it); you then build against the guide, verifying each milestone's *Done-when* gate as you go.
 
 **How is this different from "write me a tutorial" prompts?**
-Those generate content. GuideForge generates a *verified, milestone-gated, audience-modeled plan* and then teaching step-files — with an explicit 7-principle writing contract. See [Why this exists](#why-this-exists).
+Those generate content. GuideForge generates a *verified, milestone-gated, audience-modeled plan* and then teaching step-files — with an explicit, rule-by-rule writing contract. See [Why this exists](#why-this-exists).
 
 **Can I use it for non-code guides?**
 It's tuned for software, but the method (audience model → ladder → gated steps) transfers to anything procedural. Your mileage varies.
@@ -416,4 +416,4 @@ Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-[MIT](LICENSE) © 2026. Use it, fork it, ship guides with it.
+[MIT](LICENSE) © 2026 Tommaso Mastroberardino. Use it, fork it, ship guides with it.

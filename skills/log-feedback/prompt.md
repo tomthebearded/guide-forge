@@ -53,7 +53,10 @@ have and mark the gaps.
    - **What happened** — what they did · expected · actually happened; paste the exact error / output.
    - **Suspected class** — one of: `missing-prereq`, `stale value/command/API`, `pedagogy-gap`,
      `unclear-wording`, `tooling/env`, `genuine-reader-slip`, `unknown`. A guess is fine; label it as one.
-   - **Severity** — `blocker` | `slowed-down` | `confusing` | `cosmetic`.
+   - **Severity** — `blocker` | `slowed-down` | `confusing` | `cosmetic`. This is the **reader-facing** scale:
+     it records how badly the reader was hurt, which is finer-grained than the audit's two-level
+     BLOCKER/WARNING verdict on the guide. `blocker` here maps to the audit's BLOCKER; the other three all map
+     to WARNING.
    - **Tags** — freeform keywords that make the log analysable later (`env`, `versions`, `M2`, `terminology`, …).
    - **Status** — `logged` (this skill never fixes, so always `logged` here).
    - **Quote** — verbatim reader words if given; omit the line otherwise.

@@ -13,11 +13,11 @@
 - [Skills at a glance](#skills-at-a-glance-cheat-sheet) — one-line recap of all eleven skills
 1. [The problem, precisely](#1-the-problem-precisely)
 2. [The core idea: learn-as-you-go](#2-the-core-idea-learn-as-you-go)
-3. [The five pillars](#3-the-five-pillars)
+3. [The pillars](#3-the-pillars)
 4. [How the pieces fit: the pipeline](#4-how-the-pieces-fit-the-pipeline)
 5. [Every file, explained](#5-every-file-explained)
 6. [The four prompts, in depth](#6-the-four-prompts-in-depth)
-7. [The 7 pedagogy principles, with before/after](#7-the-7-pedagogy-principles-with-beforeafter)
+7. [The pedagogy principles, with before/after](#7-the-pedagogy-principles-with-beforeafter)
 8. [The templates, and why each field exists](#8-the-templates-and-why-each-field-exists)
 9. [Design decisions & trade-offs](#9-design-decisions--trade-offs)
 10. [How to customize it for your world](#10-how-to-customize-it-for-your-world)
@@ -35,7 +35,7 @@ in one line — the deep dives are in [§6](#6-the-four-prompts-in-depth) and th
 *Pipeline (build a guide):*
 - **`/plan-guide`** — one-line idea → milestone-laddered plan, after an audience + live-stack interview.
 - **`/draft-milestone`** — expands the approved plan into atomic, teaching step-files — the whole guide (all milestones) in one pass.
-- **`/clarify-step`** — the 7-principle pedagogy pass over one step; removes confusion without changing behavior.
+- **`/clarify-step`** — the pedagogy pass over one step; removes confusion without changing behavior.
 - **`/review-before-follow`** — reconciles a guide with reality before you follow it (stale APIs, moved files).
 
 *Auxiliary (set up, QA, maintain):*
@@ -67,7 +67,7 @@ moves, you're stranded, because you were following, not understanding.
 
 Hand-crafted excellent guides don't have this problem. They cost enormous effort because a good author is
 *constantly modeling the reader* — "will they know this term? do they know where this menu is? will they
-wonder whether to touch the other fields?" GuideForge's job is to make Claude do that modeling
+wonder whether to touch the other fields?" GuideForge's job is to make that modeling happen
 **systematically**, every step, so the output explains as it goes rather than assuming prior knowledge.
 
 ---
@@ -85,15 +85,17 @@ Two consequences drive the whole design:
 
 2. **Every increment is runnable and verified.** The reader is never more than one small, checkable step
    from "it still works." Confidence compounds; debugging surface stays tiny. This is why GuideForge builds
-   in **vertical slices** (see pillar 2) rather than horizontal layers.
+   in **vertical slices** (see the *vertical slices* pillar) rather than horizontal layers.
 
 ---
 
-## 3. The five pillars
+## 3. The pillars
 
-Everything in this repo is an expression of five ideas.
+Everything in this repo is an expression of these ideas. They're referred to by **name**, not by
+number — the order below is presentational, and a cross-reference that cited "pillar 2" would rot the moment
+one was added or resequenced.
 
-### Pillar 1 — Model the reader first
+### Pillar — Model the reader first
 The **audience model** is the single most important input, and it has two dials: a **per-topic expertise
 matrix** (each topic the build touches rated Expert → Intermediate → Beginner → New, which sets how deeply
 that concept is explained) and a **granularity** setting (how finely steps are cut and how much prose
@@ -102,24 +104,24 @@ names-only while the same reader gets full deep-dives on the topic they've never
 topic the reader is expert in is as harmful as under-explaining one they're new to — it buries the signal.
 → [reference/audience-model.md](reference/audience-model.md)
 
-### Pillar 2 — Build in vertical slices, gated
+### Pillar — Build in vertical slices, gated
 Work is decomposed into a **milestone ladder**. Each milestone is a *vertical slice* that produces something
 observable and runnable, and ends in a **"Done-when" gate** — a short checklist of things you can literally
 observe to confirm it works. Milestones are ordered so each builds only on proven ones.
 → [reference/milestone-design.md](reference/milestone-design.md)
 
-### Pillar 3 — Atomic, teaching steps
+### Pillar — Atomic, teaching steps
 Inside a milestone, each **step file** is *one indivisible action* and follows a fixed template
 (glossary → why → do this → code → done-when). Small, single-purpose, self-explaining.
 → [templates/step.md](templates/step.md)
 
-### Pillar 4 — A written pedagogy contract
-Seven principles ("explain what's new", "anchor every action", "leave nothing ambiguous", …), each grouping a
-few concrete rules, turn "teach well" from a vibe into a checklist Claude can actually satisfy and you can
-actually audit.
+### Pillar — A written pedagogy contract
+The principles ("explain what's new", "anchor every action", "leave nothing ambiguous", …), each grouping a
+few concrete rules, turn "teach well" from a vibe into a checklist that can actually be satisfied and that you
+can actually audit.
 → [reference/pedagogy-rules.md](reference/pedagogy-rules.md)
 
-### Pillar 5 — Truth lives in one place
+### Pillar — Truth lives in one place
 A guide *describes intent*. Reality can drift. So there's a **status authority** file that is the single
 source of truth for what is actually done and verified, plus a **reconcile-before-follow** rule: when the
 guide and reality disagree, reality wins, and you log the drift.
@@ -152,7 +154,7 @@ sequenceDiagram
         P4-->>You: patched steps + drift log
         opt a step is confusing
             You->>P3: "clarify step NN"
-            P3-->>You: revised step (7 principles applied)
+            P3-->>You: revised step (pedagogy principles applied)
         end
         Note over You: verify the milestone's Done-when gate
     end
@@ -190,7 +192,7 @@ source of truth**. It doubles as the paste-into-any-chat twin (Option A in the R
 |------|-----|---------------|
 | `plan-guide/prompt.md` | Interview the user, then produce a full milestone-laddered plan. | "Approve the plan." |
 | `draft-milestone/prompt.md` | Expand the approved plan into atomic step files — the whole guide, all milestones, in one pass. | "The finished guide is drafted." |
-| `clarify-step/prompt.md` | Apply the 7 pedagogy principles to one existing step. | (loops back to Done-when) |
+| `clarify-step/prompt.md` | Apply the pedagogy principles to one existing step. | (loops back to Done-when) |
 | `review-before-follow/prompt.md` | Reconcile a guide against reality before executing it. | Safe to execute. |
 
 **Auxiliary contracts** (not part of the linear pipeline): `modernize-guide/prompt.md` (convert an existing tutorial
@@ -234,7 +236,7 @@ you the exact shape of a GuideForge guide.
 | `step.md` | The atomic step file template. |
 | `verify.md` | The `NN_verify.md` template: the milestone's Done-when gate **plus a full-file checkpoint** — the complete current contents of every file the milestone touched, so no file survives only as fragments. |
 | `stack.md` | The Verified stack: pinned versions + official doc links + check date, from the Phase 0.5 web check. |
-| `status.md` | The single-source-of-truth status authority (pillar 5). |
+| `status.md` | The single-source-of-truth status authority (the *truth lives in one place* pillar). |
 | `glossary.md` | Running term list the steps link into. |
 | `conventions.md` | Style/architecture rules referenced everywhere. |
 | `decision-log.md` | Non-obvious choices + rationale, so the reader learns *why*. |
@@ -272,12 +274,12 @@ The deep-dives behind the pillars: [pedagogy-rules.md](reference/pedagogy-rules.
 - **Phases 1–5:** foundation docs (including the Verified stack) → milestone ladder → step contract →
   pedagogy contract → verification design.
 - **Output:** a plan (not the guide), ending in "approve before I draft."
-- **Escape hatches:** *lite mode* (skip foundation/verification, 2–3 milestones — but **keep Phase 0.5**) and
+- **Escape hatches:** *lite mode* (skip foundation/verification, fewest runnable rungs — but **keep Phase 0.5**) and
   *non-interactive mode* (state assumptions and proceed, still run Phase 0.5) for automation.
 
 ### `draft-milestone` — the drafter
 - **Input:** the approved plan (with the Verified stack); by default "draft the guide" (or a single milestone to re-draft one).
-- **Output:** every milestone's folder in one pass — each with its `00_overview.md` and numbered atomic step files, each obeying the 7
+- **Output:** every milestone's folder in one pass — each with its `00_overview.md` and numbered atomic step files, each obeying the
   pedagogy principles, ending in a `NN_verify.md` gate — carrying the cumulative handoff forward from one milestone to the next.
 - **Builds against the pinned versions**, and **re-verifies each API against the live official docs before
   writing code** — memory is stale, the docs are truth — linking those docs in the concept callouts.
@@ -297,13 +299,13 @@ The deep-dives behind the pillars: [pedagogy-rules.md](reference/pedagogy-rules.
 
 ---
 
-## 7. The 7 pedagogy principles, with before/after
+## 7. The pedagogy principles, with before/after
 
 These are the heart of the toolkit. Each rule exists because of a *real* way readers get lost. Full
 treatment (and the origin of each) is in [reference/pedagogy-rules.md](reference/pedagogy-rules.md); here's
 the essence with a concrete contrast.
 
-The rules are grouped under **seven principles**; each id (like `3.1`) is `principle.rule`.
+The rules are grouped under **named principles** (`P1`, `P2`, …); each id (like `3.1`) is `principle.rule`.
 
 | # | Rule | Before | After |
 |---|------|----------|---------|
@@ -364,7 +366,7 @@ anchor next to prev/next — **`start:`, a link to the milestone's first step** 
 
 ### Status authority ([templates/status.md](templates/status.md))
 The one file that states *reality*: which milestones are actually verified, a drift log, and a session log.
-Pillar 5. Guides claim; this file confirms.
+The *truth lives in one place* pillar. Guides claim; this file confirms.
 
 ---
 
@@ -378,7 +380,7 @@ Pillar 5. Guides claim; this file confirms.
 | Vertical slices | Every increment runs and is verifiable. | Harder to cut than layers. |
 | Written rule contract | Makes "teach well" auditable, not a vibe. | Rules must be maintained. |
 | Reality-wins reconcile | Stale-but-clear guides are the dangerous kind. | Requires a status file. |
-| Lite mode exists | The full method is overkill for a 1-hour guide. | Users must opt into it. |
+| Lite mode exists | The full method is overkill for a one-sitting guide. | Users must opt into it. |
 
 ---
 

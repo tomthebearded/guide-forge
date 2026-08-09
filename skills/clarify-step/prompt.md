@@ -39,7 +39,7 @@ tells the reader to observe in (6.2), *flag it* for `report-issue`; don't rewrit
 1.1. **Every concept explained on first use.** Any term on a topic the reader isn't **Expert** in is explained
    the first time it appears — an inline one-sentence gloss, or, when it first lands on a command/menu/code
    line, a **"New concept" callout on its own line right above** it
-   (`> 📚 New concept — **term**: definition.`). Never leave a load-bearing term as a bare rule with no
+   (`> New concept — **term**: definition.`). Never leave a load-bearing term as a bare rule with no
    gloss and no pointer. Add/extend a "Glossary for this step" block and link the main glossary **there, once** —
    the block is the one place the glossary is linked, so do **not** append a `see [glossary]` link after every
    term in the body (an external-API *docs* link in a callout is still fine). And the glossary holds

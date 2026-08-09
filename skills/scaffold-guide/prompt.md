@@ -25,7 +25,8 @@ Use the one canonical skeleton — don't invent a per-guide structure. The fixed
 `foundation/`; one `MILESTONE_<N>_<slug>/` folder per milestone with `00_overview.md` … `NN_verify.md`.
 
 1. **`README.md` at the guide root** — the front door (objective ← Target end state; one-line stack summary
-   linking to `foundation/stack.md`; 2–4 headline decisions linking to `foundation/decision-log.md`; a
+   linking to `foundation/stack.md`; the headline decisions — the ones a reader must know before starting —
+   linking to `foundation/decision-log.md`; a
    **provenance line** stamping the GuideForge version used (see the version rule below); an **Updates** log
    seeded with `<date> — Guide created with GuideForge v<x.y.z>.`). Thin: it summarizes and links, it doesn't
    duplicate.
@@ -41,7 +42,7 @@ Use the one canonical skeleton — don't invent a per-guide structure. The fixed
      links because terms were bullets.)
 3. **One folder per milestone**, named `MILESTONE_<N>_<slug>/` (`MILESTONE_0_…/`, `MILESTONE_1_…/`, …), each
    with a **placeholder `00_overview.md`** carrying that milestone's Goal + Done-when from the ladder and a
-   `🔶 SCAFFOLD — not yet drafted` banner. Give the placeholder its canonical milestone nav line at **both**
+   `SCAFFOLD — not yet drafted` banner. Give the placeholder its canonical milestone nav line at **both**
    the top (line 2) and the bottom (after a `---`), identical — see `reference/canonical-layout.md`. That line
    ends with a `start:` segment linking the milestone's first step; at scaffold time no step file exists yet, so
    write it as the literal text **`start: — not drafted yet`** (no link — a link to a missing `01_*.md` would be

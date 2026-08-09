@@ -1,8 +1,12 @@
 # Reference — The audience model (the most important input)
 
-> A guide is only as good as its model of the reader. This is pillar 1, and the single input that most
+> A guide is only as good as its model of the reader. This is the *model the reader first* pillar, and the single input that most
 > determines whether the finished guide teaches or bores. Everything in the pedagogy contract is applied
 > *relative to* this model.
+>
+> **Every example below is illustrative.** The topics, levels and reader profiles below are there to show
+> the *shape* of a good answer. None of them is a recommended profile; the right model always comes from your
+> own build and your own reader.
 >
 > The model has **two dials**: a **per-topic expertise matrix** (how deeply to explain *each* topic) and a
 > **granularity** setting (how finely to cut steps and how much to narrate). They're independent and they
@@ -63,6 +67,8 @@ So "highly granular" does **not** imply "lots of concept explanation" — an exp
 may want tiny steps with no theory. Keep the dials separate.
 
 ## A worked example
+
+*Illustrative — one possible reader, not a recommended profile.*
 
 > **Reader:** fluent in C#, new to Unity and new to game dev. Wants a careful walk-through.
 >
