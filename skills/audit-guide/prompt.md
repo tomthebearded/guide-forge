@@ -118,6 +118,17 @@ The guide file(s) to audit (attach or point at them). If a foundation doc (`stat
   `Done-when` gate cannot pass from the current + earlier code alone. (Observed: a guide used
   a method introduced only in a later milestone.) Needs the whole guide (or the ladder) to resolve
   cross-milestone; say so if only a fragment was attached.
+- **Step ends on a green build (rule 4.4) — BLOCKER:** flag any step that leaves the project not compiling at
+  its boundary. The tell is explicit: a `Done-when` (or prose) saying the code "won't compile yet", "will show
+  an error in `<other file>`", "expected — step NN fixes it", or deferring verification to a later step because
+  the build can't run. Also flag it *implicitly*: a step that changes a signature, renames a symbol, or moves a
+  file **without** updating, in the same step, the call sites it breaks. The fix is to absorb those call-site
+  edits into the step (a longer green step beats a broken interval — this outranks granularity) and end the gate
+  with the build clean (0 errors). **Not a violation:** a step whose gate expects a *failing test* (test-first
+  is fine — the project still compiles), or a codegen command inside the same step that makes the tree
+  buildable before the gate. (Observed: a step told the reader a constructor-signature error in `extension.ts`
+  was expected until step 05, so a real error of their own would hide inside the "expected" list — and the
+  sitting had no safe stopping point.)
 - **No dead relative links** — `../../` overshooting the guide root, or links to files that don't exist;
   milestone→milestone pointers are **clickable links**, not prose.
 - **Glossary deep-links resolve to a real anchor.** For every `glossary.md#<slug>` link, verify the target
@@ -141,7 +152,8 @@ vs illustrative unmarked (3.2) · change-vs-default unstated (3.3)
 · load-bearing names unflagged (3.4) · a value that drifts between places (3.5, checked as the whole-guide value
 consistency sweep above) · cryptic guide-invented identifiers (3.6) · arrow-chains instead of numbered lists (4.1) · multi-part code batched in a trailing
 block instead of interleaved under its instructions (4.2) · a pre-existing file re-pasted whole or an ambiguous
-insertion anchor (4.3) · no likely-failure note (5.1) · a step that silently assumes unestablished starting
+insertion anchor (4.3) · a step that ends on a broken build (4.4, checked as the structural blocker above) ·
+no likely-failure note (5.1) · a step that silently assumes unestablished starting
 state (7.1). Apply each **relative to the audience matrix** — a term is a violation only if the reader isn't
 Expert on that topic.
 - **Rule 1.1c built-ins / inconsistent bar:** for a New/Beginner topic, treat **built-in library methods and

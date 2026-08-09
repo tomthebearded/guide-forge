@@ -315,6 +315,42 @@ exist.)
 > **The defect this prevents:** a step that dumps a whole existing file to add one function, or points at an
 > anchor that appears several times so the reader inserts the code in the wrong place.
 
+### 4.4 — Cut every step so it ends on a green build
+**Why:** the step boundary is the reader's only checkpoint. If a step ends with the project *not building*, the
+reader can no longer tell **their** mistake from the guide's plan — every red squiggle and every watch-task line
+is now ambiguous. "This error is expected, step 05 fixes it" only works if the reader's error list matches the
+author's *exactly*; one typo of their own hides inside the expected list, and a reader who "fixes" the expected
+error quietly diverges from the guide. A broken build also disables the step's own `Done-when` (the gate can't
+be run), makes the sitting an unsafe stopping point (they close the laptop on a tree they can't commit or come
+back to), and defers the first real verification to a later step — where a failure no longer localizes to the
+action that caused it.
+
+**Do:** treat **"the project builds"** as a hard step boundary. When one atomic edit forces others — changing a
+constructor signature, renaming a symbol, moving a file, extracting an interface — the step **includes every
+call site it breaks**, in the same step. A longer step that ends green always beats two short steps with a
+broken interval between them. **This outranks the granularity dial:** granularity sets step *size*, but when
+staying green means a bigger step, take the bigger step. Then prove it — for any stack with a compiler,
+type-checker or bundler, the step's `Done-when` ends with the build clean (`npm run compile` exits 0,
+`tsc --noEmit` silent, `cargo check` green, the watch task showing **0 errors**).
+
+- **Never write "this error is expected; step NN fixes it."** That sentence *is* the defect, not a mitigation —
+  re-cut the step so it absorbs the fix.
+- **A failing *test* is not a broken build.** Test-first (red → green) is fine: the project still compiles, and
+  the gate names exactly which test fails and why. The ban is on code that doesn't build.
+- **If the toolchain genuinely can't be green mid-step** — a generated file that doesn't exist until a codegen
+  command runs — that command belongs in the **same** step, before the gate.
+
+- ❌ "**Done when:** `ThemePanelProvider.ts` matches the checkpoint. It will show a compile error where
+  `extension.ts` still calls `new ThemePanelProvider(history)` with the old signature — expected; step 05 fixes
+  it. Full behavior is verified after step 05."
+- ✅ the step changes the constructor **and** updates the one call site in `extension.ts` it breaks.
+  "**Done when:** the watch task reports **0 errors** and `npm run compile` exits 0."
+
+> **The defect this prevents:** a step that ends on a deliberately broken build and asks the reader to carry
+> "which errors are expected" in their head until a later step — so a real error of their own hides inside the
+> expected list, and the sitting has no safe stopping point. (Observed: a reader following a VS Code extension
+> guide was told a constructor-signature error in `extension.ts` was expected until step 05.)
+
 ---
 
 ## P5 — Anticipate failure

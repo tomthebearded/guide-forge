@@ -50,6 +50,10 @@ earlier milestones" as a vibe — it's a mechanical property you can check:
 - **Each milestone's `build` gate must be satisfiable using ONLY the code of the current and earlier
   milestones.** If the reader stops at the end of M*k* and runs the build, it must compile and pass. A gate
   that only goes green once a *later* milestone lands is a broken gate, no matter how the prose reads.
+- **The same property holds at *step* granularity** — see pedagogy rule **4.4**: a step never ends on a broken
+  build either. If an edit breaks call sites, the step that makes the edit also fixes them, even if that makes
+  the step longer than the granularity dial would suggest. "Compile error here — the next step fixes it" is a
+  mis-cut step, not an acceptable interval.
 
 > **The defect this prevents:** a guide where M9's step calls `LikedIndex.clear()` but `clear()` isn't
 > introduced until M10. The reader following in order hits a build that cannot pass — the guide is broken at

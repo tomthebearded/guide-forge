@@ -166,7 +166,8 @@ Seven principles (rules cited by dotted id; full contract in
   a loop `i`), which you match rather than fight.
 - **P4 Structure steps & code** — **4.1** numbered lists, not arrow-chains; **4.2** put each code block under
   the instruction it implements; **4.3** don't reproduce an existing file whole to add to it — give the
-  fragment + a unique placement anchor.
+  fragment + a unique placement anchor; **4.4** every step ends on a **green build** — a step that changes a
+  signature/name/path also fixes every call site it breaks, in the same step.
 - **P5 Anticipate failure** — **5.1** name the likely failure and its usual cause.
 - **P6 Prove the gate** — **6.1** every Done-when exercises the exact property it claims; **6.2** the property
   is observable in the environment the step tells the reader to watch — never let a debug session, dev mode,
@@ -198,6 +199,15 @@ Plus the structural rules — the ones drafters most often drop:
   in both the step and the checkpoint's "Pre-existing files modified" list, show only the added fragment plus a
   **unique** placement anchor (a named function/block or a once-occurring line), never an anchor that matches
   several lines.
+- **No step ends on a broken build (rule 4.4).** Cut steps at compiling boundaries: when an edit forces others
+  — a changed constructor signature, a rename, a moved file, an extracted interface — the **same** step updates
+  every call site it breaks, and its `Done-when` ends with the build clean (`npm run compile` exits 0,
+  `tsc --noEmit` silent, the watch task at **0 errors**). Prefer one longer green step over two short ones with
+  a broken interval; **this outranks the granularity dial**. **Never draft the sentence "this error is expected;
+  step NN fixes it"** — re-cut the step to absorb the fix. A failing *test* is not a broken build (test-first is
+  fine, and the gate names the failing test); a codegen command that makes the tree buildable belongs in the
+  same step, before the gate. (Observed: a step told the reader a constructor-signature error in another file
+  was "expected until step 05", so a real error of their own would have hidden inside the expected list.)
 - **Canonical nav line, at the top AND bottom of every step/overview/verify — generated from the template,
   not hand-written.** Line 2, directly under the H1, exactly:
   `> Nav: [← <prev>](<prev>.md) · [Overview](00_overview.md) · [<next> →](<next>.md)` — same format in every
@@ -288,6 +298,9 @@ yourself. Confirm:
 - **no forward reference** — every load-bearing symbol a step uses has its **first definition** in this
   milestone or an earlier one, and this milestone's gate is satisfiable from the current + earlier code alone
   (dependency-ordering gate);
+- **no step ends on a broken build (rule 4.4)** — walk the steps in order and ask "if the reader stops here,
+  does the project still compile?"; every signature/rename/move is accompanied by its call-site fixes in the
+  **same** step, and no step says an error is "expected" until a later one;
 - **every Done-when shows its expected output** — a concrete observable result, not "it works";
 - **no gate is masked by its own environment (rule 6.2)** — for each gate, the debug session / dev server /
   emulator / preview build the step runs in does **not** override, suppress, or duplicate the exact signal the

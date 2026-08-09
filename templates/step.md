@@ -24,6 +24,10 @@ EXISTING FILES (rule 4.3): if the file already has code, DON'T re-paste the whol
 Show only the fragment plus a UNIQUE placement anchor — a named function/block or a line that occurs exactly
 once (e.g. "after the init() function, the block ending canvas.focus();"), never an anchor that matches several
 lines. Reproducing a pre-existing file whole invites the reader to overwrite their real code.
+GREEN BUILD (rule 4.4): this step must END with the project compiling. If its edit breaks call sites (a changed
+signature, a rename, a moved file), FIX THEM IN THIS STEP — a longer step that ends green beats two short steps
+with a broken interval, and this outranks the granularity setting. NEVER write "this error is expected; step NN
+fixes it". Where the stack has a compiler/type-checker, the Done-when below ends with the build clean.
 -->
 
 # <Milestone ID> · Step NN of <TOTAL> — <single action title>
@@ -75,8 +79,11 @@ lines. Reproducing a pre-existing file whole invites the reader to overwrite the
      session repainting the UI, dev mode disabling caching, strict mode double-invoking effects, hot-reload
      hiding "survives a restart". If it does, observe an unmasked channel, set the environment-specific
      variant too, or state HERE what that environment shows — never leave it to "If it breaks", which a
-     reader whose code works will never read. -->
+     reader whose code works will never read.
+     RULE 4.4 — if the stack has a compiler/type-checker/bundler, the LAST box is the build being clean. -->
 - [ ] <action> → <exact expected output the reader should see>.
+- [ ] `<build command>` → exits 0 / the watch task reports **0 errors**.   <!-- rule 4.4; drop only if the
+      stack has no build step. Never replace it with "an error here is expected". -->
 
 ## If it breaks
 <!-- Rule 5.1: the likely failure and the first thing to check. Omit only if truly nothing can go wrong. -->

@@ -319,6 +319,13 @@ contract:
   function/block or a line that occurs exactly once) — never re-paste the entire file (it invites the reader
   to overwrite their real code), and never an anchor like "under `x = true;`" that matches several lines. In
   the `NN_verify.md` checkpoint, such a pre-existing file is shown as its added region, not rendered whole.
+- **4.4 Cut every step so it ends on a green build.** No step may leave the project not compiling. When an
+  edit forces others (a changed signature, a rename, a moved file), the **same** step fixes every call site it
+  breaks — a longer step that ends green beats two short steps with a broken interval, and this **outranks the
+  granularity dial**. Never write "this error is expected; step NN fixes it." Where the stack has a
+  compiler/type-checker, the step's Done-when ends with the build clean (0 errors). A failing *test* is not a
+  broken build — test-first is fine; the ban is on code that doesn't build. Cut the ladder with this in mind:
+  a step that can't end green is a mis-cut step.
 
 **P5 — Anticipate failure**
 - **5.1 Name the common failure and its usual cause.** For each step's likely error, give the first thing to

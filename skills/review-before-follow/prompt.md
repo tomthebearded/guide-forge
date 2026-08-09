@@ -48,6 +48,12 @@ Run these over the step(s) before approving execution:
    restart". If it masks the signal, say so **before** execution and patch the gate (an unmasked channel, the
    environment-specific variant set too, or the mask named inside the gate) — otherwise you will debug correct
    code against a gate that cannot go green.
+8. **Refuse a step that ends on a broken build (rule 4.4).** If the step says the project "won't compile yet",
+   calls an error "expected", or defers verification because the build can't run, treat it as **no-go as
+   written**: once the tree is red you can't tell your own mistakes from the guide's planned ones. Merge the
+   later step that repairs the build into this one (pull in the call-site edits it makes) and execute them as a
+   single unit, ending with the build clean. Same if the step changes a signature, renames a symbol, or moves a
+   file and *doesn't* mention the call sites it breaks — find them first, and fix them in the same pass.
 
 ---
 

@@ -321,6 +321,7 @@ The rules are grouped under **seven principles**; each id (like `3.1`) is `princ
 | 4.1 | Numbered lists, not arrows | "Open file → edit → save → run." | "1. Open the file. 2. Edit the handler. 3. Save. 4. Run `go test ./...`." |
 | 4.2 | Code sits under the instruction it implements | All actions listed, then one trailing block with the config, loader, and wiring stacked together. | Config block under step 1, loader block under step 2, wiring block under step 3 — each labelled with where it goes; the whole file lives in `NN_verify.md`. |
 | 4.3 | Add to an existing file; don't reproduce it whole | "Add `spawnEnemy()` — here's the full `game.js`:" [entire file re-pasted] / "put it under `let ready = true;`" (three such lines). | "In `game.js`, add `spawnEnemy()` immediately after the `init()` function (the block ending `canvas.focus();`) — leave the rest untouched." Fragment + a unique anchor. |
+| 4.4 | Every step ends on a green build | "Done when: `ThemePanelProvider.ts` matches the checkpoint. It will show a compile error where `extension.ts` still calls the old signature — expected; step 05 fixes it." | The step changes the constructor **and** updates the call site it breaks. "Done when: the watch task reports **0 errors** and `npm run compile` exits 0." (A longer green step beats a broken interval.) |
 | **P5 — Anticipate failure** | | | |
 | 5.1 | Name the likely failure | (silent) | "If you get `undefined: mux`, you forgot the import in step 2 — check the top of the file first." |
 | **P6 — Prove the gate** | | | |

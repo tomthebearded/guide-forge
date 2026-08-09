@@ -1,5 +1,11 @@
-# M4 · Step 04 of 6 — Rewrite the provider to serve external files + post `init`/`applied`
-> Nav: [← The gallery script](03_main-js.md) · [Overview](00_overview.md) · [Wire the extension →](05_wire-extension.md)
+# M4 · Step 04 of 5 — Rewrite the provider to serve external files, and wire `extensionUri` in
+> Nav: [← The gallery script](03_main-js.md) · [Overview](00_overview.md) · [Verify + reality check →](05_verify.md)
+
+> **This step touches 2 files, committed together:** `src/panel/ThemePanelProvider.ts` (rewritten) and
+> `src/extension.ts` (one line). They go together on purpose — the rewrite changes the provider's **constructor
+> signature**, which breaks the one place that calls it. Splitting them would leave your project not compiling
+> between two steps, so you could no longer tell your own mistakes from the guide's. You'll end this step with a
+> clean build.
 
 ## Glossary for this step
 - **`asWebviewUri`** — converts a file-on-disk `Uri` into a special URI the webview is actually allowed to load.
@@ -31,12 +37,13 @@ the palette and contrast ratio. The engine already exists — this step is pure 
 > file silently fails to load.
 
 To reach `media/`, the provider needs the extension's install folder as a `Uri`. That's **`extensionUri`**, which
-we pass into the constructor here and wire from `extension.ts` in step 05.
+we pass into the constructor here and hand in from `extension.ts` in instruction 6 below.
 
 ## Do this
 This step **replaces the whole contents** of `src/panel/ThemePanelProvider.ts`: the M3 provider (inline HTML +
-`<select>` dropdowns) becomes an adapter that serves the two external files and speaks the M4 message protocol.
-Because nearly every line changes, the **complete paste-able file lives in [the M4 checkpoint](06_verify.md)** under
+`<select>` dropdowns) becomes an adapter that serves the two external files and speaks the M4 message protocol —
+then updates the single line in `src/extension.ts` that constructs it.
+Because nearly every line changes, the **complete paste-able file lives in [the M4 checkpoint](05_verify.md)** under
 `### src/panel/ThemePanelProvider.ts (END OF M4)` — open it, select-all in your file, and paste that. The fragments
 below walk only the regions that changed from M3 and why; `getNonce()` is **unchanged from M3** (it's in the
 checkpoint too — don't re-type it).
@@ -145,27 +152,60 @@ checkpoint too — don't re-type it).
    </html>`;
      }
    ```
-5. Leave **`getNonce()`** exactly as M3 wrote it (it's in the checkpoint). Save; it recompiles. It **won't compile
-   against `extension.ts` yet** — the M3 `extension.ts` still calls the old constructor. That's expected and fixed
-   in step 05.
+5. Leave **`getNonce()`** exactly as M3 wrote it (it's in the checkpoint). Save. The provider file itself is now
+   complete — but don't stop here: the new constructor signature has just broken the one line that calls it.
+   Instruction 6 fixes it, and the two belong to the same step.
 
 > Why post the **`family`** and **`variants`** in `init`? The webview needs `variants` to know whether to draw the
 > variant row (Game Boy, Terminal, Nature), and `family` is forwarded for M5's UI grouping. The provider owns the
 > data; the webview just renders it — that's the data-driven split from step 03.
 
+6. **Hand `extensionUri` in from `extension.ts`.** In `src/extension.ts`, inside `activate()`, **replace M2's
+   provider-construction line** `const provider = new ThemePanelProvider(history);` with the version that passes
+   `context.extensionUri` **first**, then the existing `history`. It's the only place that line occurs, so the
+   anchor is unambiguous. The argument **order matters** — it must match the constructor from instruction 1
+   (`extensionUri, history`):
+   ```ts
+   const provider = new ThemePanelProvider(context.extensionUri, history);
+   ```
+   Everything else in `extension.ts` stays as M2 left it: `history` is still created, the
+   `registerWebviewViewProvider` call and `context.subscriptions.push(...)` are unchanged, `deactivate` stays
+   empty. (The complete file is in [the M4 checkpoint](05_verify.md) under `### src/extension.ts (M4)`.)
+
+> 🧠 **New concept — `context.extensionUri`.** When VS Code activates your extension it hands `activate` an
+> **`ExtensionContext`**. Its **`extensionUri`** is a `Uri` pointing at your extension's **install directory on
+> disk** — the folder that contains `package.json`, `out/`, and `media/`. That's exactly the anchor the provider
+> needs to build paths to `media/webview/main.js` and `styles.css` (via `Uri.joinPath`) and to whitelist `media/`
+> in `localResourceRoots`. Prefer `extensionUri` over the older string `extensionPath`: it's a proper `Uri`, so it
+> composes with `Uri.joinPath` and works across remote/virtual filesystems. Docs:
+> [ExtensionContext.extensionUri](https://code.visualstudio.com/api/references/vscode-api#ExtensionContext).
+
+7. Save. If the `watch` task is running it recompiles; otherwise run `npm run compile`.
+
+> Forward note (no action): in M5 the constructor gains `context` for `globalState` — the extension's built-in
+> key→value store that VS Code persists across reloads (used to save named sets; taught in full in
+> [M5 step 04](../MILESTONE_5_tokens-persistence-packaging/04_storage.md)) — becoming
+> `new ThemePanelProvider(context.extensionUri, context, history)`. Not now — M4 needs only `extensionUri`.
+
 ## Done when (this step)
-- `src/panel/ThemePanelProvider.ts` matches the checkpoint version. It will show a compile error where `extension.ts` still
-  calls `new ThemePanelProvider(history)` with the old signature — **expected**; step 05 fixes it. (If your watch
-  task reports only that one error in `extension.ts`, you're on track.)
-- Full behavior is verified after step 05 (the panel can't render until the constructor is wired). The milestone
-  gate in step 06 confirms init/apply/applied end-to-end.
+- `src/panel/ThemePanelProvider.ts` and `src/extension.ts` match the checkpoint versions.
+- The whole project **compiles with zero errors** — the `watch` task's terminal (or `npm run compile`) reports
+  **no** problems. This is the gate: if anything is red here, it's a real mistake, not an expected transient.
+- Quick smoke test: press <kbd>F5</kbd>, open Live Recolor, and confirm you see chip rows rather than a blank
+  panel or the old dropdowns. (The full init/apply/applied walkthrough is the milestone gate in
+  [step 05](05_verify.md).)
 
 ## If it breaks
 - **`Property 'extensionUri' has no initializer` / ctor errors** → make sure both constructor params use the
   `private readonly` shorthand exactly as shown; the class fields are declared by that shorthand.
-- **Compile error only in `extension.ts`** → correct at this stage; do step 05.
+- **`Expected 2 arguments, but got 1`** → you skipped instruction 6; the call must be
+  `new ThemePanelProvider(context.extensionUri, history)`.
+- **Arguments in the wrong order (`history, context.extensionUri`)** → TypeScript complains that a `ThemeHistory`
+  isn't a `Uri`; `extensionUri` comes first.
+- **`Cannot find name 'ThemeHistory'`** → the `import { ThemeHistory } from './theme/history';` line in
+  `extension.ts` got dropped; it's been there since M2.
 - **(Looking ahead) panel blank at F5** → almost always `localResourceRoots` not covering `media`, or a CSP mismatch
-  — see the troubleshooting table in [06_verify.md](06_verify.md).
+  — see the troubleshooting table in [05_verify.md](05_verify.md).
 
 ---
-> Nav: [← The gallery script](03_main-js.md) · [Overview](00_overview.md) · [Wire the extension →](05_wire-extension.md)
+> Nav: [← The gallery script](03_main-js.md) · [Overview](00_overview.md) · [Verify + reality check →](05_verify.md)

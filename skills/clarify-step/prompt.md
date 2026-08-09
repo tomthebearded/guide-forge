@@ -79,6 +79,12 @@ tells the reader to observe in (6.2), *flag it* for `report-issue`; don't rewrit
    pre-existing file to make a small addition, cut it down to the fragment + a placement instruction. Make the
    anchor **unique** — a named function/block or a line that occurs exactly once, not "under `x = true;`" when
    several such lines exist.
+4.4. **The step must end on a green build — ⚠️ flag, don't re-cut.** If the step tells the reader an error is
+   *expected* until a later step ("it won't compile yet", "step 05 fixes this"), that's a rule-4.4 violation: the
+   fix is to absorb the broken call sites into this step, which **changes what the step does** and is out of
+   scope for a clarity pass. Flag it (deliverable 4), naming the step that currently repairs the build and the
+   edits that would have to move here. What you *may* fix in place: make the existing gate concrete (the exact
+   build command + expected output) — never soften or delete it.
 
 **P5 — Anticipate failure**
 5.1. **The likely failure + its usual cause** is named.

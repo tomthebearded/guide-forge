@@ -5,6 +5,30 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+
+- **Rule 4.4 — cut every step so it ends on a green build.** New rule under P4 (*structure steps & code*): no
+  step may leave the project not compiling. The step boundary is the reader's only checkpoint, so a step that
+  ends red makes every error ambiguous — a real mistake of their own hides inside the guide's "expected" list,
+  the step's own `Done-when` can't be run, and the sitting has no safe stopping point. When an edit forces
+  others (a changed signature, a rename, a moved file), the **same** step fixes every call site it breaks; a
+  longer green step beats two short steps with a broken interval, and this **outranks the granularity dial**.
+  The sentence "this error is expected; step NN fixes it" is now itself the defect. A failing *test* is not a
+  broken build (test-first stays legal), and a codegen command that makes the tree buildable belongs in the same
+  step, before the gate. (A reader following a VS Code extension guide was told a constructor-signature error in
+  `extension.ts` was expected until step 05.)
+
+### Changed
+
+- **Contract sync for rule 4.4.** `reference/pedagogy-rules.md` (canonical text + before/after),
+  `reference/milestone-design.md` (the dependency-ordering gate now states its step-level twin),
+  `plan-guide` (P4 writing rules — cut the ladder so every step can end green), `draft-milestone` (contract line,
+  a structural drafting bullet, and a self-audit item), `clarify-step` (4.4 as **flag-only** — absorbing the
+  broken call sites changes what the step does, so it's out of scope for a clarity pass), `audit-guide` (a
+  structural **BLOCKER** check for explicit "won't compile yet" wording *and* the implicit case of an unaccompanied
+  signature/rename/move, plus the pedagogy enumeration), `report-issue` (new root-cause class), `templates/step.md`
+  (rule comment + a build-clean `Done-when` box), `EXPLAINER.md` §7, `README.md`.
+
 ## [1.6.0] — 2026-08-09
 
 ### Added

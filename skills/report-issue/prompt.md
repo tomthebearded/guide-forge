@@ -51,6 +51,12 @@ Name *why* the guide let this happen. Almost always it's one of:
 - a **pedagogy-rule miss** — an undefined term (rule 1.1), a missing WHERE (rule 2.1), an unmarked mandatory-vs-
   illustrative (rule 3.2), a value given as a range where it was load-bearing (rule 3.1), or **no failure note
   for the exact error the reader hit** (rule 5.1);
+- a **step that ends on a broken build** (rule 4.4) — the guide told the reader an error was "expected" until a
+  later step, so they couldn't tell their own mistake from the planned one (or they "fixed" the expected error
+  and diverged). The tell is a report shaped like "it doesn't compile but the guide says that's normal" or
+  "I don't know if this error is mine". The fix is to **re-cut the step**: pull the call-site edits that repair
+  the build into the step that breaks it (a longer green step is correct), and end its gate with the build
+  clean;
 - an **environment-masked gate** (rule 6.2) — the implementation is *correct*, but the environment the guide
   told the reader to observe in overrides, suppresses, or duplicates the exact signal the `Done-when` reads
   (a debug session repainting the UI, dev mode disabling the cache, strict mode double-invoking an effect,
