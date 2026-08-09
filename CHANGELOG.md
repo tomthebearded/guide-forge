@@ -19,8 +19,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
   broken build (test-first stays legal), and a codegen command that makes the tree buildable belongs in the same
   step, before the gate. (A reader following a VS Code extension guide was told a constructor-signature error in
   `extension.ts` was expected until step 05.)
-- **README — "Tips for following a guide".** A new section placed before the table of contents, addressed to
-  the *reader* of a generated guide rather than its author: don't copy-paste past the explanation, follow the
+- **README — "Tips for following a guide".** A new section, sitting after *Best practices* as its counterpart
+  and addressed to the *reader* of a generated guide rather than its author: don't copy-paste past the explanation, follow the
   whole guide before layering your own changes (later steps assume the exact state earlier ones left), keep
   the glossary open, read the step's failure note before searching, don't hand a milestone to a model, assume
   the guide can be stale — especially on external platforms whose consoles and dashboards move under it — and
@@ -378,7 +378,7 @@ Per-guide record-keeping, a feedback-capture skill, and a tighter guide-folder c
   tracked. A plain single-guide project (no `examples/` dir) still writes one root `TOKEN_USAGE.md`.
 - **Every guide-related doc now lives inside the guide folder**, including the initial `PLAN.md` — `plan-guide`
   and `modernize-guide` write it to `guide/PLAN.md`; `scaffold-guide` builds the guide around it. Only the
-  hook's metered `TOKEN_USAGE.md` sits at the project level, beside the guide folder. `reference/canonical-layout.md`
+  hook's i `TOKEN_USAGE.md` sits at the project level, beside the guide folder. `reference/canonical-layout.md`
   updated to match.
 
 ## [1.0.0] — 2026-07-09

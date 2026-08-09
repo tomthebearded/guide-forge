@@ -30,38 +30,8 @@ maintain the result, not just run it.
 
 ---
 
-## Tips for following a guide
-
-Read these before you start building against a generated guide.
-
-- **Don't just copy-paste.** Every step tells you *where* the code goes and *why* it's there — that context is
-  the point. Type it, or at minimum read the explanation before you paste the block. A guide you paste your
-  way through teaches you nothing, and you won't be able to debug it when it breaks.
-- **Follow the whole guide before adding your own changes.** Resist the urge to refactor, rename, or expand as
-  you go. Later steps build on the exact state the earlier ones left behind — file names, function signatures,
-  folder layout — so an early "improvement" can make the next steps hard or impossible to follow. Reach the
-  last milestone's *Done-when* gate first, then make the project yours.
-- **Keep `foundation/glossary.md` open.** When a term you don't know shows up, look it up instead of
-  pattern-matching the code around it. The guide defines its vocabulary on purpose — the definitions are what
-  let you read the *next* step without guessing.
-- **When something breaks, read the step's failure note first.** Every step names the error you're most likely
-  to hit and its usual cause. The answer is often already on the page, before you open a search engine.
-- **Don't hand a milestone to the AI.** Asking a model to "just do this part for me" produces exactly the code
-  you can't reason about — the problem the guide exists to avoid. Ask it to *explain* a step you're stuck on,
-  not to complete it.
-- **Assume the guide can be wrong or out of date.** It was written against a snapshot of the world. Steps that
-  touch **external platforms** — cloud consoles, dashboards, OAuth screens, app stores, third-party APIs — age
-  fastest: buttons get renamed, settings move, free tiers change, endpoints get deprecated. If what you see
-  doesn't match what the step describes, trust the platform and adapt, don't force the guide's exact wording.
-  Running `/review-before-follow` before you start catches much of this up front.
-- **Report the friction you hit.** `/report-issue` if you want the guide fixed, `/log-feedback` if you just
-  want it recorded. The exact place you got stuck is the most valuable data the guide can get.
-
----
-
 ## Table of contents
 
-- [Tips for following a guide](#tips-for-following-a-guide)
 - [Why this exists](#why-this-exists)
 - [What you get](#what-you-get)
 - [Skills at a glance](#skills-at-a-glance)
@@ -73,6 +43,7 @@ Read these before you start building against a generated guide.
 - [What you can build](#what-you-can-build)
 - [The pedagogy in one screen](#the-pedagogy-in-one-screen)
 - [Best practices](#best-practices)
+- [Tips for following a guide](#tips-for-following-a-guide)
 - [FAQ](#faq)
 - [Troubleshooting](#troubleshooting)
 - [Credits & inspiration](#credits--inspiration)
@@ -354,6 +325,36 @@ Every generated step obeys **seven principles** (full detail + before/after in [
 - Skip the plan-approval gate. The whole guide is drafted off the ladder in one pass — approve it wrong and that's ten milestones to redo.
 - Trust a guide's "done" language over reality. Reconcile first (prompt 04).
 - Over-explain what the reader already knows — that's as harmful as under-explaining.
+
+---
+
+## Tips for following a guide
+
+Best practices above are for *making* a guide. These are for the person **following** one — read them before
+you start building against it.
+
+- **Don't just copy-paste.** Every step tells you *where* the code goes and *why* it's there — that context is
+  the point. Type it, or at minimum read the explanation before you paste the block. A guide you paste your
+  way through teaches you nothing, and you won't be able to debug it when it breaks.
+- **Follow the whole guide before adding your own changes.** Resist the urge to refactor, rename, or expand as
+  you go. Later steps build on the exact state the earlier ones left behind — file names, function signatures,
+  folder layout — so an early "improvement" can make the next steps hard or impossible to follow. Reach the
+  last milestone's *Done-when* gate first, then make the project yours.
+- **Keep `foundation/glossary.md` open.** When a term you don't know shows up, look it up instead of
+  pattern-matching the code around it. The guide defines its vocabulary on purpose — the definitions are what
+  let you read the *next* step without guessing.
+- **When something breaks, read the step's failure note first.** Every step names the error you're most likely
+  to hit and its usual cause. The answer is often already on the page, before you open a search engine.
+- **Don't hand a milestone to the AI.** Asking a model to "just do this part for me" produces exactly the code
+  you can't reason about — the problem the guide exists to avoid. Ask it to *explain* a step you're stuck on,
+  not to complete it.
+- **Assume the guide can be wrong or out of date.** It was written against a snapshot of the world. Steps that
+  touch **external platforms** — cloud consoles, dashboards, OAuth screens, app stores, third-party APIs — age
+  fastest: buttons get renamed, settings move, free tiers change, endpoints get deprecated. If what you see
+  doesn't match what the step describes, trust the platform and adapt, don't force the guide's exact wording.
+  Running `/review-before-follow` before you start catches much of this up front.
+- **Report the friction you hit.** `/report-issue` if you want the guide fixed, `/log-feedback` if you just
+  want it recorded. The exact place you got stuck is the most valuable data the guide can get.
 
 ---
 
