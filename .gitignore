@@ -10,8 +10,13 @@ dist/
 build/
 out/
 
-# Claude
+# Claude — private instructions and per-machine session state.
+# Project settings that SHOULD be shared live in .claude/settings.json, so that one is allow-listed
+# back in; everything else under .claude/ (local permission overrides, run locks, usage state) is
+# machine-local and was never meant to be committed.
 CLAUDE.md
+.claude/*
+!.claude/settings.json
 
 # Claude plugin / API keys
 .env
