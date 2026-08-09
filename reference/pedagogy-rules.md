@@ -483,6 +483,6 @@ touch the contract, update **every** place in the same pass:
 - `EXPLAINER.md` §7 (the before/after table) and any "N principles" count in `README.md`, `EXPLAINER.md`,
   `templates/step.md`, `templates/verify.md`, and the affected `SKILL.md` descriptions.
 
-`scripts/check-consistency.mjs` (run by `/pre-pr-check`) verifies the stated **principle count** (seven)
+`scripts/check-consistency.mjs` (run by `/pre-pr-check` and CI) verifies the stated **principle count** (seven)
 agrees across the docs, so a half-applied change fails the check instead of shipping silently. The count check
 is the backstop; keeping the *wording* and the rule ids in sync is still on you.

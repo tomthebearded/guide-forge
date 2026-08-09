@@ -178,6 +178,7 @@ improvable — and lets you re-run just the stage that went wrong.
 | `CONTRIBUTING.md` | How to add rules and prompt refinements, plus the PR checklist. | When accepting contributions. |
 | `.claude-plugin/` | `plugin.json` (manifest) + `marketplace.json` (local marketplace) — makes the repo installable as one Claude Code plugin. | When you cut a release / bump the version. |
 | `package.json` | Repo tooling only — `npm test` runs the two check scripts (what `/pre-pr-check` invokes). Private and **version-less on purpose**: a fourth version stamp would drift, so `check-consistency.mjs` fails if one appears. | Adding a maintenance script. |
+| `.github/workflows/ci.yml` | Runs `npm test` on every push to `main` and every PR. Full clone (`fetch-depth: 0`) so the tag check can see tags. Covers the deterministic half only — the judgment half stays with `/pre-pr-check`. | Changing what the gate runs. |
 
 ### The prompt contracts — `skills/*/prompt.md`
 

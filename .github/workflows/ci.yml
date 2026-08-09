@@ -1,0 +1,22 @@
+name: checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # fetch-depth: 0 pulls tags too. check-version.mjs asserts the released version has a
+      # matching `vX.Y.Z` tag, and the default shallow checkout fetches no tags at all — so
+      # without this the tag arm fails on every single run.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      # No install step: package.json is scripts-only, with zero dependencies.
+      - run: npm test

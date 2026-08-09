@@ -5,6 +5,26 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+
+- **CI — `.github/workflows/ci.yml` runs `npm test` on every push to `main` and every PR.** The deterministic
+  half of the gate now runs without being asked, which is what the repo needs the moment it takes
+  contributions from people who won't run `/pre-pr-check`. Two details are load-bearing: the checkout uses
+  **`fetch-depth: 0`**, because the default shallow clone fetches no tags and `check-version.mjs` asserts the
+  released version is tagged — without it every run fails; and there is **no install step**, since
+  `package.json` has zero dependencies. Added while the repo is still private, deliberately: a workflow's
+  first run is where the YAML mistakes surface, and better in private than in front of the first visitor.
+- **Release pushes must send the commit and the tag together** (`git push origin main v<x.y.z>`).
+  `git push` followed by `git push --tags` triggers CI on a release commit whose tag hasn't landed yet, so the
+  tag check fails a build that is actually fine. Documented in `CONTRIBUTING.md`.
+
+### Changed
+
+- **CI green is stated as *not* a substitute for `/pre-pr-check`.** The workflow re-runs `npm test` and
+  nothing else; every judgment item on the PR checklist — domain-agnostic prose, a rule citing a real
+  confusion, a quietly skipped gate — is invisible to it. `CONTRIBUTING.md` now says so where a contributor
+  would otherwise assume a green tick means verified.
+
 ## [1.9.0] — 2026-08-09
 
 ### Added
