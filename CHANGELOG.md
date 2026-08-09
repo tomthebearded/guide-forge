@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.9.1] — 2026-08-09
+
 ### Added
 
 - **CI — `.github/workflows/ci.yml` runs `npm test` on every push to `main` and every PR.** The deterministic
