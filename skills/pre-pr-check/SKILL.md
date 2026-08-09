@@ -25,7 +25,7 @@ Determine what this PR touches. Run:
 - `git diff <base>...HEAD -- CHANGELOG.md` — did the changelog move?
 
 Group the changed files by area: `skills/` (each skill's `SKILL.md` wrapper **and** its co-located
-`prompt.md` contract), `templates/`, `reference/`, `examples/`, root docs (`README.md`, `EXPLAINER.md`,
+`prompt.md` contract), `templates/`, `reference/`, root docs (`README.md`, `EXPLAINER.md`,
 `CHANGELOG.md`), `.claude-plugin/`, `scripts/`. The checks below key off which areas changed — skip a check
 only when nothing in its area changed, and say so.
 
@@ -49,8 +49,8 @@ below. The sections that follow are the **judgment half** — the things a scrip
 ## Ground rules (from CONTRIBUTING.md — objective, pass/fail)
 1. **Domain-agnostic core.** Any change to a skill's `prompt.md` contract (`skills/*/prompt.md`),
    `templates/`, or `reference/` must contain **no domain-specific content** (no game/web/API-specific nouns
-   baked into the general text). Domain-specific material belongs under `examples/`. Flag any leaked domain
-   nouns with file:line. (A `SKILL.md` wrapper is allowed its Claude-Code specifics — the contract is the
+   baked into the general text) — the repo ships the method, not guides written with it. Flag any leaked
+   domain nouns with file:line. (A `SKILL.md` wrapper is allowed its Claude-Code specifics — the contract is the
    `prompt.md`.)
 2. **Every new rule earns its place.** If `reference/pedagogy-rules.md` gained a rule, it must **cite the
    concrete confusion it prevents**. A rule with no failure story = FAIL.
@@ -60,7 +60,7 @@ below. The sections that follow are the **judgment half** — the things a scrip
    unless it is **clearly labelled** as a bypass (the way lite mode is). Flag any silent gate-skip.
 
 ## PR checklist (from CONTRIBUTING.md — one line per item)
-- [ ] Change is domain-agnostic, or lives under `examples/`.
+- [ ] Change is domain-agnostic.
 - [ ] New rules cite the confusion they prevent.
 - [ ] Any `skills/*/prompt.md` change includes a short before/after in the PR description showing the
       improvement — ask the contributor for it if the diff touches a `prompt.md` and you can't see one.
@@ -68,9 +68,8 @@ below. The sections that follow are the **judgment half** — the things a scrip
 - [ ] `CHANGELOG.md` updated (a new entry under the top version section, or a new version block).
 
 ## Repo-consistency checks (mostly automated — verify the script covered them, then judge the rest)
-The first four items are enforced by `scripts/check-consistency.mjs` + `check-version.mjs` from Step 1 — you
-don't re-perform them by hand; you confirm the scripts passed and add the judgment only where noted. The last
-two (examples layout) are still yours to check.
+These items are enforced by `scripts/check-consistency.mjs` + `check-version.mjs` from Step 1 — you
+don't re-perform them by hand; you confirm the scripts passed and add the judgment only where noted.
 - **Skill frontmatter.** *(script)* `name` matches folder, frontmatter parses. If a `SKILL.md` you touched is
   missing `description`/`argument-hint`, flag it — those two aren't in the script's assertions.
 - **Skill wrappers delegate, don't duplicate.** *(script checks the injection line exists)* Each skill that

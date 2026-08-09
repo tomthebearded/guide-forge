@@ -6,9 +6,6 @@ sharpen those are especially welcome.
 
 ## Ways to contribute
 
-- **A new worked example.** The highest-value contribution. Pick a domain we don't cover
-  (mobile, data pipeline, embedded, front-end) and run the pipeline on it, then add the output under
-  `examples/<your-domain>/`. Real output is what convinces people the toolkit works.
 - **A new pedagogy rule** — but only if it comes from a *real* point of confusion. Every rule in
   [reference/pedagogy-rules.md](reference/pedagogy-rules.md) exists because a reader got stuck on
   something specific. Include the confusion it prevents.
@@ -19,7 +16,8 @@ sharpen those are especially welcome.
 ## Ground rules
 
 1. **Keep it domain-agnostic** in each skill's `prompt.md` contract, `templates/`, and `reference/`.
-   Domain-specific content lives in `examples/`.
+   The repo ships the method, not guides written with it — no game/web/API-specific nouns baked into the
+   general text.
 2. **Every rule earns its place.** No speculative rules — tie each to a concrete failure it prevents.
 3. **Templates stay copy-paste-ready.** No placeholders that require reading three other files to fill in.
 4. **Preserve the pipeline's gates.** The whole design rests on "verify before you advance." Don't add
@@ -57,7 +55,7 @@ working."
 > frontmatter, README/EXPLAINER skill list in sync, version stamps aligned **and tagged**, no dead links — and
 > reports PASS/FAIL. It's read-only; fix any blockers it flags, re-run until it passes, then open the PR.
 
-- [ ] Change is domain-agnostic, or lives under `examples/`.
+- [ ] Change is domain-agnostic.
 - [ ] New rules cite the confusion they prevent.
 - [ ] Any prompt change includes a short before/after showing the improvement.
 - [ ] `README.md` and `EXPLAINER.md` updated if you added or moved a file.
