@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.11.0] — 2026-08-10
+
 ### Added
 
 - **Pedagogy contract — "verify a capability on the exact name, never on its family"** (sourcing principle in
