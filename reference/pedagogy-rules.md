@@ -41,6 +41,20 @@ A teaching guide loses all trust the moment a version number is wrong or an API 
   online Phase 0.5) is the single reference; every step builds against those exact versions.
 - **Verify APIs against the current official docs before writing code** — names, signatures, flags,
   config keys. Training memory is stale; the docs are truth. If they disagree, the docs win.
+- **Verify a capability on the exact name, never on its family.** When the docs grant a behaviour to a *class*
+  of things — "all `editor.*` settings", "any hook", "every `/v2` endpoint", "all serializable fields" — do not
+  carry that over to the specific member you're teaching without confirming it **on that member**. Platforms
+  declare capabilities per item; docs prose generalizes, and the generalization is usually *mostly* true, which
+  is what makes it dangerous. The tell is a sentence in your own draft shaped like "X works here **because**
+  it's a Y" — that `because` is an inference, not a citation. If you can't verify the individual name, teach the
+  route that doesn't depend on the capability at all.
+  - ❌ "`editor.tokenColorCustomizations` takes a per-language override — it's an `editor.*` setting, and those
+    accept one."
+  - ✅ "A per-language override needs the setting to be scoped `language-overridable`; this one is
+    `application`-scoped, so the language goes *inside* the value instead."
+  - *(Origin: a guide taught the `"[languageId]"` override for a setting that rejects it. The docs said "all
+    editor settings and some non-editor settings are supported", the namespace matched, and the code threw at
+    runtime — after the reader had been told exactly why it should work.)*
 - **When the reader's toolchain contradicts the docs, the toolchain wins.** The docs describe *semantics*;
   the schema validator, compiler, linter, formatter or type-checker you tell the reader to run decides what
   they actually *see*. Where they disagree about what a code or config block must **contain**, write the

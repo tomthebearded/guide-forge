@@ -35,6 +35,12 @@ drafting / review-gate concern, not a clarity edit — it's intentionally absent
 changes what its Done-when checks. If the gate looks unprovable (6.1) or masked by the environment the step
 tells the reader to observe in (6.2), *flag it* for `report-issue`; don't rewrite the gate:**
 
+> **Same carve-out for a sourcing claim.** If the step justifies a capability by the *family* a name belongs to
+> — "it takes that option **because** it's an `editor.*` setting", "all hooks allow this" — that is a factual
+> claim to verify, not a wording problem, and platforms declare capabilities per item. Making the sentence
+> clearer would only make a possibly-false claim more persuasive. *Flag it* for `review-before-follow` (to check
+> against reality) or `report-issue` (if it already broke for a reader); don't smooth it over here.
+
 **P1 — Explain what's new**
 1.1. **Every concept explained on first use.** Any term on a topic the reader isn't **Expert** in is explained
    the first time it appears — an inline one-sentence gloss, or, when it first lands on a command/menu/code

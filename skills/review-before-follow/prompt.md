@@ -37,18 +37,25 @@ Run these over the step(s) before approving execution:
 4. **Reconcile against reality — reality wins.** Diff the step's assumptions (API names, versions, UI labels,
    file paths, command syntax) against the actual project/tool. Where they differ, **patch the step to match
    reality** and add a drift-log line to `status.md`.
-5. **Don't trust "done" language.** Handoffs/banners may say "verified" or "complete." Confirm against
+5. **Distrust any capability justified by a family.** Scan the step for a `because`/`since` clause whose
+   subject is a *class* of names — "it takes the override **because** it's an `editor.*` setting", "all hooks
+   support this", "every `/v2` endpoint accepts it". Platforms declare capabilities **per item**, and docs prose
+   generalizes, so these sentences read as sourced when they were inferred — and they fail at *write/validate*
+   time, not at compile time, which is the worst moment to find out. Verify the capability on the **individual**
+   name (its schema entry, scope declaration, or reference page) before executing; if you can't, treat the step
+   as no-go and say which name is unconfirmed.
+6. **Don't trust "done" language.** Handoffs/banners may say "verified" or "complete." Confirm against
    `status.md` (the status authority) and against the actual artifacts — not against the guide's own claims.
-6. **Confirm the base is real.** Make sure the *previous* milestone this one builds on is actually done, so
+7. **Confirm the base is real.** Make sure the *previous* milestone this one builds on is actually done, so
    you're not building on an unproven base.
-7. **Check the gate isn't masked by the environment you'll observe it in (rule 6.2).** For each `Done-when`,
+8. **Check the gate isn't masked by the environment you'll observe it in (rule 6.2).** For each `Done-when`,
    name the environment the step has you watching — a debug session, a dev server, an emulator, a preview
    build — and ask what that environment does to the exact signal the gate reads. Dev/debug overlays repaint
    UI, dev mode disables caching, strict/dev mode double-invokes effects, hot-reload hides "survives a
    restart". If it masks the signal, say so **before** execution and patch the gate (an unmasked channel, the
    environment-specific variant set too, or the mask named inside the gate) — otherwise you will debug correct
    code against a gate that cannot go green.
-8. **Refuse a step that ends on a broken build (rule 4.4).** If the step says the project "won't compile yet",
+9. **Refuse a step that ends on a broken build (rule 4.4).** If the step says the project "won't compile yet",
    calls an error "expected", or defers verification because the build can't run, treat it as **no-go as
    written**: once the tree is red you can't tell your own mistakes from the guide's planned ones. Merge the
    later step that repairs the build into this one (pull in the call-site edits it makes) and execute them as a

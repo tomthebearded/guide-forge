@@ -170,6 +170,11 @@ Produce a **Verified stack** table (this becomes a foundation doc):
 
 Rules for this phase:
 - **Cite a real URL for every version claim.** No link → don't state the version; say "unverified" instead.
+- **Check a capability on the exact name, not on its family.** When a doc grants a behaviour to a *class*
+  ("all `editor.*` settings", "any hook", "every `/v2` endpoint"), don't record it in the stack table as true of
+  the specific API the milestones will call — confirm it **on that name**, because platforms declare
+  capabilities per item and docs prose generalizes. If you can't confirm the individual name, write the
+  capability into the Notes column as **unverified** so the drafter plans a route that doesn't depend on it.
 - If search is unavailable in this environment, **say so clearly**, mark the stack "UNVERIFIED — confirm
   before following", and proceed with best-effort values flagged as such.
 - Pin one version per tool for the **whole** guide. Every milestone and code block uses these exact versions

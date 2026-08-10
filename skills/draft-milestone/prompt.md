@@ -73,6 +73,12 @@ If any of these is missing from the conversation, ask for it before drafting.
   config key a step uses, confirm online (fetch the docs page from the Verified stack) that it exists and has
   that signature/name in the pinned version. Do **not** write code from memory — memory is stale. If an API
   moved or was renamed since your training data, use what the docs say now and note it.
+- **Verify a capability on the exact name, never on its family.** When the docs grant a behaviour to a *class*
+  of things ("all `editor.*` settings", "any hook", "every `/v2` endpoint"), don't carry it to the specific
+  member your step uses without confirming it **on that member** — platforms declare capabilities per item and
+  docs prose generalizes. The tell is a sentence in your own draft shaped "X works here **because** it's a Y":
+  that `because` is an inference, not a citation. If you can't verify the individual name, teach the route that
+  doesn't need the capability.
 - **Where the reader's toolchain disagrees with the docs about a block's contents, follow the toolchain.** The
   docs describe semantics; the schema validator, compiler, linter, formatter or type-checker you tell the
   reader to run decides what they actually see. When the docs call a manifest/config key optional but the
@@ -317,7 +323,10 @@ yourself. Confirm:
   and the same concept called the same thing in the code, the prose, and the gate (ecosystem idioms like
   `ctx`/`req`/`res`/`i` are kept as-is);
 - **every step declares its starting state (rule 7.1)** — no step's first action silently assumes a tool, service,
-  login, env file, or prior artifact that wasn't established (or back-referenced) earlier.
+  login, env file, or prior artifact that wasn't established (or back-referenced) earlier;
+- **no capability is claimed on family resemblance** — search your own prose for "because it's a/an …" and for
+  wildcard families (`foo.*`, "all hooks", "every `/v2` route"): each such claim must have been checked against
+  the **individual** name it's applied to, not the class the docs describe.
 
 (This is the `audit-guide` structural checklist run on your own output — passing it here saves a round-trip.)
 

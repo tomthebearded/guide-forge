@@ -48,6 +48,14 @@ Name *why* the guide let this happen. Almost always it's one of:
 - a **wrong or stale value / command / flag / API** (if it's a version/API question, **verify online against
   the official docs — never assert a version or API from memory**; if web tools are unavailable, say so and
   mark that fix `UNVERIFIED — confirm` rather than guessing);
+- a **capability claimed on family resemblance** — the guide granted a behaviour to a specific name because the
+  *class* it belongs to has it ("it accepts the override **because** it's an `editor.*` setting", "all hooks can
+  do this"). This is **not** staleness: the API never behaved that way, the docs' own prose generalizes, and the
+  guide reads as sourced. It is the root cause behind reports where the code throws a *validation* or
+  *not-supported* error rather than a not-found one. Fixing it usually means teaching a **different mechanism**,
+  not correcting an argument — so expect the step's design section, not just its code, to change, and check
+  whether a decision-log entry rests on the same premise (record the superseded premise there rather than
+  silently rewriting it);
 - a **pedagogy-rule miss** — an undefined term (rule 1.1), a missing WHERE (rule 2.1), an unmarked mandatory-vs-
   illustrative (rule 3.2), a value given as a range where it was load-bearing (rule 3.1), or **no failure note
   for the exact error the reader hit** (rule 5.1);

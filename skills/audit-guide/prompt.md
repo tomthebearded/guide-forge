@@ -217,6 +217,17 @@ Expert on that topic.
   (or a bare pointer with no definition) is the defect. This needs step order (ideally the whole milestone/
   guide) to resolve; say so if only a fragment was attached. (Observed: a guide named *delta time* in
   a `maxDt` comment but only taught it in a later step.)
+- **Sourcing — a capability claimed on family resemblance:** flag any sentence that justifies a behaviour by the
+  *class* a name belongs to rather than by the name itself — "it accepts X **because** it's an `editor.*`
+  setting", "all hooks can do this, so this hook can", "every `/v2` endpoint supports it". Platforms declare
+  capabilities per item and docs prose generalizes, so these read as sourced when they are inferred. The tell is
+  a `because`/`since` clause whose subject is a wildcard family. Confirming it needs the platform's docs (often
+  a per-item schema/scope declaration), so raise it as a **WARNING** marked **unconfirmed** — **BLOCKER** when
+  the guide's code or a gate *depends* on the capability, since a reader following it is stopped and has been
+  told exactly why it should work. Name the claim, the individual name to re-check, and where to check it.
+  (Observed: a guide taught VS Code's `"[languageId]"` override for `editor.tokenColorCustomizations` because it
+  is an `editor.*` setting; the override needs the per-setting `language-overridable` scope, which that setting
+  does not have, so the write threw and the milestone's per-language feature could not be built.)
 - **Sourcing — a declarative block must be clean in its validator, not just correct per the docs:** flag a
   config/manifest block (an editor or plugin manifest, a build/compiler config, a CI or container file, any
   schema-backed JSON/YAML/TOML) that looks **incomplete against the schema the reader's own tooling validates
