@@ -176,7 +176,6 @@ improvable — and lets you re-run just the stage that went wrong.
 | `EXPLAINER.md` | This file — the full walkthrough. | When you want the *why* behind anything. |
 | `LICENSE` | MIT. Without it, nobody can legally reuse the repo. | Once. |
 | `CHANGELOG.md` | Version history. | Every release. |
-| `EXAMPLES.md` | Index of guides the pipeline produced, each published as its own repo. | When a new worked example ships. |
 | `CONTRIBUTING.md` | How to add rules and prompt refinements, plus the PR checklist. | When accepting contributions. |
 | `.claude-plugin/` | `plugin.json` (manifest) + `marketplace.json` (local marketplace) — makes the repo installable as one Claude Code plugin. | When you cut a release / bump the version. |
 | `package.json` | Repo tooling only — `npm test` runs the two check scripts (what `/pre-pr-check` invokes). Private and **version-less on purpose**: a fourth version stamp would drift, so `check-consistency.mjs` fails if one appears. | Adding a maintenance script. |
@@ -247,6 +246,17 @@ you the exact shape of a GuideForge guide.
 The deep-dives behind the pillars: [pedagogy-rules.md](reference/pedagogy-rules.md),
 [milestone-design.md](reference/milestone-design.md), [audience-model.md](reference/audience-model.md), and
 [canonical-layout.md](reference/canonical-layout.md) (the one fixed on-disk skeleton every guide uses).
+
+### `examples/` — what to type, and what came out
+
+The one place domain-specific nouns are allowed. It holds two different kinds of example, and the distinction
+matters: [real-examples.md](examples/real-examples.md) is **output** — an index of guides the pipeline
+produced, each **linked in its own repository**, never vendored here — while
+[plan-guide-prompts.md](examples/plan-guide-prompts.md),
+[pipeline-prompts.md](examples/pipeline-prompts.md) and
+[maintenance-prompts.md](examples/maintenance-prompts.md) are **input**: worked invocations of each skill,
+with the attachments and interview answers that shaped them. Touch the first when a new worked example ships;
+touch the others when a skill's invocation or arguments change.
 
 ---
 

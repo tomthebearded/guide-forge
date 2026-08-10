@@ -5,6 +5,58 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+
+- **Pedagogy contract — "verify a capability on the exact name, never on its family"** (sourcing principle in
+  `reference/pedagogy-rules.md`, with the sync-set restatements in `plan-guide` Phase 0.5, `draft-milestone`
+  writing contract + self-audit checklist, `audit-guide` pedagogy checks, `review-before-follow` check 5,
+  `report-issue` root-cause list, and a flag-don't-fix carve-out in `clarify-step`). When docs grant a
+  behaviour to a *class* of names ("all `editor.*` settings", "any hook", "every `/v2` endpoint"), carrying it
+  to a specific member without checking that member is an inference dressed as a citation — platforms declare
+  capabilities per item and docs prose generalizes. The tell is a `because`/`since` clause whose subject is a
+  wildcard family. `audit-guide` raises it as a WARNING, or a **BLOCKER** when code or a gate depends on the
+  capability. **Origin:** a generated guide taught VS Code's `"[languageId]"` override for
+  `editor.tokenColorCustomizations` *because it is an `editor.\*` setting*; the override requires the
+  per-setting `language-overridable` scope, which that setting lacks, so the write threw
+  `CodeExpectedError: … is not a resource language setting` and the milestone's whole per-language feature was
+  unbuildable. This is the first rule aimed at a claim that is **sourced but still wrong**, rather than one
+  written from memory.
+
+- **`examples/` — worked invocations of every skill, plus the moved output index.** The folder now holds two
+  distinct kinds of example, stated as such in its `README.md`: **input** —
+  `plan-guide-prompts.md` (eight briefs for the generation skill, in two shapes: **two fully-specified**
+  multi-line briefs for an author who already knows every answer — a Flutter app on a deadline, and a data
+  pipeline written for someone *else* to own — then six one-liners that let the interview draw the answers
+  out: greenfield service · total beginner · onboarding against an existing codebase · library with expert
+  language and unfamiliar domain · lite mode · non-interactive), `pipeline-prompts.md` (scaffold → draft, whole-guide and single-milestone, plus the
+  free-plan re-feed packet → clarify → review-before-follow), and `maintenance-prompts.md` (audit ·
+  update-stack · modernize · report-issue vs log-feedback · pre-pr-check) — and **output**,
+  `real-examples.md`. Each prompt example carries the attachments and the interview answers that shaped it,
+  labelled as one filled-in brief rather than a default.
+- **`EXAMPLES.md` moved to `examples/real-examples.md`.** Content unchanged; it stops being a root doc and
+  joins the folder it indexes. Updated in the README nav, repo map and "See one for real" note,
+  `CONTRIBUTING.md`'s worked-example route, and EXPLAINER §5 — where the `Root` table row is replaced by an
+  `examples/` section drawing the input/output distinction. Guides are still linked, never vendored.
+- **`check-consistency.mjs` scans `examples/`.** Added to `DOC_DIRS` (and `EXAMPLES.md` dropped from
+  `ROOT_DOCS`), so the new folder's relative links are dead-link checked like every other doc directory —
+  44 markdown files now, up from 40.
+- **README — "On the free plan".** Spells out the path for readers without Claude Code: Option A already *is*
+  the full toolkit, so what changes is room, not capability. Covers saving every emitted block to disk
+  yourself, one prompt file per conversation, opening each new conversation with a re-feed packet
+  (`PLAN.md` + `conventions.md` + the previous handoff), and the one place the free plan inverts the standard
+  advice — draft milestone by milestone, then buy back the lost cross-milestone checks with an `audit-guide`
+  pass and a manual forward-reference read of the ladder. Plus: reach for lite mode early, spend messages on
+  the interview and the ladder review, cut scope rather than the contract.
+
+- **README — "Tips for creating a guide".** The counterpart to "Tips for following a guide", covering the two
+  places an author's judgement actually decides the outcome: **getting the brief right** (describe the build
+  not the document, attach context rather than paraphrase it, rate expertise per topic, pin every version,
+  name the non-goals, answer the advise-back gate deliberately) and **dividing the work** (cut vertical slices
+  not horizontal layers, read the ladder table against four mechanical checks before approving, keep
+  step/sitting/milestone distinct, build capability in the milestone that consumes it, scaffold then re-draft
+  narrowly, scale down with lite mode, audit before anyone builds). Existing "Best practices" stays as the
+  short do/don't list.
+
 ## [1.10.0] — 2026-08-10
 
 ### Changed

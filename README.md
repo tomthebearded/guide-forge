@@ -8,7 +8,7 @@ A prompt-and-skill toolkit that plans, drafts, and hardens **learn-as-you-go** d
 
 `MIT License` · `Works with Claude | Claude Code` · `Domain-agnostic` · `v1.10.0` · `PRs welcome`
 
-[Quick start](#quick-start) · [The toolkit](#the-toolkit) · [Learning path](#learning-path) · [Examples](EXAMPLES.md) · [Explainer](EXPLAINER.md) · [FAQ](#faq)
+[Quick start](#quick-start) · [The toolkit](#the-toolkit) · [Learning path](#learning-path) · [Examples](examples/README.md) · [Explainer](EXPLAINER.md) · [FAQ](#faq)
 
 </div>
 
@@ -37,12 +37,14 @@ maintain the result, not just run it.
 - [Skills at a glance](#skills-at-a-glance)
 - [How it works](#how-it-works)
 - [Quick start](#quick-start)
+- [On the free plan](#on-the-free-plan)
 - [The toolkit](#the-toolkit)
 - [Repository map](#repository-map)
 - [Learning path](#learning-path)
 - [What you can build](#what-you-can-build)
 - [The pedagogy in one screen](#the-pedagogy-in-one-screen)
 - [Best practices](#best-practices)
+- [Tips for creating a guide](#tips-for-creating-a-guide)
 - [Tips for following a guide](#tips-for-following-a-guide)
 - [FAQ](#faq)
 - [Troubleshooting](#troubleshooting)
@@ -190,6 +192,42 @@ Append the pedagogy rules (the writing contract) from [`reference/pedagogy-rules
 
 ---
 
+## On the free plan
+
+Nothing here is gated behind a paid plan. Options B and C need Claude Code, but **Option A is the whole
+toolkit** — every skill's `prompt.md` is written to work standalone in an ordinary chat, with no install and
+no repo access. What changes on a free plan isn't capability, it's **room**: fewer messages and one
+conversation's worth of context. Work with that, not against it.
+
+- **You are the filesystem.** In Claude Code the skills write files; in a chat they emit fenced blocks. Save
+  each one to disk *as it arrives* — `PLAN.md` first, then `foundation/conventions.md`, `glossary.md`,
+  `status.md`, then each milestone folder. The conversation is not your source of truth and won't be there
+  tomorrow. `scaffold-guide` still earns its keep: it prints the exact tree and the five foundation docs, so
+  you're transcribing rather than inventing.
+- **One prompt file per conversation.** The contracts are long, and pasting two of them leaves no room for the
+  work. Plan in one conversation; draft in another.
+- **Open each new conversation with a re-feed packet.** Paste the skill's `prompt.md`, then `PLAN.md`,
+  `foundation/conventions.md`, and the previous milestone's handoff (`Done so far` / `Artifacts now`). That
+  packet *is* the state the pipeline would otherwise carry for you — skip it and the next milestone drifts
+  from the ones before it.
+- **Draft milestone by milestone, and say so.** This is the one place the free plan inverts the normal advice:
+  the default whole-guide pass won't fit, so name a milestone each time (*"draft milestone M2"*). You lose the
+  two things the single pass gives you — carried-forward state (the packet above replaces it) and the
+  cross-milestone checks. Buy those back at the end: run `audit-guide` over the finished guide, and read the
+  ladder yourself for forward references (a symbol used at M*k* must first appear at ≤ M*k*).
+- **Reach for lite mode early.** If the idea fits one document and one sitting, say *"lite mode"* in the
+  planning conversation — foundation and verification phases are skipped and the ladder collapses to the
+  fewest rungs that each still prove something runnable. A guide that fits your budget beats an ambitious one
+  that stops halfway.
+- **Spend your messages where they compound.** The audience interview and the ladder review cost a handful of
+  messages and decide everything downstream; a re-draft costs a whole conversation. Answer Phase 0 carefully
+  and read the ladder table properly the first time — see
+  [Tips for creating a guide](#tips-for-creating-a-guide).
+- **Cut scope, not the contract.** If you have to trim, drop milestones from the ladder — never the audience
+  model or the pedagogy rules. Those are what separate this from a wall of steps, and they cost nothing extra.
+
+---
+
 ## The toolkit
 
 | # | Tool | Invoke | Persistence | Use it when… |
@@ -232,7 +270,6 @@ guide-forge/                      ← a single project = one Claude Code plugin
 ├── .github/workflows/ci.yml      ← runs `npm test` on every push to main and every PR
 ├── README.md                     ← you are here (the storefront)
 ├── EXPLAINER.md                  ← everything explained from scratch — read this second
-├── EXAMPLES.md                   ← guides the pipeline produced, each linked in its own repo
 ├── LICENSE                       ← MIT
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
@@ -270,6 +307,12 @@ guide-forge/                      ← a single project = one Claude Code plugin
 │   ├── audience-model.md
 │   └── canonical-layout.md        ← the one fixed on-disk skeleton every guide uses
 │
+├── examples/                     ← what to type, and what came out
+│   ├── real-examples.md           ← guides the pipeline produced, each linked in its own repo
+│   ├── plan-guide-prompts.md      ← eight worked briefs, fully-specified and one-line
+│   ├── pipeline-prompts.md        ← scaffold · draft · clarify · review-before-follow
+│   └── maintenance-prompts.md     ← audit · update-stack · modernize · report-issue · log-feedback
+│
 └── scripts/                      ← repo maintenance (run via `npm test` / `npm run …`)
     ├── check-version.mjs          ← version stamps agree, and the released version is tagged
     ├── check-consistency.mjs      ← skill frontmatter, wrappers, counts, dead links
@@ -303,8 +346,10 @@ New here? Follow this order.
 | A workshop | "build a RAG chatbot in an afternoon" | Embeddings, vector search, and prompt design, milestone by milestone. |
 | A migration runbook | "move our REST API to gRPC" | The *why* behind each change, not just the diff. |
 
-**See one for real.** [**EXAMPLES.md**](EXAMPLES.md) indexes guides the pipeline produced, each published as
-its own repo — starting with a ~42-step one that takes a total beginner to a working 2D browser platformer.
+**See one for real.** [**examples/real-examples.md**](examples/real-examples.md) indexes guides the pipeline
+produced, each published as its own repo — starting with a ~42-step one that takes a total beginner to a
+working 2D browser platformer. For what to *type* rather than what comes out, see
+[examples/plan-guide-prompts.md](examples/plan-guide-prompts.md).
 
 ---
 
@@ -340,9 +385,76 @@ Every generated step obeys the **pedagogy principles** (full detail + before/aft
 
 ---
 
+## Tips for creating a guide
+
+Best practices above are the short version. These are the ones that decide whether the guide comes out well —
+how to hand the idea over, and how to cut the work once the ladder exists.
+
+### Getting the brief right
+
+- **Describe the thing you're building, not the document you want.** One line naming the build and who it's
+  for — *"a 2D platformer in Godot for a web dev"* — is a better input than *"write me a ten-chapter tutorial
+  with an intro chapter on scene trees"*. The first lets [plan-guide](skills/plan-guide/prompt.md) cut the
+  ladder from the build's real dependencies; the second pre-commits you to a structure you haven't tested and
+  fights the design it's about to do. Say what "done" looks like as something you can *observe* — a running
+  app, a passing suite, a deployed URL.
+- **Attach the context instead of describing it.** The brief isn't only the prompt line: a repo path, a spec,
+  an OpenAPI file, sample code, a screenshot, a legacy doc. Provided sources are read as authoritative and
+  pre-fill the interview, so a lockfile pins your real versions and a codebase supplies your real conventions
+  — you confirm instead of dictating. Only one thing no attachment can supply: **context describes the build,
+  never the reader.**
+- **Rate yourself per topic, never overall.** This is the highest-leverage answer in the whole pipeline. "I'm
+  intermediate" produces a guide that over-explains what you already know and skims what you don't. Split it:
+  expert in the language, new to the ORM, beginner at Docker. Each rating sets the explanation depth for that
+  topic independently. If the reader isn't you, answer as *them* — an honest model of a beginner beats a
+  flattering model of yourself.
+- **Choose a version for every tool, explicitly** — a specific one you name, or "latest" so the online check
+  resolves it. Don't supply version numbers from memory, yours or the model's; that's what the stack
+  verification pass is for.
+- **Name the non-goals.** Scope boundaries keep a guide tight more reliably than goals do — "no auth, no
+  deployment, no multiplayer" prevents more sprawl than any amount of describing what you do want.
+- **Answer the advise-back gate properly.** Before planning, you get suggested capabilities and the long-run
+  risks of your choices. Accept or reject each one deliberately: what you accept shapes the ladder, and what
+  you knowingly reject is recorded in the decision log, so the *why* survives to whoever reads the guide later.
+
+### Dividing the work
+
+- **Cut by capability, not by layer.** The one decomposition mistake that ruins a guide is horizontal slicing:
+  all the models, then all the repositories, then all the handlers — nothing runnable until the end and no
+  gate to check along the way. Every milestone should be a **vertical slice** that runs and can be observed,
+  spanning whatever layers it needs. Full treatment in
+  [reference/milestone-design.md](reference/milestone-design.md).
+- **Spend your attention on the ladder table, not the prose.** Plan approval is the gate that matters, because
+  the entire guide is drafted off the ladder in one pass. Read the table against four mechanical checks: the
+  first rung is the thinnest *runnable* thing (proves the toolchain, no real logic); each rung depends only on
+  rungs below it; each Done-when is something you can watch happen, not a claim like "the persistence layer is
+  complete"; and no rung uses a symbol a later rung introduces. Fixing the table costs minutes — re-drafting
+  off a wrong table costs the whole guide.
+- **Know which unit you're dividing by.** A **step** is one indivisible action, ending on a green build. A
+  **sitting** is a run of steps ending at a natural commit point — that's where you tell the reader they can
+  stop for the day. A **milestone** is a capability with a gate. Group steps into sittings; don't lengthen a
+  step to fill one.
+- **Build the capability in the milestone that consumes it.** If a milestone adds a public function nothing in
+  that milestone calls, either it belongs later or it's a declared deferral — mark it `[Mn]` naming the
+  milestone that uses it. Unmarked, uncalled members leave dead code the reader can't verify.
+- **Scaffold before drafting, and re-draft narrowly after.** [scaffold-guide](skills/scaffold-guide/prompt.md)
+  stamps the skeleton and foundation docs so drafting fills a real tree.
+  [draft-milestone](skills/draft-milestone/prompt.md) then writes every milestone in one pass — but when
+  something comes out wrong, re-run it on *that one milestone*, or
+  [clarify-step](skills/clarify-step/prompt.md) on that one step. Re-drafting everything to fix one step
+  throws away work that was already good.
+- **Scale the apparatus to the guide.** One document, one sitting? Say "lite mode" — the foundation docs and
+  verification design are skipped, the ladder collapses to the fewest rungs that each still prove something
+  runnable, and the two things that always matter survive: the audience model and the pedagogy contract.
+- **Close the loop before anyone builds.** Run [audit-guide](skills/audit-guide/prompt.md) once the draft
+  exists, and [review-before-follow](skills/review-before-follow/prompt.md) before executing it — the drafting
+  pass is the cheapest place to catch a defect, and the reader's first hour is the most expensive.
+
+---
+
 ## Tips for following a guide
 
-Best practices above are for *making* a guide. These are for the person **following** one — read them before
+Everything above is for *making* a guide. These are for the person **following** one — read them before
 you start building against it.
 
 - **Don't just copy-paste.** Every step tells you *where* the code goes and *why* it's there — that context is

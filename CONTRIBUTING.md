@@ -8,7 +8,7 @@ sharpen those are especially welcome.
 
 - **A new worked example.** Pick a domain we don't cover (mobile, data pipeline, embedded, front-end), run the
   pipeline on it, and publish the output as **your own repository** — then open a PR adding it to
-  [EXAMPLES.md](EXAMPLES.md): a heading, the link, **the GuideForge version you generated it with**, and two
+  [examples/real-examples.md](examples/real-examples.md): a heading, the link, **the GuideForge version you generated it with**, and two
   lines — everything else belongs in your project's own README. This repo ships the method, so guide content
   lives in its own repo and gets linked, not vendored. Real output is what convinces people the toolkit works.
 - **A new pedagogy rule** — but only if it comes from a *real* point of confusion. Every rule in

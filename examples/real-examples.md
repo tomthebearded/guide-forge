@@ -1,10 +1,13 @@
-# Worked examples
+# Real examples
 
 Guides the GuideForge pipeline produced, each published as its own repository — the answer to "fine, but what
 does the output actually look like?". They're linked, not vendored: this repo ships the method. Two lines each
 below, plus the **GuideForge version that generated it** — the toolkit's structure and conventions move
 between releases, so an older example won't match what you'd get today. The details are in each project's own
 README.
+
+Looking for examples of what to *type* rather than what comes out? See
+[plan-guide-prompts.md](plan-guide-prompts.md).
 
 ---
 
@@ -19,4 +22,4 @@ JavaScript and Canvas with zero dependencies — 7 milestones, ~42 steps, shippe
 
 Run the pipeline on a domain nobody covers, publish the output as your own repository, and open a PR adding it
 here — a heading, the link, the GuideForge version you generated it with, two lines. See
-[CONTRIBUTING.md](CONTRIBUTING.md).
+[CONTRIBUTING.md](../CONTRIBUTING.md).

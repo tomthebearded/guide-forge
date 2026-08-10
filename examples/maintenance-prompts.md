@@ -1,0 +1,109 @@
+# Prompt examples — the auxiliaries
+
+Skills you reach for around a guide rather than to produce one: QA it, keep it current, convert something that
+already exists, and capture what readers hit. Plain-chat form is the same everywhere — paste the skill's
+`prompt.md`, then the argument, then the files.
+
+---
+
+## `audit-guide` — QA before shipping
+
+```
+/audit-guide M2/
+```
+
+**Attach:** the files to audit.
+
+Lints a drafted guide against the contract and reports violations ranked by severity — **BLOCKER** when the
+reader is stopped or proceeds on a false signal, **WARNING** when they're merely worse off. Read-only: it
+flags, it doesn't fix. Findings it can't settle from the guide alone are marked *unconfirmed* rather than
+downgraded.
+
+Whole guide, which is what you want after a full drafting pass:
+
+```
+/audit-guide guide/
+```
+
+---
+
+## `update-stack` — the versions have moved
+
+```
+/update-stack
+```
+
+Re-verifies every tool's latest stable version online, rewrites `stack.md`, then rewrites **only** the steps
+the bump actually affects — using the new version's features, not a find-and-replace of the number. The drift
+lands in `status.md` and `decision-log.md`, and it hands off to `audit-guide` to QA its own edits.
+
+Scope it when you know what moved:
+
+```
+/update-stack Go modernc.org/sqlite
+```
+
+---
+
+## `modernize-guide` — you already have a tutorial
+
+```
+/modernize-guide README.md
+```
+
+**Attach:** the source document, and any real code it's supposed to produce.
+
+For an existing flat tutorial, runbook, or legacy guide: it reverse-engineers the implicit ladder, diagnoses
+the document against the pedagogy principles, verifies the (probably stale) stack online, and re-casts it as a
+plan with a source-map back to the original. Use `plan-guide` instead when you're starting from an idea — this
+one needs something to convert.
+
+---
+
+## `report-issue` — a reader got stuck, fix the guide
+
+```
+/report-issue M2/03 — npm run dev fails, needs .env first
+```
+
+Diagnoses the root cause and fixes the step — then sweeps the **whole** guide for every other place the same
+class of defect appears and fixes those too. It adds a failure-note guard, logs the fix in `status.md` and
+`decision-log.md`, proposes a pedagogy rule if the confusion is general, marks affected milestones for
+re-verification (never ✅), and hands off to `audit-guide`.
+
+Several at once is fine — the sweep is per class, not per report:
+
+```
+/report-issue M1/02 — the install command is Linux-only; M3/05 — the port is 3000 in the step and 8080 in the verify
+```
+
+---
+
+## `log-feedback` — record it, don't fix it yet
+
+```
+/log-feedback M2/03 — reader confused by the token step, expected a value
+```
+
+Appends one dated, structured entry to `guide/feedback-log.md` — where · reader · what happened · suspected
+class · severity · tags · quote — and changes nothing else. Use it while watching someone work, when you want
+the friction captured without stopping to redesign the step. Its severity scale is the reader-facing one
+(`blocker` / `slowed-down` / `confusing` / `cosmetic`), finer than the audit's two levels.
+
+**Which of the two?** `log-feedback` records, `report-issue` repairs. Logging a dozen snags in a session and
+then running `report-issue` on the pattern beats fixing each one as it appears.
+
+---
+
+## `pre-pr-check` — contributors only
+
+```
+/pre-pr-check
+```
+
+Not for guides — for this repository. Verifies a contribution against every `CONTRIBUTING.md` ground rule and
+the PR checklist before you push. Read-only, PASS/FAIL. Name a base branch to compare against:
+
+```
+/pre-pr-check main
+```

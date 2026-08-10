@@ -175,8 +175,8 @@ if (existsSync(pkgPath)) {
 }
 
 // --- Check 4: dead relative markdown links (.md targets that don't exist). --------------------
-const DOC_DIRS = ['skills', 'reference', 'templates'];
-const ROOT_DOCS = ['README.md', 'EXPLAINER.md', 'CONTRIBUTING.md', 'CHANGELOG.md', 'EXAMPLES.md'];
+const DOC_DIRS = ['skills', 'reference', 'templates', 'examples'];
+const ROOT_DOCS = ['README.md', 'EXPLAINER.md', 'CONTRIBUTING.md', 'CHANGELOG.md'];
 
 function walkMd(dir, acc) {
   if (!isDir(dir)) return;
