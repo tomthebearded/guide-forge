@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.10.0] — 2026-08-10
+
 ### Changed
 
 - **Every arbitrary constant in the toolkit was re-decided by the maintainer or removed.** A sweep looked for
