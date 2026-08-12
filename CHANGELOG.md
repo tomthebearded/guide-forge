@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.12.0] — 2026-08-12
+
 ### Changed
 
 - **The milestone overview is a map again, not a lesson.** `00_overview.md` keeps Goal · Prerequisite · Steps
