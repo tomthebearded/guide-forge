@@ -60,6 +60,10 @@ unaffected step alone.
 - **`decision-log.md`:** one entry — the bump, the reasoning, Source = web check, revisit-if.
 - **`status.md` milestone table:** mark every milestone you rewrote `⏳` / needs-re-verify. **Never mark it
   `✅`** — the code changed; the user re-runs the Done-when gates.
+- **`status.md` provenance:** rewrite the `_Last updated with **GuideForge v<x.y.z>** on <YYYY-MM-DD>._` line
+  with the plugin's current `version` (from `.claude-plugin/plugin.json`) and today's date. **Leave the
+  `Generated with` line untouched** — it records the version that scaffolded the guide. If you can't read the
+  plugin version, keep the one already on the line and update only the date.
 
 ## 6. Refresh the README
 Prepend an **Updates** line (`<date> — bumped <tool> <old>→<new>`) and refresh the one-line **Stack

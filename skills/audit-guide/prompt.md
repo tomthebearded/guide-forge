@@ -38,10 +38,20 @@ and mark it **unconfirmed**, naming the tool or environment needed to settle it.
   `MILESTONE_<N>_<slug>/` folder per milestone. Flag `overview.md` (must be `00_overview.md`), foundation docs loose at
   the root, or a missing README. `PLAN.md` and `feedback-log.md` are expected guide-root files (not foundation
   docs) — don't flag them.
-- Each milestone has a `00_overview.md` with every section (Goal · Scope discipline · Prerequisite · Steps at
-  a glance grouped into sittings · Design/decisions · Done-when gate · Handoff) and ends in an `NN_verify.md`.
-- **Cumulative handoff:** the overview's `Handoff` carries a running `Done so far (cumulative)` /
-  `Artifacts now in the project` inventory — not just a forward-looking paragraph.
+- Each milestone has a `00_overview.md` (Goal · Prerequisite · Steps at a glance grouped into sittings ·
+  Design/decisions folded in) and ends in an `NN_verify.md` (Done-when gate · file checkpoint ·
+  troubleshooting · Handoff).
+- **The overview is a map, not a lesson — WARNING:** flag an overview that teaches what its own steps teach
+  (concept walkthroughs, rationale essays, code blocks) — the reader meets each concept in the step that uses
+  it, and an overview that explains first is read twice or read with nothing to apply it to. Flag as a
+  **BLOCKER** an overview that still carries a **`Done-when gate`** (the gate lives once, in `NN_verify.md`;
+  quoted in two files it drifts in one of them) and as a **WARNING** one carrying a **`Handoff`** or a
+  **`Scope discipline` / "what this milestone does not do"** section — the handoff belongs at the end of
+  `NN_verify.md`, and a standing list of absences is not content the reader needs.
+- **Cumulative handoff — the last section of `NN_verify.md`:** three lines — the cumulative "you now have"
+  (carried forward from the previous milestone's handoff and appended, not just this milestone's output),
+  anything left open, and the next milestone. Flag a missing handoff, one that isn't cumulative, and one
+  padded into a recap of the milestone the reader has just finished.
 - **File checkpoint:** each `NN_verify.md` renders the **complete current contents** of every **guide-authored**
   file its milestone created or modified. Flag any guide-authored file that survives only as scattered fragments
   with no whole copy. **Exception (rule 4.3):** a **pre-existing file the milestone only adds to** is *not*
@@ -84,10 +94,13 @@ and mark it **unconfirmed**, naming the tool or environment needed to settle it.
   redundant link to `00_overview.md`. (Observed: a guide mixed `[Overview]`/`[Milestone overview]` across
   its files and linked first-step prev→overview redundantly.)
 - **Required code placement:** no load-bearing code/config inside an "If it breaks" / troubleshooting note.
-- **Scope discipline honored:** no step introduces a capability, file, dependency, command, config key, or
-  taught concept that the milestone's `Scope discipline` deferred, or that the ladder assigns to a later
-  milestone. Flag scope creep — and gold-plating past the `Done-when` gate — as a structural blocker. (If the
-  ladder isn't attached, check each step against this milestone's own declared Scope discipline.)
+- **Milestone boundary honored:** no step introduces a capability, file, dependency, command, config key, or
+  taught concept that the **ladder** assigns to a later milestone or that appears nowhere in the plan. Flag
+  scope creep — and gold-plating past the `Done-when` gate — as a structural blocker. This needs the ladder
+  (`PLAN.md`) or the whole guide to resolve ownership; say so if only a fragment was attached. Also flag a
+  **deferral written as a standing section or an absence-only sentence** ("this milestone does not cover
+  auth") — a deferral earns at most one inline sentence, in the step it applies to, and only where its
+  absence would otherwise read as a mistake.
 - **No dead capability (consume-it-now):** flag any public member/function a milestone *adds* that is never
   called within the same milestone **and** carries no `[Mn]` deferral marker naming the milestone that
   consumes it. An unmarked, uncalled member is gold-plating built ahead of its use. (Observed: a guide
@@ -152,7 +165,12 @@ and mark it **unconfirmed**, naming the tool or environment needed to settle it.
   exists. Flag a link whose term is a bullet (no anchor) or whose slug doesn't match any heading as a dead
   link. (Observed: a guide had dead `glossary.md#term` links because the terms were bullets, not
   headings.)
-- `foundation/status.md` exists and its frontier is set.
+- `foundation/status.md` exists and its frontier is set, and it carries **both** provenance stamps — a
+  `Generated with **GuideForge v<x.y.z>** on <date>` line (set once at scaffold) **and** a `Last updated with
+  **GuideForge v<x.y.z>** on <date>` line (rewritten by every skill run that changed the guide). Flag a
+  missing `Last updated` line, and flag one whose date predates the guide's most recent recorded change (the
+  last drift-log row, session-log line, or README Updates entry) — a stale stamp hides how far the guide has
+  drifted from the method that wrote it.
 
 - **Front-door claims match the content — WARNING:** check absolute framings in the **front-door** docs
   (`README.md`, `foundation/decision-log.md`, `MILESTONE_0/00_overview.md`) against what the milestones

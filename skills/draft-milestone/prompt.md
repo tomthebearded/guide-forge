@@ -23,8 +23,9 @@ Unless told to draft a single milestone, walk the approved ladder **in order** �
 **every** milestone's folder back-to-back in this one run, applying the entire per-milestone contract below to
 each. Do **not** stop between milestones to wait for the reader to implement one; the reader builds against
 the finished guide afterward and verifies each Done-when gate as they go. Carry state forward as you write:
-each milestone's cumulative handoff (`Done so far` / `Artifacts now`) is the input to the next, so treat the
-milestone you just finished as the "previous milestone" for the one you're about to write. Every load-bearing
+each milestone's handoff — the last section of its `NN_verify.md`, carrying the cumulative "You now have" —
+is the input to the next, so treat the milestone you just finished as the "previous milestone" for the one
+you're about to write. Every load-bearing
 name, path, version, and identifier must stay identical across all milestones — you're writing them all, so
 there's no excuse for drift.
 
@@ -34,8 +35,8 @@ there's no excuse for drift.
 - The **audience model** — the **per-topic expertise matrix** (topic → level → depth policy) and the
   **granularity** setting. Calibrate every explanation and every step size to them.
 - The **conventions** and **glossary** the guide has established so far.
-- The **handoff** of the *previous* milestone — for the first milestone, the scaffold/plan starting state;
-  for each later one, the handoff you wrote in this same pass.
+- The **handoff** of the *previous* milestone (the last section of its `NN_verify.md`) — for the first
+  milestone, the scaffold/plan starting state; for each later one, the handoff you wrote in this same pass.
 - **Attached files (optional).** If I attach reference material for this milestone — a spec section, sample
   code, the actual file a step will edit, an API page — read it and build against it (still re-verify each API
   against the live docs, per below).
@@ -90,15 +91,17 @@ If any of these is missing from the conversation, ask for it before drafting.
 - If the web check surfaces something that contradicts the plan (a version is EOL, an API was removed),
   **stop and flag it** — don't quietly work around it.
 
-## Scope-discipline gate — stop before you sprawl
+## Milestone-boundary gate — stop before you sprawl
 
-The milestone's `00_overview.md` declares a **Scope discipline**: what it deliberately does *not* do. Treat
-that line, plus the later rungs of the approved ladder, as a **hard boundary on what a step may introduce** —
-not a suggestion. Check every step against the boundary *before* you draft it:
+The **approved ladder** decides what each milestone owns: this milestone's Done-when plus the later rungs are
+a **hard boundary on what a step may introduce**, not a suggestion. The boundary is an authoring constraint —
+it lives in the plan and in this check, **never as a "what this milestone does not do" section in the
+guide**. (The reader is here for what they build; a list of absences teaches nothing and reads as apology.)
+Check every step against the boundary *before* you draft it:
 
 - A step **crosses the line** when it adds a capability, file, dependency, command, config key, or taught
-  concept that this milestone deferred, that the plan assigned to a **later** milestone, or that appears
-  **nowhere in the approved plan** at all.
+  concept that the plan assigned to a **later** milestone, or that appears **nowhere in the approved plan**
+  at all.
 - When a step would cross it, **STOP. Do not draft the out-of-scope material in, and do not quietly widen the
   milestone.** Surface it to me instead — name (a) exactly what crossed the line, (b) which milestone owns it
   (or "not in the plan"), and (c) the options: defer it (the default), or amend the plan/scope with my
@@ -112,6 +115,13 @@ not a suggestion. Check every step against the boundary *before* you draft it:
   gold-plating. (Observed: a guide built a later milestone's marker system early, leaving dead members.)
 - **Only** exception: a genuine **hard prerequisite** the plan missed — something the milestone literally
   cannot run without. Even then, stop and flag it as a plan gap; don't silently absorb it.
+
+**Telling the reader something comes later — inline, one sentence, only when needed.** A deferral earns a
+mention only when leaving it out would read as a mistake or an arbitrary choice: a hard-coded value a later
+rung generalizes, a shortcut a competent reader would otherwise flag. Then write it **inside the step they're
+in**, on the line it applies to — *"the key is hard-coded here; M4 moves it into config."* Never a standing
+"not in this milestone" list, never a sentence whose only content is an absence, and never a deferral note
+where the honest answer is "this is simply how it's built."
 
 ## Dependency-ordering gate — no forward references
 
@@ -128,7 +138,7 @@ before you close each milestone (see [milestone-design.md](../../reference/miles
 - **Before closing each milestone, run a dependency-ordering self-check:** for every load-bearing identifier
   this milestone's steps *use*, confirm its **first definition** is in this milestone or an earlier one. If
   you find a use whose definition the plan assigns to a **later** milestone, you have a forward reference —
-  **STOP and flag it** (like a scope-discipline break): either the definition must move earlier (re-cut the
+  **STOP and flag it** (like a milestone-boundary break): either the definition must move earlier (re-cut the
   ladder with my approval) or the use must move later. Never draft the milestone with the dangling reference.
 
 > **The defect this prevents:** M9 calling `LikedIndex.clear()` when `clear()` isn't introduced until M10 —
@@ -141,17 +151,22 @@ before you close each milestone (see [milestone-design.md](../../reference/miles
 For **each** milestone in the ladder, a folder `MILESTONE_<N>_<slug>/` containing (follow the fixed canonical layout — README at guide root, foundation docs
 under `foundation/`, `00_overview.md` … `NN_verify.md` per milestone):
 
-1. **`00_overview.md`** — from the milestone-overview template:
-   Goal · Scope discipline · Prerequisite · Steps-at-a-glance (grouped into sittings) · Design/decisions
-   folded in · Done-when gate (aggregated) · Handoff.
+1. **`00_overview.md`** — from the milestone-overview template, a **short map that fits one screen**:
+   Goal (2–3 sentences) · Prerequisite · Steps-at-a-glance (grouped into sittings) · Design/decisions folded
+   in (a compact index — concept → the step that teaches it → the foundation doc that records it). Explain
+   nothing here that a step explains: the reader meets each concept in the step that uses it, and an overview
+   that teaches is read twice or read cold. The milestone's **gate and handoff do not go here** — both live
+   in `NN_verify.md`.
 2. **`NN_<slug>.md`** — one file per **atomic step** (one indivisible action).
    - Exception: code files created in the *same commit* are bundled into one `NN_scripts.md` with one
      sub-heading + full code block per file — and the step **says so at the top** ("this step touches N files,
      committed together: …").
    - Number in the exact order the reader performs them. Group into the sittings named in the overview.
-3. **`NN_verify.md`** — the final step: the full milestone **Done-when** gate + **the file checkpoint** (the
-   complete current contents of every file this milestone created or modified, one full block per file) + a
-   short troubleshooting list + a **clickable** pointer to the next milestone's `00_overview.md`.
+3. **`NN_verify.md`** — the final step: the milestone's **one Done-when gate** (aggregated from the per-step
+   gates; it appears here and nowhere else) + **the file checkpoint** (the complete current contents of every
+   file this milestone created or modified, one full block per file) + a short troubleshooting list + the
+   **Handoff** as the last section — three lines: the cumulative "You now have", anything left open, and a
+   **clickable** pointer to the next milestone's `00_overview.md` with what it proves.
 
 ## Every step file MUST obey the writing contract
 
@@ -235,9 +250,14 @@ Plus the structural rules — the ones drafters most often drop:
   a reader who reached the bottom nav has to scroll back up into "Steps at a glance" to find where to begin.
   If the milestone folder you're drafting still carries a scaffold placeholder overview with
   `start: — not drafted yet`, replace that text with the real link.
-- **Cumulative handoff.** The overview's `Handoff` carries `Done so far (cumulative)` and `Artifacts now in
-  the project` — the running inventory carried forward from the previous milestone and appended — not just a
-  forward-looking "what the next milestone assumes" paragraph.
+- **Cumulative handoff — at the end of `NN_verify.md`, in three lines.** `You now have` is the running
+  inventory carried forward from the previous milestone's handoff and appended to, not just this milestone's
+  output and not a forward-looking "what the next milestone assumes" paragraph. Keep it to the cumulative
+  state, what's open, and the next milestone: the reader has just watched the gate pass, so re-telling the
+  milestone back to them is the one thing this section must not do.
+- **The overview stays a map.** Goal, prerequisite, step index, and a compact concept/decision index — no
+  teaching, no gate, no handoff. If a sentence in the overview explains something a step explains, cut it: it
+  belongs to the step, where the reader has the code in front of them.
 - **Glossary deep-links must resolve — and live in the step's Glossary block, once.** The `## Glossary for this
   step` block deep-links each term with `../glossary.md#<slug>` (`<slug>` = the term's heading slug: lowercase,
   spaces → `-`, punctuation dropped). Every term in `glossary.md` is a `### <term>` heading, never a bullet —
@@ -275,8 +295,8 @@ Plus the structural rules — the ones drafters most often drop:
   (never mix versions between steps), and every load-bearing name, path, or identifier is spelled **identically**
   to how earlier steps spelled it — a file/route/variable/env-key that drifts between steps is a classic
   multi-milestone break.
-- **Honor scope discipline** — enforce the scope-discipline gate above: if something belongs to a later
-  milestone (or isn't in the plan), defer it and flag it; never silently draft it in.
+- **Honor the milestone boundary** — enforce the milestone-boundary gate above: if something belongs to a
+  later milestone (or isn't in the plan), defer it and flag it; never silently draft it in.
 
 ---
 
@@ -291,9 +311,11 @@ miss *before* showing it — run this check on **each** milestone you drafted, a
 yourself. Confirm:
 - every step file has the canonical **nav line at both top (line 2) and bottom (after a `---`), identical**,
   three anchors, and its own **"Done when"**;
-- `00_overview.md` has all its sections and a **cumulative** handoff (`Done so far` / `Artifacts now`), and its
-  nav line — top **and** bottom — ends with `start: [<step 01 title>](01_<slug>.md)`, resolving to the first
-  step file you actually wrote;
+- `00_overview.md` is a **map, not a lesson** — goal, prerequisite, step index, compact design index, and
+  nothing a step already explains; **no gate and no handoff in it**; and its nav line — top **and** bottom —
+  ends with `start: [<step 01 title>](01_<slug>.md)`, resolving to the first step file you actually wrote;
+- `NN_verify.md` carries the milestone's **single** Done-when gate (not duplicated on the overview) and ends
+  in a **three-line cumulative handoff** (`You now have` · what's open · next milestone);
 - `NN_verify.md` renders the **complete current contents** of every **guide-authored** file this milestone
   touched — no such file left as scattered fragments; a **pre-existing file the milestone only added to** (rule
   4.3) is shown as its added region + unique anchor under "Pre-existing files modified", never reproduced whole;
@@ -301,8 +323,10 @@ yourself. Confirm:
   batched in a trailing block, and no step carries a redundant consolidated "complete file" copy; **no
   pre-existing file is re-pasted whole and no insertion anchor is ambiguous** (rule 4.3);
 - no required code hides in an "If it breaks" note; every milestone→milestone link is clickable and resolves;
-- **no step crossed the scope-discipline gate** — every step stays inside the milestone's declared Scope
-  discipline; anything out of scope was deferred and flagged, not silently absorbed;
+- **no step crossed the milestone boundary** — every step stays inside what the ladder gives this milestone;
+  anything out of scope was deferred and flagged, not silently absorbed, and no deferral was written up as a
+  standing "what this milestone doesn't do" section (inline, one sentence, only where its absence would
+  confuse);
 - **no forward reference** — every load-bearing symbol a step uses has its **first definition** in this
   milestone or an earlier one, and this milestone's gate is satisfiable from the current + earlier code alone
   (dependency-ordering gate);
@@ -338,6 +362,13 @@ if M1 already writes a C# script, the "no C# until M3" promise is false and must
 your first *gameplay* script in M3; M1 has a one-line bootstrap") or dropped. Check each headline claim against
 the milestone that first breaks it; reword the front-door, not the milestone (the build wins). (Observed: a guide
 promised "no C# until M3" while an earlier milestone wrote a script.)
+
+**Stamp the guide as touched.** You changed the guide, so rewrite `foundation/status.md`'s
+`_Last updated with **GuideForge v<x.y.z>** on <YYYY-MM-DD>._` line with the plugin's current `version` (the
+`version` field of `.claude-plugin/plugin.json`) and today's date. **Leave the `Generated with` line exactly
+as it is** — that one records the version the guide was scaffolded on and never moves. If you can't read the
+plugin version (a plain-chat paste with no file access), keep the version already on the line and update the
+date.
 
 Then, once the **whole guide** is drafted, **stop** and tell me:
 - a per-milestone summary of the **Done-when** checklists — the gates the reader will verify as they build, and

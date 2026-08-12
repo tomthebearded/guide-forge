@@ -1,6 +1,7 @@
 <!--
-TEMPLATE: NN_verify.md — the LAST file in every milestone folder. Two jobs:
-  1. The milestone's full Done-when gate (the real acceptance test, by hand).
+TEMPLATE: NN_verify.md — the LAST file in every milestone folder. Three jobs:
+  1. The milestone's ONE Done-when gate (the real acceptance test, by hand). It lives here and nowhere else —
+     the overview does not repeat it; a gate quoted in two files is a gate that drifts in one of them.
   2. The FILE CHECKPOINT — the complete current contents of every file this milestone created or modified,
      EXCEPT pre-existing files the guide only adds to (rule 4.3) — those are shown as the added region + its
      unique placement, not reproduced whole.
@@ -14,7 +15,7 @@ Every step must obey the pedagogy principles — see ../reference/pedagogy-rules
 > Nav: [← <last step>](NN-1_<slug>.md) · [Overview](00_overview.md) · [<next milestone> →](../MILESTONE_<n+1>_<slug>/00_overview.md)
 
 ## Done-when gate (the real test — check every box by hand)
-<!-- The full milestone acceptance test, aggregated from the per-step Done-whens. Observable conditions only,
+<!-- The milestone's ONE acceptance test, aggregated from the per-step Done-whens. Observable conditions only,
      and each one shows its EXPECTED OUTPUT — the exact thing the reader sees if it worked (response body,
      console line, exit code, or the precise on-screen state). "It works" / "the endpoint responds" is not a
      gate: a reader can't diff reality against it. If the outcome is visual, describe the exact visible state.
@@ -63,19 +64,23 @@ milestone (listed below). Pre-existing files the milestone only added to are sho
      milestone that last changed them and are NOT reproduced here. -->
 - `<path/to/untouched/file>` — unchanged since <milestone>.
 
-## What you have now (cumulative)
-<!-- One short paragraph or list: the running state of the whole project after this milestone — what runs,
-     what endpoints/screens/artifacts exist so far. Mirrors the overview Handoff's "Done so far". -->
-
 ## Troubleshooting
 <!-- The handful of traps for THIS milestone's gate, each with the first thing to check (rule 5.1). -->
 | Symptom | Likely cause → fix |
 |---------|--------------------|
 | <symptom> | <cause → fix> |
 
-## Next
-Continue to **[<next milestone> — <title>](../MILESTONE_<n+1>_<slug>/00_overview.md)**.
-<!-- If this is the last milestone, say so instead and point back to the README. -->
+## Handoff
+<!-- THREE LINES, not a report. The reader has just done the work and watched the gate pass — don't recap what
+     they saw. This is the cumulative running state (carried forward from the previous milestone's handoff and
+     appended), anything left open, and the door to the next milestone. It is the connective tissue of the
+     ladder and the input the next milestone is drafted from, which is why it's cumulative and not just
+     "what M4 did". -->
+- **You now have:** <the running state of the whole project after this milestone — what runs, what
+  endpoints/screens/artifacts exist so far, across every milestone to date>.
+- **Open / deferred:** <anything uncertain or postponed, and the milestone that will take it — or "nothing">.
+- **Next:** **[<next milestone> — <title>](../MILESTONE_<n+1>_<slug>/00_overview.md)** — <what it proves, one line>.
+<!-- If this is the last milestone, say so on the "Next" line instead and point back to the README. -->
 
 <!-- BOTTOM NAV — the SAME line as line 2, after a --- rule, as the last thing in the file. -->
 ---

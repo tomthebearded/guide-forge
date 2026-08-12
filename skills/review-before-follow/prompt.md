@@ -68,6 +68,9 @@ Run these over the step(s) before approving execution:
 
 1. A **go / no-go** verdict for executing the step(s).
 2. The **patched step(s)** (if reality required changes), in full, in fenced blocks.
-3. The **drift-log lines** to add to `status.md` (old assumption → real value → date).
+3. The **drift-log lines** to add to `status.md` (old assumption → real value → date). If you patched anything
+   in the guide, also rewrite `status.md`'s `_Last updated with **GuideForge v<x.y.z>** on <YYYY-MM-DD>._` line
+   with the plugin's current `version` (from `.claude-plugin/plugin.json`) and today's date — the
+   `Generated with` line stays as it is.
 4. Any **missing prerequisite steps** you had to insert, numbered.
 5. If no-go: exactly **what to resolve first**.

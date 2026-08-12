@@ -16,5 +16,4 @@ reader, and your non-goals are yours.
 
 **Both invocation forms are shown.** Each example gives the Claude Code slash command and, where it differs,
 the plain-chat form (paste the skill's `prompt.md`, then your brief) — the two are the same contract, since a
-`SKILL.md` only wraps its `prompt.md`. If you're working in an ordinary chat, read
-[On the free plan](../README.md#on-the-free-plan) first.
+`SKILL.md` only wraps its `prompt.md`.

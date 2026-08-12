@@ -17,7 +17,8 @@ A **milestone** is a **vertical slice** that:
 1. **Proves one thing end-to-end** — something you can *run and observe*, spanning whatever layers it needs.
 2. **Ends in a Done-when gate** — a short checklist of *observable* conditions.
 3. **Depends only on earlier milestones** — never on scaffolding that doesn't exist yet.
-4. **Declares its scope discipline** — what it deliberately does *not* do.
+4. **Owns exactly its own slice** — it builds what its gate needs, and leaves what a later rung owns to that
+   rung. This is an authoring constraint on the ladder, not a section the reader reads (see below).
 5. **Fits in one sitting or a few** — grouped into "sittings" with checkpoints.
 
 ## Vertical slice vs horizontal layer (the key distinction)
@@ -70,10 +71,20 @@ earlier milestones" as a vibe — it's a mechanical property you can check:
 milestone owns, you have a forward reference — either pull the definition earlier (and re-cut the ladder) or
 move the use later. Do not draft the milestone with the dangling reference.
 
-## Scope discipline — the "consume it now" test (no gold-plating)
+## Milestone boundaries — the "consume it now" test (no gold-plating)
 
-Scope discipline cuts both ways: don't defer required work, and don't build capability the milestone won't
-use. The second half is easy to violate silently — you add a "nice" helper now because a later milestone will
+A milestone's boundary is a rule for **you**, the author, not a section the guide shows the reader. The guide
+says what the reader *does*; a list of what a milestone deliberately doesn't do teaches nothing and reads as
+apology. Keep the boundary where it belongs — in the ladder — and enforce it while drafting.
+
+> **When the reader genuinely needs to know something comes later, say it inline, in the step they're in, in
+> one sentence.** Only when leaving it out would confuse them — a value that looks arbitrary until a later
+> rung generalizes it, a shortcut they'd otherwise flag as a mistake: *"the key is hard-coded here; M4 moves
+> it into config."* Never a standing "not in this milestone" section, and never a sentence that only announces
+> an absence.
+
+The boundary cuts both ways: don't defer required work, and don't build capability the milestone won't use.
+The second half is easy to violate silently — you add a "nice" helper now because a later milestone will
 want it. That leaves **dead members** the reader can't exercise or verify, and blurs which milestone owns
 what. Make it a mechanical test:
 
@@ -113,9 +124,12 @@ Sitting 3 — Verify (08)
 
 ## The handoff (what makes a *series* cohere)
 
-Every milestone ends in a **handoff**: recap what was built, the cumulative "what exists so far", open
-issues, and a pointer to the next milestone. Without it, a reader finishing M4 has no map of the whole
-journey. The handoff is the connective tissue of the ladder.
+Every milestone ends in a **handoff**, at the end of its `NN_verify.md` — after the gate the reader just
+passed, not on the map they read before starting. Three lines: the cumulative "what exists so far", anything
+left open, and the next milestone with what it proves. Without it, a reader finishing M4 has no map of the
+whole journey; padded out into a report, it just re-tells the milestone they have literally just finished.
+Keep it short and keep it cumulative — it is the connective tissue of the ladder, and the state the next
+milestone is drafted from.
 
 ## Presenting the ladder
 

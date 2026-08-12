@@ -5,6 +5,48 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Changed
+
+- **The milestone overview is a map again, not a lesson.** `00_overview.md` keeps Goal · Prerequisite · Steps
+  at a glance · Design/decisions folded in (now an *index* — concept → the step that teaches it — not prose),
+  and is targeted at one screen. Overviews had grown into full explanations of material the reader then met
+  again, step by step, with the code in front of them: the first pass taught nothing (nothing to apply it to)
+  and the second was a re-read. Explanation belongs where the work is. Synced across
+  `templates/milestone-overview.md`, `reference/canonical-layout.md`, `plan-guide` Phase 3, `draft-milestone`
+  (what-to-produce, writing contract, self-audit), `scaffold-guide` (the placeholder overview), `audit-guide`
+  (a new WARNING for an overview that teaches), README and EXPLAINER §8.
+- **One gate, one file: the Done-when gate lives only in `NN_verify.md`.** The overview's aggregated copy is
+  gone — the same checklist maintained in two files is a checklist that drifts in one of them, and the reader
+  needs it where they verify, not where they plan. `audit-guide` flags a gate on the overview as a **BLOCKER**;
+  `scaffold-guide` no longer seeds one into the placeholder.
+- **The handoff moved to the end of `NN_verify.md`, and is three lines.** Cumulative "You now have" · what's
+  open or deferred · the next milestone and what it proves. It used to open the milestone as a five-subsection
+  block on the overview — a recap written *before* the work, read *after* it by nobody. Now the reader reaches
+  it having just watched the gate pass, so it points forward instead of re-telling. It stays **cumulative**:
+  it's still the state each milestone is drafted from, and `draft-milestone` still carries it forward through
+  the whole-guide pass.
+- **`foundation/status.md` carries two provenance stamps.** `Generated with GuideForge v<x.y.z>` (set once at
+  scaffold, never moved) is joined by `Last updated with GuideForge v<x.y.z> on <date>`, rewritten by every
+  skill run that changes the guide — `draft-milestone`, `clarify-step`, `report-issue`, `update-stack`,
+  `review-before-follow`. One line says which revision of the method built the guide; the gap between the two
+  says how far the method has moved since anyone touched it, which is when re-running the maintenance skills
+  pays off. `audit-guide` flags a missing or stale `Last updated`.
+
+### Removed
+
+- **"Scope discipline" as a section of the guide.** A milestone no longer publishes what it deliberately does
+  *not* do. The reader is there for what they build; a standing list of absences teaches nothing and reads as
+  apology. The **boundary itself is unchanged** — it was never really a reader-facing feature: it lives in the
+  ladder and is enforced at drafting time by the renamed **milestone-boundary gate** (`draft-milestone`), which
+  now keys off the approved plan's milestone ownership instead of a line in the overview, and by `audit-guide`'s
+  "milestone boundary honored" check. The consume-it-now test and the `[Mn]` deferral marker are untouched.
+  Where a deferral would genuinely confuse the reader — a hard-coded value a later rung generalizes, a shortcut
+  they'd otherwise read as a mistake — it is now **one inline sentence in the step it applies to** ("the key is
+  hard-coded here; M4 moves it into config"), never a section, and never a sentence whose only content is an
+  absence.
+- **README — "On the free plan".** The section and the two cross-references to it (`examples/README.md`,
+  `examples/pipeline-prompts.md`) are gone.
+
 ## [1.11.0] — 2026-08-10
 
 ### Added

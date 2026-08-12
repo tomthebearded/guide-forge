@@ -30,7 +30,7 @@ the tree and the documents for you to save; that transcription is the whole job.
 ```
 
 No argument means **the whole guide**: every milestone in the ladder, in one pass, with each milestone's
-cumulative handoff feeding the next. This is the default and the one you want — the cross-milestone checks
+cumulative handoff (the last section of its `NN_verify.md`) feeding the next. This is the default and the one you want — the cross-milestone checks
 (forward references, the front-door reconciliation against `README.md` and `decision-log.md`) only have
 something to run against once every milestone exists.
 
@@ -43,8 +43,7 @@ Name a milestone only to **re-draft** one:
 Use it after `audit-guide` flags a milestone, or after a reader gets stuck in one. Re-drafting the whole guide
 to fix one milestone throws away work that was already correct.
 
-**Working milestone-by-milestone in a plain chat** (the free-plan path — see
-[On the free plan](../README.md#on-the-free-plan)): name each milestone in turn, and open every conversation
+**Working milestone-by-milestone in a plain chat:** name each milestone in turn, and open every conversation
 with the re-feed packet, because nothing carries state for you.
 
 ```
@@ -52,7 +51,7 @@ Draft milestone M3.
 
 [paste: PLAN.md]
 [paste: foundation/conventions.md]
-[paste: M2's handoff — "Done so far" / "Artifacts now"]
+[paste: M2's handoff — the last section of its NN_verify.md]
 ```
 
 ---

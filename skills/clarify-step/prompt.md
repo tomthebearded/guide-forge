@@ -111,6 +111,10 @@ Structural checks:
 ## Deliverable
 
 1. The **revised step file**, in full, in a fenced block.
-2. A short **change list**: what you clarified (bullet per rule you applied).
+2. A short **change list**: what you clarified (bullet per rule you applied). You changed the guide, so also
+   rewrite `foundation/status.md`'s `_Last updated with **GuideForge v<x.y.z>** on <YYYY-MM-DD>._` line with
+   the plugin's current `version` (from `.claude-plugin/plugin.json`) and today's date — the `Generated with`
+   line stays as it is. That stamp is the one exception to "touch nothing but the step": it records *when* the
+   guide was last worked on, which is exactly what this pass did.
 3. The **new glossary terms** you defined this pass.
 4. **Anything you could NOT fix without changing behavior** — flagged for me to decide (do not change it).

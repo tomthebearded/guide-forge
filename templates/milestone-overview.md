@@ -1,6 +1,12 @@
 <!--
-TEMPLATE: 00_overview.md — the milestone contract. One per milestone folder.
-This is the reader's map for the milestone AND the connective tissue to the rest of the ladder.
+TEMPLATE: 00_overview.md — the milestone MAP. One per milestone folder.
+KEEP IT SHORT — it orients, it does not teach. Everything this milestone builds is explained in the step that
+builds it, so never explain here what a step explains: the reader either reads it twice or reads it once with
+no code in front of them, and both are wasted. Say what the milestone proves, what must already work, and
+which steps are in it. Then get out of the way.
+The milestone's acceptance gate and its handoff are NOT here — both live in NN_verify.md, where the reader
+needs them (after doing the work). One gate, one place.
+Target: the whole file fits on one screen.
 -->
 
 # Milestone <ID> — <title>
@@ -11,18 +17,14 @@ This is the reader's map for the milestone AND the connective tissue to the rest
      segment as the literal text `start: — not drafted yet`. -->
 
 ## Goal
-<!-- What this milestone PROVES — a runnable, observable end state. One short paragraph. -->
-
-## Scope discipline
-<!-- What this milestone deliberately does NOT do (deferred to a later milestone, named). As important as the
-     goal. This is a GATE, not a note: drafting stops and flags if a step introduces anything listed here or
-     owned by a later milestone. Name the deferrals concretely so the boundary is checkable. -->
+<!-- What this milestone PROVES — a runnable, observable end state. Two or three sentences, no more. -->
 
 ## Prerequisite
-<!-- The previous milestone; what must already exist/work before starting this one. -->
+<!-- The previous milestone; what must already exist/work before starting this one. One or two lines. -->
 
 ## Steps at a glance
-<!-- The step files, GROUPED into sittings (natural stopping points, each ending in a checkpoint/commit). -->
+<!-- The step files, GROUPED into sittings (natural stopping points, each ending in a checkpoint/commit).
+     Titles and links only — no summary of what each step does. -->
 **Sitting 1 — <name> (01–0X)**
 1. [<step>](01_<slug>.md)
 2. …
@@ -31,25 +33,10 @@ This is the reader's map for the milestone AND the connective tissue to the rest
 - …
 
 ## Design / decisions folded in
-<!-- Which concepts/decisions are taught in which steps; links to ../conventions.md, ../glossary.md, ../decision-log.md. -->
-
-## Done-when gate
-<!-- The FULL milestone acceptance test, aggregated from the per-step Done-whens. Observable conditions only,
-     each paired with its EXPECTED OUTPUT (the exact result the reader sees). Mirrors NN_verify.md. The real test. -->
-- [ ] <action> → <exact expected output>.
-- [ ] <action> → <exact expected output>.
-
-## Handoff
-### Recap
-<!-- What this milestone built, in a sentence or two. -->
-### Done so far (cumulative)
-<!-- The running list of what now exists across all milestones to date. -->
-### Artifacts now in the project
-<!-- Files / modules / assets this milestone added. -->
-### Decisions / open issues
-<!-- Anything deferred, uncertain, or noted for later. -->
-### Next milestone
-<!-- Name it, what it proves, and its one-line Done-when. -->
+<!-- A compact INDEX, not an essay: one line per concept or decision — its name, the step that teaches it, and
+     the foundation doc that records it (../conventions.md, ../glossary.md, ../decision-log.md). No
+     explanation here; the step does the explaining. Omit the section entirely if there's nothing to index. -->
+- <concept / decision> — taught in [<step>](NN_<slug>.md); recorded in ../decision-log.md.
 
 <!-- BOTTOM NAV — the SAME line-2 milestone nav, `start:` segment included, after a --- rule, as the last
      thing in the file. -->

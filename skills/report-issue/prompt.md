@@ -115,6 +115,10 @@ stuck.
 - **`status.md` milestone table:** mark every milestone you rewrote `⏳` / needs-re-verify. **Never mark it
   `✅`** — the steps changed; the reader re-runs the Done-when gates (step 9).
 - **`status.md` session log:** one append-only line — issue reported, root cause, fix.
+- **`status.md` provenance:** rewrite the `_Last updated with **GuideForge v<x.y.z>** on <YYYY-MM-DD>._` line
+  with the plugin's current `version` (from `.claude-plugin/plugin.json`) and today's date. **Leave the
+  `Generated with` line untouched** — it records the version that scaffolded the guide. If you can't read the
+  plugin version, keep the one already on the line and update only the date.
 - **`decision-log.md`:** add an entry **only if** the fix embodies a real choice (e.g. you changed an approach
   to dodge the failure), with Source = field report + revisit-if. A pure correction needs no decision entry.
 - **`feedback-log.md`:** append one entry for the field report you just acted on (same format as

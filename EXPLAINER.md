@@ -231,9 +231,9 @@ you the exact shape of a GuideForge guide.
 | File | Role |
 |------|------|
 | `readme.md` | The generated guide's front door: objective + one-line stack summary + headline decisions + an Updates log, each linking to the detailed doc. A thin summary — `status.md` still owns progress. |
-| `milestone-overview.md` | The `00_overview.md` contract for a milestone. |
+| `milestone-overview.md` | The `00_overview.md` contract for a milestone — a one-screen map (goal · prerequisite · steps · design index), no teaching, no gate, no handoff. |
 | `step.md` | The atomic step file template. |
-| `verify.md` | The `NN_verify.md` template: the milestone's Done-when gate **plus a full-file checkpoint** — the complete current contents of every file the milestone touched, so no file survives only as fragments. |
+| `verify.md` | The `NN_verify.md` template: the milestone's **one** Done-when gate, **a full-file checkpoint** (the complete current contents of every file the milestone touched, so no file survives only as fragments), troubleshooting, and the three-line cumulative **handoff**. |
 | `stack.md` | The Verified stack: pinned versions + official doc links + check date, from the Phase 0.5 web check. |
 | `status.md` | The single-source-of-truth status authority (the *truth lives in one place* pillar). |
 | `glossary.md` | Running term list the steps link into. |
@@ -289,8 +289,8 @@ touch the others when a skill's invocation or arguments change.
 
 ### `draft-milestone` — the drafter
 - **Input:** the approved plan (with the Verified stack); by default "draft the guide" (or a single milestone to re-draft one).
-- **Output:** every milestone's folder in one pass — each with its `00_overview.md` and numbered atomic step files, each obeying the
-  pedagogy principles, ending in a `NN_verify.md` gate — carrying the cumulative handoff forward from one milestone to the next.
+- **Output:** every milestone's folder in one pass — each with its `00_overview.md` map and numbered atomic step files, each obeying the
+  pedagogy principles, ending in a `NN_verify.md` that holds the milestone's one gate and its handoff — carrying that cumulative handoff forward from one milestone to the next.
 - **Builds against the pinned versions**, and **re-verifies each API against the live official docs before
   writing code** — memory is stale, the docs are truth — linking those docs in the concept callouts.
 - **Rule of thumb it enforces:** one step = one indivisible action (bundling only code files written in the
@@ -367,16 +367,35 @@ The rules are grouped under **named principles** (`P1`, `P2`, …); each id (lik
 - **Done-when** — the atomic verification; the milestone gate is just the sum of these.
 
 ### Milestone overview ([templates/milestone-overview.md](templates/milestone-overview.md))
-Goal · **Scope discipline** (what it deliberately does NOT do) · Prerequisite · Steps-at-a-glance (grouped
-into "sittings" = natural stopping points) · Design/decisions folded in · Done-when gate · **Handoff**.
-The *Handoff* is what makes a *series* coherent: at each milestone's end it recaps what now exists and points
-to the next, so the reader always knows their place in the arc. Its nav line (top and bottom) carries a third
-anchor next to prev/next — **`start:`, a link to the milestone's first step** — so the map's forward click is
-"begin this milestone", not "skip to the next one".
+Goal · Prerequisite · Steps-at-a-glance (grouped into "sittings" = natural stopping points) · Design/decisions
+folded in (a compact index — concept → the step that teaches it). It is a **map, not a lesson**, and it fits
+on one screen: the reader meets every concept in the step that uses it, so an overview that explains first is
+either read twice or read with nothing to apply it to. Its nav line (top and bottom) carries a third anchor
+next to prev/next — **`start:`, a link to the milestone's first step** — so the map's forward click is "begin
+this milestone", not "skip to the next one".
+
+Two things deliberately *aren't* here. There is no "what this milestone does not do" section: the boundary
+between milestones is an authoring constraint that lives in the ladder, and a reader gets nothing from a list
+of absences (where a deferral would genuinely confuse them, the step says it inline, in one sentence). And the
+**Done-when gate and the handoff live in `NN_verify.md`**, not on the map — see below.
+
+### Verify step ([templates/verify.md](templates/verify.md))
+The milestone's **one Done-when gate** (aggregated from the per-step gates; a gate quoted in two files drifts
+in one of them) · the **file checkpoint** (every guide-authored file the milestone created or modified,
+complete) · troubleshooting · the **Handoff**. The *Handoff* is what makes a *series* coherent — cumulative
+"you now have", what's left open, and the next milestone — and it sits here, at the end, because the reader
+reaches it having just watched the gate pass. Three lines: it points forward, it doesn't recap a milestone
+they have literally just finished.
 
 ### Status authority ([templates/status.md](templates/status.md))
 The one file that states *reality*: which milestones are actually verified, a drift log, and a session log.
 The *truth lives in one place* pillar. Guides claim; this file confirms.
+
+It opens with **two provenance stamps**, and the pair is the point. *Generated with GuideForge v‹x.y.z›* is
+set once at scaffold and never moves — it says which revision of the method the guide was built against.
+*Last updated with GuideForge v‹x.y.z›* is rewritten by every skill run that changes the guide. One version
+tells you how the guide was made; the gap between the two tells you how far the method has moved since
+anyone touched it — which is exactly when re-running `update-stack` or `audit-guide` pays off.
 
 ---
 

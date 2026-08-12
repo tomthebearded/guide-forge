@@ -37,7 +37,6 @@ maintain the result, not just run it.
 - [Skills at a glance](#skills-at-a-glance)
 - [How it works](#how-it-works)
 - [Quick start](#quick-start)
-- [On the free plan](#on-the-free-plan)
 - [The toolkit](#the-toolkit)
 - [Repository map](#repository-map)
 - [Learning path](#learning-path)
@@ -192,42 +191,6 @@ Append the pedagogy rules (the writing contract) from [`reference/pedagogy-rules
 
 ---
 
-## On the free plan
-
-Nothing here is gated behind a paid plan. Options B and C need Claude Code, but **Option A is the whole
-toolkit** — every skill's `prompt.md` is written to work standalone in an ordinary chat, with no install and
-no repo access. What changes on a free plan isn't capability, it's **room**: fewer messages and one
-conversation's worth of context. Work with that, not against it.
-
-- **You are the filesystem.** In Claude Code the skills write files; in a chat they emit fenced blocks. Save
-  each one to disk *as it arrives* — `PLAN.md` first, then `foundation/conventions.md`, `glossary.md`,
-  `status.md`, then each milestone folder. The conversation is not your source of truth and won't be there
-  tomorrow. `scaffold-guide` still earns its keep: it prints the exact tree and the five foundation docs, so
-  you're transcribing rather than inventing.
-- **One prompt file per conversation.** The contracts are long, and pasting two of them leaves no room for the
-  work. Plan in one conversation; draft in another.
-- **Open each new conversation with a re-feed packet.** Paste the skill's `prompt.md`, then `PLAN.md`,
-  `foundation/conventions.md`, and the previous milestone's handoff (`Done so far` / `Artifacts now`). That
-  packet *is* the state the pipeline would otherwise carry for you — skip it and the next milestone drifts
-  from the ones before it.
-- **Draft milestone by milestone, and say so.** This is the one place the free plan inverts the normal advice:
-  the default whole-guide pass won't fit, so name a milestone each time (*"draft milestone M2"*). You lose the
-  two things the single pass gives you — carried-forward state (the packet above replaces it) and the
-  cross-milestone checks. Buy those back at the end: run `audit-guide` over the finished guide, and read the
-  ladder yourself for forward references (a symbol used at M*k* must first appear at ≤ M*k*).
-- **Reach for lite mode early.** If the idea fits one document and one sitting, say *"lite mode"* in the
-  planning conversation — foundation and verification phases are skipped and the ladder collapses to the
-  fewest rungs that each still prove something runnable. A guide that fits your budget beats an ambitious one
-  that stops halfway.
-- **Spend your messages where they compound.** The audience interview and the ladder review cost a handful of
-  messages and decide everything downstream; a re-draft costs a whole conversation. Answer Phase 0 carefully
-  and read the ladder table properly the first time — see
-  [Tips for creating a guide](#tips-for-creating-a-guide).
-- **Cut scope, not the contract.** If you have to trim, drop milestones from the ladder — never the audience
-  model or the pedagogy rules. Those are what separate this from a wall of steps, and they cost nothing extra.
-
----
-
 ## The toolkit
 
 | # | Tool | Invoke | Persistence | Use it when… |
@@ -291,9 +254,9 @@ guide-forge/                      ← a single project = one Claude Code plugin
 │
 ├── templates/                    ← copy-paste scaffolds a generated guide uses
 │   ├── readme.md                  ← the generated guide's front door (objective · stack summary · updates)
-│   ├── milestone-overview.md
+│   ├── milestone-overview.md      ← the 00_overview.md map (one screen: goal · prerequisite · steps · design index)
 │   ├── step.md
-│   ├── verify.md                  ← the NN_verify.md gate + per-milestone full-file checkpoint
+│   ├── verify.md                  ← the NN_verify.md gate + full-file checkpoint + the milestone handoff
 │   ├── stack.md                   ← verified versions + official doc links (from the web check)
 │   ├── status.md
 │   ├── glossary.md
@@ -412,7 +375,9 @@ how to hand the idea over, and how to cut the work once the ladder exists.
   resolves it. Don't supply version numbers from memory, yours or the model's; that's what the stack
   verification pass is for.
 - **Name the non-goals.** Scope boundaries keep a guide tight more reliably than goals do — "no auth, no
-  deployment, no multiplayer" prevents more sprawl than any amount of describing what you do want.
+  deployment, no multiplayer" prevents more sprawl than any amount of describing what you do want. They shape
+  the *ladder*, not the prose: the guide itself never lists what it isn't doing, because a reader learns
+  nothing from an absence.
 - **Answer the advise-back gate properly.** Before planning, you get suggested capabilities and the long-run
   risks of your choices. Accept or reject each one deliberately: what you accept shapes the ladder, and what
   you knowingly reject is recorded in the decision log, so the *why* survives to whoever reads the guide later.

@@ -41,11 +41,18 @@
   kebab/underscore slug (e.g. `MILESTONE_0_environment`, `MILESTONE_3_verify-tokens`). Numbered from
   `MILESTONE_0` (or `MILESTONE_1`) upward, one per ladder rung.
 - **Milestone map:** always **`00_overview.md`** — the `00_` prefix sorts it first in the folder. Never
-  `overview.md`.
+  `overview.md`. It is a **map, not a lesson**: goal, prerequisite, steps at a glance, and a compact index of
+  the concepts/decisions folded in — nothing a step already explains. The milestone's **Done-when gate** and
+  its **handoff** are not here; both live in `NN_verify.md`, at the point the reader needs them. One gate,
+  one file.
 - **Step files:** `NN_<slug>.md`, `NN` zero-padded to two digits (`01`, `02`, …), numbered in the exact order
   the reader performs them.
 - **Verify step:** always **`NN_verify.md`** — the last file in the milestone folder (its `NN` is the next
-  number after the last step). Its **file checkpoint** renders the **complete** contents of every
+  number after the last step). It carries the milestone's **one Done-when gate**, the file checkpoint, the
+  troubleshooting table, and — last — the **handoff** (cumulative state · what's left open · the next
+  milestone). The gate and the handoff appear here and nowhere else; a gate quoted in two files drifts in one
+  of them, and a handoff written before the work is a recap of something the reader hasn't done yet. Its
+  **file checkpoint** renders the **complete** contents of every
   **guide-authored** file the milestone *created or modified*, and its completeness claim covers **only those
   files**. A **pre-existing file the milestone only adds to** (rule 4.3) is the one exception — it's shown as its
   added region + unique placement anchor, never reproduced whole (that would invite the reader to overwrite

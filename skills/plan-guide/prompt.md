@@ -224,7 +224,12 @@ Decompose the idea into an ordered ladder of **milestones**. Each milestone must
   milestone works. This is the only real test — make it concrete and checkable by hand.
 - **Depend only on earlier milestones.** Order strictly by dependency so the reader always builds on a
   proven base and never on scaffolding that doesn't exist yet.
-- **Declare its scope discipline.** What this milestone deliberately does *not* do (deferred to a later one).
+- **Own exactly its own slice.** Everything the gate needs is in it; everything a later rung owns stays
+  there. Record the boundary **in the ladder** (it's how you keep drafting honest) — the guide itself never
+  gets a "what this milestone does not do" section: the reader is here for what they build, and a list of
+  absences teaches nothing. Where a deferral would genuinely confuse them, the drafted step says it inline in
+  one sentence ("the key is hard-coded here; M4 moves it into config") — only when leaving it out would read
+  as a mistake.
 - **Be small enough to finish in one sitting or a few.** If a milestone has many steps, group them into
   **"sittings"** — natural stopping points, each ending in a checkpoint/commit — so the reader sees where
   they can safely pause.
@@ -256,12 +261,18 @@ Start from this and adapt it to the domain:
 ## Done when (this step)         (the sub-slice of the milestone gate this step satisfies)
 ```
 
-Also propose a **milestone-overview template**: Goal · Scope discipline · Prerequisite · Steps-at-a-glance
-(grouped into sittings) · Design/decisions folded in · Done-when gate (aggregated) · **Handoff**.
+Also propose a **milestone-overview template** — a short map, one screen: Goal · Prerequisite ·
+Steps-at-a-glance (grouped into sittings) · Design/decisions folded in (a compact index, not an essay).
+Nothing a step explains gets explained here, and the milestone's **Done-when gate does not appear on the
+map** — it lives once, in `NN_verify.md`.
 
-The **Handoff** is what makes a series learnable as a whole: at each milestone's end, recap what was built,
-the cumulative "what exists so far" (files/artifacts/decisions), open issues, and a pointer to the next
-milestone. The reader always knows where they are in the arc.
+And a **verify template** — `NN_verify.md`, the last file of every milestone: the milestone's **one Done-when
+gate** (aggregated from the per-step gates) · the file checkpoint · troubleshooting · the **Handoff**.
+
+The **Handoff** is what makes a series learnable as a whole, and it sits at the *end* of the verify file — the
+reader has just passed the gate, so it points forward instead of recapping. Three lines: the cumulative "what
+exists so far" (files/artifacts/decisions), anything left open, and the next milestone with what it proves.
+The reader always knows where they are in the arc.
 
 ---
 
