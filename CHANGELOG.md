@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.13.1] — 2026-08-14
+
 ### Removed
 
 - **`check-version.mjs` no longer asserts that a released version is tagged.** The arm couldn't work where it
