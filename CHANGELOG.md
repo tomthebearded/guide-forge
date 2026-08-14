@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.13.2] — 2026-08-14
+
 ### Added
 
 - **README — "Built something with GuideForge?"** The repo asked for real examples in `CONTRIBUTING.md` and in
