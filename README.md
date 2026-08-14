@@ -280,7 +280,7 @@ guide-forge/                      ← a single project = one Claude Code plugin
 │
 └── scripts/                      ← repo maintenance (run via `npm test` / `npm run …`)
     ├── check-version.mjs          ← the three version stamps agree (plugin.json / badge / CHANGELOG)
-    ├── check-consistency.mjs      ← skill frontmatter, wrappers, counts, dead links
+    ├── check-consistency.mjs      ← frontmatter, wrappers, counts, rule coverage, dead links/anchors
     ├── release.mjs                ← the ONLY intended way the version moves
     └── doctor.mjs                 ← is your installed plugin cache stale vs this working tree?
 ```
@@ -312,8 +312,10 @@ New here? Follow this order.
 | A migration runbook | "move our REST API to gRPC" | The *why* behind each change, not just the diff. |
 
 **See one for real.** [**examples/real-examples.md**](examples/real-examples.md) indexes guides the pipeline
-produced, each published as its own repo — starting with a ~42-step one that takes a total beginner to a
-working 2D browser platformer. For what to *type* rather than what comes out, see
+produced, each published as its own repo — starting with a 25-step one that takes a total beginner to a
+working 2D browser platformer, built end to end from the guide. The index separates those from guides that are
+drafted and audited but **not yet followed through**, because only the first kind is evidence the teaching
+works. For what to *type* rather than what comes out, see
 [examples/plan-guide-prompts.md](examples/plan-guide-prompts.md).
 
 ---

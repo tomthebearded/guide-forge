@@ -10,7 +10,9 @@ sharpen those are especially welcome.
   pipeline on it, and publish the output as **your own repository** — then open a PR adding it to
   [examples/real-examples.md](examples/real-examples.md): a heading, the link, **the GuideForge version you generated it with**, and two
   lines — everything else belongs in your project's own README. This repo ships the method, so guide content
-  lives in its own repo and gets linked, not vendored. Real output is what convinces people the toolkit works.
+  lives in its own repo and gets linked, not vendored. File it under **Followed to the end** only if someone
+  actually built the whole thing from it; otherwise **Guide only**, which is a perfectly good thing to
+  contribute — just not the same claim. Real output is what convinces people the toolkit works.
 - **A new pedagogy rule** — but only if it comes from a *real* point of confusion. Every rule in
   [reference/pedagogy-rules.md](reference/pedagogy-rules.md) exists because a reader got stuck on
   something specific. Include the confusion it prevents.
@@ -58,7 +60,8 @@ working."
   holding a release commit nobody can find by version. No script enforces this: the tag can't exist before the
   commit it points at, so a check running on that push could never see it. It's on you.
 - **Before pushing:** `npm test` runs `check-version` + `check-consistency` (version stamps aligned,
-  skill frontmatter valid, wrappers delegate, counts agree, no dead links). CI runs the same on every push to
+  skill frontmatter valid, wrappers delegate, counts agree, every contract mirror states every rule, no dead
+  links or anchors). CI runs the same on every push to
   `main` and every PR (`.github/workflows/ci.yml`) — but it only covers the **deterministic half**. The
   judgment half (is the change domain-agnostic? does the new rule cite a real confusion? is a gate quietly
   skipped?) no script can decide, which is why `/pre-pr-check` is still asked of you (next section).

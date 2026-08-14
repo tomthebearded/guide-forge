@@ -251,7 +251,9 @@ The deep-dives behind the pillars: [pedagogy-rules.md](reference/pedagogy-rules.
 
 The one place domain-specific nouns are allowed. It holds two different kinds of example, and the distinction
 matters: [real-examples.md](examples/real-examples.md) is **output** — an index of guides the pipeline
-produced, each **linked in its own repository**, never vendored here — while
+produced, each **linked in its own repository**, never vendored here, and split by how far each has been
+taken (**followed to the end**, so the teaching is evidenced, vs **guide only**, where the contract is all
+that's proven) — while
 [plan-guide-prompts.md](examples/plan-guide-prompts.md),
 [pipeline-prompts.md](examples/pipeline-prompts.md) and
 [maintenance-prompts.md](examples/maintenance-prompts.md) are **input**: worked invocations of each skill,

@@ -108,7 +108,7 @@ and mark it **unconfirmed**, naming the tool or environment needed to settle it.
 - **Gates show expected output:** every `Done when` (per step and in `NN_verify.md`) pairs its action with a
   concrete expected result the reader will observe. Flag aspirational gates ("it works", "the endpoint
   responds", "the build succeeds") that give the reader nothing to diff reality against.
-- **Gate exercises its claim:** for any `Done when` that claims a *property* ("deterministic", "persists",
+- **Gate exercises its claim (rule 6.1):** for any `Done when` that claims a *property* ("deterministic", "persists",
   "idempotent", "cached", "sorted"), check that the action actually **exercises that property's code-path** —
   re-runs and diffs for determinism, restarts and re-reads for persistence, etc. Flag a gate whose action
   can't demonstrate the property it names (e.g. "proves it's deterministic" but the action runs the query only

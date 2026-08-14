@@ -37,7 +37,9 @@ output** into your report; a non-zero exit is a **blocker**, full stop.
   released `CHANGELOG.md` header. Tagging is not checked (see below); confirm it by eye on a release PR.
 - `node scripts/check-consistency.mjs` — skill frontmatter `name` matches folder; every skill with a
   `prompt.md` inlines it via the cat-injection line; the stated skill **count** in `README.md` /
-  `marketplace.json` matches the actual folder count; no dead relative `.md` links in the docs/skills/templates.
+  `marketplace.json` matches the actual folder count; every rule id cited resolves **and** every full-contract
+  mirror (the four pipeline prompts + `EXPLAINER.md`) mentions every rule; no dead relative `.md` links and no
+  dead `#anchors` in the docs/skills/templates.
 - `node scripts/doctor.mjs` — **advisory:** whether your installed plugin cache is stale vs the working tree.
   Not a blocker, but if it reports STALE, remind the contributor their `/plugin` install won't reflect these
   changes until they reinstall — so any "I tested it" claim may be against old code.

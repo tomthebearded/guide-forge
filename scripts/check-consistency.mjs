@@ -149,6 +149,40 @@ if (existsSync(rulesFile)) {
     while ((r = listRe.exec(txt))) for (const id of r[1].match(idRe) || []) check(id);
     while ((r = parenRe.exec(txt))) check(r[1]);
   }
+
+  // --- Check 3c: the contract mirrors enumerate EVERY canonical rule. -------------------------
+  // Check 3b proves the forward direction — every id cited somewhere resolves to a real rule. This
+  // one proves the reverse, which is the failure the sync set actually produces: a rule added or
+  // re-homed in the canonical file and then missed in one of the standalone paste-twins, which keeps
+  // passing every other check while silently teaching an older contract.
+  //
+  // Only files that claim to enumerate the WHOLE contract are listed. README.md and the templates
+  // cite rules selectively by design (a storefront summary, a per-section reminder), so requiring
+  // full coverage there would be wrong. Coverage is deliberately measured with a permissive scan for
+  // any `N.N` token rather than the strict citation forms of check 3b: the mirrors legitimately write
+  // ids as `**1.1** explain …` with no `rule` prefix and no parentheses. A stray decimal can only make
+  // this check MORE lenient (a false pass), never fail a mirror that is actually complete.
+  const CONTRACT_MIRRORS = [
+    'skills/plan-guide/prompt.md',
+    'skills/draft-milestone/prompt.md',
+    'skills/clarify-step/prompt.md',
+    'skills/audit-guide/prompt.md',
+    'EXPLAINER.md',
+  ];
+  for (const rel of CONTRACT_MIRRORS) {
+    const abs = path.join(ROOT, rel);
+    if (!existsSync(abs)) {
+      findings.push(`[rule-coverage] ${rel} is listed as a contract mirror but does not exist`);
+      continue;
+    }
+    const mentioned = new Set(read(abs).match(/\d+\.\d+/g) || []);
+    const missing = [...ruleIds].filter((id) => !mentioned.has(id)).sort();
+    if (missing.length) {
+      findings.push(
+        `[rule-coverage] ${rel} never mentions rule${missing.length > 1 ? 's' : ''} ${missing.join(', ')} — the contract mirrors must each state the whole contract (see the sync set in reference/pedagogy-rules.md)`,
+      );
+    }
+  }
 }
 
 // --- Check 3d: package.json must NOT carry a version, and must keep its `test` script. --------
@@ -174,7 +208,11 @@ if (existsSync(pkgPath)) {
   }
 }
 
-// --- Check 4: dead relative markdown links (.md targets that don't exist). --------------------
+// --- Check 4: dead relative markdown links + dead #anchors. -----------------------------------
+// The anchor half is the same discipline the guide contract demands of generated guides: a step's
+// glossary block deep-links `../glossary.md#slug`, and a term written as a bullet instead of a
+// `### heading` has no anchor, so the link silently lands at the top of the page instead of failing
+// loudly. This repo asks for that and shipped its own anchors unverified; now both are checked.
 const DOC_DIRS = ['skills', 'reference', 'templates', 'examples'];
 const ROOT_DOCS = ['README.md', 'EXPLAINER.md', 'CONTRIBUTING.md', 'CHANGELOG.md'];
 
@@ -218,15 +256,43 @@ function isGuideInternalExample(target) {
   return false;
 }
 
+// GitHub's heading-slug rules, as far as they matter here: lowercase, drop punctuation, then turn
+// EACH space into a hyphen (a run of spaces becomes a run of hyphens — "Credits & inspiration"
+// slugs to "credits--inspiration", not "credits-inspiration"). Letters/digits are matched by
+// Unicode class, not \w, so an accented heading keeps its characters the way GitHub keeps them.
+function slugify(headingText) {
+  return headingText
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1') // link text survives, the URL doesn't
+    .replace(/[*_`]/g, '')
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s_-]/gu, '')
+    .trim()
+    .replace(/ /g, '-');
+}
+
+const anchorCache = new Map();
+function anchorsOf(abs) {
+  if (anchorCache.has(abs)) return anchorCache.get(abs);
+  const set = new Set();
+  if (existsSync(abs)) {
+    // Headings inside fenced code are illustrations, not targets — strip fences first.
+    const txt = read(abs).replace(/```[\s\S]*?```/g, '');
+    for (const h of txt.matchAll(/^#{1,6}\s+(.+?)\s*$/gm)) set.add(slugify(h[1]));
+    // Explicit HTML anchors count too.
+    for (const a of txt.matchAll(/<a\s+(?:id|name)="([^"]+)"/g)) set.add(a[1].toLowerCase());
+  }
+  anchorCache.set(abs, set);
+  return set;
+}
+
 const linkRe = /\[[^\]]*\]\(([^)]+)\)/g;
 for (const file of mdFiles) {
   const txt = stripCode(read(file));
   let m;
   while ((m = linkRe.exec(txt))) {
-    let target = m[1].trim();
-    // Ignore absolute URLs and pure anchors.
+    const target = m[1].trim();
+    // Ignore absolute URLs.
     if (/^(https?:|mailto:)/i.test(target)) continue;
-    if (target.startsWith('#')) continue;
     // Ignore paths that only exist inside a generated guide (illustrative or post-stamp).
     if (isGuideInternalExample(target)) continue;
     // Ignore template placeholders like <slug>/<next> IN THE TARGET ITSELF. Test only the target,
@@ -235,19 +301,36 @@ for (const file of mdFiles) {
     // A template nav line's non-placeholder segment (e.g. `00_overview.md`) is already covered by
     // isGuideInternalExample above, so target-only is safe here.
     if (/[<>]/.test(target)) continue;
-    target = target.split('#')[0].trim();
-    if (!target) continue;
-    if (!target.toLowerCase().endsWith('.md')) continue; // only verify .md links
-    const resolved = path.resolve(path.dirname(file), target);
-    if (!existsSync(resolved)) {
-      findings.push(`[dead-link] ${path.relative(ROOT, file)} -> ${m[1].trim()} (missing)`);
+
+    const hashAt = target.indexOf('#');
+    const filePart = (hashAt === -1 ? target : target.slice(0, hashAt)).trim();
+    const fragment = hashAt === -1 ? '' : target.slice(hashAt + 1).trim();
+
+    // A missing file part means a same-page anchor (`#quick-start`), so the page is this file.
+    let resolved = file;
+    if (filePart) {
+      if (!filePart.toLowerCase().endsWith('.md')) continue; // only verify .md links
+      resolved = path.resolve(path.dirname(file), filePart);
+      if (!existsSync(resolved)) {
+        findings.push(`[dead-link] ${path.relative(ROOT, file)} -> ${target} (missing)`);
+        continue; // the file is gone; its anchors are not a separate finding
+      }
+    }
+    if (!fragment) continue;
+    if (!anchorsOf(resolved).has(fragment.toLowerCase())) {
+      findings.push(
+        `[dead-anchor] ${path.relative(ROOT, file)} -> ${target} (no heading in ${filePart || 'this file'} slugs to "${fragment}")`,
+      );
     }
   }
 }
 
 // --- Report. ----------------------------------------------------------------------------------
 if (findings.length) {
-  const groups = { frontmatter: [], inject: [], 'skill-count': [], 'rule-id': [], 'dead-link': [] };
+  const groups = {
+    frontmatter: [], inject: [], 'skill-count': [], 'rule-id': [], 'rule-coverage': [],
+    package: [], 'dead-link': [], 'dead-anchor': [],
+  };
   for (const f of findings) {
     const tag = f.match(/^\[([^\]]+)\]/)[1];
     (groups[tag] ||= []).push(f);

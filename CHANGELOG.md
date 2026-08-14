@@ -5,6 +5,46 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+
+- **The consistency gate now checks the sync set in both directions.** `check-consistency.mjs` already proved
+  that every rule id *cited* anywhere resolves to a real heading in `reference/pedagogy-rules.md`; it now also
+  proves the reverse — that each mirror claiming to state the **whole** contract (the `plan-guide`,
+  `draft-milestone`, `clarify-step` and `audit-guide` prompts, plus `EXPLAINER.md`) mentions **every** canonical
+  rule. That is the failure the sync set actually produces: a rule added or re-homed in the canonical file and
+  missed in one standalone paste-twin, which passes every other check while quietly teaching an older contract.
+  `README.md` and `templates/` cite rules selectively by design and are deliberately outside the set.
+- **Dead `#anchors` are a build failure, same as dead links.** The link check resolves fragments against the
+  target file's real headings using GitHub's slug rules (each space becomes a hyphen, so
+  *"Credits & inspiration"* is `#credits--inspiration`), for same-page and cross-file links alike, with the
+  same guide-internal and `<placeholder>` exemptions. This is the discipline the guide contract already
+  demands of a generated guide's `../glossary.md#slug` links — a term written as a bullet has no anchor and the
+  link fails silently — and the repo's own 43 anchor links were never verified. They all pass; the check keeps
+  it that way.
+
+- **`examples/real-examples.md` now separates the guides someone finished from the guides that only exist.**
+  Two sections — **Followed to the end** and **Guide only — not followed to the end yet** — because the states
+  prove different things: a guide someone built start to finish is evidence the *teaching* worked, while a
+  drafted-and-audited guide is evidence only that the *contract* was satisfied. The index previously implied
+  the stronger claim for everything in it. `guide-forge-vscode-extension` (Van Code, `v1.2.0`, 7 milestones /
+  43 steps, built as far as M5) joins under the second heading — the guide that produced rules 4.4 and 6.2 and
+  the sourcing principle's exact-name clause by being run for real.
+
+### Fixed
+
+- **`audit-guide` never cited rule 6.1.** Its *"gate exercises its claim"* check carried the rule's whole
+  substance but not its id, so the audit couldn't report the violation by number the way it does for every
+  other rule — and the new coverage check flags it. Found by the check on its first run.
+
+### Changed
+
+- **The stated wrap convention now matches the practised one.** `CLAUDE.md` claimed ~100 columns; every file in
+  the repo is actually wrapped at ~110, so the number contributors were given disagreed with every file they
+  would open. Nav lines, table rows and code fences are called out as single lines by nature. No prose was
+  reflowed — the convention was wrong, not the files.
+- **The platformer example's step count was wrong.** `README.md` and the index said "~42 steps"; the guide has
+  **25** step files plus 7 verify gates across 7 milestones. Corrected in both places.
+
 ## [1.14.0] — 2026-08-14
 
 ### Added

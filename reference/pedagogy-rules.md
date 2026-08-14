@@ -522,5 +522,9 @@ touch the contract, update **every** place in the same pass:
 `scripts/check-consistency.mjs` (run by `/pre-pr-check` and CI) verifies **rule-id integrity**: no duplicate id
 headings, every rule homed under a real `## P#` principle, and every `rule N.N` cited anywhere in the docs
 resolving to a heading in this file — so a half-applied re-home fails the check instead of shipping silently.
-Nothing counts principles: the docs cite them by id, never by number, precisely so there is no count to drift.
-The id check is the backstop; keeping the *wording* in sync is still on you.
+It also verifies **coverage** in the other direction: the mirrors that state the *whole* contract — the
+`plan-guide`, `draft-milestone`, `clarify-step` and `audit-guide` prompts, plus `EXPLAINER.md` — must each
+mention every rule id, so a new rule that never reaches one of the paste-twins fails the build. (`README.md`
+and the templates cite rules selectively on purpose and are not in that set.) Nothing counts principles: the
+docs cite them by id, never by number, precisely so there is no count to drift. Both checks are backstops on
+the *ids*; keeping the **wording** in sync is still on you.
