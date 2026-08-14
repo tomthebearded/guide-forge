@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.14.0] — 2026-08-14
+
 ### Added
 
 - **A guide can be written in any language — decided once, in the plan.** `plan-guide` Phase 0 Q7 becomes
