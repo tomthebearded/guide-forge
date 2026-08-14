@@ -1,18 +1,20 @@
 #!/usr/bin/env node
-// check-version.mjs — verify version stamps agree AND that a released version is real (tagged).
+// check-version.mjs — verify the version stamps agree across the three files that carry one.
 //
 // Checks:
 //   1. .claude-plugin/plugin.json "version" is the source of truth.
 //   2. README.md badge token `vX.Y.Z` matches it.
 //   3. CHANGELOG.md first *released* header `## [X.Y.Z]` matches it
 //      (a leading `## [Unreleased]` block is allowed and skipped).
-//   4. Git-tag arm: if this is a git repo, a tag `vX.Y.Z` or `X.Y.Z` must exist
-//      (catches a "released" version that was never tagged/shipped). No git -> warn only.
+//
+// Tagging is NOT checked here. The tag can only exist once the release commit does, so a check
+// running on the push that introduces that commit could never see it — the arm failed structurally
+// on every release rather than catching a real defect. `git push origin main v<x.y.z>` (CONTRIBUTING)
+// is what keeps the two in step.
 //
 // Exits non-zero with "VERSION DRIFT:" + bullets on any mismatch; else "version ok: <v>".
 
 import { readFileSync } from 'node:fs';
-import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -58,28 +60,6 @@ if (!relMatch) {
   errors.push('CHANGELOG.md: no released version header `## [X.Y.Z]` found');
 } else if (relMatch[1] !== pluginVersion) {
   errors.push(`CHANGELOG.md first released version is ${relMatch[1]} but plugin.json is ${pluginVersion}`);
-}
-
-// 4. Git-tag arm.
-let tags = null;
-try {
-  execFileSync('git', ['rev-parse', '--is-inside-work-tree'], { cwd: ROOT, stdio: 'pipe' });
-  tags = execFileSync('git', ['tag'], { cwd: ROOT, stdio: 'pipe' })
-    .toString()
-    .split(/\r?\n/)
-    .map((t) => t.trim())
-    .filter(Boolean);
-} catch {
-  tags = null; // not a git repo, or git unavailable
-}
-
-if (tags === null) {
-  console.log('warning: no git — skipping the released-version tag check');
-} else {
-  const wanted = [`v${pluginVersion}`, pluginVersion];
-  if (!tags.some((t) => wanted.includes(t))) {
-    errors.push(`No git tag for ${pluginVersion} — released version was never tagged/shipped`);
-  }
 }
 
 if (errors.length) {

@@ -34,8 +34,7 @@ The deterministic checks are **scripts**, not prose you re-perform by hand. Run 
 output** into your report; a non-zero exit is a **blocker**, full stop.
 
 - `node scripts/check-version.mjs` — version stamps agree across `plugin.json`, the README badge, and the top
-  released `CHANGELOG.md` header, **and** a released version has a matching `git tag v<x.y.z>` (the arm that
-  catches a phantom/never-shipped bump). A "no git" warning is acceptable outside a git checkout.
+  released `CHANGELOG.md` header. Tagging is not checked (see below); confirm it by eye on a release PR.
 - `node scripts/check-consistency.mjs` — skill frontmatter `name` matches folder; every skill with a
   `prompt.md` inlines it via the cat-injection line; the stated skill **count** in `README.md` /
   `marketplace.json` matches the actual folder count; no dead relative `.md` links in the docs/skills/templates.
@@ -84,9 +83,10 @@ don't re-perform them by hand; you confirm the scripts passed and add the judgme
   `.claude-plugin/marketplace.json` `plugins[].description` (e.g. "Eleven skills, one install") and every
   "N skills" phrasing in `README.md`/`EXPLAINER.md` reflects the new total — and that the skill **tables/lists**
   in both docs actually gained/lost the row (the script counts the number, not the list rows). Report old vs new.
-- **Version single-sourced & tagged.** *(script)* `plugin.json` `version` is the single source of truth; the
-  README badge and top released `CHANGELOG.md` header must match, and a released version must be `git tag`-ged
-  (`check-version.mjs` fails a phantom bump). **Never hand-edit the version** — it moves only via
+- **Version single-sourced.** *(script)* `plugin.json` `version` is the single source of truth; the README
+  badge and top released `CHANGELOG.md` header must match. Tagging is **not** script-enforced — on a release
+  PR, check by eye that `v<x.y.z>` will be pushed alongside the commit (`git push origin main v<x.y.z>`), since
+  nothing downstream will catch a release that ships untagged. **Never hand-edit the version** — it moves only via
   `node scripts/release.mjs <x.y.z>`. **Prompt headers must NOT stamp a version number** (they point to
   `plugin.json`); flag any `skills/*/prompt.md` header that reintroduces a `vX.Y.Z`. If `version` did **not**
   change but the change is user-visible, flag that a bump is likely needed.

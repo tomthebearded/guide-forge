@@ -9,12 +9,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      # fetch-depth: 0 pulls tags too. check-version.mjs asserts the released version has a
-      # matching `vX.Y.Z` tag, and the default shallow checkout fetches no tags at all — so
-      # without this the tag arm fails on every single run.
+      # The default shallow checkout is enough: both scripts read the working tree only, and
+      # nothing here inspects git history or tags.
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       # Run the floor CONTRIBUTING promises ("Node 18+"), not the newest release: CI's job here is to
       # catch a script that quietly depends on a newer API than contributors are told they need. Bump
       # both together or neither.

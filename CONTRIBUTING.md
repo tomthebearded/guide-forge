@@ -53,11 +53,11 @@ working."
   the `README.md` badge, the top released `CHANGELOG.md` header) and drifts if edited by hand — which is why
   `package.json` is private and carries **no** `version` field; `check-consistency.mjs` fails if one appears.
   Move it only with `node scripts/release.mjs <x.y.z>`, which updates all three and promotes
-  `## [Unreleased]`; then create the matching `git tag v<x.y.z>` (a "released" version with no tag fails
-  `scripts/check-version.mjs`). **Push the commit and the tag together** — `git push origin main v<x.y.z>` —
-  not `git push` followed by `git push --tags`: the first push would trigger CI on a release commit whose tag
-  doesn't exist yet, and the tag check would fail a build that is actually fine.
-- **Before pushing:** `npm test` runs `check-version` + `check-consistency` (version stamps aligned + tagged,
+  `## [Unreleased]`; then create the matching `git tag v<x.y.z>`. **Push the commit and the tag together** —
+  `git push origin main v<x.y.z>` — not `git push` followed by `git push --tags`, which leaves the remote
+  holding a release commit nobody can find by version. No script enforces this: the tag can't exist before the
+  commit it points at, so a check running on that push could never see it. It's on you.
+- **Before pushing:** `npm test` runs `check-version` + `check-consistency` (version stamps aligned,
   skill frontmatter valid, wrappers delegate, counts agree, no dead links). CI runs the same on every push to
   `main` and every PR (`.github/workflows/ci.yml`) — but it only covers the **deterministic half**. The
   judgment half (is the change domain-agnostic? does the new rule cite a real confusion? is a gate quietly

@@ -277,7 +277,7 @@ guide-forge/                      ← a single project = one Claude Code plugin
 │   └── maintenance-prompts.md     ← audit · update-stack · modernize · report-issue · log-feedback
 │
 └── scripts/                      ← repo maintenance (run via `npm test` / `npm run …`)
-    ├── check-version.mjs          ← version stamps agree, and the released version is tagged
+    ├── check-version.mjs          ← the three version stamps agree (plugin.json / badge / CHANGELOG)
     ├── check-consistency.mjs      ← skill frontmatter, wrappers, counts, dead links
     ├── release.mjs                ← the ONLY intended way the version moves
     └── doctor.mjs                 ← is your installed plugin cache stale vs this working tree?

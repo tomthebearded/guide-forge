@@ -5,6 +5,16 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Removed
+
+- **`check-version.mjs` no longer asserts that a released version is tagged.** The arm couldn't work where it
+  ran: CI fires on push to `main`, and the tag can only exist once the release commit it points at does — so
+  the one job that ever saw a release commit saw it before its tag, and failed a build that was fine. It
+  caught no defect it could act on and cost a red run per release. The remaining three checks (plugin.json /
+  README badge / top released `CHANGELOG.md` header agree) are untouched. Keeping the tag in step is now
+  documented rather than enforced: `git push origin main v<x.y.z>` in one operation, per `CONTRIBUTING.md`.
+  `.github/workflows/ci.yml` drops `fetch-depth: 0` with it — it existed only to fetch the tags this arm read.
+
 ## [1.13.0] — 2026-08-14
 
 ### Changed
