@@ -436,8 +436,10 @@ contract:
   #1 field-failure class; planning for it here prevents it at the source.)
 
 *(Principle 6 — **prove the gate** — is designed in Phase 5: every Done-when must exercise the exact property
-it claims (6.1) and stay observable in the environment the reader watches it in (6.2). See the pedagogy
-reference.)*
+it claims (6.1), stay observable in the environment the reader watches it in (6.2), quote what the
+reader's terminal shows rather than what a captured stream showed you (6.3), read the effect of the reader's
+own code rather than a scaffold's output (6.4), and — where a gate is proven by breaking it — describe a
+failure someone actually produced (6.5). See the pedagogy reference.)*
 
 ---
 
@@ -452,6 +454,20 @@ reference.)*
   correct code looks broken. When planning a milestone whose gate is visual or environment-sensitive, say which
   environment the reader observes it in, so drafting can pick an unmasked signal instead of discovering the
   clash in the field.
+- **Plan gates as values, not as lines of output (rule 6.3).** Where a milestone's gate is a command, record
+  *what to read* — an exit code, a count, a status — not a summary line to match. A CLI renders differently
+  when its output is captured than when it prints to a terminal, and whoever drafts the gate will very likely
+  be reading a capture. Naming the value up front means the drafting pass cannot pin the wrong rendering.
+- **Gate on the reader's code, not on the toolchain's output (rule 6.4).** A milestone gate that reads what a
+  scaffold printed, generated or laid out is gating on someone else's release schedule: template copy gets
+  reworded, generated config options come and go, bundle sizes move. Plan each gate around an effect the
+  reader's own code produces, and treat any number in it — a size, a width, a count — as something the drafting
+  pass must **measure**, not derive.
+- **Where a gate is proven by breaking it, plan the mutation and its blast radius (rule 6.5).** A "break this
+  and watch it fail" recipe is the strongest evidence a gate can offer and the only claim a clean run never
+  checks. Say in the plan which mutation the milestone will use and which test it must turn red — that is also
+  a coverage question, because a mutation nothing catches means the ladder is missing a test, and that is far
+  cheaper to notice here than in the field.
 - **Consistency check** before a guide ships: every command/code block uses the pinned Verified-stack versions,
   and every load-bearing name/path/identifier is spelled identically wherever it recurs — version or name drift
   between steps is a top cause of a multi-milestone guide breaking.

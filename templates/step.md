@@ -25,6 +25,9 @@ EXISTING FILES (rule 4.3): if the file already has code, DON'T re-paste the whol
 Show only the fragment plus a UNIQUE placement anchor — a named function/block or a line that occurs exactly
 once (e.g. "after the init() function, the block ending canvas.focus();"), never an anchor that matches several
 lines. Reproducing a pre-existing file whole invites the reader to overwrite their real code.
+GENERATED FILES (rule 6.4): when that anchor lives in a file a scaffold or CLI wrote — not one the guide had
+the reader write — never say "find X and replace it". Say what the file must READ when the step is done, and
+handle the anchor being absent in the same breath: generators drop options and rename things between releases.
 BUILD VS BORROW (rule 3.7): if this step writes from scratch a self-contained capability a mature library in
 this stack already solves (colour maths, dates/timezones, parsing, retry, diffing, validation, money), put the
 one-line callout right above that work — see "Do this" below. The choice itself was made at plan time
@@ -119,6 +122,10 @@ fixes it". Where the stack has a compiler/type-checker, the Done-when below ends
      hiding "survives a restart". If it does, observe an unmasked channel, set the environment-specific
      variant too, or state HERE what that environment shows — never leave it to "If it breaks", which a
      reader whose code works will never read.
+     RULE 6.3 — quote the output the READER's terminal prints, not the one your pipe/CI log produced; gate on
+     values (count, status, exit code), never on a summary line matched character by character.
+     RULE 6.4 — gate on what YOUR code did, never on what a scaffold generated: no template wording, no
+     exhaustive listing, and no number (size, width, count) you reasoned about instead of measuring.
      RULE 4.4 — if the stack has a compiler/type-checker/bundler, the LAST box is the build being clean. -->
 - [ ] <action> → <exact expected output the reader should see>.
 - [ ] `<build command>` → exits 0 / the watch task reports **0 errors**.   <!-- rule 4.4; drop only if the

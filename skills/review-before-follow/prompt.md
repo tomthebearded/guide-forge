@@ -58,6 +58,21 @@ Run these over the step(s) before approving execution:
    restart". If it masks the signal, say so **before** execution and patch the gate (an unmasked channel, the
    environment-specific variant set too, or the mask named inside the gate) — otherwise you will debug correct
    code against a gate that cannot go green.
+   **Same check for command output (rule 6.3):** where a gate quotes a line the CLI prints, run the command in
+   a **terminal** and compare. A guide's author very often observed it through a pipe or a CI log, and modern
+   CLIs render differently there — so the gate can name a string your shell never produces. Rewrite it to the
+   value plus the exit code before you start following.
+
+   **Same check for anything a scaffold generated (rule 6.4):** where a step says "find this line" in a file a
+   CLI wrote, or a gate quotes a template's heading, a file list or a bundle size, generate the workspace on the
+   pinned versions and **look**. This is the check most likely to fire on an older guide, because generators
+   move faster than guides do — an option that stopped being written, a demo page reworded, a file no longer
+   emitted. Rewrite the instruction to what the file must read, and drop any number nobody measured.
+
+   **And run every break recipe before you trust it (rule 6.5):** a "break this and watch it fail" instruction
+   is the one claim in the guide that its own clean run never checks, so it is the most likely to be stale or to
+   have shipped untested. Apply the mutation, run it, and note what actually goes red — if nothing does, the
+   guide has an uncovered branch and you are about to be told a false thing about your own build.
 9. **Refuse a step that ends on a broken build (rule 4.4).** If the step says the project "won't compile yet",
    calls an error "expected", or defers verification because the build can't run, treat it as **no-go as
    written**: once the tree is red you can't tell your own mistakes from the guide's planned ones. Merge the

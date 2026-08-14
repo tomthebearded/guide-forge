@@ -503,6 +503,98 @@ hot-reload hiding a "survives a restart" claim; a simulator or emulator overridi
 > reader's extension wrote the right setting, but the debug host's own status-bar colors masked it — "it works
 > but it applies the color only when i close the debug session.")
 
+### 6.3 — Quote the output the reader's shell prints, not the one your capture produced
+**Why:** you observe a command through a pipe, a redirect, a CI job, or a tool that captures stdout. Modern
+CLIs **detect that** and render differently — colour off, progress off, often a different summary line
+entirely. The gate you write is faithful to what you saw and unreachable for the reader. Worse, it is
+self-confirming: re-running your own check reproduces *your* capture, not their terminal, so the defect
+survives every re-verification. This is 6.2 turned on the author — the masking environment is the one **you**
+observed from.
+
+**Do:** before quoting any command output in a gate, run the command **in a terminal**. Then gate on the
+**values** — a count, a status, an exit code — never on a line to match character by character. Where showing
+the output *is* the lesson, show the terminal's rendering and name the captured variant beside it, **in the
+gate**, not in the troubleshooting list. Where the two renderings share nothing, the exit code is the honest
+gate.
+
+- ❌ "**Done when:** `dotnet build` prints `0 Error(s)`." — true only when the output is redirected; in a
+  terminal the CLI prints `Build succeeded in 1.5s` and no counts at all, so the reader cannot tick a gate
+  their correct build just passed.
+- ✅ "**Done when:** `dotnet build` ends on `Build succeeded`, exits 0. There is no `0 Error(s)` line in a
+  terminal — that block belongs to the redirected renderer."
+
+This is not only a CLI concern: a screenshot taken with a debug overlay on, a log read from a CI artifact, a
+REPL transcript captured with `script` — each is an author-side environment the reader is not in.
+
+> **The defect this prevents:** every gate in a guide quoting a rendering that only exists when the output is
+> captured — and two audits confirming them, because both audits captured it the same way. (Observed: 24
+> `dotnet build` gates expecting `0 Error(s)`, which .NET 10's default terminal logger does not print, and a
+> step teaching the column padding of a `dotnet test` summary line the reader's terminal never shows.)
+
+### 6.4 — Anchor to what your code does, not to what the tool generated
+**Why:** every guide sits on a scaffold, a CLI, a bundler or a framework that emits text nobody in the guide
+wrote — a generated config file, a template's demo page, a directory listing, a bundle's size, a laid-out box.
+That text is a **moving target the guide does not control**: the option the CLI stopped writing, the heading the
+template reworded, the file it no longer emits. It is also the text authors most often describe from memory or
+from reasoning rather than from looking — a size that "must be bigger" because something was added, a width read
+off the stylesheet instead of off the element. Either way the reader is told to edit a line that is not in their
+file, or to tick a gate their correct build just failed. This is 6.3's neighbour: 6.3 is the same tool rendering
+differently for the author, 6.4 is the tool's own output never being observed at all — or having moved since it
+was.
+
+**Do:** anchor edits and gates to what **your** code puts there.
+- **An edit instruction must survive the anchor being absent.** Say what the file must **read** when the step
+  is done, and handle "it isn't there" in the same breath — never "find this line and replace it" for a line a
+  generator owns.
+- **Never gate on a scaffold's own prose**, its exhaustive file listing, or its version banner. Gate on the
+  thing your code made happen.
+- **Any number you quote about the running system is one you measured.** A size, a width, a count, a duration:
+  observe it, or don't put it in a gate. If it moves with a patch release, gate on the direction or the
+  presence, not the value.
+
+- ❌ "In `angular.json`, find the line `"outputPath": "dist/color-picker",` — it occurs once — and replace it."
+  (`ng new` writes no such line: the option is optional and the builder defaults.)
+- ✅ "Make `outputPath` read … . The CLI most likely wrote none — that is the normal case, so add it."
+- ❌ "**Done when:** the page shows a heading reading `Vite + React` and a button labelled `count is 0`."
+  (An unpinned scaffold reworded both.)
+- ✅ "**Done when:** the page shows a counter button whose number goes up when you click it — the template's
+  wording moves between releases; the counter responding is the toolchain working."
+
+> **The defect this prevents:** a step that cannot be carried out as written, and a first gate that teaches the
+> reader the guide's exact values are approximate. (Observed: an `outputPath` line the Angular CLI does not
+> write; a `create-vite` demo page whose heading, button label and file list had all changed; a gate promising
+> a *bigger* bundle where the same step's deletion made it smaller; a panel gated at "240px wide" that measures
+> 266px because the CSS width is its content box.)
+
+### 6.5 — A break recipe must be run, and must name the failure the reader sees first
+**Why:** telling the reader to break something and watch the gate go red is the strongest device P6 has — it
+proves the gate can fail, which no green run does. It is also the one claim in a guide that is **never
+exercised by the happy path**, so a wrong one survives every clean run and every audit. Two ways it goes wrong,
+both observed in the same guide: the mutation leaves the suite **green**, because nothing covers the branch it
+breaks; or it fails somewhere else than the page says — a runner stops at the *first* failing assertion and a
+later one never runs, or an exception is thrown before any assertion is reached. A reader who is told to expect
+a specific failure and sees a different one cannot tell whether they misapplied the edit or the guide is wrong,
+on a page whose whole purpose is teaching them to trust the output.
+
+**Do:** apply the mutation, run it, and write down what came back.
+- **Name what actually fails first** — the assertion the runner reports, or the exception, if the test dies
+  before asserting. Say which tests go red, and say which stay green if that is surprising.
+- **If the suite stays green, the recipe is not the defect — the coverage is.** A mutation nothing catches
+  means no test pins that branch. Add the test; do not soften the sentence.
+- **Prefer a mutation whose blast radius you can state.** "Exactly one test fails, and it is this one" is a
+  claim the reader can check.
+
+- ❌ "Change the `||` to `&&` and re-run: `…_SameKeyDifferentPayload_…` must fail with `201`." (Both fields
+  differ in that test, so `&&` holds and the suite stays green — 0 failed, 13 total.)
+- ✅ A second test changes **one** field, and the recipe reads: "exactly one test fails — the one-field one —
+  while `…_SameKeyDifferentPayload_…` stays green, which is why both exist."
+
+> **The defect this prevents:** the reader following a "watch it fail" instruction and seeing success, or a
+> different failure, with nothing on the page to tell them which of the two of you is wrong. (Observed: all
+> three break recipes in one guide — one that left the suite green and exposed an uncovered branch, one that
+> failed two tests instead of one and by exception rather than assertion, and one naming an assertion that an
+> earlier one shadows.)
+
 ---
 
 ## P7 — Declare the starting state

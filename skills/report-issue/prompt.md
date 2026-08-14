@@ -74,6 +74,24 @@ Name *why* the guide let this happen. Almost always it's one of:
   hot-reload hiding a restart). The tell is a report shaped like "it works, but only when I…" or "nothing
   happens until I close/restart X". Treat this as a **guide defect, not a non-issue**: the gate cannot go
   green on correct code, so the reader can't tell success from failure;
+- a **gate quoting a captured rendering** (rule 6.3) — the guide asserts a line of command output that the
+  reader's terminal does not print, because whoever wrote the gate observed the command through a pipe, a
+  redirect, or a CI log and the CLI renders differently there. The tell is "the command worked but the guide's
+  expected line isn't in the output". Verify it by **running the command in a terminal**, not by re-reading
+  your own captured output — that capture is the environment that caused the defect, and it will confirm the
+  wrong answer. Fix by gating on values plus the exit code, and show the terminal's rendering with the captured
+  variant named beside it;
+- a **step or gate anchored to generated output** (rule 6.4) — the guide tells the reader to find a line in a
+  file a scaffold wrote, or reads a tool's own output as the gate. The tells are "there is no such line in my
+  file" and "the guide says the page shows X, mine says Y". Verify against a **freshly generated** workspace on
+  the pinned versions, not against the one the guide was written from: the defect is usually that the generator
+  moved. Fix by saying what the file must read and handling the anchor's absence, or by gating on what the
+  reader's own code produces; a quoted size, width or count is either measured or dropped;
+- a **break recipe nobody ran** (rule 6.5) — the guide says "break this and watch it fail" and the reader saw
+  something else, or saw nothing fail at all. Reproduce the mutation before diagnosing. If the suite stays
+  green, the wording is not the defect: **no test covers the branch**, and the fix is the missing test, which
+  makes this a milestone-scope change rather than a sentence-scope one. If it fails differently, name the
+  assertion or exception the reader actually gets first;
 - a genuine **reader mistake outside the guide's instructions** — in which case say so plainly, and still ask
   whether the guide *invited* it (an ambiguous instruction that any reader would trip on **is** a defect).
 

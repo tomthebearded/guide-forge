@@ -126,6 +126,39 @@ and mark it **unconfirmed**, naming the tool or environment needed to settle it.
   the environment-specific variant set alongside the normal one, or the mask named **inside the gate**.
   (Observed: a demo set a status-bar color that the debug host's own debugging colors override, so the
   milestone's headline gate appeared to fail on correct code.)
+- **Gate quotes a captured rendering, not the reader's terminal (rule 6.3) — BLOCKER:** flag any gate (or shown
+  output) that asserts a **line of command output** the reader's shell does not print, because the guide's
+  author observed it through a pipe, a redirect, a CI log, or a tool that captures stdout. Modern CLIs switch
+  renderer when stdout isn't a terminal, so the two forms can share their numbers and nothing else. The tell is
+  a gate naming a **fixed summary string** — `0 Error(s)`, `Passed!  - Failed: 0`, a padded column, an
+  ANSI-coloured banner — rather than a value plus an exit code. **Check this one against reality, not by
+  reading:** run the command in a terminal if you can, and if you can only capture its output, say so and mark
+  the finding **unconfirmed** — a capture is exactly the environment that produces the wrong answer here. The
+  fix is a gate on values (count, status, exit code) plus, where output is shown, the terminal's rendering with
+  the captured variant named beside it. (Observed: 24 `dotnet build` gates expecting `0 Error(s)`, which .NET
+  10's default terminal logger does not print — confirmed twice by audits that piped the output.)
+- **Step or gate anchored to generated output (rule 6.4) — BLOCKER when it is an edit instruction, WARNING when
+  it is a gate:** flag any action that tells the reader to *find* a line a scaffold or CLI generated, and any
+  gate that reads a tool's own output rather than the effect of the reader's code — a template's heading or
+  button label, an exhaustive `ls`, a version banner, a bundle size, a rendered width. The tell for the edit
+  case is "find `X` — it occurs once — and replace it" where `X` lives in a file no step in the guide wrote;
+  the tell for the gate case is a quoted string or number the guide never had the reader produce. Ask of every
+  such number: *was this measured, or reasoned?* A size that "must be larger because we added a component", a
+  width copied from a CSS declaration rather than from the box — both are reasoned, and both are how a correct
+  build reads as a failure. The fix is an instruction that says what the file must **read** and handles the
+  anchor's absence, and a gate on what the reader's code made happen. (Observed: an `outputPath` line the
+  Angular CLI does not write; a `create-vite` page whose heading, button label and file list had all changed;
+  a gate promising a bigger bundle where the step's own deletion made it smaller.)
+- **Break recipe never run (rule 6.5) — BLOCKER:** flag any "break it and watch the gate fail" instruction whose
+  described failure you cannot confirm. This is the one claim in a guide that **no clean run ever exercises**,
+  so it survives every green build and every reading audit. Two failure shapes to look for: the mutation may
+  leave the suite **green** — check that some test actually covers the branch being broken, and if none does,
+  the finding is *missing coverage*, not wording — and the named failure may not be the one the reader sees
+  first, because a runner stops at the first failing assertion or an exception is thrown before any assertion
+  is reached. **Check this one against reality:** apply the mutation and run it; if you cannot, say so and mark
+  the finding **unconfirmed**. (Observed: all three break recipes in one guide were wrong — one left the suite
+  green and exposed an uncovered branch, one failed two tests by exception rather than one by assertion, one
+  named an assertion an earlier one shadows.)
 - **Cross-platform commands:** if `foundation/stack.md`'s *Target OS / shell(s)* lists more than one shell,
   flag any command in a step or `Done-when` gate that runs on only one of them with no variant for the others —
   e.g. a Unix-only `grep`/`ls`/`cat`/`rm`/`export` used as a gate check when the guide also targets

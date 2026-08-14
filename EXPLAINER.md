@@ -268,6 +268,26 @@ that's proven) — while
 with the attachments and interview answers that shaped them. Touch the first when a new worked example ships;
 touch the others when a skill's invocation or arguments change.
 
+### `fixtures/` — complete guides, in-tree, as test subjects
+
+[fixtures/](fixtures/README.md) holds whole generated guides — `idempotent-api-dotnet/` (5 milestones, 19
+steps, 38 files), `color-picker-component-angular/` (5 milestones, 23 steps) and
+`color-picker-component-react/` (5 milestones, 23 steps) — and it is the one place the
+no-vendoring rule does not apply, because it is not output on display. The first two are picked to sit at
+opposite ends of one axis: every gate in the .NET guide is `dotnet test` with an exit code, and every gate in
+the Angular guide is a person looking at a browser. The third is a **controlled pair** with the second — same
+picker, same end state, same gates, stack the only variable — which is what makes a difference between them
+attributable rather than anecdotal: the build-vs-borrow row for the framework→custom-element bridge inverts,
+borrow on Angular (`@angular/elements` ships with the framework) and build on React (nothing equivalent
+exists), and that single row is why the React guide's M1 is its widest milestone. The
+distinction the folder exists to hold: **an example is evidence, a fixture is a test subject.**
+`examples/real-examples.md` links guides in their own repositories to show what the method produces;
+`fixtures/` keeps one in-tree so the contract can be run *against* something real without cloning anything —
+a target for `audit-guide`, a subject for a deterministic guide checker, and a worked reference for seeing
+what a contract change does to a finished guide. It is pinned to the stack verified the day it was drafted and
+should stay pinned; a fixture that drifts stops being a fixture. Touch it when you want to re-measure the
+contract, not when you change a skill.
+
 ---
 
 ## 6. The four prompts, in depth
@@ -365,6 +385,9 @@ The rules are grouped under **named principles** (`P1`, `P2`, …); each id (lik
 | **P6 — Prove the gate** | | | |
 | 6.1 | A Done-when exercises what it claims | "Done when: the query is deterministic — run it and see the list." (one run proves nothing) | "Done when: running it **twice** returns byte-identical order — run, copy, run again, diff: no differences." |
 | 6.2 | Observe the property where the environment can't mask it | "Done when: the host window's status bar turns crimson — live." (the debug session paints the bar from its own colors, so correct code shows orange) | The demo sets the debugging color pair too, and the gate says "crimson immediately — **including while the debug session runs**". |
+| 6.3 | Quote the output the reader's shell prints, not the one your capture produced | "Done when: `dotnet build` prints `0 Error(s)`." (true only through a pipe; a terminal prints `Build succeeded in 1.5s` and no counts) | "Done when: `dotnet build` ends on `Build succeeded`, exits 0 — there is no `0 Error(s)` line in a terminal." |
+| 6.4 | Anchor to what your code does, not to what the tool generated | "In `angular.json`, find the line `"outputPath": "dist/color-picker",` and replace it." (`ng new` writes no such line) | "Make `outputPath` read … — the CLI most likely wrote none, so add it." |
+| 6.5 | A break recipe must be run, and must name the failure the reader sees first | "Change the `||` to `&&`: the conflict test must fail." (both its fields differ, so `&&` holds and the suite stays green) | A second test changes **one** field, and the recipe says "exactly one test fails — that one — while the other stays green, which is why both exist." |
 | **P7 — Declare the starting state** | | | |
 | 7.1 | Declare the step's starting state | "Run `npm run dev` and open the app." (but `.env` was never created and the DB never started) | "**Before you start:** the API from M1 must be running and `.env` present (M1/04). Then run `npm run dev` in `web/`." |
 

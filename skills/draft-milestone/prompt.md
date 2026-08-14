@@ -238,7 +238,11 @@ The principles (rules cited by dotted id; full contract in
 - **P5 Anticipate failure** — **5.1** name the likely failure and its usual cause.
 - **P6 Prove the gate** — **6.1** every Done-when exercises the exact property it claims; **6.2** the property
   is observable in the environment the step tells the reader to watch — never let a debug session, dev mode,
-  emulator or preview build mask the exact signal the gate reads.
+  emulator or preview build mask the exact signal the gate reads; **6.3** quote the output the reader's
+  terminal prints, not the one a pipe, a redirect or a CI log produced for you — gate on values, not on a line
+  to match; **6.4** anchor edits and gates to what your code does, never to a line a scaffold generated, a
+  template's wording, or a number you reasoned about instead of measuring; **6.5** run every break recipe
+  before you write it down, and name the failure the reader sees **first**.
 - **P7 Declare the starting state** — **7.1** before the first action, say what must already be
   installed/running/logged-in/built or name the step that established it; never silently assume a prerequisite.
 
@@ -343,6 +347,24 @@ Plus the structural rules — the ones drafters most often drop:
   see the real effect. Never leave the mask to the troubleshooting table — a reader whose code works has no
   reason to read it. (Observed: a demo set a status-bar color the debug host overrides, so a correct
   implementation showed the host's own color and the milestone's headline gate appeared to fail.)
+- **Gates quote the reader's terminal, not your capture (rule 6.3).** If you observed a command's output
+  through a pipe, a redirect, a CI job, or any tool that captures stdout, you very likely saw a **different
+  rendering** than the reader will — modern CLIs switch renderer when stdout isn't a terminal. Gate on the
+  **values** (a count, a status, an exit code), never on a summary line to match character by character; where
+  you do show output, show the terminal's form and name the captured variant beside it, in the gate. (Observed:
+  24 `dotnet build` gates expecting `0 Error(s)`, which the .NET terminal logger does not print.)
+- **Anchor to your code, not to the tool's output (rule 6.4).** An edit instruction must never send the reader
+  hunting for a line a generator owns — say what the file must **read** when the step is done and handle its
+  absence in the same breath, because scaffolds drop options and rename things between releases. A gate must
+  never read a template's prose, an exhaustive listing, or a number you did not measure: "the bundle is bigger
+  now" is reasoning, and reasoning is how a correct build reads as a failure. (Observed: an `outputPath` line
+  the CLI stopped writing; a scaffold's heading and button label quoted in a first gate, both since reworded.)
+- **Every break recipe is run before it is written (rule 6.5).** If a `Done when` says "break this and watch it
+  fail", apply the mutation yourself, run it, and write down what came back: which test goes red, on which
+  assertion — or on which exception, if it dies before asserting. If the suite stays **green**, you have found
+  missing coverage, not a wording problem: add the test that pins the branch. Nothing in a clean run ever
+  checks this claim, so a wrong one ships. (Observed: a `||`→`&&` mutation the whole suite passed, because no
+  test changed only one field.)
 - **Commands are cross-platform for the targeted shells.** Every command in a step or a `Done when` must run on
   **every** shell listed in `stack.md`'s *Target OS / shell(s)*. When a command differs between shells, give
   the variant for each (e.g. bash `grep -q` **and** PowerShell `Select-String -Quiet`) — never a Unix-only
@@ -398,6 +420,14 @@ yourself. Confirm:
   emulator / preview build the step runs in does **not** override, suppress, or duplicate the exact signal the
   gate reads; where it would, the step observes an unmasked channel, sets the environment-specific variant too,
   or names what that environment shows **inside the gate**;
+- **no gate quotes a captured rendering (rule 6.3)** — every command output shown or asserted is what the
+  reader's *terminal* prints, and the gate names values rather than a line to match character by character;
+- **nothing is anchored to generated output (rule 6.4)** — no action tells the reader to find a line a scaffold
+  wrote, no gate reads a template's wording or an exhaustive listing, and every number quoted about the running
+  system was measured rather than inferred;
+- **every break recipe was run (rule 6.5)** — for each "break it and watch it fail", the mutation was applied
+  and the failure it actually produces is what the page describes: the right test, the right assertion or
+  exception, and a note where a second test surprisingly stays green;
 - **versions and load-bearing names are consistent** — every command/code block uses the pinned Verified-stack
   versions, and every recurring name/path/identifier matches how earlier steps spelled it (no drift);
 - **no term is defined twice on one page (rule 1.1b)** — for each step, read the `## Glossary for this step`

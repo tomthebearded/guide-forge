@@ -34,10 +34,13 @@ actually exists — but don't change behavior (see the box above).
 Read the whole step first. Then revise it so every one of these holds:
 
 Grouped by principle (rules cited by dotted id; full contract in
-[reference/pedagogy-rules.md](../../reference/pedagogy-rules.md)). **P6 "prove the gate" (rules 6.1–6.2) is a
+[reference/pedagogy-rules.md](../../reference/pedagogy-rules.md)). **P6 "prove the gate" (rules 6.1–6.5) is a
 drafting / review-gate concern, not a clarity edit — it's intentionally absent here; clarifying a step never
-changes what its Done-when checks. If the gate looks unprovable (6.1) or masked by the environment the step
-tells the reader to observe in (6.2), *flag it* for `report-issue`; don't rewrite the gate:**
+changes what its Done-when checks. If the gate looks unprovable (6.1), masked by the environment the step
+tells the reader to observe in (6.2), written against output a pipe or a CI log produced rather than the
+reader's terminal (6.3), anchored to a line or a string some scaffold generated rather than to the reader's own
+code (6.4), or proven by a break recipe whose described failure nobody has produced (6.5), *flag it* for
+`report-issue`; don't rewrite the gate:**
 
 > **Same carve-out for a sourcing claim.** If the step justifies a capability by the *family* a name belongs to
 > — "it takes that option **because** it's an `editor.*` setting", "all hooks allow this" — that is a factual

@@ -22,9 +22,18 @@ Every step must obey the pedagogy principles — see ../reference/pedagogy-rules
      RULE 6.2 — each check must be observable in the environment this milestone tells the reader to run in. If
      that environment (debug session, dev server, emulator, preview build) overrides or duplicates the signal
      being read, a CORRECT build fails the gate: observe an unmasked channel, set the environment-specific
-     variant too, or say in the check itself what that environment shows. -->
+     variant too, or say in the check itself what that environment shows.
+     RULE 6.3 — a command's expected output must be what the READER's terminal prints. If you observed it
+     through a pipe, a redirect or a CI log, you probably saw a different renderer: gate on values (a count, a
+     status, an exit code), never on a summary line to match character by character.
+     RULE 6.4 — read the effect of the READER's code, never a scaffold's own output: not a template's wording,
+     not an exhaustive file listing, not a size or a width you inferred instead of measuring.
+     RULE 6.5 — if a check proves the gate by BREAKING something, run that mutation yourself first and write
+     down what came back: which test goes red, on which assertion — or on which exception, if it dies before
+     asserting. A mutation the suite survives is missing coverage, not a wording problem. -->
 - [ ] <action — e.g. `curl -s localhost:8080/todos`> → <exact expected output — e.g. `[{"id":1,"title":"…"}]`, status 200>.
 - [ ] <action> → <exact expected output>.
+- [ ] <optional break recipe — e.g. comment out <line> → exactly <test> fails, on <assertion or exception>; restore and confirm green>.
 
 ## Files after this milestone (the checkpoint)
 <!-- SCOPE THE COMPLETENESS CLAIM — don't over-promise. This section renders the COMPLETE current contents of

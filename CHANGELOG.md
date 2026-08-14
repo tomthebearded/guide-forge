@@ -5,6 +5,132 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+
+- **Rule 6.4 — anchor to what your code does, not to what the tool generated.** New rule under P6, and the
+  first one produced by *executing* fixtures rather than reading them. Every guide sits on a scaffold, a CLI or
+  a bundler that emits text nobody in the guide wrote — a generated config line, a template's demo page, a file
+  listing, a bundle size, a laid-out box — and that text is a moving target the guide does not control. It is
+  also what authors most often describe from reasoning rather than from looking: a size that "must be bigger"
+  because something was added, a width read off the stylesheet instead of off the element. Either way the reader
+  is told to edit a line that is not in their file, or to tick a gate their correct build just failed. 6.3 is
+  the same tool rendering differently for the author; **6.4 is the tool's own output never being observed at
+  all — or having moved since it was.** The fix: an edit instruction says what the file must **read** and
+  handles the anchor's absence; a gate reads the effect of the reader's code; any number quoted about the
+  running system was measured.
+  *(Found by following the two colour-picker fixtures end to end: an `outputPath` line the Angular CLI does not
+  write, a `create-vite` demo page whose heading, button label and file list had all changed, a gate promising
+  a bigger bundle where the same step's deletion made it smaller, and a panel gated at "240px wide" that
+  measures 266px.)*
+
+- **Rule 6.5 — a break recipe must be run, and must name the failure the reader sees first.** New rule under
+  P6. "Break this and watch the gate go red" is the strongest evidence P6 has — it proves the gate *can* fail,
+  which no green run does — and it is the only claim in a guide that **no clean run ever exercises**, so a wrong
+  one survives every build and every reading audit. Two shapes, both observed in one guide: the mutation leaves
+  the suite **green** because nothing covers the branch it breaks, or it fails somewhere other than the page
+  says, because the runner stops at the *first* failing assertion or an exception is thrown before any assertion
+  is reached. The rule's teeth are in the first case: **a mutation nothing catches is missing coverage, not a
+  wording problem** — add the test, don't soften the sentence.
+  *(Found by executing the .NET fixture's 19 steps in order: all three of its break recipes were wrong, and
+  fixing the worst one added the fourteenth test to a suite whose thesis is that the tests are the proof.)*
+
+  Both rules are synced across the contract set: `reference/pedagogy-rules.md`, the `plan-guide` (Phase 5),
+  `draft-milestone` (writing contract *and* self-audit checklist), `clarify-step` (P6 carve-out, now 6.1–6.5)
+  and `audit-guide` (two new checks, each telling the auditor to settle it by running something rather than by
+  reading) prompts, `EXPLAINER.md` §7, `templates/step.md` and `templates/verify.md` — whose gate block now
+  carries an optional break-recipe line. `review-before-follow` gained both pre-execution checks and
+  `report-issue` both root-cause classes, including the note that an uncovered branch makes the fix
+  milestone-scope rather than sentence-scope.
+
+- **Rule 6.3 — quote the output the reader's shell prints, not the one your capture produced.** New rule under
+  P6 (*prove the gate*), and the first one this repo's own fixture produced. You observe a command through a
+  pipe, a redirect, a CI job, or a tool that captures stdout; modern CLIs **detect that** and switch renderer,
+  so the gate you write is faithful to what you saw and unreachable for the reader. What makes it worth a rule
+  rather than a footnote is that it is **self-confirming**: re-running your own check reproduces your capture,
+  not their terminal, so the defect survives re-verification. Rule 6.2 already covered the environment masking
+  the *reader*; 6.3 is the same failure turned on the author.
+  The fix is always the same shape — gate on **values** (a count, a status, an exit code), never on a line to
+  match character by character; where showing the output is the lesson, show the terminal's rendering and name
+  the captured variant beside it, **in the gate**.
+  Synced across the contract set: `reference/pedagogy-rules.md`, the `plan-guide` (Phase 5), `draft-milestone`
+  (writing contract *and* self-audit checklist), `clarify-step` (P6 carve-out, now 6.1–6.3) and `audit-guide`
+  (a new BLOCKER check that tells the auditor to run the command in a terminal, and to mark the finding
+  *unconfirmed* when it can only capture the output) prompts, `EXPLAINER.md` §7, `templates/step.md` and
+  `templates/verify.md`. `review-before-follow` gained the pre-execution version of the check and
+  `report-issue` the root-cause class.
+
+- **`fixtures/color-picker-component-react/` — a third fixture, and the first *controlled pair*.** The same
+  colour picker as the Angular fixture — same brief, same observable end state, same canonical `#3366ff`, same
+  browser-watched gates — rebuilt on React 19 + Vite 8 + Node 24 (stack verified online 2026-08-14):
+  5 milestones, 23 steps, 5 verify gates, generated with `v1.15.0`. The first two fixtures vary the *gate*
+  (exit code vs. a person looking at a page); this one holds everything fixed and varies only the **stack**, so
+  a difference between the two guides is attributable to it rather than to taste.
+  What the pair actually surfaces is one **build-vs-borrow row inverting**. Angular's framework→custom-element
+  bridge is `@angular/elements`, an in-house package versioned with the framework, so the row is *borrow* and
+  it is not close. React has no equivalent — the nearest thing is a 1.36 KB third-party wrapper — so the bridge
+  is written by hand, and that single row is why the React guide's M1 carries two steps more than Angular's and
+  its M4 one more (the `value` property accessors Angular Elements would have generated). One capability,
+  incidental plumbing in one guide and the spine of the other.
+  Drafting it produced three corrections to its own approved plan, all recorded rather than quietly applied:
+  M1's encapsulation probe used `*`, which also matches the host element in the light DOM and so proved
+  nothing about the boundary; M5's gate asked the reader to drag an alpha rail to exactly 0.5, which is one
+  position on a 240-pixel track; and two step cuts could not end on a green build as proposed. It also caught
+  one library README contradicting its own published manifest — the *manifest* is what was recorded.
+
+- **`fixtures/color-picker-component-angular/` — a second fixture, on the opposite kind of gate.** An Angular
+  colour picker shipped as a plain HTML custom element: 5 milestones, 23 steps, 5 verify gates, generated with
+  `v1.15.0` against Angular 22 / Node 24 (stack verified online 2026-08-14). The .NET fixture was chosen because
+  every gate in it is `dotnet test` with an exit code; this one was chosen because **no test runner exists in
+  the guide at all**. Every gate is a person reading exact values off a static demo page served over HTTP —
+  which is the harder case the contract has to survive, and the case both linked `real-examples.md` guides
+  stalled on.
+  Being human-gated changes what the contract has to do, and the fixture is where that shows: rule 6.2's
+  masking environment is a *browser* here (a cached bundle behind an unhashed filename, an ES module blocked on
+  `file://`), and every Done-when names an exact value — `#ff0000`, `rgba(51, 102, 255, 0.5)`,
+  `shadowRoot` not `null` — because eyes are the only assertion in the stack.
+  Drafting it also produced two corrections **to its own approved plan**, both recorded rather than quietly
+  applied: the ladder needed a fifth colour conversion the build-vs-borrow table had not counted, and M2's
+  original gate asked the reader to hit a midpoint half a pixel wide. A gate you cannot hit is not a gate.
+
+- **`fixtures/idempotent-api-dotnet/` — a complete generated guide, kept in-repo as a test subject.** An idempotent
+  Minimal API on .NET 10: 5 milestones, 19 steps, 5 verify gates, 38 files, generated with `v1.14.1` from a
+  `plan-guide` plan. Until now the repo could only describe the canonical layout in prose and check its own
+  docs; there was no finished guide in-tree to run anything against. This is that artifact — a target for
+  `audit-guide`, a subject for a future deterministic guide checker, and a worked reference for seeing what a
+  contract change actually does to a finished guide.
+  [`fixtures/README.md`](fixtures/README.md) draws the line the repo needs here: **an example is evidence, a
+  fixture is a test subject.** Guides written with the toolkit still live in their own repositories and get
+  linked from `examples/real-examples.md`; this one is not offered as proof the method works. Its code
+  compiles and its thirteen tests pass, but **nobody has followed it**, so every milestone sits at ⏳ and its
+  own `status.md` says exactly that.
+  It was generated against a deliberately chosen property: every acceptance gate is `dotnet test` with an exit
+  code. Both linked examples stalled with un-ticked gates because their gates needed a human at a browser or a
+  debug host, so a fixture whose gates are machine-checkable is the one that can eventually be verified
+  end-to-end.
+
+  **It earned its keep on day one.** Auditing the fixture *by reading it* returned PASS-WITH-WARNINGS;
+  auditing it by **building and running it** returned a BLOCKER. An entire M1 step taught appending
+  `public partial class Program { }`, on the strength of Microsoft's integration-tests article — which still
+  says it is required and has not caught up with the SDK. On .NET 10 the generated class is already public
+  (`typeof(Program).IsPublic` is `true`), so the step was a no-op justified by a false reason, and
+  `stack.md` recorded it as a *verified fact*. The step is gone, M1 is 4 steps, and the fact is now taught as
+  *why the line you have seen everywhere is not here*. The same run also showed the runner's summary is
+  column-padded at variable width, so the 18 gates quoting it character-for-character could never match; they
+  now assert the values. Both fixes are recorded in the fixture's own drift log, and the guide's 13 tests pass
+  on a clean rebuild.
+
+  **Then it earned its keep twice.** A third pass re-ran the gates **in a terminal** instead of through a
+  captured stream, and every one of them was still wrong — in the other direction. Since .NET 9 the CLI uses
+  the terminal logger whenever stdout is a terminal, which is the reader's case and never the tooling's: it
+  prints `Build succeeded in 1.5s` with **no** `0 Error(s)` line, and `Test summary: total: 1, failed: 0, …`
+  rather than the padded `Passed!  - Failed:     0, …`. The padded renderings the first two audits "confirmed"
+  exist only when the output is piped — which is how both of those audits captured it. 24 build gates named an
+  output the reader will never see, and the fix from the previous paragraph had been verified against the
+  wrong environment. All 24 gates now read `Build succeeded`; M1 steps 01 and 03 show what a terminal prints
+  and name the redirected variant inside the gate itself, per rule 6.2. **The lesson the fixture is teaching
+  the toolkit: an audit that reads a gate's output through a pipe is running in a different environment from
+  the reader, and rule 6.2 applies to the auditor as much as to the guide.**
+
 ## [1.15.0] — 2026-08-14
 
 ### Added

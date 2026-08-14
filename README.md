@@ -279,6 +279,11 @@ guide-forge/                      ← a single project = one Claude Code plugin
 │   ├── audience-model.md
 │   └── canonical-layout.md        ← the one fixed on-disk skeleton every guide uses
 │
+├── fixtures/                     ← complete generated guides, kept in-repo as TEST SUBJECTS
+│   ├── idempotent-api-dotnet/            ← the canonical layout as actual files (5 milestones · 19 steps)
+│   ├── color-picker-component-angular/   ← a browser-gated guide: no test runner, every gate is a page
+│   └── color-picker-component-react/     ← the same picker on React: a controlled pair, stack the only variable
+│
 ├── examples/                     ← what to type, and what came out
 │   ├── real-examples.md           ← guides the pipeline produced, each linked in its own repo
 │   ├── plan-guide-prompts.md      ← eight worked briefs, fully-specified and one-line
