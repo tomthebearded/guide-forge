@@ -5,6 +5,16 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+
+- **README — "Built something with GuideForge?"** The repo asked for real examples in `CONTRIBUTING.md` and in
+  `examples/real-examples.md`, both of which a reader reaches only after deciding to contribute; the README
+  itself never said what to do with a finished guide. The new section says attribution is **not** required
+  (MIT, and the guide is theirs), gives a one-line credit to copy for anyone who wants it, explains why naming
+  the **version** is the part that matters — the layout moves between releases, so it dates the shape of the
+  method — and points at the PR that lists a guide in `examples/real-examples.md`, linked from its own repo
+  rather than vendored here.
+
 ## [1.13.1] — 2026-08-14
 
 ### Removed

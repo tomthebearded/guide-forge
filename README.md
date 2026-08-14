@@ -47,6 +47,7 @@ maintain the result, not just run it.
 - [Tips for following a guide](#tips-for-following-a-guide)
 - [FAQ](#faq)
 - [Troubleshooting](#troubleshooting)
+- [Built something with GuideForge?](#built-something-with-guideforge)
 - [Credits & inspiration](#credits--inspiration)
 - [License](#license)
 
@@ -497,6 +498,32 @@ Distilled from a real doc-driven, solo-dev build system. See [Credits](#credits-
 | Steps are too long / do many things | Atomicity rule ignored | Run [clarify-step](skills/clarify-step/prompt.md); split by "one indivisible action." |
 | Reader keeps hitting undefined terms | Rule 1.1 not applied | Run clarify-step; add a per-step glossary. |
 | Guide worked once, breaks now | Drifted from reality | Run [review-before-follow](skills/review-before-follow/prompt.md). |
+
+---
+
+## Built something with GuideForge?
+
+**No attribution is required.** The [MIT licence](LICENSE) doesn't ask for it, and a guide you generated is
+yours — ship it, sell it, put your own name on it.
+
+If you *want* to credit it, one line in your guide's README is plenty:
+
+```markdown
+Built with [GuideForge](https://github.com/tomthebearded/guide-forge) `v<x.y.z>`.
+```
+
+Naming the **version** is the part worth keeping. The layout and conventions move between releases, so it
+tells a reader which shape of the method they're looking at — and tells you, later, whether re-running the
+maintenance skills would change anything. If you scaffolded the guide, `foundation/status.md` already records
+it as `Generated with GuideForge v<x.y.z>`.
+
+**Want it listed here?** Publish the guide as its own repository, then open a PR adding it to
+[examples/real-examples.md](examples/real-examples.md) — a heading, the link, the version you generated it
+with, and two lines. Guides live in their own repos and get linked, never vendored into this one: GuideForge
+ships the method, and the output is yours. Details in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Real output is the most convincing thing this repo can point at, especially for a domain nobody has covered
+yet.
 
 ---
 
