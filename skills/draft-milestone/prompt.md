@@ -201,6 +201,13 @@ The principles (rules cited by dotted id; full contract in
 Human"/"the human"/"the user"/"the developer"/"the reader"/"one" — write every action and gate as something
 **you** do and see. (Third-person is fine only for a *different* actor: the app's end-user, a teammate.)
 
+**Language — write in the guide's language.** Read `foundation/conventions.md` § *Writing language* and write
+every sentence in it; **default to English** if the section is missing. The skeleton is never translated,
+whatever the prose language: file and folder names, the template section headings (`## Do this`,
+`## Done when (this step)`, …), the nav-line vocabulary (`Nav`, `Overview`, `prev:`/`next:`/`start:`,
+`milestone K of N`), table column keys, code, commands, identifiers, paths and doc URLs stay English — the
+audit and the rest of the pipeline match them literally.
+
 Plus the structural rules — the ones drafters most often drop:
 - **Draft every step in full — never stub, summarize, or collapse.** Each atomic step gets its own complete
   file, even when steps are repetitive or mechanical. Never elide with "steps 3–6 follow the same pattern",
@@ -328,6 +335,9 @@ yourself. Confirm:
   batched in a trailing block, and no step carries a redundant consolidated "complete file" copy; **no
   pre-existing file is re-pasted whole and no insertion anchor is ambiguous** (rule 4.3);
 - no required code hides in an "If it breaks" note; every milestone→milestone link is clickable and resolves;
+- **every file is written in the guide's language** (`conventions.md` § *Writing language*, English by
+  default) with **no untranslated skeleton**: section headings, nav-line labels, file names, table column
+  keys, code, commands and URLs stayed English;
 - **no step crossed the milestone boundary** — every step stays inside what the ladder gives this milestone;
   anything out of scope was deferred and flagged, not silently absorbed, and no deferral was written up as a
   standing "what this milestone doesn't do" section (inline, one sentence, only where its absence would

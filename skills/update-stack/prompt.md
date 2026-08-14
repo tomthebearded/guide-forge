@@ -31,7 +31,9 @@ version bump actually affects.
 ## 1. Read the current reality
 Read `README.md`, `stack.md` (current pinned versions + check date), and `status.md` (frontier, milestone
 table, drift log). If a lockfile/manifest is attached, note its versions — but still verify online (files go
-stale too).
+stale too). Also read `conventions.md` § *Writing language*: every line you rewrite is written in that
+language (**English** if the section is missing), while file names, template headings, nav-line labels,
+commands, code and doc URLs stay English as always.
 
 ## 2. Re-verify online (same method as the plan prompt's Phase 0.5)
 For each tool in scope, use web search + fetch the official page: find the **latest stable (and LTS)**

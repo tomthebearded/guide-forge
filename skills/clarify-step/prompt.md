@@ -20,6 +20,10 @@ clearly it teaches — you do **not** change what it does.
 The step file to clarify: <paste it, or name it>.
 Also recall (ask if missing): the **audience model** — the per-topic expertise matrix (topic →
 Expert/Intermediate/Beginner/New) and the granularity setting — and the running **glossary**.
+**Write in the guide's language:** `foundation/conventions.md` § *Writing language* records it (default
+**English** if absent) — a clarity pass never changes the language a step is written in. The skeleton stays
+English whatever the prose language: file names, template section headings, nav-line labels, code, commands,
+identifiers and URLs are not translated.
 You may also **attach the related code file(s)** the step references, so the clarified step matches what
 actually exists — but don't change behavior (see the box above).
 

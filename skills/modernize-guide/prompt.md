@@ -35,6 +35,10 @@ instead of a one-line idea. You do **not** write the finished guide.
 
 - Ask **who** the modernized guide is for — the per-topic expertise matrix (Expert/Intermediate/Beginner/New)
   + the granularity dial. The source rarely says; batch the questions and default sensibly.
+- Ask which **language** the modernized guide's prose is written in — default to the source document's own
+  language, and record the answer in the plan's Conventions doc, since that's where every later skill reads it
+  from. Only the prose: file names, template section headings, nav-line labels, code, commands and URLs stay
+  English in every guide.
 - **For every versioned tool in the salvaged stack, always ask me to choose explicitly:** modernize it to the
   **latest stable version** or pin a **specific version I name**. Don't silently bump everything to latest —
   make it a real per-tool question. Default to `latest` only if I say "you decide".

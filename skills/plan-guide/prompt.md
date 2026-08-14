@@ -59,7 +59,8 @@ The brief isn't only the one-line prompt. It can come from **any context you giv
   question here, **default every version to the current stable LTS (or, where there's no LTS track, the latest
   stable release minus any brand-new major still in its first weeks)** — a teaching guide wants the version
   with the most stable ecosystem and the fewest breaking-change surprises, not the bleeding edge. Say the
-  choice explicitly and note that a reader who wants the newest major can opt in. **Still run Phase 0.5** — the
+  choice explicitly and note that a reader who wants the newest major can opt in. For Q7's **writing language**,
+  default to the language of the brief you were given and state that assumption too. **Still run Phase 0.5** — the
   online version/doc check does not need me and must always happen; it's where you confirm what the current LTS
   actually is.
 
@@ -119,8 +120,14 @@ confirmed with me too, not inferred from a source.**
    guide from sprawling — this is as important as naming goals.)
 6. **Hard constraints.** Anything non-negotiable: platform, house style, "must not touch X," offline-only,
    budget, deadline pressure, existing codebase to build on vs greenfield.
-7. **Format & size.** Roughly how big is this — a weekend project, a multi-week course, a reference? One
-   document or a folder of many small files?
+7. **Format, size & writing language.** Roughly how big is this — a weekend project, a multi-week course, a
+   reference? One document or a folder of many small files? And **which language is the guide's prose written
+   in** — propose the language I'm talking to you in as the default, and let me name another. Only the *prose*
+   follows that choice: file and folder names, the template section headings (`## Do this`,
+   `## Done when (this step)`, …), the nav-line labels (`Nav`, `Overview`, `prev:`/`next:`/`start:`), code,
+   commands, identifiers and doc URLs stay **English in every guide**, because the layout contract and the
+   audit read them literally. Whatever I choose goes into the Conventions foundation doc (Phase 1) — it's the
+   only place the drafting and maintenance skills can read it from in a later session.
 
 If I answer "you decide" for any of these, choose the most reasonable option, **state the assumption
 explicitly**, and continue.
@@ -204,7 +211,9 @@ Before decomposing the work, plan the shared docs every step will lean on. Propo
   the reader's level on that specific topic — over-explaining an Expert topic is as harmful as
   under-explaining a New one.*
 - **Conventions** — the style/architecture rules the code will follow (naming, structure, patterns,
-  data-vs-code decisions). One place, referenced everywhere, so no step re-argues them.
+  data-vs-code decisions). One place, referenced everywhere, so no step re-argues them. It also **records the
+  writing language from Q7** (prose language + the note that the skeleton stays English): the later skills run
+  in fresh sessions and read the language from here or default to English.
 - **Glossary** — a running list of domain terms with one-sentence plain-language definitions. Steps link
   into it; it grows as the ladder introduces concepts.
 - **Status authority** — one file that is the *single source of truth* for what is actually done and verified

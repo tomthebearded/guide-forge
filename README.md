@@ -78,6 +78,7 @@ GuideForge encodes that discipline as reusable prompts and skills, so what comes
 | **A planning meta-prompt** | Turns a one-line idea into a full, milestone-laddered build plan — with an audience + stack interview up front. |
 | **Per-topic expertise + granularity dials** | Rates the reader **per topic** (Expert → New) so an expert gets names-only and a junior gets definitions, doc links, and deep dives — on that exact topic. A separate granularity dial sets how finely steps are cut. |
 | **Live stack verification** | Interviews you for languages/versions/stack, then **checks the web** for the latest stable versions and pins them with official doc links — so the guide is built on current facts, not stale training memory. |
+| **Your language, one contract** | The plan interview asks which language the guide's prose is written in; it's recorded in `conventions.md` so every later skill keeps writing in it. The skeleton — file names, section headings, nav labels, code — stays English in every guide, so the pipeline and the audit still match it. |
 | **A drafting prompt** | Expands one approved milestone into atomic, teaching step-files — built against the pinned versions, APIs re-checked against the live docs. |
 | **A clarity prompt** | Runs the pedagogy pass over any existing step to remove confusion. |
 | **A review-before-follow prompt** | The gate you run before *acting on* any guide, so stale/ambiguous steps get fixed first. |

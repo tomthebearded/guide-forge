@@ -36,7 +36,11 @@ Use the one canonical skeleton — don't invent a per-guide structure. The fixed
      below); frontier = first milestone (not started); the milestone-status table seeded from the ladder; a
      **Source-inputs** row per file the plan cited.
    - `glossary.md`, `conventions.md`, `decision-log.md` — seeded with whatever the plan already decided;
-     otherwise the empty template with headings. In `glossary.md`, every term is a **`### <term>` heading**
+     otherwise the empty template with headings. `conventions.md` § **Writing language** is the one section
+     that is **never left empty**: fill it with the prose language the plan settled in Q7 (English if the plan
+     doesn't say), because every later skill reads the guide's language from there and falls back to English
+     without it. Write the scaffold's own prose in that language too — the skeleton (file names, template
+     headings, nav-line labels) stays English. In `glossary.md`, every term is a **`### <term>` heading**
      (never a bullet) so `../glossary.md#<slug>` deep-links from steps resolve natively on GitHub — bulleted
      terms have no anchor and the links silently fail. (Observed: a guide had dead `glossary.md#term`
      links because terms were bullets.)

@@ -170,11 +170,14 @@ config, and a redacted `.env.example`.
 | Stack | *(read from the repo — confirm what the planner proposes)* |
 | Non-goals | No cluster administration, no on-call procedures, no cost tuning |
 | Constraints | Must not touch production; VPN required; existing conventions win over anything nicer |
-| Size | Two afternoons; folder of many small files |
+| Size & language | Two afternoons; folder of many small files; prose in **Italian** (the team's working language) |
 
 **What it shows.** Attachments beat description: the manifests supply the real stack, the CI config supplies
 the real commands, and you confirm rather than dictate. But note what the repo *cannot* tell it — your hires'
-per-topic expertise. Context describes the build, never the reader, so Q1 and Q2 still get asked.
+per-topic expertise. Context describes the build, never the reader, so Q1 and Q2 still get asked. The language
+answer is the other thing no attachment settles: it lands in `conventions.md` so every later skill keeps
+writing Italian — while the file names, section headings, nav labels and commands stay English, as in every
+guide.
 
 ---
 

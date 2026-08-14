@@ -16,6 +16,19 @@ and makes every step conform. Fill with YOUR stack's rules.
      See ../reference/pedagogy-rules.md § The voice principle. -->
 - Address the reader as **you**; never "the Human"/"the user"/"the reader".
 
+## Writing language
+<!-- The language the guide's PROSE is written in — decided once in the plan (plan-guide Q7) and recorded
+     here, because this file is the only place the later skills (draft-milestone, clarify-step, report-issue,
+     update-stack, review-before-follow, log-feedback) can read it from in a fresh session. If this line is
+     missing, every skill defaults to English.
+     FIXED across every GuideForge guide, whatever the prose language: the skeleton stays English — file and
+     folder names, the template section headings (`## Do this`, `## Done when (this step)`, …), the nav-line
+     vocabulary (`Nav`, `Overview`, `prev:`/`next:`/`start:`), stack/status table column keys, and of course
+     code, commands, identifiers and URLs. See ../reference/canonical-layout.md § Writing language. -->
+- Prose language: **<e.g. English>**. Everything a reader reads as a sentence is written in it.
+- Untranslated in every guide: file/folder names, template section headings, nav-line labels, table column
+  keys, code, commands, identifiers, paths, doc URLs.
+
 ## Naming
 <!-- e.g. file naming, symbol casing, which names are load-bearing by convention. -->
 

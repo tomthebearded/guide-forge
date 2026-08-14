@@ -237,7 +237,7 @@ you the exact shape of a GuideForge guide.
 | `stack.md` | The Verified stack: pinned versions + official doc links + check date, from the Phase 0.5 web check. |
 | `status.md` | The single-source-of-truth status authority (the *truth lives in one place* pillar). |
 | `glossary.md` | Running term list the steps link into. |
-| `conventions.md` | Style/architecture rules referenced everywhere. |
+| `conventions.md` | Style/architecture rules referenced everywhere — plus the guide's **writing language**, the one place later skills read it from. |
 | `decision-log.md` | Non-obvious choices + rationale, so the reader learns *why*. |
 | `feedback-log.md` | Append-only field log of friction readers hit — captured by `/log-feedback`, for improving the guide and the method. |
 
@@ -269,7 +269,10 @@ touch the others when a skill's invocation or arguments change.
 - **Phase 0 (interview):** seven question groups — a **per-topic expertise matrix** (rate the reader Expert →
   New on each topic the build touches), a **granularity** dial (Terse → Highly granular), target end state, a
   **detailed stack interview** (language + version, framework/runtime, key libraries, package manager, target
-  platform, the tool the reader drives), scope boundaries, hard constraints, format & size. This is
+  platform, the tool the reader drives), scope boundaries, hard constraints, and format, size & **writing
+  language** (which language the guide's prose is written in — default: the language you're asking in; the
+  skeleton stays English, see [reference/canonical-layout.md](reference/canonical-layout.md) § Writing
+  language). This is
   *mandatory*; the prompt asks one concrete follow-up rather than infer if you're vague. The gate then
   **closes with a mandatory advise-back step**: before any plan, the planner suggests *other features* worth
   considering (yours to accept or decline) and flags the *long-run risks* of your choices — EOL/fading

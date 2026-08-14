@@ -237,6 +237,14 @@ Expert on that topic.
   (step actions, Done-when gates, troubleshooting, handoffs). It must be second-person "you". (Referring in
   third person to a *different* actor — an app end-user, a teammate — is fine.) Suggest the direct "you"
   rewrite.
+- **Language — prose consistent, skeleton English:** the guide's prose language is whatever
+  `conventions.md` § *Writing language* records (**English** if the section is missing). Prose in another
+  language is **not** a defect — prose that drifts *between* languages inside the guide is. Flag: a step
+  written in a different language from the rest, and any **translated skeleton** — a section heading that
+  isn't the template's English one (`## Do this`, `## Done when (this step)`, `## Code`, `## Why / design`,
+  `## Glossary for this step`, `## If it breaks`, `## Handoff`, …), a nav line whose labels aren't
+  `Nav`/`Overview`/`prev:`/`next:`/`start:`, a translated file or folder name, or translated table column
+  keys, identifiers, commands or paths. Those strings are matched literally by the pipeline and by this audit.
 - **Rule 1.1e forward-explained concept:** flag a taught concept whose **full explanation lives in a later step than
   its first appearance** when that first appearance lacks a **mini-gloss + forward pointer**. The first mention
   needs a one-line plain-language definition *and* a link to the step that teaches it fully — leaving it bare

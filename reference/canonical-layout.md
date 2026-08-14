@@ -95,4 +95,27 @@
   literal text `start: — not drafted yet` (no link, nothing to point at); `draft-milestone` replaces it with the
   real link when it writes `01_<slug>.md`.
 
+## Writing language (the prose translates; the skeleton doesn't)
+
+A guide's **prose** may be written in any language. `plan-guide` asks for it once (Phase 0, Q7) and the answer
+is recorded in **`foundation/conventions.md` § Writing language** — the only place later skills can read it
+from. `draft-milestone`, `clarify-step`, `report-issue`, `update-stack`, `review-before-follow` and
+`log-feedback` each run in their own session, so a language agreed only in conversation is a language the next
+skill silently drops. **No recorded language → English.**
+
+The **skeleton stays English in every guide**, whatever the prose language, because the pipeline and the audit
+read it literally — exactly like the naming rules above:
+
+- file and folder names — `README.md`, `00_overview.md`, `NN_verify.md`, `MILESTONE_<N>_<slug>/`,
+  `foundation/`, and the step slugs;
+- the template section headings — `## Do this`, `## Code`, `## Done when (this step)`, `## Why / design`,
+  `## Glossary for this step`, `## If it breaks`, `## Handoff`, `## Frontier`, and the rest;
+- the nav-line vocabulary and separator — `Nav`, `Overview`, `prev:`, `next:`, `start:`, `milestone K of N`,
+  `·`;
+- the fixed table column keys in `stack.md` / `status.md`;
+- code, identifiers, commands, paths and doc URLs.
+
+So an Italian guide reads as Italian sentences under an English `## Do this`. Translating a heading buys
+cosmetics and breaks the one string every other skill matches on.
+
 > This layout is not optional styling — it is the contract the whole pipeline and the audit rely on.

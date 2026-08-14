@@ -21,6 +21,9 @@ reality and log the drift.
 - **Attached files (optional).** If I attach or point at real files — the source file a step edits, a
   lockfile/manifest pinning actual versions, a screenshot of the current UI, the guide's `status.md` — read
   them and treat them as ground truth. Reality in those files beats the guide's assumptions.
+- The guide's **writing language**, from `conventions.md` § *Writing language* (**English** if absent): any
+  patch you propose is written in it. Never translate the skeleton — file names, template headings, nav-line
+  labels, code, commands, identifiers and URLs stay English.
 
 ---
 

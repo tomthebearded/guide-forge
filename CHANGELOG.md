@@ -5,6 +5,26 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+
+- **A guide can be written in any language — decided once, in the plan.** `plan-guide` Phase 0 Q7 becomes
+  *"Format, size & writing language"*: it proposes the language you're talking in and lets you name another
+  (non-interactive mode defaults to the language of the brief and says so). The answer is recorded in
+  `foundation/conventions.md` § **Writing language** — a new template section `scaffold-guide` never leaves
+  empty — because that file is the only thing a later skill can read it from: `draft-milestone`,
+  `clarify-step`, `report-issue`, `update-stack`, `review-before-follow` and `log-feedback` each run in a
+  fresh session, so a language agreed only in conversation is a language the next skill silently drops back
+  to English from. Each of those prompts now reads the section and writes its prose in it; missing section →
+  English. `modernize-guide` asks the same question, defaulting to the source document's language.
+- **The skeleton stays English in every guide — new `reference/canonical-layout.md` § Writing language.**
+  Only prose is translated. File and folder names, the template section headings (`## Do this`,
+  `## Done when (this step)`, …), the nav-line vocabulary (`Nav`, `Overview`, `prev:`/`next:`/`start:`),
+  `stack.md`/`status.md` column keys, code, commands, identifiers, paths and doc URLs are matched literally by
+  the pipeline and by the audit, so translating one buys cosmetics and breaks the contract every other skill
+  depends on. `audit-guide` gains the matching check: prose in another language is not a defect, prose that
+  drifts *between* languages inside one guide is — as is any translated heading, nav label or file name.
+  `draft-milestone`'s self-audit checks the same thing before handing off.
+
 ## [1.13.2] — 2026-08-14
 
 ### Added

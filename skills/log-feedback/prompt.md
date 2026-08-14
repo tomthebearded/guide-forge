@@ -44,7 +44,11 @@ have and mark the gaps.
 ## What to do
 
 1. **Orient.** Read the guide's `README.md` (and `foundation/status.md` if present) enough to know the guide's
-   audience and milestone structure — so **Where** and **Reader** are meaningful.
+   audience and milestone structure — so **Where** and **Reader** are meaningful. Write the entry in the
+   guide's language (`foundation/conventions.md` § *Writing language*; **English** if absent), keeping the
+   template's field labels and the `Suspected class` / `Severity` / `Status` values verbatim — they're the
+   fixed vocabulary the log is analysed by. A reader **Quote** is always kept verbatim, in whatever language
+   they said it.
 2. **Find or create the log.** The ledger is `guide/feedback-log.md`. If it doesn't exist, create it from the
    template in `templates/feedback-log.md` (it's normally seeded by `scaffold-guide`).
 3. **Append one entry per piece of friction**, newest on top, using the template's field set:
