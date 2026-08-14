@@ -396,6 +396,16 @@ on it, where one does.
   risks of your choices. Accept or reject each one deliberately: what you accept shapes the ladder, and what
   you knowingly reject is recorded in the decision log, so the *why* survives to whoever reads the guide later.
   **Skill:** [/plan-guide](skills/plan-guide/prompt.md).
+- **Decide build vs borrow yourself — row by row.** Parts of any build are already solved by a library, and a
+  guide left to its own devices will happily generate 90 lines of colour conversion instead of naming the
+  colour library that has existed for a decade. The plan puts every such capability to you in a table:
+  the verified off-the-shelf option, what borrowing costs, what building teaches, a recommendation — and your
+  call. Set the default posture once (borrow-first / balanced / build-first), then override per row; flipping
+  one before approval re-cuts a milestone, which is cheap, while flipping it after you've built is an
+  amendment. Both directions land in the guide: build steps carry a callout naming the library they replace
+  (rule 3.7), borrow steps say in one clause what the library does for you.
+  **Skill:** [/plan-guide](skills/plan-guide/prompt.md) — later,
+  [/amend-guide](skills/amend-guide/prompt.md) to swap one mid-build.
 
 ### Dividing the work
 

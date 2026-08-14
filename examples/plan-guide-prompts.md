@@ -119,8 +119,9 @@ a source versus from you.
 | Non-goals | No auth, no pagination, no deployment, no Docker Compose |
 | Constraints | Must run offline after `go mod download`; single binary |
 | Size | A weekend; folder of many small files |
+| Build vs borrow | **Balanced** — routing and handlers are written by hand (that's the lesson); the SQLite driver and the migration tool are borrowed |
 
-**What it shows.** The baseline. One line in, seven answers, a ladder out. Note the expertise split doing real
+**What it shows.** The baseline. One line in, eight answers, a ladder out. Note the expertise split doing real
 work: HTTP gets named and never explained, while every migration-tool concept gets defined on first use — the
 same guide, two depths, decided by the reader model rather than by an overall "intermediate".
 
@@ -143,6 +144,7 @@ same guide, two depths, decided by the reader model rather than by an overall "i
 | Non-goals | No multiplayer, no save system, no art pipeline (use the engine's placeholder shapes) |
 | Constraints | Free tools only; the reader has never installed a dev tool before |
 | Size | Multi-week course; folder of many small files |
+| Build vs borrow | **Build-first** — someone learning to program gains more from writing the movement maths than from importing a character-controller add-on; the guide still names the add-on it's replacing |
 
 **What it shows.** *New* across the board is not the same as "explain more" — it changes the guide's shape.
 Every concept gets a deep-dive callout and extra failure notes, the first rung is *"the editor opens and a
@@ -170,6 +172,7 @@ config, and a redacted `.env.example`.
 | Stack | *(read from the repo — confirm what the planner proposes)* |
 | Non-goals | No cluster administration, no on-call procedures, no cost tuning |
 | Constraints | Must not touch production; VPN required; existing conventions win over anything nicer |
+| Build vs borrow | **Borrow-first** — the house tooling *is* the subject; everything else uses what the team already depends on |
 | Size & language | Two afternoons; folder of many small files; prose in **Italian** (the team's working language) |
 
 **What it shows.** Attachments beat description: the manifests supply the real stack, the CI config supplies
@@ -201,6 +204,7 @@ pseudocode), plus the public API sketch if you have one.
 | Non-goals | No distributed/Redis-backed limiting, no HTTP middleware wrapper, no `no_std` |
 | Constraints | Public API must stay `Send + Sync`; MSRV pinned to whatever the plan verifies |
 | Size | A week; one document per milestone |
+| Build vs borrow | **Build-first** — the rate-limiting algorithms are the deliverable; the mature crate is named as the production answer and deliberately not used |
 
 **What it shows.** The inverse of example 4, and the case people get wrong most often. *Expert* in the
 language plus *New* in the domain means almost no syntax explanation and a lot of algorithm explanation. Rated
@@ -228,6 +232,7 @@ counters.
 | Non-goals | No other providers, no roles/permissions, no account linking, no email flows |
 | Constraints | Existing app — don't restructure it; the provider's console UI may have moved since any tutorial |
 | Size | One document, one sitting |
+| Build vs borrow | **Borrow-first** — auth is correctness-critical, so the guide integrates the auth library instead of teaching hand-rolled sessions |
 
 **What it shows.** Lite mode drops the foundation docs and the verification-design phase and collapses the
 ladder to the fewest rungs that each still prove something runnable — while keeping the two things that always

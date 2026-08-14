@@ -294,8 +294,17 @@ touch the others when a skill's invocation or arguments change.
   input from you and it's what keeps the guide built on *current facts, not stale training memory*. The hard
   rule: no real link → don't state the version; mark it "unverified." If web tools are unavailable, the whole
   table is flagged UNVERIFIED.
-- **Phases 1–5:** foundation docs (including the Verified stack) → milestone ladder → step contract →
-  pedagogy contract → verification design.
+- **Phase 2.5 (build vs borrow):** the pass that stops a guide from quietly generating a capability the
+  ecosystem already ships. Every self-contained capability the ladder would have you *write* — colour handling,
+  date maths, parsing, retry, validation, money — is checked against a **verified** library and put to you as a
+  row you can flip: what borrowing costs, what building teaches, the recommendation, your call. The
+  recommendation follows the posture you set in Q8 through one test — *is this capability part of what the
+  guide set out to teach?* — with correctness-critical domains (colour spaces, timezones, crypto, encodings,
+  money) defaulting to **borrow** whatever the posture, because hand-rolled versions of those are wrong in the
+  cases you meet last. Every row lands in the decision log, and the choice you make is what rule 3.7 then makes
+  the drafted step *say* out loud.
+- **Phases 1–5:** foundation docs (including the Verified stack) → milestone ladder → build-vs-borrow table →
+  step contract → pedagogy contract → verification design.
 - **Output:** a plan (not the guide), ending in "approve before I draft."
 - **Escape hatches:** *lite mode* (skip foundation/verification, fewest runnable rungs — but **keep Phase 0.5**) and
   *non-interactive mode* (state assumptions and proceed, still run Phase 0.5) for automation.
@@ -345,6 +354,7 @@ The rules are grouped under **named principles** (`P1`, `P2`, …); each id (lik
 | 3.4 | Load-bearing vs cosmetic names | "Call the handler whatever." | "The function name is cosmetic; the route string `/books` is load-bearing — tests hit it exactly." |
 | 3.5 | Reuse a value; define it once (whole-guide) | Code sets `jumpHeight = 2.5f`; the prose says "jumps 2 units"; the gate says "~2.5". | `2.5` everywhere it recurs — code, prose, Done-when gate, glossary, overview — one figure, quoted verbatim. |
 | 3.6 | Every identifier you write is self-describing | `const d = Date.now() - t; if (d > 500) retry(x);` | `const elapsedMs = Date.now() - startedAtMs; if (elapsedMs > REQUEST_TIMEOUT_MS) retryRequest(request);` (ecosystem idioms like `ctx`/`req`/`i` stay as they are) |
+| 3.7 | Say when you're hand-rolling something the ecosystem already solves | A step hands the reader 90 lines of hex→HSL→hex conversion; nothing on the page says a colour library exists, so they can't tell a teaching exercise from "this is how it's done". | `> Build vs borrow — **chroma-js 3.x** does this in production (docs URL): you're writing hex→HSL by hand here to learn how a colour space converts. Swap it in when you need more than these two formats.` (the choice itself is made at plan time, in the build-vs-borrow table) |
 | **P4 — Structure steps & code** | | | |
 | 4.1 | Numbered lists, not arrows | "Open file → edit → save → run." | "1. Open the file. 2. Edit the handler. 3. Save. 4. Run `go test ./...`." |
 | 4.2 | Code sits under the instruction it implements | All actions listed, then one trailing block with the config, loader, and wiring stacked together. | Config block under step 1, loader block under step 2, wiring block under step 3 — each labelled with where it goes; the whole file lives in `NN_verify.md`. |

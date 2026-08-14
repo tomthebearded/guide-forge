@@ -25,6 +25,11 @@ EXISTING FILES (rule 4.3): if the file already has code, DON'T re-paste the whol
 Show only the fragment plus a UNIQUE placement anchor — a named function/block or a line that occurs exactly
 once (e.g. "after the init() function, the block ending canvas.focus();"), never an anchor that matches several
 lines. Reproducing a pre-existing file whole invites the reader to overwrite their real code.
+BUILD VS BORROW (rule 3.7): if this step writes from scratch a self-contained capability a mature library in
+this stack already solves (colour maths, dates/timezones, parsing, retry, diffing, validation, money), put the
+one-line callout right above that work — see "Do this" below. The choice itself was made at plan time
+(plan-guide Phase 2.5) and recorded in foundation/decision-log.md; this file only has to SAY it. Name a
+verified library or none at all. Not for three-line helpers.
 GREEN BUILD (rule 4.4): this step must END with the project compiling. If its edit breaks call sites (a changed
 signature, a rename, a moved file), FIX THEM IN THIS STEP — a longer step that ends green beats two short steps
 with a broken interval, and this outranks the granularity setting. NEVER write "this error is expected; step NN
@@ -83,7 +88,13 @@ fixes it". Where the stack has a compiler/type-checker, the Done-when below ends
      ecosystem's own idiom `ctx`/`req`/`res`/`i`).
      RULE 4.2 — code goes HERE, interleaved: when an action introduces code, put its fenced block right under
      that action, labelled with WHERE it lands. The block is a FRAGMENT (the part this action adds), not the
-     whole file. Don't stack all the code in a trailing section. -->
+     whole file. Don't stack all the code in a trailing section.
+     RULE 3.7 — hand-rolling something the ecosystem solves? The callout goes on its own line right above that
+     action, same plain-text style as "New concept" (no emoji):
+> Build vs borrow — **<library> <version>** does this in production (<official docs URL>): you're writing it
+> by hand here to learn <the mechanism>. Swap it in when <condition>.
+     Borrowing instead? No callout — just one clause in the action saying what the library does for the reader,
+     so the dependency isn't a black box either. -->
 1. In `<where>`, <do the thing> — <why>.
    ```<lang>
    // the fragment this action adds — labelled above with where it goes in the file

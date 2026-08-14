@@ -5,6 +5,41 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+
+- **Build vs borrow — the guide offers you the library before it writes one.** A planner left alone will
+  cheerfully draft a capability the ecosystem solved a decade ago, and nothing in the finished guide reveals
+  that it did: the reader types 90 lines of colour conversion with no way to tell a deliberate teaching
+  exercise from "this is how it's done", then ships the hand-rolled version into a real project. The gap was
+  never in the drafting — it was that the choice was never *offered*.
+  It is now a phase of its own. **`plan-guide` Phase 2.5** walks the approved ladder for every self-contained
+  capability a mature library already covers, verifies that library to the same standard as the stack itself
+  (exists, maintained, compatible with the pinned versions, official docs URL — no link, no row), and puts each
+  one to you as a table row you can flip: *what borrowing costs · what building teaches · recommended · your
+  call*. The recommendation follows a new **Q8 posture dial** (borrow-first / balanced / build-first, default
+  balanced) through one test — **is this capability part of what the guide set out to teach?** — with two
+  overrides: correctness-critical domains (colour spaces, dates/timezones, crypto, encodings, locale/text,
+  money) default to **borrow** whatever the posture, and a borrow that would leave a milestone proving nothing
+  defaults to **build**. Rows land in `decision-log.md` with their revisit-if, so the reasoning survives and
+  `/amend-guide` can reverse one later.
+  The bar is deliberate: a capability worth a dependency — a named problem, known edge cases, roughly a screen
+  of code or more. A three-line helper is not a build-vs-borrow decision, and a table of twelve trivia rows
+  buries the two that matter.
+- **Rule 3.7 — say when you're hand-rolling something the ecosystem already solves.** The plan-time choice only
+  helps if the drafted step admits which way it went, so P3 gains a rule: a step that builds a solved capability
+  by hand opens with `> Build vs borrow — **<library> <version>** does this in production (<docs URL>): you're
+  writing it by hand here to learn <mechanism>. Swap it in when <condition>.`, and a step that borrows says in
+  one clause what the library does for the reader — so the dependency isn't a black box either. It is rule
+  3.2's mandatory-vs-illustrative ambiguity applied to an *implementation choice* instead of a value.
+  `draft-milestone` carries it in the writing contract and the self-audit, and — because drafting works at step
+  resolution while the plan worked at ladder resolution — resolves the cases the table never listed by the same
+  test, without stopping, then **reports every call it made that the plan didn't** so you can still flip one.
+  `clarify-step` can add a missing callout (clarity) but must flag, not perform, an actual swap (intent).
+  `audit-guide` flags a hand-rolled capability with no callout, a borrowed one never explained, and a step that
+  contradicts the recorded decision — plus, in the structural pass, a `PLAN.md` carrying **no build-vs-borrow
+  section at all**. That last one closes the gap the rest of the feature can't: a plan that never asked the
+  question reads exactly like a plan that asked and found nothing, and only the second kind says so in a line.
+
 ### Changed
 
 - **The two tip lists in `README.md` now name the skill behind each tip**, and gained three of them. Every

@@ -171,6 +171,15 @@ and mark it **unconfirmed**, naming the tool or environment needed to settle it.
   missing `Last updated` line, and flag one whose date predates the guide's most recent recorded change (the
   last drift-log row, session-log line, or README Updates entry) — a stale stamp hides how far the guide has
   drifted from the method that wrote it.
+- **`PLAN.md` records the build-vs-borrow decisions — WARNING.** If the plan was attached, flag a `PLAN.md`
+  that carries **no build-vs-borrow section at all**: not the table, and not the one-line "no capability here
+  has a verified off-the-shelf equivalent" that `plan-guide` Phase 2.5 requires when the table is empty. Absence
+  is the defect this catches — a plan that never asked the question looks identical to a plan that asked and
+  found nothing, and the first one silently commits the reader to hand-writing whatever the drafter felt like
+  generating. Flag as a **WARNING** too a decision that exists in the plan but never reached
+  `foundation/decision-log.md`, and one whose library is named with no version or no docs link (an unverified
+  option was offered as if it were checked). Say plainly if `PLAN.md` wasn't attached rather than assuming
+  either way.
 - **`foundation/progress.md` exists and matches the files on disk.** The ledger carries one section per
   milestone folder and one row per step file, `NN_verify.md` included. Flag as a **WARNING** a missing ledger,
   a step file with no row, and a row naming a file that isn't there — a ledger that has drifted from the guide
@@ -202,7 +211,8 @@ Per the principles: bare undefined terms (1.1) · a recurring mental model never
 use (1.2) · actions with no WHERE (2.1) · keystroke-only, no WHY (2.2) · vague/ranged values (3.1) · mandatory
 vs illustrative unmarked (3.2) · change-vs-default unstated (3.3)
 · load-bearing names unflagged (3.4) · a value that drifts between places (3.5, checked as the whole-guide value
-consistency sweep above) · cryptic guide-invented identifiers (3.6) · arrow-chains instead of numbered lists (4.1) · multi-part code batched in a trailing
+consistency sweep above) · cryptic guide-invented identifiers (3.6) · a solved capability hand-rolled with no
+acknowledgement that the library exists (3.7) · arrow-chains instead of numbered lists (4.1) · multi-part code batched in a trailing
 block instead of interleaved under its instructions (4.2) · a pre-existing file re-pasted whole or an ambiguous
 insertion anchor (4.3) · a step that ends on a broken build (4.4, checked as the structural blocker above) ·
 no likely-failure note (5.1) · a step that silently assumes unestablished starting
@@ -228,6 +238,18 @@ Expert on that topic.
   usually structural rather than one-off, so count the affected steps and report it once as a pattern.
   (Observed: a step defined `.meta` and GUID three times — block, prose, callout — before the reader acted; the
   guide carried 48 `New concept` callouts across 41 files, most on pages that also had a per-step glossary.)
+- **Rule 3.7 — a solved capability hand-rolled in silence:** scan the guide for a step that has the reader
+  write, from scratch, something the stack's ecosystem already solves — colour conversion, date/timezone maths,
+  argument parsing, retry/backoff, diffing, fuzzy matching, validation, text segmentation, money arithmetic,
+  file watching. The bar is a capability worth a dependency (a named problem, known edge cases, roughly a
+  screen of code or more), **not** every helper function. Flag one that carries no `Build vs borrow` callout
+  naming the library it replaces and when to swap it in — the reader can't tell a deliberate exercise from
+  "this is how it's done", and ships the hand-rolled version. Weigh it against the guide's own subject: a guide
+  whose *objective* is the mechanism is right to build it, and still owes the callout. Flag the mirror case
+  too — a step that installs a library for a capability and never says in one clause what it does for the
+  reader. If `foundation/decision-log.md` was attached, flag any step whose choice **contradicts** the recorded
+  build-vs-borrow decision. (Observed: a VS Code extension guide generated its own colour-management code
+  without ever surfacing that a colour library existed.)
 - **Rule 3.6 — cryptic identifiers in guide code:** read every code block with the surrounding prose covered up
   and flag each name **the guide invented** that doesn't say what it holds or does — single letters (`d`, `p`,
   `x` outside a coordinate/loop idiom), `data`, `temp`, `tmp`, `val`, `obj`, `arr`, `res` used for something

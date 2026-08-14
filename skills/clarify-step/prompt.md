@@ -79,6 +79,16 @@ tells the reader to observe in (6.2), *flag it* for `report-issue`; don't rewrit
    loop `i`) — that's not a violation. ⚠️ Renaming an identifier **changes behavior** if anything outside this
    step refers to it: rename only when the name is local to this step; otherwise **flag it** (deliverable 4)
    with the rename you'd make and the other files that would have to follow.
+3.7. **A hand-rolled solved capability says so.** If the step has the reader write from scratch something a
+   mature library in this stack does — colour maths, dates/timezones, parsing, retry, diffing, validation,
+   money — and nothing on the page acknowledges that library exists, the reader can't tell a teaching exercise
+   from "this is how it's done". Add the one-line callout above the work: `> Build vs borrow — **<library>
+   <version>** does this in production (<docs URL>): you're writing it by hand here to learn <mechanism>. Swap
+   it in when <condition>.` Name only a library you can **verify** (exists, maintained, fits the pinned
+   versions) — otherwise say the capability has no off-the-shelf equivalent and leave it. ⚠️ Adding the callout
+   is clarity; **actually swapping the library in changes what the step does** — that's a change of intent, so
+   flag it (deliverable 4) and point at `amend-guide`. The bar is a capability worth a dependency; a
+   three-line helper doesn't get a callout.
 
 **P4 — Structure steps & code**
 4.1. **Sequences are numbered lists**, not arrow-chains. (Arrows only for one menu path inside one action.)

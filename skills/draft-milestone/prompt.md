@@ -32,6 +32,9 @@ there's no excuse for drift.
 ## Inputs you should already have
 - The **approved plan** (ladder, templates, writing contract) from prompt 01.
 - The **Verified stack** table (pinned versions + official doc links + check date) from Phase 0.5.
+- The **build-vs-borrow table** from Phase 2.5 — which capabilities the reader builds by hand, which come from
+  a library, and the verified library behind each row. If the plan has none (an older plan, or lite mode),
+  don't ask for one: apply the test below as you draft.
 - The **audience model** — the **per-topic expertise matrix** (topic → level → depth policy) and the
   **granularity** setting. Calibrate every explanation and every step size to them.
 - The **conventions** and **glossary** the guide has established so far.
@@ -90,6 +93,33 @@ If any of these is missing from the conversation, ask for it before drafting.
   practical.
 - If the web check surfaces something that contradicts the plan (a version is EOL, an API was removed),
   **stop and flag it** — don't quietly work around it.
+
+## Honor the build-vs-borrow table — and surface the calls it didn't make
+
+The plan decided this at ladder resolution; drafting works at step resolution, so you *will* meet capabilities
+the table never listed. Never resolve one by silently writing the code.
+
+- **Where the plan decided, follow it.** A **build** row is drafted by hand and its step carries the
+  `Build vs borrow` callout (rule 3.7); a **borrow** row installs the library the row names — the pinned,
+  verified one, not a substitute you prefer — and the step says in one clause what it does for the reader.
+- **Where the plan didn't decide, apply the same test yourself:** is this capability part of what the guide set
+  out to teach? Named in the objective or a milestone goal → **build**. Plumbing on the way there → **borrow**.
+  Correctness-critical domains (colour spaces, dates/timezones, crypto, encodings, locale/text, money) →
+  **borrow** unless that domain is the guide's subject.
+- **Only for capabilities worth a dependency** — a named problem with known edge cases, roughly a screen of
+  code or more. Don't annotate a three-line helper, and don't add a dependency to avoid writing one.
+- **Verify any library you introduce** before you name it (exists, maintained, compatible with the pinned
+  versions, official docs URL) — the same bar as every other fact. Can't verify it? Then it isn't an option:
+  build the capability and say so.
+- **Do not stop drafting to ask — this is a deliberate bypass of the plan-time choice, and the report is what
+  pays for it.** The reader chose per capability at plan approval; deciding one here takes that from them, so
+  it is allowed only because drafting runs in one pass and only against a full disclosure. Decide by the test,
+  draft the milestone, and **list every call you made that the plan didn't** in the deliverable, one line each:
+  capability · which way you went · why · which step. That list is what lets the reader flip one — before they
+  build, by re-drafting the milestone; after they've started, with `amend-guide`. A call you don't report is a
+  choice you took silently.
+- **Log it once in `decision-log.md`** with the plan's rows, so the *why* lives with the other decisions
+  instead of only in a step's callout.
 
 ## Milestone-boundary gate — stop before you sprawl
 
@@ -195,7 +225,12 @@ The principles (rules cited by dotted id; full contract in
   **3.6** every identifier you write is self-describing — variables, functions, classes, files, config keys
   named for what they hold or do (nouns for state, verbs for behavior, units in the name: `timeoutMs`), never
   `d`/`data`/`temp`/`handle()`/`Manager`; the one exception is the ecosystem's own idiom (`ctx`, `req`/`res`,
-  a loop `i`), which you match rather than fight.
+  a loop `i`), which you match rather than fight; **3.7** say when you're hand-rolling something the ecosystem
+  already solves — where the plan's build-vs-borrow table chose **build**, the step that writes it opens with
+  `> Build vs borrow — **<library> <version>** does this in production (<docs URL>): you're writing it by hand
+  here to learn <mechanism>. Swap it in when <condition>.`, and where it chose **borrow**, one clause says what
+  the library does for the reader. Verified libraries only, and only for a capability worth a dependency —
+  never a three-line helper.
 - **P4 Structure steps & code** — **4.1** numbered lists, not arrow-chains; **4.2** put each code block under
   the instruction it implements; **4.3** don't reproduce an existing file whole to add to it — give the
   fragment + a unique placement anchor; **4.4** every step ends on a **green build** — a step that changes a
@@ -377,6 +412,11 @@ yourself. Confirm:
   `ctx`/`req`/`res`/`i` are kept as-is);
 - **every step declares its starting state (rule 7.1)** — no step's first action silently assumes a tool, service,
   login, env file, or prior artifact that wasn't established (or back-referenced) earlier;
+- **nothing solved is hand-rolled in silence (rule 3.7)** — for each step that implements a self-contained
+  capability worth a dependency (colour maths, dates/timezones, parsing, retry, diffing, validation, money),
+  either the plan's build-vs-borrow table decided it, or you decided it here by the same test; either way the
+  step carries its `Build vs borrow` callout (build) or its one-clause "what the library does for you"
+  (borrow), and every library you name is one you verified;
 - **no capability is claimed on family resemblance** — search your own prose for "because it's a/an …" and for
   wildcard families (`foo.*`, "all hooks", "every `/v2` route"): each such claim must have been checked against
   the **individual** name it's applied to, not the class the docs describe.
@@ -400,7 +440,9 @@ plugin version (a plain-chat paste with no file access), keep the version alread
 date.
 
 Then, once the **whole guide** is drafted, **stop** and tell me:
-- a per-milestone summary of the **Done-when** checklists — the gates the reader will verify as they build, and
+- a per-milestone summary of the **Done-when** checklists — the gates the reader will verify as they build,
+- **the build-vs-borrow calls the plan didn't make** — one line each (capability · build or borrow · why ·
+  which step), so I can flip one while it's still cheap; say "none" if every case was already in the table, and
 - that the guide is complete and ready to follow: the reader now builds against it, verifying each gate as they
   go, **ticking each step in `foundation/progress.md` as they finish it** (the `mark-progress` skill,
   `skills/mark-progress/prompt.md`, does the bookkeeping — and it is what later lets `amend-guide` change the

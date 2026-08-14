@@ -3,7 +3,9 @@ name: plan-guide
 description: >
   Plan a learn-as-you-go, step-by-step developer build guide from a one-line idea. Use when the user wants
   to create a tutorial, course, onboarding doc, or build guide that TEACHES while it builds — for any domain
-  (games, libraries, web, CLIs, APIs). Runs an audience interview, then produces a milestone-laddered plan.
+  (games, libraries, web, CLIs, APIs). Runs an audience interview, then produces a milestone-laddered plan —
+  including a build-vs-borrow table that offers you the verified library behind every capability the guide
+  would otherwise write from scratch, so you choose per capability instead of discovering it in the draft.
   Invoke with the idea as the argument, e.g. "/plan-guide a REST API in Go".
 argument-hint: "<idea> [file/repo/link ...]"
 ---

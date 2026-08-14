@@ -3,7 +3,8 @@ name: audit-guide
 description: >
   Lint/QA a drafted learn-as-you-go guide against the GuideForge contract and report violations, ranked by
   severity — structural (missing Done-when, no nav line, partial code, dead links, no overview) and pedagogy
-  (undefined terms, missing WHERE/WHY, arrow-chains, vague values). Read-only: it flags, it does not fix. Use
+  (undefined terms, missing WHERE/WHY, arrow-chains, vague values, a solved capability hand-rolled without
+  naming the library it replaces). Read-only: it flags, it does not fix. Use
   when the user wants to check/QA/review a guide before shipping it. Invoke with the guide, e.g.
   "/audit-guide M2/", attaching the file(s) to audit.
 argument-hint: "<guide-or-milestone> [file ...]"

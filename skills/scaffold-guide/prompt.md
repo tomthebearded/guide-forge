@@ -42,7 +42,10 @@ Use the one canonical skeleton — don't invent a per-guide structure. The fixed
      step rows as it writes them; `/mark-progress` ticks them. Fill **Current position** with
      `Last executed: nothing yet` and the first milestone's first step as *Next up* — written as the milestone
      ID alone until a step file exists.
-   - `glossary.md`, `conventions.md`, `decision-log.md` — seeded with whatever the plan already decided;
+   - `glossary.md`, `conventions.md`, `decision-log.md` — seeded with whatever the plan already decided.
+     If the plan carries a **build-vs-borrow table** (Phase 2.5), write one `decision-log.md` entry per row
+     now — the capability, which way it went, why, and the revisit-if — rather than leaving them for drafting;
+     they are decisions, and this is the file that holds decisions. Otherwise: seeded with what the plan has,
      otherwise the empty template with headings. `conventions.md` § **Writing language** is the one section
      that is **never left empty**: fill it with the prose language the plan settled in Q7 (English if the plan
      doesn't say), because every later skill reads the guide's language from there and falls back to English

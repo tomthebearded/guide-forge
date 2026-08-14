@@ -286,6 +286,50 @@ file, CSS class, config key, test name — for **what it holds or what it does**
 > worth keeping. Rule 1.1d still puts a *function's* explanation in an inline comment — a good name shortens
 > that comment, it doesn't delete it.)
 
+### 3.7 — Say when you're hand-rolling something the ecosystem already solves
+**Why:** a build guide routinely has the reader write from scratch something a mature library in that stack
+already does — colour conversion, date/timezone maths, argument parsing, retry with backoff, diffing, text
+segmentation, money arithmetic. Doing that on purpose is often the *whole point*: the reader learns the
+mechanism instead of importing it. But a step that just hands them the code teaches a second thing nobody
+intended — that writing it was **required**. The reader can't tell a deliberate teaching exercise from "this
+is how it's done", because on the page the two look identical. So they ship the hand-rolled version into a real
+project and meet, months later, the exact edge cases the library exists for. This is rule 3.2's ambiguity
+(mandatory vs illustrative) applied to an *implementation choice* rather than a value.
+
+**Do:** the first time a step implements a **self-contained capability a well-known, maintained library in this
+stack solves**, put a one-line callout on its own line, right above the work:
+
+`> Build vs borrow — **<library> <version>** does this in production (<official docs URL>): you're writing it`
+`by hand here to learn <the mechanism>. Swap it in when <condition>.`
+
+Same plain-text marker style as the "New concept" callout — no emoji, so it renders everywhere. The library
+is a **verified** fact like any other: check that it exists, is maintained, and supports the pinned stack
+(sourcing principle), or don't name one. And the mirror case: when the guide **borrows**, one clause says what
+the library is doing for the reader, so the dependency isn't a black box either.
+
+**The bar — this is not a licence to annotate every helper.** Apply it when the capability is something you'd
+otherwise add a dependency for: a named problem with known edge cases, roughly a screen of code or more.
+A three-line helper is not a build-vs-borrow decision. Two families always clear the bar because hand-rolling
+them is a known trap: **correctness-critical domains** (colour spaces, dates/timezones, crypto, encodings,
+locale/text handling, money) and anything the ecosystem treats as solved infrastructure.
+
+The *choice itself* isn't made here — it's made at plan time, where borrow-vs-build is put to the reader per
+capability and recorded in `decision-log.md`. This rule governs what the drafted step must **say** once the
+choice exists. (Changing the choice later, on a guide someone is already following, is a change of intent:
+`amend-guide`, not a silent rewrite.)
+
+- ❌ A step titled "Write the colour helpers" that hands the reader 90 lines of hex→HSL→hex conversion, with
+  prose explaining only what the code does. Nothing on the page says a colour library exists.
+- ✅ `> Build vs borrow — **chroma-js 3.x** does this in production (https://…): you're writing hex→HSL by hand`
+  `here to learn how a colour space converts. Swap it in when you need more than these two formats.`
+- ✅ (borrow direction) "Install `<library>` — it handles the conversion between colour spaces, which is
+  fiddly enough that hand-rolling it is a common source of off-by-one hue bugs."
+
+> **The defect this prevents:** a guide that generates a whole capability from scratch without ever mentioning
+> that the ecosystem's standard solution exists, so the reader can't tell whether they're learning something on
+> purpose or reinventing it by accident. (Observed: a VS Code extension guide drafted its own colour-management
+> code instead of surfacing an existing colour library as a choice.)
+
 ---
 
 ## P4 — Structure steps & code

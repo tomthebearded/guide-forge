@@ -74,7 +74,7 @@ The brief isn't only the one-line prompt. It can come from **any context you giv
 
 A guide that teaches is only as good as its model of *who is reading it*. **Produce no part of the plan until
 these are answered:** ask the questions below, then stop and wait for my answers. (The only exception is
-"no questions" mode above.) **Ask all seven — every question is mandatory; none may be skipped — then close
+"no questions" mode above.) **Ask all eight — every question is mandatory; none may be skipped — then close
 the gate with the mandatory advise-back step below.** Batch
 them; where a provided source already answers one, pre-fill that answer as the proposed default so I can just
 confirm it — but still ask, never silently record it and move on. Propose a sensible default for each so I
@@ -128,6 +128,17 @@ confirmed with me too, not inferred from a source.**
    commands, identifiers and doc URLs stay **English in every guide**, because the layout contract and the
    audit read them literally. Whatever I choose goes into the Conventions foundation doc (Phase 1) — it's the
    only place the drafting and maintenance skills can read it from in a later session.
+8. **Build vs borrow — the default posture.** Parts of this build are almost certainly already solved by a
+   library. Ask which way to lean when that happens; default **Balanced**:
+   - **Borrow-first** → use the ecosystem's solution wherever one exists; the guide teaches integrating it.
+     Fastest to a working thing, and closest to how the reader would build it at work.
+   - **Balanced** (default) → **build what the guide set out to teach, borrow everything else.** A capability
+     named in the objective or in a milestone's goal is built by hand; incidental plumbing on the way to it is
+     borrowed.
+   - **Build-first** → write it from scratch wherever it's reasonable, because the learning *is* the point.
+     Even here the guide still names the library it's replacing — it never pretends one doesn't exist.
+   This sets the **default** per capability, not the answer: Phase 2.5 puts the actual candidates to me one by
+   one, and I can flip any of them.
 
 If I answer "you decide" for any of these, choose the most reasonable option, **state the assumption
 explicitly**, and continue.
@@ -182,6 +193,11 @@ Rules for this phase:
   the specific API the milestones will call — confirm it **on that name**, because platforms declare
   capabilities per item and docs prose generalizes. If you can't confirm the individual name, write the
   capability into the Notes column as **unverified** so the drafter plans a route that doesn't depend on it.
+- **Verify every candidate library the build-vs-borrow pass will offer** (Phase 2.5), to the same standard as
+  the stack itself: it exists under that name, it's maintained (a release inside the last year or an explicit
+  stable/finished status), it supports the pinned language/framework versions, and it has an official docs URL.
+  A library you can't verify is not offered as a choice — say the capability has no verified off-the-shelf
+  option and let the ladder build it.
 - If search is unavailable in this environment, **say so clearly**, mark the stack "UNVERIFIED — confirm
   before following", and proceed with best-effort values flagged as such.
 - Pin one version per tool for the **whole** guide. Every milestone and code block uses these exact versions
@@ -219,7 +235,8 @@ Before decomposing the work, plan the shared docs every step will lean on. Propo
 - **Status authority** — one file that is the *single source of truth* for what is actually done and verified
   (as opposed to what the guide merely *intends*). Guides describe intent; only this file states reality.
 - **Decision log** — where non-obvious choices and their rationale live, so the reader learns *why*, not
-  just *what*.
+  just *what*. Every **build-vs-borrow** call from Phase 2.5 is one of these entries — the capability, which
+  way it went, why, and the revisit-if.
 
 ---
 
@@ -247,6 +264,51 @@ Insert an explicit **reality-check gate** at the first point where the thing is 
 actually use it, and confirm it's worth continuing before building further.
 
 Present the ladder as a table: `# · Milestone · Proves (end state) · Depends on · Done-when (one line)`.
+
+---
+
+## Phase 2.5 — Build vs borrow (offer the existing solution before the guide writes one)
+
+Now walk the ladder and find every **self-contained capability** it asks the reader to build that a mature
+library already solves — colour handling, date/timezone maths, argument parsing, retry/backoff, diffing,
+fuzzy matching, validation, text segmentation, money arithmetic, file watching, and so on. This is the pass
+that stops a guide from quietly generating 90 lines of colour conversion when the ecosystem has had a colour
+library for a decade.
+
+**The bar for a row:** something you'd otherwise take a dependency for — a named problem, known edge cases,
+roughly a screen of code or more. A three-line helper is not a build-vs-borrow decision, and a table of twelve
+trivia rows buries the two that matter.
+
+**How to recommend** — apply Q8's posture through one test: **is this capability part of what the guide set out
+to teach?** If it's named in the objective or in a milestone's goal, the recommendation is **build** (learning
+it *is* the deliverable). If it's plumbing on the way to that, the recommendation is **borrow**. Two overrides:
+
+- **Correctness-critical domains default to borrow** whatever the posture — colour spaces, dates/timezones,
+  crypto, encodings, locale/text handling, money — unless that domain *is* the guide's subject. Hand-rolled
+  versions of these look right and are wrong in the cases the reader will meet last.
+- **A borrow that would hide the milestone's own gate defaults to build.** If importing the library makes the
+  milestone prove nothing the reader did, the rung is empty.
+
+Put it to me as a table, one row per capability, and make each row a real choice:
+
+| Capability | Where in the ladder | Verified off-the-shelf option | What borrowing costs | What building teaches | Recommended | Your call |
+|---|---|---|---|---|---|---|
+| <e.g. colour conversion> | M2 | `<library> <version>` (<docs URL>) | <a dependency, its API to learn, its size> | <the mechanism the reader gains> | **borrow** / **build** | <left for me> |
+
+Rules for this phase:
+
+- **Never offer an unverified library.** Every option in the table passed the Phase 0.5 check (exists,
+  maintained, compatible with the pinned versions, official docs URL). No link → no row.
+- **Build the ladder on your recommendation**, and say in the row what changes if I flip it — usually one
+  milestone gets re-cut, which is cheap now and expensive after drafting.
+- **Both directions carry an obligation into the drafted steps (rule 3.7).** A **build** row means the step
+  that writes it carries a `Build vs borrow` callout naming the library it's replacing and when to swap it in;
+  a **borrow** row means the step says in one clause what the library is doing for the reader. Neither is
+  optional, and neither is a "what this guide doesn't do" section.
+- **Every row lands in `decision-log.md`** with its *why* and a revisit-if — this is exactly the reasoning a
+  reader needs six months later, and the record `amend-guide` reads if I want to swap one afterwards.
+- **If no capability clears the bar, say so in one line** rather than inventing rows. A guide that genuinely
+  builds only what has no off-the-shelf equivalent is a fine outcome — but it's a finding, not a default.
 
 ---
 
@@ -334,6 +396,12 @@ contract:
   (`timeoutMs`, `widthPx`). No single letters, `data`/`temp`/`val`/`obj`, `doStuff()`, `Manager`, or
   domain-foreign abbreviations. **Exception — match the ecosystem's idiom** (`ctx`, `req`/`res`, `e`, a loop
   `i`): the names the platform hands you teach the platform. The rule governs the names *you* invent.
+- **3.7 Say when you're hand-rolling something the ecosystem already solves.** Where Phase 2.5 chose **build**,
+  the step that writes it carries a one-line callout — `> Build vs borrow — **<library> <version>** does this
+  in production (<docs URL>): you're writing it by hand here to learn <mechanism>. Swap it in when
+  <condition>.` — so the reader can tell a deliberate teaching exercise from "this is how it's done". Where it
+  chose **borrow**, one clause says what the library does for them. Only for capabilities that clear the
+  Phase 2.5 bar, and only with a **verified** library; never annotate a three-line helper.
 
 **P4 — Structure steps & code**
 - **4.1 Sequences are numbered lists, never arrow-chains.** Reserve arrows for a single navigation path within
@@ -405,14 +473,17 @@ Produce **the plan**, not the guide, in this shape:
    "UNVERIFIED" marker if the web check couldn't run.
 3. **Foundation docs** — the cross-cutting layer from Phase 1.
 4. **Milestone ladder** — the ordered table from Phase 2, with the reality-check gate marked.
-5. **Templates** — the step + overview templates from Phase 3.
-6. **Writing contract** — the pedagogical rules (Phase 4) plus verification design (Phase 5).
-7. **Folder/file layout** — the fixed canonical skeleton (README, `PLAN.md`, and `feedback-log.md` at the
+5. **Build vs borrow** — the Phase 2.5 table: every capability the ladder would build that a verified library
+   already solves, with the recommendation and the *Your call* column left for me. Say plainly that the ladder
+   above is cut on the recommended column, and that flipping a row before approval re-cuts that milestone.
+6. **Templates** — the step + overview templates from Phase 3.
+7. **Writing contract** — the pedagogical rules (Phase 4) plus verification design (Phase 5).
+8. **Folder/file layout** — the fixed canonical skeleton (README, `PLAN.md`, and `feedback-log.md` at the
    guide root; foundation docs under `foundation/`; one `MILESTONE_<N>_<slug>/` folder
    per milestone with `00_overview.md` … `NN_verify.md`). Don't invent a structure — just fill in the real
    milestone slugs. **This plan's own home is `guide/PLAN.md`** — every guide-related doc, the plan included,
    lives inside the guide folder.
-8. **First move** — a note that once the plan is approved (and the guide scaffolded) the whole guide is
+9. **First move** — a note that once the plan is approved (and the guide scaffolded) the whole guide is
    drafted in one pass, all milestones M0→Mn, and that the reader then builds against the finished guide,
    verifying each Done-when gate as they go.
 
