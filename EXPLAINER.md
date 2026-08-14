@@ -10,7 +10,7 @@
 
 ## Contents
 
-- [Skills at a glance](#skills-at-a-glance-cheat-sheet) — one-line recap of all eleven skills
+- [Skills at a glance](#skills-at-a-glance-cheat-sheet) — one-line recap of all thirteen skills
 1. [The problem, precisely](#1-the-problem-precisely)
 2. [The core idea: learn-as-you-go](#2-the-core-idea-learn-as-you-go)
 3. [The pillars](#3-the-pillars)
@@ -28,7 +28,7 @@
 
 ## Skills at a glance (cheat-sheet)
 
-The whole toolkit is **eleven skills** (each a `/slash-command`, each also a paste-prompt twin). What each does,
+The whole toolkit is **thirteen skills** (each a `/slash-command`, each also a paste-prompt twin). What each does,
 in one line — the deep dives are in [§6](#6-the-four-prompts-in-depth) and the per-file tour in
 [§5](#5-every-file-explained).
 
@@ -43,6 +43,8 @@ in one line — the deep dives are in [§6](#6-the-four-prompts-in-depth) and th
 - **`/audit-guide`** — lints a drafted guide against the contract; reports violations (read-only).
 - **`/update-stack`** — re-verifies versions online and bumps the guide to current releases.
 - **`/modernize-guide`** — recasts an existing tutorial/README/runbook as a GuideForge plan.
+- **`/amend-guide`** — the requirements changed mid-build: rewrites what's ahead of the reader, never what they've executed.
+- **`/mark-progress`** — records what has actually been executed into `progress.md`; the frontier the amendment reads.
 - **`/report-issue`** — fixes a reader's field report at the root, everywhere it appears, and logs it.
 - **`/log-feedback`** — captures reader friction to `feedback-log.md` for later analysis, *without* touching the guide.
 
@@ -124,14 +126,16 @@ can actually audit.
 ### Pillar — Truth lives in one place
 A guide *describes intent*. Reality can drift. So there's a **status authority** file that is the single
 source of truth for what is actually done and verified, plus a **reconcile-before-follow** rule: when the
-guide and reality disagree, reality wins, and you log the drift.
-→ [templates/status.md](templates/status.md)
+guide and reality disagree, reality wins, and you log the drift. Beside it sits the **execution ledger**,
+which answers the other half of the question — not what the guide has verified, but which steps the reader has
+actually run.
+→ [templates/status.md](templates/status.md) · [templates/progress.md](templates/progress.md)
 
 ---
 
 ## 4. How the pieces fit: the pipeline
 
-GuideForge's core pipeline is four prompts you run in sequence, with a human gate between each (six
+GuideForge's core pipeline is four prompts you run in sequence, with a human gate between each (eight
 auxiliary tools sit outside it — see §5). You never hand the whole job to the model unattended — that's a
 feature, because the gates are where quality is enforced.
 
@@ -197,7 +201,10 @@ source of truth**. It doubles as the paste-into-any-chat twin (Option A in the R
 **Auxiliary contracts** (not part of the linear pipeline): `modernize-guide/prompt.md` (convert an existing tutorial
 into a plan), `audit-guide/prompt.md` (lint a drafted guide against the contract — read-only), `scaffold-guide/prompt.md`
 (stamp the folders + foundation docs from an approved plan), `update-stack/prompt.md` (re-verify a guide's versions
-online, bring the guide up to date, and re-audit), `report-issue/prompt.md` (a reader hit a real issue following the
+online, bring the guide up to date, and re-audit), `amend-guide/prompt.md` (the requirements changed mid-build —
+fold them in ahead of the reader's frontier, leave their executed work alone, retrofit what the change
+invalidated), `mark-progress/prompt.md` (record what the reader has actually executed into `progress.md`, and
+reconcile `status.md` with it), `report-issue/prompt.md` (a reader hit a real issue following the
 guide — fix the root cause everywhere it appears, log it, and re-audit), and `log-feedback/prompt.md` (capture a
 reader's friction into the guide's `feedback-log.md` for later analysis — log-only, no fix, decoupled from
 `report-issue`).
@@ -206,8 +213,8 @@ reader's friction into the guide's `feedback-log.md` for later analysis — log-
 
 Each is a folder with a `SKILL.md` (YAML frontmatter + instructions). The repo ships as a Claude Code
 **plugin** (`.claude-plugin/plugin.json`), so one install adds every skill — the four pipeline stages
-(`/plan-guide`, `/draft-milestone`, `/clarify-step`, `/review-before-follow`) plus six auxiliary tools
-(`/modernize-guide`, `/audit-guide`, `/scaffold-guide`, `/update-stack`, `/report-issue`, `/log-feedback`), and one repo-maintenance skill for contributors to
+(`/plan-guide`, `/draft-milestone`, `/clarify-step`, `/review-before-follow`) plus eight auxiliary tools
+(`/modernize-guide`, `/audit-guide`, `/scaffold-guide`, `/update-stack`, `/amend-guide`, `/mark-progress`, `/report-issue`, `/log-feedback`), and one repo-maintenance skill for contributors to
 GuideForge itself (`/pre-pr-check`, which gates a PR against the CONTRIBUTING rules — skill-only, no paste
 prompt, since it only makes sense run inside this repo). They're **thin wrappers, not copies**: each
 `SKILL.md` is just its frontmatter plus a bash-injection line that **inlines its co-located `prompt.md`**
@@ -235,7 +242,8 @@ you the exact shape of a GuideForge guide.
 | `step.md` | The atomic step file template. |
 | `verify.md` | The `NN_verify.md` template: the milestone's **one** Done-when gate, **a full-file checkpoint** (the complete current contents of every file the milestone touched, so no file survives only as fragments), troubleshooting, and the three-line cumulative **handoff**. |
 | `stack.md` | The Verified stack: pinned versions + official doc links + check date, from the Phase 0.5 web check. |
-| `status.md` | The single-source-of-truth status authority (the *truth lives in one place* pillar). |
+| `status.md` | The single-source-of-truth status authority (the *truth lives in one place* pillar) — the **guide's** state: milestone table, drift log, session log, provenance. |
+| `progress.md` | The **reader's** execution ledger, one row per step file. What has actually been run, as opposed to what the guide intends. `status.md` derives its frontier from it; `/amend-guide` reads it to know what it must not rewrite. |
 | `glossary.md` | Running term list the steps link into. |
 | `conventions.md` | Style/architecture rules referenced everywhere — plus the guide's **writing language**, the one place later skills read it from. |
 | `decision-log.md` | Non-obvious choices + rationale, so the reader learns *why*. |
@@ -403,6 +411,19 @@ set once at scaffold and never moves — it says which revision of the method th
 tells you how the guide was made; the gap between the two tells you how far the method has moved since
 anyone touched it — which is exactly when re-running `update-stack` or `audit-guide` pays off.
 
+### The execution ledger ([templates/progress.md](templates/progress.md))
+Its one neighbour, and a deliberate second file rather than more columns in the first. `status.md` answers
+*"what does this guide claim, and what has been verified?"* — a question about the **guide**. `progress.md`
+answers *"where has the reader got to?"* — a question about the **reader**, at step granularity, which the
+milestone table cannot express. Keeping them apart is what makes them agree: `/mark-progress` writes both in
+one run, and the frontier in `status.md` is *derived* from the last `[x]` row rather than typed in beside it.
+
+The ledger earns its place by what it unlocks. Until it existed, a guide could only be changed as a whole,
+which is safe exactly once — before anyone starts following it. With a frontier on record, `/amend-guide` can
+change what is ahead of a reader and leave what they have already built alone. Everything the amendment
+promises rests on that one boundary, which is why it refuses to run without it: a guessed frontier is worse
+than no ledger at all, because it produces confident edits to work that has already been done.
+
 ---
 
 ## 9. Design decisions & trade-offs
@@ -414,6 +435,7 @@ anyone touched it — which is exactly when re-running `update-stack` or `audit-
 | Four prompts, not one | Each stage has its own gate + failure mode; independently improvable. | More files to learn. |
 | Vertical slices | Every increment runs and is verifiable. | Harder to cut than layers. |
 | Written rule contract | Makes "teach well" auditable, not a vibe. | Rules must be maintained. |
+| An **amendment** never rewrites an executed step | A reader can't un-run what they ran; a step that worked and then changes under them turns a working project into an undiagnosable mismatch. (A *defect* fix is the opposite case — `/report-issue` corrects a step reality never matched.) | A fresh reader meets stale steps carrying a superseded banner, and the repair lives one step ahead instead of in place. |
 | Reality-wins reconcile | Stale-but-clear guides are the dangerous kind. | Requires a status file. |
 | Lite mode exists | The full method is overkill for a one-sitting guide. | Users must opt into it. |
 

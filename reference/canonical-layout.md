@@ -22,7 +22,8 @@
     ├── feedback-log.md           ← append-only field log of reader friction (seeded by scaffold; appended by /log-feedback)
     ├── foundation/               ← the cross-cutting docs, read first
     │   ├── stack.md              ← Verified stack (pinned versions + official docs + check date)
-    │   ├── status.md             ← THE status authority (single source of truth for progress)
+    │   ├── status.md             ← THE status authority (the guide's state: milestones, drift, sessions)
+    │   ├── progress.md           ← the reader's execution ledger, step by step (ticked by /mark-progress)
     │   ├── glossary.md
     │   ├── conventions.md
     │   └── decision-log.md
@@ -61,7 +62,7 @@
   checkpoint doesn't actually keep. A guide-authored file named as touched but shown only as a fragment is a
   broken checkpoint. (Observed: guides over-claimed completeness.)
 - **Foundation docs** live under **`foundation/`**, never loose at the guide root. Their filenames are exactly
-  `stack.md`, `status.md`, `glossary.md`, `conventions.md`, `decision-log.md`.
+  `stack.md`, `status.md`, `progress.md`, `glossary.md`, `conventions.md`, `decision-log.md`.
 - **`README.md`** sits at the guide root (above `foundation/`).
 - **Guide-root files** — every guide-related doc lives **inside the guide folder**: `README.md`, `PLAN.md`
   (the approved plan — written into `guide/` by `plan-guide`, not left at the project root), `feedback-log.md`
@@ -95,6 +96,65 @@
   literal text `start: — not drafted yet` (no link, nothing to point at); `draft-milestone` replaces it with the
   real link when it writes `01_<slug>.md`.
 
+## Progress, and what may be edited behind it
+
+Two files track progress, and they answer different questions. Keeping them apart is what lets a guide be
+changed while someone is halfway through it:
+
+- **`foundation/progress.md`** — what the reader has **executed**, one row per step file. Step granularity.
+  Seeded by `scaffold-guide`, given its step rows by `draft-milestone`, ticked by `/mark-progress`.
+- **`foundation/status.md`** — the state of the **guide**: the milestone table, the drift log, the session
+  log, the provenance stamps. It remains the authority on *"is this milestone verified"*; its **Frontier** and
+  its milestone table are **derived** from `progress.md` and never written in disagreement with it.
+
+The last `[x]` row in `progress.md` is **the frontier** — the line between executed and not. It is the only
+thing that decides what a maintenance skill may rewrite:
+
+- **Ahead of the frontier** (steps not yet executed): free to rewrite, insert, delete, renumber — regenerating
+  every affected nav line, top and bottom.
+- **Behind the frontier** (steps already executed): **only the superseded banner below.** No instruction, no
+  value, no code, no file name and no step number is ever changed there. A reader cannot un-run what they
+  already ran, and a step that silently changes under them turns their working project into a mismatch they
+  have no way to diagnose.
+
+**This binds an amendment — a change of intent — and that is `/amend-guide`.** It is not a general freeze on
+executed steps, because the other maintenance skills answer a different question. `/report-issue` corrects a
+step that was **wrong**: reality never matched it, so leaving it standing preserves nothing worth preserving.
+`/update-stack` and `/clarify-step` likewise repair a step against facts or against the writing contract. Each
+of them already logs the change as drift and sends the milestone back for re-verification. An amendment is the
+one case where the step was **right**, the reader followed it, and it worked — and rewriting *that* is what
+strands them.
+
+### The superseded banner (the one edit allowed behind the frontier)
+Placed directly under the step's **top** nav line (so line 3), never at the bottom, never in place of any
+existing content:
+
+```
+> ⚠️ **Superseded <YYYY-MM-DD>** — <what changed, one line>. Don't follow this step as written: the correction
+> that brings it up to date is under *Before you continue — corrections* in [<NN_slug>.md](<NN_slug>.md).
+```
+
+It is **signage, not instruction**: it says the step is stale and where the repair lives. It also does the
+work the corrections section can't — a *fresh* reader, starting the guide after the amendment, meets this step
+before they ever reach the corrections, and the banner is the only thing that stops them following it blind.
+
+### The corrections section (where the repair actually lives)
+Canonical heading, English like the rest of the skeleton: **`## Before you continue — corrections`**. It goes
+at the top of the **first step ahead of the frontier**, directly under the nav line (and above
+`## Glossary for this step`). It opens with the condition that makes it skippable, because a reader who
+started the guide after the amendment must not apply it:
+
+```
+## Before you continue — corrections
+> Applies only if you executed <steps> before <YYYY-MM-DD>. Started the guide after that date? Skip this
+> section — your project already matches.
+```
+
+Then numbered actions under the ordinary step contract — WHERE, WHAT + WHY, exact values, mandatory vs
+illustrative — and it closes with a `**Corrected when:**` checklist so the reader can confirm the repair
+before continuing. It is deliberately **not** a `## Done when` heading: the step keeps its own single gate,
+and a second one would be a second gate to drift.
+
 ## Writing language (the prose translates; the skeleton doesn't)
 
 A guide's **prose** may be written in any language. `plan-guide` asks for it once (Phase 0, Q7) and the answer
@@ -109,7 +169,8 @@ read it literally — exactly like the naming rules above:
 - file and folder names — `README.md`, `00_overview.md`, `NN_verify.md`, `MILESTONE_<N>_<slug>/`,
   `foundation/`, and the step slugs;
 - the template section headings — `## Do this`, `## Code`, `## Done when (this step)`, `## Why / design`,
-  `## Glossary for this step`, `## If it breaks`, `## Handoff`, `## Frontier`, and the rest;
+  `## Glossary for this step`, `## If it breaks`, `## Handoff`, `## Frontier`,
+  `## Before you continue — corrections`, and the rest;
 - the nav-line vocabulary and separator — `Nav`, `Overview`, `prev:`, `next:`, `start:`, `milestone K of N`,
   `·`;
 - the fixed table column keys in `stack.md` / `status.md`;

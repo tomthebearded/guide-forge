@@ -15,8 +15,8 @@ and report violations. Read-only: **flag, don't fix.** If you spot a genuine tec
 don't rewrite anything.
 
 ## Inputs
-The guide file(s) to audit (attach or point at them). If a foundation doc (`status.md`, `glossary.md`,
-`stack.md`) is relevant to a check, ask for it.
+The guide file(s) to audit (attach or point at them). If a foundation doc (`status.md`, `progress.md`,
+`glossary.md`, `stack.md`) is relevant to a check, ask for it.
 
 ## Severity — two levels, no others
 Every finding carries exactly one of these. There is no third level: if you can't decide, ask whether the
@@ -171,6 +171,24 @@ and mark it **unconfirmed**, naming the tool or environment needed to settle it.
   missing `Last updated` line, and flag one whose date predates the guide's most recent recorded change (the
   last drift-log row, session-log line, or README Updates entry) — a stale stamp hides how far the guide has
   drifted from the method that wrote it.
+- **`foundation/progress.md` exists and matches the files on disk.** The ledger carries one section per
+  milestone folder and one row per step file, `NN_verify.md` included. Flag as a **WARNING** a missing ledger,
+  a step file with no row, and a row naming a file that isn't there — a ledger that has drifted from the guide
+  is the input `amend-guide` uses to decide what it may rewrite, so its errors land on work the reader has
+  already done. Flag as a **BLOCKER** a milestone marked `✅` in `status.md` whose ledger rows are not all
+  `[x]`: the two files disagree about what has actually been executed, and the reader is told a gate passed
+  that nothing records passing.
+- **Amendment marks are well-formed (a guide changed mid-flight).** Where an executed step carries a
+  `⚠️ **Superseded <date>**` banner, flag as a **BLOCKER** a banner whose target step has no
+  `## Before you continue — corrections` section (the reader is sent to a repair that isn't there) and a
+  banner that also **rewrote** the step it sits in — an amendment's banner is signage, and a step that needed
+  correcting in place was a *defect*, which is `report-issue`'s job and logs itself differently.
+  Flag as a **WARNING** a corrections section missing its opening *"Applies only if you executed … before
+  &lt;date&gt;"* condition (a reader who started after the amendment applies a correction they don't need), one
+  carrying its own `## Done when` heading instead of the `**Corrected when:**` checklist (two gates in one
+  step, one of which will drift), and one that is **not** in the first step ahead of the frontier — a retrofit
+  the reader reaches only after building further on what it was meant to fix. Resolving the last one needs
+  `progress.md`; say so if it wasn't attached.
 
 - **Front-door claims match the content — WARNING:** check absolute framings in the **front-door** docs
   (`README.md`, `foundation/decision-log.md`, `MILESTONE_0/00_overview.md`) against what the milestones
@@ -242,7 +260,8 @@ Expert on that topic.
   language is **not** a defect — prose that drifts *between* languages inside the guide is. Flag: a step
   written in a different language from the rest, and any **translated skeleton** — a section heading that
   isn't the template's English one (`## Do this`, `## Done when (this step)`, `## Code`, `## Why / design`,
-  `## Glossary for this step`, `## If it breaks`, `## Handoff`, …), a nav line whose labels aren't
+  `## Glossary for this step`, `## If it breaks`, `## Handoff`,
+  `## Before you continue — corrections`, …), a nav line whose labels aren't
   `Nav`/`Overview`/`prev:`/`next:`/`start:`, a translated file or folder name, or translated table column
   keys, identifiers, commands or paths. Those strings are matched literally by the pipeline and by this audit.
 - **Rule 1.1e forward-explained concept:** flag a taught concept whose **full explanation lives in a later step than

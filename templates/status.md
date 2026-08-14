@@ -3,6 +3,12 @@ TEMPLATE: status.md — THE STATUS AUTHORITY (the "truth lives in one place" pil
 This file is the SINGLE SOURCE OF TRUTH for what is actually done and verified.
 Guides describe INTENT; only this file states REALITY. When a guide and this file disagree, this file wins.
 Read it first every session; update it last.
+
+ITS ONE NEIGHBOUR: foundation/progress.md — the reader's execution ledger, step by step. This file stays the
+authority on the GUIDE's state (is this milestone verified? what drifted? what happened this session?), but its
+Frontier and its milestone table are DERIVED from that ledger and are never written in disagreement with it.
+A milestone is ✅ here only when every one of its rows there is [x] AND its NN_verify.md gate was observed.
+/mark-progress writes both files in the same run — that is the only way either should move.
 -->
 
 # STATUS — <project name>
@@ -21,8 +27,10 @@ Read it first every session; update it last.
      At scaffold time the two lines are identical. -->
 
 ## Frontier
-<!-- The single most important line: which milestone is currently being worked, and what's the next unverified one. -->
+<!-- The single most important line: which milestone is currently being worked, and what's the next unverified one.
+     Step-level detail lives in progress.md; this line must agree with its "Current position". -->
 - **Current frontier:** <milestone ID> — <status: not started / in progress / verified>.
+- **Executed through:** <last [x] step in [progress.md](progress.md), or "nothing yet">.
 
 ## Source inputs
 <!-- Files provided when the guide was planned (spec, design doc, sample code, OpenAPI, legacy guide). They

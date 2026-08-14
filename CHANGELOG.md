@@ -5,6 +5,67 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Changed
+
+- **The two tip lists in `README.md` now name the skill behind each tip**, and gained three of them. Every
+  bullet under *Tips for creating a guide* and *Tips for following a guide* ends with the skill that acts on
+  it — or an explicit **Skill: none** where the tip is something only the human can do (commit at each step,
+  don't hand a milestone to the AI), which is information too. The new tips: **audit the draft as soon as it
+  exists** — once, taking the blockers and stopping, since `/audit-guide` hands back a list and not a rewrite
+  loop; **mark a step done the moment you finish it** rather than at the end of a sitting, now stated as its
+  own habit with `/mark-progress` and the `✅`-needs-an-observed-gate rule attached; and **the goal is the
+  thing you're building, not a perfect guide** — past the first audit, another polishing pass buys less than
+  the first hour of building, and a defect met while following the guide arrives with the context needed to
+  fix it. The old *Close the loop before anyone builds* bullet split into the audit tip and a sharper
+  `/review-before-follow` one.
+
+### Fixed
+
+- **`templates/progress.md` claimed readers the ledger doesn't have.** Its header block listed `/report-issue`
+  and `/review-before-follow` as consumers of `progress.md`; neither prompt reads it. Corrected to the two that
+  do: `/amend-guide` (finds the frontier) and `/audit-guide` (checks the ledger against the step files on disk).
+- **The superseded banner in `amend-guide` could emit a dead link.** Its template hard-coded a same-folder
+  target — `[<NN_slug>.md](<NN_slug>.md)` — but the first unexecuted step is usually in a *later* milestone
+  folder, so the banner sent the reader to a correction they couldn't reach. The placeholder is now a path
+  relative to the banner's own file, with the `../MILESTONE_<N>_<slug>/` case spelled out.
+
+### Added
+
+- **`/amend-guide` — change a guide someone is halfway through, without rewriting what they've already built.**
+  The toolkit could fix a guide that was wrong (`/report-issue`) and bump a guide whose versions had moved
+  (`/update-stack`), but it had nothing for the commonest reason a guide changes: **the requirements changed**.
+  Handing that job to either of the existing skills gets the edit wrong, because both are free to rewrite any
+  step — which is the right latitude when the step was *wrong*, and the wrong one when it was right and
+  someone already followed it. Past the point where a reader has built on a step, rewriting it is worse than
+  leaving it stale: they can't un-run what they ran, and instructions describing a state their project was
+  never in leave them with a mismatch they have no way to diagnose.
+  So the amendment is built around a boundary. It reads the frontier from the new execution ledger and
+  **refuses to run without one** — a guessed frontier produces confident edits to finished work, which is the
+  one outcome worse than not amending at all. It then verifies online anything the change introduces and
+  **stops on an impact report**: what gets rewritten ahead of the reader, what they already built that the
+  change invalidates, and the exact repair. Nothing is written until that report is approved.
+  On approval the rule is asymmetric. **Ahead of the frontier:** rewrite, insert, delete, renumber, and
+  regenerate every nav line — `PLAN.md` and the ladder included. **Behind it:** one edit and one only, a
+  `⚠️ Superseded <date>` banner under the step's top nav line, signage that exists for the *fresh* reader who
+  meets that step before they ever reach the correction. The repair itself lives ahead of the frontier, in a
+  `## Before you continue — corrections` section at the top of the first step the reader hasn't opened —
+  opening with the condition that makes it skippable, closing with a `**Corrected when:**` checklist rather
+  than a second `Done when` that would drift against the step's own gate. Amended milestones go `⏳`, never
+  `✅`, and a change of intent always earns a `decision-log.md` entry (a correction doesn't).
+- **`/mark-progress` and `foundation/progress.md` — the execution ledger, at step granularity.** `status.md`
+  tracks milestones, which is the wrong resolution for the question "may this step be rewritten?". The sixth
+  foundation doc answers it: one row per step file, `[ ]` / `[x]` / `[~]` / `[!]`, ticked by `/mark-progress`
+  as the reader works. The two files are deliberately kept apart and deliberately kept in agreement —
+  `status.md` remains the authority on the **guide's** state and derives its frontier from the ledger, which
+  is the authority on the **reader's**, and `/mark-progress` writes both in one run so neither moves alone. It
+  marks only what the reader claimed (no ticking earlier steps on the assumption they must be done) and gives
+  a milestone `✅` only when its `NN_verify.md` gate was actually observed.
+  `scaffold-guide` stamps the ledger, `draft-milestone` fills in its step rows as it writes the files,
+  `audit-guide` checks it against what's on disk — and flags a `✅` milestone whose rows aren't all `[x]` as a
+  BLOCKER, since that pair of files disagreeing means one of them is telling the reader a gate passed that
+  nothing records passing. A guide scaffolded before the ledger existed gets one built from its own step files
+  on first use.
+
 ## [1.14.1] — 2026-08-14
 
 ### Added

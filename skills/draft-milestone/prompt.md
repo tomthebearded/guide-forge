@@ -168,6 +168,16 @@ under `foundation/`, `00_overview.md` … `NN_verify.md` per milestone):
    **Handoff** as the last section — three lines: the cumulative "You now have", anything left open, and a
    **clickable** pointer to the next milestone's `00_overview.md` with what it proves.
 
+And once per run, across the whole guide:
+
+4. **Fill `foundation/progress.md`** — the reader's execution ledger. Replace each milestone section's
+   `- [ ] _steps not drafted yet_` placeholder with **one unticked row per step file you just wrote**, in `NN`
+   order, ending with that milestone's `NN_verify.md`, each row shaped
+   ``- [ ] `NN_<slug>.md` — <step title>``. Every row names a file that exists and every file you wrote has a
+   row; nothing is ever ticked here by you. Create the ledger from `templates/progress.md` if the scaffold
+   didn't leave one. This is what tells the maintenance skills where the reader has got to — a guide drafted
+   without it can't be amended later without risking the work the reader has already done.
+
 ## Every step file MUST obey the writing contract
 
 The principles (rules cited by dotted id; full contract in
@@ -392,7 +402,10 @@ date.
 Then, once the **whole guide** is drafted, **stop** and tell me:
 - a per-milestone summary of the **Done-when** checklists — the gates the reader will verify as they build, and
 - that the guide is complete and ready to follow: the reader now builds against it, verifying each gate as they
-  go, and can run the `clarify-step` skill (`skills/clarify-step/prompt.md`) on any step that reads unclearly, or
-  the `review-before-follow` skill (`skills/review-before-follow/prompt.md`) before executing against real tooling.
+  go, **ticking each step in `foundation/progress.md` as they finish it** (the `mark-progress` skill,
+  `skills/mark-progress/prompt.md`, does the bookkeeping — and it is what later lets `amend-guide` change the
+  guide without touching work they've already done), and can run the `clarify-step` skill
+  (`skills/clarify-step/prompt.md`) on any step that reads unclearly, or the `review-before-follow` skill
+  (`skills/review-before-follow/prompt.md`) before executing against real tooling.
 
 (When you drafted only a single named milestone, scope the summary and hand-off to that one milestone instead.)

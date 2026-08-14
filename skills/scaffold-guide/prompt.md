@@ -3,7 +3,7 @@
 <!-- GuideForge · auxiliary (setup) · run after a plan is approved, before drafting · version: see .claude-plugin/plugin.json -->
 
 > **How to use:** paste this with the **approved plan** (or attach `PLAN.md`). You get the guide's folder
-> skeleton and its five foundation docs, pre-filled from the plan. In a plain chat these come back as
+> skeleton and its six foundation docs, pre-filled from the plan. In a plain chat these come back as
 > copy-paste blocks; the `/scaffold-guide` skill writes them to disk.
 
 ---
@@ -35,6 +35,13 @@ Use the one canonical skeleton — don't invent a per-guide structure. The fixed
    - `status.md` — the **two provenance lines** stamping the GuideForge version used (see the version rule
      below); frontier = first milestone (not started); the milestone-status table seeded from the ladder; a
      **Source-inputs** row per file the plan cited.
+   - `progress.md` — the reader's execution ledger, from `templates/progress.md`: one `## MILESTONE_<N> —
+     <title>` section per rung of the ladder, in order, each carrying the single placeholder row
+     `- [ ] _steps not drafted yet_` (no step file exists yet, and a row naming one that doesn't exist is a
+     lie the amendment skills would read as truth). `draft-milestone` replaces each placeholder with the real
+     step rows as it writes them; `/mark-progress` ticks them. Fill **Current position** with
+     `Last executed: nothing yet` and the first milestone's first step as *Next up* — written as the milestone
+     ID alone until a step file exists.
    - `glossary.md`, `conventions.md`, `decision-log.md` — seeded with whatever the plan already decided;
      otherwise the empty template with headings. `conventions.md` § **Writing language** is the one section
      that is **never left empty**: fill it with the prose language the plan settled in Q7 (English if the plan
@@ -78,5 +85,6 @@ inventing one.
 ## Deliverable
 Every file in its own fenced block labelled with its path (the skill writes them to disk). Then tell me the
 guide is scaffolded and ready to draft — run `draft-milestone` to draft the **whole guide** in one pass (every
-milestone, M0→Mn) — and that **only `status.md` is the source of truth for progress** — the scaffold banners
-are not.
+milestone, M0→Mn) — and that **the scaffold banners are never a source of truth for progress**: `status.md`
+owns the guide's state, `progress.md` owns what the reader has executed, and `/mark-progress` is what moves
+either of them.

@@ -1,7 +1,8 @@
 ---
 name: scaffold-guide
 description: >
-  Stamp the folder skeleton + five foundation docs (stack, status, glossary, conventions, decision-log) of a
+  Stamp the folder skeleton + six foundation docs (stack, status, progress, glossary, conventions,
+  decision-log) of a
   GuideForge guide from an approved plan, pre-filled from the plan and with a placeholder overview per
   milestone — so drafting can start immediately. Use after a plan is approved and before drafting the first
   milestone. Invoke with the plan, e.g. "/scaffold-guide", attaching PLAN.md.

@@ -10,7 +10,9 @@ Scaffolded by prompt/skill `scaffold-guide`; the Updates log grows as the guide 
 # <Guide title> — build <the one-line what-you'll-build>
 
 > The front door to this guide. Skim this, then follow the milestones. **Progress lives in
-> [foundation/status.md](foundation/status.md), not here** — this page describes intent; `status.md` states reality.
+> [foundation/status.md](foundation/status.md) and [foundation/progress.md](foundation/progress.md), not
+> here** — this page describes intent; those two state reality (what the guide has verified, and which steps
+> you have actually run).
 
 > _Generated with **GuideForge v<x.y.z>** on <YYYY-MM-DD>._
 <!-- Provenance: the GuideForge plugin version that produced this guide. Read the `version` field from the
@@ -42,6 +44,8 @@ a published package, a deployed URL.>
 ## Following this guide
 1. Read **[foundation/status.md](foundation/status.md)** first — the single source of truth for what's done and verified.
 2. Start at **[Milestone 0](MILESTONE_0_<slug>/00_overview.md)**; do the milestones in order (each builds on the last).
+   Tick each step in **[foundation/progress.md](foundation/progress.md)** as you finish it — that ledger is
+   what lets the guide be changed later without disturbing the work you've already done.
 3. **Type the code — don't paste it.** The complete files are included so you always have an authoritative
    copy to diff against, *not* so you can paste blindly. You'll learn far more by typing each file, reading it
    as you go, and predicting a step's expected output *before* you run it. Reach for paste only to unstick

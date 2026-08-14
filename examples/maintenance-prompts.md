@@ -1,7 +1,8 @@
 # Prompt examples — the auxiliaries
 
 Skills you reach for around a guide rather than to produce one: QA it, keep it current, convert something that
-already exists, and capture what readers hit. Plain-chat form is the same everywhere — paste the skill's
+already exists, track how far you've got through it, change it around work you've already done, and capture
+what readers hit. Plain-chat form is the same everywhere — paste the skill's
 `prompt.md`, then the argument, then the files.
 
 ---
@@ -57,6 +58,55 @@ For an existing flat tutorial, runbook, or legacy guide: it reverse-engineers th
 the document against the pedagogy principles, verifies the (probably stale) stack online, and re-casts it as a
 plan with a source-map back to the original. Use `plan-guide` instead when you're starting from an idea — this
 one needs something to convert.
+
+---
+
+## `mark-progress` — record what you actually executed
+
+```
+/mark-progress M2/03 done
+```
+
+Ticks that row in `guide/foundation/progress.md`, rewrites *Current position*, and reconciles `status.md`'s
+frontier, milestone table and session log with it. Two files, nothing else — it never edits a step.
+
+A whole milestone, gate included:
+
+```
+/mark-progress through M1, the verify gate passed
+```
+
+Only the gate earns a `✅`. Claim the milestone without mentioning the verify and it asks the one question
+before writing, because a milestone marked verified by nobody's observation is the one lie the status file
+must never carry.
+
+---
+
+## `amend-guide` — the requirements changed mid-build
+
+```
+/amend-guide swap SQLite for Postgres — I need real concurrent writes
+```
+
+**Attach:** the guide, `foundation/progress.md` included.
+
+The one skill that assumes someone is **halfway through**. It reads the ledger to find the frontier, verifies
+online anything the change introduces, and then **stops** with an impact report: what gets rewritten ahead of
+you, what you already built that the change invalidates, and the exact repair for it. Nothing is written until
+you approve.
+
+On approval: steps ahead of the frontier are rewritten freely (`PLAN.md` and the ladder with them), executed
+steps get a superseded banner and **nothing else**, and the repair lands as a *Before you continue —
+corrections* section at the top of the first step you have not yet opened.
+
+Dropping scope works the same way:
+
+```
+/amend-guide drop the CLI entirely — the HTTP API is the only surface now
+```
+
+**Which maintenance skill?** `report-issue` when the guide is *wrong*, `update-stack` when its *versions*
+moved, `amend-guide` when the guide is right and *what you want built* changed.
 
 ---
 

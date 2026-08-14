@@ -2,7 +2,8 @@
 TEMPLATE: atomic step file. One step = one indivisible action.
 Exception: code files created in the SAME commit may be bundled here under one sub-heading each — and the step
 says so at the top ("this step touches N files, committed together: …").
-Delete these comments and any section that doesn't apply (Glossary/Code are omittable).
+Delete these comments and any section that doesn't apply (Glossary/Code are omittable; the corrections section
+below exists only on a step an amendment touched).
 Every step must obey the pedagogy principles — see ../reference/pedagogy-rules.md.
 
 NAV LINE IS CANONICAL AND REQUIRED — AT BOTH TOP AND BOTTOM: line 2 directly under the H1, AND repeated
@@ -32,6 +33,29 @@ fixes it". Where the stack has a compiler/type-checker, the Done-when below ends
 
 # <Milestone ID> · Step NN of <TOTAL> — <single action title>
 > Nav: [← <prev>](<prev>.md) · [Overview](00_overview.md) · [<next> →](<next>.md)
+
+<!-- SUPERSEDED BANNER — written by /amend-guide ONLY, and only on a step the reader has ALREADY EXECUTED.
+     It goes here, directly under the top nav line, and it is the ONLY edit such a step ever receives: signage,
+     never instruction. Nothing else in the file changes — not a value, not the code, not the file name, not
+     the step number. Its job is the reader who meets this step FRESH, long before they reach the correction:
+> ⚠️ **Superseded <YYYY-MM-DD>** — <what changed, one line>. Don't follow this step as written: the correction
+> that brings it up to date is under *Before you continue — corrections* in [<NN_slug>.md](<NN_slug>.md).
+-->
+
+## Before you continue — corrections
+<!-- OMIT THIS SECTION unless an amendment left work to repair. /amend-guide writes it at the top of the FIRST
+     step the reader has NOT yet executed, so the repair lands before anything is built on top of the work it
+     fixes. The condition line is mandatory: a reader who started the guide after the amendment must skip it.
+     Ordinary step contract applies to the actions — WHERE, WHAT + WHY, exact values, mandatory vs illustrative.
+     It closes with **Corrected when:** and NOT a "## Done when" heading — the step keeps its own single gate.
+     A later amendment APPENDS a dated sub-heading here rather than opening a second section. -->
+> Applies only if you executed <steps> before <YYYY-MM-DD>. Started the guide after that date? Skip this
+> section — your project already matches.
+
+1. In `<where>`, <change what the amendment invalidated> — <why it changed>.
+
+**Corrected when:**
+- [ ] <action> → <exact expected result>.
 
 ## Glossary for this step
 <!-- AN INDEX, NOT A SECOND SET OF DEFINITIONS (rule 1.1b). Lists only the terms THIS step introduces —

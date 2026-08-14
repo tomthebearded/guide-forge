@@ -16,8 +16,9 @@ here as ordinary text, then whatever files the example says to attach.
 
 **Attach:** `PLAN.md`.
 
-Stamps the canonical folder layout and the five foundation docs — `stack.md`, `status.md`, `glossary.md`,
-`conventions.md`, `decision-log.md` — pre-filled from the plan, plus a placeholder overview per milestone.
+Stamps the canonical folder layout and the six foundation docs — `stack.md`, `status.md`, `progress.md`,
+`glossary.md`, `conventions.md`, `decision-log.md` — pre-filled from the plan, plus a placeholder overview per
+milestone.
 Run it before drafting so the drafter fills a real tree instead of inventing paths. In a plain chat it prints
 the tree and the documents for you to save; that transcription is the whole job.
 

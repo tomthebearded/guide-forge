@@ -82,7 +82,7 @@ don't re-perform them by hand; you confirm the scripts passed and add the judgme
   judgment add: eyeball a touched wrapper for a re-grown full copy of its prompt's phases/rules (the drift the
   script can't measure).
 - **Skill registry in sync.** *(script checks the count)* If a skill was added or removed, confirm the count in
-  `.claude-plugin/marketplace.json` `plugins[].description` (e.g. "Eleven skills, one install") and every
+  `.claude-plugin/marketplace.json` `plugins[].description` (e.g. "Thirteen skills, one install") and every
   "N skills" phrasing in `README.md`/`EXPLAINER.md` reflects the new total — and that the skill **tables/lists**
   in both docs actually gained/lost the row (the script counts the number, not the list rows). Report old vs new.
 - **Version single-sourced.** *(script)* `plugin.json` `version` is the single source of truth; the README
