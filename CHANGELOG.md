@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.15.0] — 2026-08-14
+
 ### Added
 
 - **Build vs borrow — the guide offers you the library before it writes one.** A planner left alone will
