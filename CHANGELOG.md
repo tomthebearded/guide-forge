@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.13.0] — 2026-08-14
+
 ### Changed
 
 - **A term is defined once per step: the body teaches, the step's Glossary block indexes (new rule 1.1b).**
