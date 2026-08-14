@@ -101,9 +101,9 @@ there's something they're missing.
   so it renders identically in every terminal and viewer. Deep-link the term's *official docs* here when it's
   an external API — the sourcing principle requires it — but **not** the glossary; see 1.1b.)
 
-If a step introduces many terms, also add a "Glossary for this step" block at the top. **Never leave a
-load-bearing term as a bare rule with no gloss and no pointer** — if a decision names a concept, either define
-it or point to where it's defined.
+If a step introduces many terms, also add a "Glossary for this step" block at the top — as an **index, not a
+second set of definitions** (see 1.1b). **Never leave a load-bearing term as a bare rule with no gloss and no
+pointer** — if a decision names a concept, either define it or point to where it's defined.
 
 - ❌ "Register the middleware and it'll wrap every handler."
 - ✅ (inline) "Register the **middleware** — a function that runs on every request *before* your handler,
@@ -113,15 +113,33 @@ it or point to where it's defined.
   `> New concept — Gamma color space: texture values render exactly as authored (no sRGB curve), so`
   `hand-picked palettes look right.` (its glossary link lives once in `## Glossary for this step`, not here.)
 
-**(b) Link the glossary once, in the step's block — not after every term.** The body gloss/callout *defines*
-the term; it does **not** append a `see [glossary](…)` link. The glossary is pointed to a single time, from the
-step's `## Glossary for this step` block (which carries the per-term `../glossary.md#slug` deep-links). Trailing
-"see glossary" after each term is repetitive noise — drop it from the body and let the block be the one door to
-the glossary.
+**(b) One definition per term per step — the body teaches, the block indexes.** A term is defined **once** on a
+page: in the body, as an inline gloss or a "New concept" callout, where the reader meets it with the work in
+front of them. The `## Glossary for this step` block is an **index, not a second definition** — it lists the
+terms this step introduces, deep-links each to `../glossary.md#slug`, and says where on the page it's taught.
+Each term is then **explained once and findable twice**.
+
+Two corollaries, one per device:
+
+- The **body** gloss/callout does not append a `see [glossary](…)` link. The block is the one door to the
+  glossary; a trailing "see glossary" after every term is repetitive noise.
+- The **block** does not restate the definition. A step that defines a term in the block *and* again in a
+  callout makes the reader meet it twice before they can act on it — and read carefully enough both times to
+  work out that the two are the same thing, not two related ideas.
 
 - ❌ (body callout) `> New concept — middleware: code that runs on every request. See [glossary](../glossary.md#middleware).`
 - ✅ (body callout) `> New concept — middleware: code that runs on every request before your handler.`
-  — the glossary link for `middleware` lives once, in `## Glossary for this step`.
+- ❌ (block) `> **[middleware](../glossary.md#middleware)** — code that runs on every request before your handler.`
+  — the same sentence the callout further down the page already carries.
+- ✅ (block) `> New here: **[middleware](../glossary.md#middleware)** (defined under *Do this* 2).`
+
+**The failure this shape can introduce: a term in the block that nothing in the body defines.** The block only
+points; if it points at nothing, the term is now undefined and 1.1 is violated. Fix it by giving the term its
+inline gloss or callout in the body — never by putting the definition back in the block.
+
+*(Origin: a step defined `.meta` and GUID three times on one page — the block bullets, the Why/design prose,
+then the callout — before the reader performed a single action. Both devices were individually well-written;
+they were doing the same job.)*
 
 **(c) Built-in library methods are first-use terms too.** When the reader is **New/Beginner** on a language or
 engine, its standard-library and built-in surface counts as first-use terms — `Math.round()`,

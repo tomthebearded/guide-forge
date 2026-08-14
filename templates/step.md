@@ -34,14 +34,18 @@ fixes it". Where the stack has a compiler/type-checker, the Done-when below ends
 > Nav: [← <prev>](<prev>.md) · [Overview](00_overview.md) · [<next> →](<next>.md)
 
 ## Glossary for this step
-<!-- Only the terms THIS step introduces (rule 1.1) — WORDS/CONCEPTS only, never a function (functions get an
-     inline code comment where they're used). One line each, each deep-linked to ../glossary.md#<slug>. THIS
-     BLOCK IS THE ONE PLACE THE GLOSSARY IS LINKED — body glosses/callouts define the term but do NOT append a
-     "see glossary" link (rule 1.1). Omit the heading if none.
-     Alternative for a term that first appears on a command/menu/code line below: skip this block for it and put a
-     "New concept" callout on its own line right above that line — > New concept — **term**: definition.
-     (No glossary link in the callout; deep-link the term's official docs there only if it's an external API.) -->
-> **[<term>](../glossary.md#<slug>)** — <one-sentence plain-language definition>.
+<!-- AN INDEX, NOT A SECOND SET OF DEFINITIONS (rule 1.1b). Lists only the terms THIS step introduces —
+     WORDS/CONCEPTS only, never a function (functions get an inline code comment where they're used). Each term
+     is deep-linked to ../glossary.md#<slug> and says WHERE ON THIS PAGE it is taught. Do NOT write the
+     definition here: the term is defined ONCE, in the body, as an inline gloss or a "New concept" callout
+     (> New concept — **term**: definition.) at the point the reader meets it. Defining it in both places makes
+     the reader read the same term twice before they can act.
+     THIS BLOCK IS ALSO THE ONE PLACE THE GLOSSARY IS LINKED — body glosses/callouts do NOT append a
+     "see glossary" link (deep-link the term's official docs in the callout only if it's an external API).
+     Every term listed here MUST have its definition somewhere in the body; if one doesn't, add the gloss or
+     callout — don't put the definition back up here. Omit the heading if the step introduces no terms. -->
+> New here: **[<term>](../glossary.md#<slug>)** (defined under *<where on this page>*) ·
+> **[<term>](../glossary.md#<slug>)** (defined in *Why / design*).
 
 ## Why / design
 <!-- The rationale the reader needs to understand this step (rule 2.2). What it accomplishes and why now.

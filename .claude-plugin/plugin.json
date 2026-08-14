@@ -2,7 +2,7 @@
   "name": "guide-forge",
   "version": "1.12.0",
   "description": "Turn any idea — or an existing tutorial — into a step-by-step build guide that teaches while it builds. A gated pipeline of skills that plan, draft, clarify, review, modernize, audit, scaffold, and version-update learn-as-you-go developer guides.",
-  "author": { "name": "Tommaso Mastroberardino", "url": "https://github.com/tomthebearded" },
+  "author": { "name": "GuideForge", "url": "https://github.com/tomthebearded" },
   "license": "MIT",
   "keywords": [
     "documentation",

@@ -173,9 +173,10 @@ under `foundation/`, `00_overview.md` … `NN_verify.md` per milestone):
 The principles (rules cited by dotted id; full contract in
 [reference/pedagogy-rules.md](../../reference/pedagogy-rules.md)):
 - **P1 Explain what's new** — **1.1** explain every concept on first use (inline gloss, or a "New concept"
-  callout right above the line; link the glossary ONCE in the step's Glossary block, not after every term; and
-  explain a *function* with an inline code comment, never a glossary entry); **1.2** teach the recurring mental
-  model at the point of use.
+  callout right above the line; define it ONCE in the body and let the step's Glossary block only *index* it —
+  link + where it's taught, never a second definition; link the glossary ONCE from that block, not after every
+  term; and explain a *function* with an inline code comment, never a glossary entry); **1.2** teach the
+  recurring mental model at the point of use.
 - **P2 Anchor every action** — **2.1** say WHERE each action happens; **2.2** say WHAT it does and WHY.
 - **P3 Leave nothing ambiguous** — **3.1** exact values, not ranges (and say when a value is free); **3.2**
   separate mandatory from illustrative; **3.3** say which fields to change and which to leave at default;
@@ -258,14 +259,18 @@ Plus the structural rules — the ones drafters most often drop:
 - **The overview stays a map.** Goal, prerequisite, step index, and a compact concept/decision index — no
   teaching, no gate, no handoff. If a sentence in the overview explains something a step explains, cut it: it
   belongs to the step, where the reader has the code in front of them.
-- **Glossary deep-links must resolve — and live in the step's Glossary block, once.** The `## Glossary for this
-  step` block deep-links each term with `../glossary.md#<slug>` (`<slug>` = the term's heading slug: lowercase,
-  spaces → `-`, punctuation dropped). Every term in `glossary.md` is a `### <term>` heading, never a bullet —
-  bulleted terms have no anchor and the link silently fails; add the term as a heading when you introduce it.
-  Body glosses/callouts do **not** repeat a `see [glossary]` link after each term (the block is the one door to
-  the glossary). And the glossary holds **words/concepts only** — never a **function**; a function that needs
-  explaining gets an inline code comment on its line. (Observed: a guide shipped dead
-  `glossary.md#term` links because the glossary used bullets.)
+- **The step's Glossary block is an index; the body is where terms are defined (rule 1.1b).** The
+  `## Glossary for this step` block lists each term this step introduces, deep-links it with
+  `../glossary.md#<slug>` (`<slug>` = the term's heading slug: lowercase, spaces → `-`, punctuation dropped),
+  and names where on the page it's taught — it does **not** carry the definition. The definition lives once, in
+  the body, as an inline gloss or a "New concept" callout at the point the reader meets the term. Check both
+  directions: no term defined in both places, and no term listed in the block that the body never defines.
+  Every term in `glossary.md` is a `### <term>` heading, never a bullet — bulleted terms have no anchor and the
+  link silently fails; add the term as a heading when you introduce it. Body glosses/callouts do **not** repeat
+  a `see [glossary]` link after each term (the block is the one door to the glossary). And the glossary holds
+  **words/concepts only** — never a **function**; a function that needs explaining gets an inline code comment
+  on its line. (Observed: a guide shipped dead `glossary.md#term` links because the glossary used bullets; and
+  a step defined `.meta` and GUID three times on one page before the reader did anything.)
 - **Required code lives in a step, never in "If it breaks."** The failure section lists diagnoses only; if a
   fix needs new code/config, it's a numbered step (or a clearly-flagged optional one).
 - **Every step ends in its own "Done when"** — the sub-slice of the milestone gate it satisfies.
@@ -340,6 +345,10 @@ yourself. Confirm:
   or names what that environment shows **inside the gate**;
 - **versions and load-bearing names are consistent** — every command/code block uses the pinned Verified-stack
   versions, and every recurring name/path/identifier matches how earlier steps spelled it (no drift);
+- **no term is defined twice on one page (rule 1.1b)** — for each step, read the `## Glossary for this step`
+  block against the body: every term is taught in exactly one place (an inline gloss or a "New concept"
+  callout), and the block carries only the deep-link plus where that teaching sits. A definition in the block
+  *and* in a callout is a violation; so is a term in the block the body never defines;
 - **recurring values are consistent (rule 3.5)** — a figure quoted more than once (jump height, tick rate, timeout,
   colour hex, port) reads identically in the code, the prose, the gate, the glossary, and the overview;
 - **every identifier you invented is self-describing (rule 3.6)** — re-read each code block with the prose

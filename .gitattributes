@@ -1,0 +1,7 @@
+# Line endings — LF in the index AND in the working tree, on every platform.
+#
+# The index is already all-LF; without this file a Windows clone with core.autocrlf=true checks the
+# tree out as CRLF, and `node scripts/release.mjs` rewrites README.md via `lines.join('\n')` — turning
+# a one-token version bump into a whole-file diff. Markdown IS the product here, so its bytes are kept
+# identical everywhere rather than left to each contributor's git config.
+* text=auto eol=lf

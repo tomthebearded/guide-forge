@@ -422,9 +422,28 @@ how to hand the idea over, and how to cut the work once the ladder exists.
 Everything above is for *making* a guide. These are for the person **following** one — read them before
 you start building against it.
 
+- **Install the exact versions in `foundation/stack.md`.** The whole guide was written and verified against
+  that snapshot — every command, flag and API name in it. Reaching for `latest` instead puts you on a
+  different stack than the one the steps describe, and the mismatch rarely announces itself as a version
+  error: it shows up as a flag that no longer exists or a default that quietly changed.
+- **Read the milestone's `00_overview.md` before its steps.** It tells you what this milestone builds and the
+  one gate that proves it. Knowing the destination makes steps that look arbitrary in isolation obvious —
+  and tells you what "done" means before you spend an hour on it.
+- **Read a step all the way through before you type anything.** Code sits interleaved under the instruction
+  that introduces it, so instruction 3 can change where instruction 1's fragment belongs. One read-through
+  first, then act.
 - **Don't just copy-paste.** Every step tells you *where* the code goes and *why* it's there — that context is
   the point. Type it, or at minimum read the explanation before you paste the block. A guide you paste your
   way through teaches you nothing, and you won't be able to debug it when it breaks.
+- **Commit at the end of every step.** Every step is cut so it ends with the project building, which makes
+  each step boundary a safe restore point — one you get for free and most readers never use. Name the commit
+  after the milestone and step you just finished, so the log reads as your path through the guide and
+  `git diff` against the previous commit shows exactly what that step changed:
+  `M2 step 03 — add the books route`.
+- **Don't skip the `NN_verify.md` checkpoint at the end of a milestone.** It holds the milestone's real gate,
+  checked by hand — and the only complete, paste-able copy of every file the milestone touched. If you
+  suspect you've drifted, that's the file you diff against. Skipping it means finding out two milestones
+  later, where the failure no longer points at what caused it.
 - **Follow the whole guide before adding your own changes.** Resist the urge to refactor, rename, or expand as
   you go. Later steps build on the exact state the earlier ones left behind — file names, function signatures,
   folder layout — so an early "improvement" can make the next steps hard or impossible to follow. Reach the
@@ -493,4 +512,4 @@ Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-[MIT](LICENSE) © 2026 Tommaso Mastroberardino. Use it, fork it, ship guides with it.
+[MIT](LICENSE) © 2026 GuideForge.

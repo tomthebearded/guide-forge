@@ -10,8 +10,10 @@ Target: the whole file fits on one screen.
 -->
 
 # Milestone <ID> — <title>
-> <Phase/Section · milestone K of N · prev: [<prev>](../<prev>/00_overview.md) · next: [<next>](../<next>/00_overview.md) · start: [<step 01 title>](01_<slug>.md)>
-<!-- The nav line ALWAYS ends with `start:` — a link to this milestone's FIRST step file (01_<slug>.md),
+> <Phase/Section> · milestone K of N · prev: [<prev>](../MILESTONE_<n-1>_<slug>/00_overview.md) · next: [<next>](../MILESTONE_<n+1>_<slug>/00_overview.md) · start: [<step 01 title>](01_<slug>.md)
+<!-- Replace each <placeholder> individually — the line itself is literal text, not one big placeholder.
+     Exact form in ../reference/canonical-layout.md ("Overview nav line"); keep the two identical.
+     The nav line ALWAYS ends with `start:` — a link to this milestone's FIRST step file (01_<slug>.md),
      labelled with that step's title. It is the reader's way in: without it the only forward click on the map
      is `next`, which skips the whole milestone. In a scaffold placeholder (steps not drafted yet) write the
      segment as the literal text `start: — not drafted yet`. -->
@@ -39,6 +41,6 @@ Target: the whole file fits on one screen.
 - <concept / decision> — taught in [<step>](NN_<slug>.md); recorded in ../decision-log.md.
 
 <!-- BOTTOM NAV — the SAME line-2 milestone nav, `start:` segment included, after a --- rule, as the last
-     thing in the file. -->
+     thing in the file. Identical to the top nav, character for character. -->
 ---
-> <Phase/Section · milestone K of N · prev: [<prev>](../<prev>/00_overview.md) · next: [<next>](../<next>/00_overview.md) · start: [<step 01 title>](01_<slug>.md)>
+> <Phase/Section> · milestone K of N · prev: [<prev>](../MILESTONE_<n-1>_<slug>/00_overview.md) · next: [<next>](../MILESTONE_<n+1>_<slug>/00_overview.md) · start: [<step 01 title>](01_<slug>.md)

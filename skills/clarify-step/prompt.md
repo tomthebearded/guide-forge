@@ -46,8 +46,10 @@ tells the reader to observe in (6.2), *flag it* for `report-issue`; don't rewrit
    the first time it appears — an inline one-sentence gloss, or, when it first lands on a command/menu/code
    line, a **"New concept" callout on its own line right above** it
    (`> New concept — **term**: definition.`). Never leave a load-bearing term as a bare rule with no
-   gloss and no pointer. Add/extend a "Glossary for this step" block and link the main glossary **there, once** —
-   the block is the one place the glossary is linked, so do **not** append a `see [glossary]` link after every
+   gloss and no pointer. **Define each term once, in the body.** Add/extend the "Glossary for this step" block
+   as an **index** — the term's deep-link plus where on the page it's taught — never a second definition; if the
+   step already defines a term in both the block and a callout, cut the block's copy. That block is also the one
+   place the glossary is linked, so do **not** append a `see [glossary]` link after every
    term in the body (an external-API *docs* link in a callout is still fine). And the glossary holds
    **words/concepts only** — a **function** (built-in method or one the guide writes) is explained with an
    **inline code comment** on its line, never as a glossary entry.

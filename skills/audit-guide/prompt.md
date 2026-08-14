@@ -202,6 +202,14 @@ Expert on that topic.
   glossary. Also flag a body gloss/callout that still appends a **`see [glossary]` link after every term** — the
   glossary is linked **once**, from the step's `## Glossary for this step` block (per-term glossary links in
   that block are correct; a docs link in a body callout for an external API is also fine).
+- **Rule 1.1b one definition per term per step:** the body teaches, the block indexes. Flag a term **defined
+  twice on one page** — a one-sentence definition in the `## Glossary for this step` block *and* again in an
+  inline gloss, a "New concept" callout, or the *Why / design* prose. The block should carry only the
+  deep-link plus where on the page the term is taught. Flag the mirror defect too: a term **listed in the block
+  that the body never defines** — an index pointing at nothing leaves the term undefined (rule 1.1). This is
+  usually structural rather than one-off, so count the affected steps and report it once as a pattern.
+  (Observed: a step defined `.meta` and GUID three times — block, prose, callout — before the reader acted; the
+  guide carried 48 `New concept` callouts across 41 files, most on pages that also had a per-step glossary.)
 - **Rule 3.6 — cryptic identifiers in guide code:** read every code block with the surrounding prose covered up
   and flag each name **the guide invented** that doesn't say what it holds or does — single letters (`d`, `p`,
   `x` outside a coordinate/loop idiom), `data`, `temp`, `tmp`, `val`, `obj`, `arr`, `res` used for something

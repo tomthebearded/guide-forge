@@ -320,7 +320,7 @@ The rules are grouped under **named principles** (`P1`, `P2`, …); each id (lik
 | # | Rule | Before | After |
 |---|------|----------|---------|
 | **P1 — Explain what's new** | | | |
-| 1.1 | Explain every concept on first use (inline gloss, or a "New concept" callout right above the line) | "Register the middleware." | "Register the **middleware** — code that runs on every request before your handler — by …" |
+| 1.1 | Explain every concept on first use (inline gloss, or a "New concept" callout right above the line) — **once** per page: the body teaches, the step's Glossary block only indexes (1.1b) | "Register the middleware." / the same definition in the Glossary block *and* in a callout below it | "Register the **middleware** — code that runs on every request before your handler — by …", with the block reading `> New here: **[middleware](../glossary.md#middleware)** (defined under *Do this* 2).` |
 | 1.2 | Teach the recurring mental model at the point of use | (silent) | "Remember: in Go, an interface is satisfied implicitly — you never write `implements`. We'll rely on this again in step 4." |
 | **P2 — Anchor every action** | | | |
 | 2.1 | Say WHERE | "Add the route." | "In `cmd/server/main.go`, inside `setupRoutes()`, add the route." |
@@ -354,14 +354,15 @@ The rules are grouped under **named principles** (`P1`, `P2`, …); each id (lik
 # <Milestone> · Step NN of <TOTAL> — <single action title>
 > Nav: [← prev] · [Overview] · [next →]    ← label is exactly "Overview"; first step's prev is a bare "—"
 
-## Glossary for this step    ← only terms THIS step introduces (rule 1.1). Omit if none.
+## Glossary for this step    ← an INDEX of the terms THIS step introduces: link + where each is taught on the
+                               page, never the definitions themselves (rule 1.1b). Omit if none.
 ## Why / design              ← the rationale the reader needs (rule 2.2). Omit if pure mechanics.
 ## Do this                   ← the numbered actions (rules 2.1, 3.1, 3.3, 4.1), each with its code block right under it (rule 4.2).
 ## Code                      ← only for a single-block step; multi-part code interleaves under "Do this" instead.
 ## Done when (this step)     ← the sub-slice of the milestone gate this step satisfies.
 ```
 - **Nav line** — a reader in the middle of a folder of files needs to know where they are and how to move.
-- **Per-step glossary** — keeps rule 1.1 local; you don't hunt a global list mid-step.
+- **Per-step glossary** — keeps rule 1.1 local; you don't hunt a global list mid-step. It's an *index*, not a second set of definitions: the term is taught once in the body, where the work is, and the block tells you it's new and where to find it (rule 1.1b). Explained once, findable twice.
 - **Why before Do** — understanding precedes action; that's the "learn" in learn-as-you-go.
 - **Code under its instruction (rule 4.2)** — a trailing code dump forces "wait, which block was that?"; the whole paste-able file is guaranteed in `NN_verify.md` instead.
 - **Done-when** — the atomic verification; the milestone gate is just the sum of these.

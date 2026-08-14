@@ -254,7 +254,8 @@ Start from this and adapt it to the domain:
 > Nav: [← prev](<prev>.md) · [Overview](00_overview.md) · [next →](<next>.md)
 > (middle label is EXACTLY "Overview"; the first step of a milestone uses a bare "—" for prev, no link)
 
-## Glossary for this step        (only terms THIS step introduces; omit if none)
+## Glossary for this step        (an INDEX of terms THIS step introduces — link + where they're taught on the
+                                  page, never the definitions themselves; omit if none)
 ## Why / design                  (the rationale the reader needs to understand this step; omit if pure mechanics)
 ## Do this                       (the exact numbered actions; multi-part code interleaves under each action — rule 4.2)
 ## Code                          (single-block steps only; multi-part code goes under "Do this"; whole file in NN_verify.md)
@@ -288,9 +289,11 @@ contract:
   concept's topic in the per-topic matrix and apply that depth: **Expert** → just name it; **Intermediate**
   → one-line reminder + doc link; **Beginner** → define on first use + doc link + brief why; **New** →
   define + doc link + a short deep-dive callout + extra failure notes. Definitions go inline, or as a "New
-  concept" callout on its own line right above the command/menu/code line it lands on. Link the Glossary
-  **once**, from the step's `## Glossary for this step` block — not with a trailing `see [glossary]` after every
-  term in the body; for an external API/tool/library concept, **link the official docs page** (from the
+  concept" callout on its own line right above the command/menu/code line it lands on. **One definition per
+  term per step:** the body teaches it, and the step's `## Glossary for this step` block only *indexes* it —
+  the deep-link plus where on the page it's taught. Never the definition in both places. That block is also
+  where the Glossary is linked **once** — not with a trailing `see [glossary]` after every term in the body;
+  for an external API/tool/library concept, **link the official docs page** (from the
   Verified stack) too. The glossary holds **words/concepts only** — a **function** (built-in method or one the
   guide writes) is explained with an **inline code comment** on its line, never as a glossary entry. Never a
   bare term with no gloss and no pointer *for a topic the reader isn't Expert in*.

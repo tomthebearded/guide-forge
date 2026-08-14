@@ -5,6 +5,49 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Changed
+
+- **A term is defined once per step: the body teaches, the step's Glossary block indexes (new rule 1.1b).**
+  `## Glossary for this step` and the `New concept —` callout had grown into two lists of the same terms —
+  one guide defined `.meta` and GUID three times on a single page (block bullets, *Why / design* prose, then
+  the callout) before the reader performed any action, across 48 callouts in 41 files. Both devices were
+  individually well-written; they were doing the same job. The block now carries only the
+  `../glossary.md#slug` deep-link plus *where on the page* the term is taught, and the definition lives once,
+  in the body, at the point the reader meets it — **explained once, findable twice**. `audit-guide` flags both
+  a term defined in both places and the mirror defect (a term indexed in the block that the body never
+  defines); `draft-milestone` self-audits for it; `clarify-step` cuts the block's copy when it finds one.
+  Synced across `reference/pedagogy-rules.md`, `templates/step.md`, `plan-guide`, `draft-milestone` (writing
+  contract *and* self-audit), `clarify-step`, `audit-guide`, and EXPLAINER §7–§8.
+- **The milestone-overview nav line is literal text again, not one giant placeholder.**
+  `templates/milestone-overview.md` wrapped its whole nav line in `<…>` — angle brackets around the entire
+  line plus a stray trailing `>` — so a copy-paste produced `> <Phase/Section · milestone K of N · … )>`
+  instead of a nav line. It now matches `reference/canonical-layout.md` character for character
+  (`../MILESTONE_<n-1>_<slug>/00_overview.md`, one `<placeholder>` per slot), at both top and bottom. The
+  dead-link check couldn't catch it: it skips any target containing `<`.
+
+- **The copyright holder and plugin author are now "GuideForge", not a personal name.** Same MIT terms, same
+  repository URL — only the named holder changes, in `LICENSE`, the README license footer, and
+  `.claude-plugin/plugin.json` (`author`). `.claude-plugin/marketplace.json` (`owner`) goes to the GitHub
+  handle `tomthebearded` instead: that field names who *publishes* the marketplace, not who holds the
+  copyright, and the handle now matches the URL the field already carried.
+
+### Added
+
+- **Five more "Tips for following a guide" in the README, addressed to the reader rather than the author.**
+  The section covered how to *read* a guide but said nothing about the machinery the contract already builds
+  for the reader's benefit. Now it does: install the exact versions pinned in `foundation/stack.md` (not
+  `latest`); read the milestone's `00_overview.md` before its steps, and each step end-to-end before typing,
+  since rule 4.2 interleaves code under the instructions; **commit at every step boundary, named after the
+  milestone and step** — rule 4.4 guarantees each one ends on a green build, so every boundary is a restore
+  point and `git diff` isolates exactly what a step changed; and don't skip the `NN_verify.md` checkpoint,
+  which holds both the hand-checked milestone gate and the only complete copy of every file touched.
+
+- **`.gitattributes` pins the repo to LF, in the index *and* the working tree.** The index was already
+  all-LF, but a clone with `core.autocrlf=true` checked the tree out as CRLF — and `scripts/release.mjs`
+  rewrites `README.md` with `lines.join('\n')`, so the next release turned a one-token version bump into a
+  ~500-line whole-file diff. Markdown is the product here; its bytes are now identical on every platform.
+  No content change: `* text=auto eol=lf` is a zero-diff normalisation against the existing index.
+
 ## [1.12.0] — 2026-08-12
 
 ### Changed
