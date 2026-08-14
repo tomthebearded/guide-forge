@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.16.0] — 2026-08-14
+
 ### Added
 
 - **Rule 6.4 — anchor to what your code does, not to what the tool generated.** New rule under P6, and the
