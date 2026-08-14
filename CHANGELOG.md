@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.14.1] — 2026-08-14
+
 ### Added
 
 - **The consistency gate now checks the sync set in both directions.** `check-consistency.mjs` already proved
