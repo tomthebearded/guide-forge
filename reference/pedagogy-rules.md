@@ -597,6 +597,38 @@ on a page whose whole purpose is teaching them to trust the output.
 
 ---
 
+### 6.6 — A gate that samples one case cannot assert the class
+**Why:** a gate is trusted for what its label says, not for what it measures. When the two drift apart — the
+label names a set (*the theme*, *the config*, *the endpoints*, *the pages*) while the check reads a single
+member of it — the gate stops being able to fail. It goes green on the one case that passes and says nothing
+about the rest, and because it is green nobody looks. This is worse than a missing gate: a missing gate leaves
+the reader uncertain, and a sampling gate leaves them *confidently wrong*. It also hides other defects
+indefinitely, since the readout is exactly where those defects would otherwise surface. The tell is a report
+shaped like "the check says it's fine but it obviously isn't", and the giveaway in the source is a label whose
+noun is plural or collective while the expression under it is singular.
+
+**Do:** measure the **worst case of the set the label names**, or narrow the label to the case measured.
+- **Aggregate over the set, then report the extreme** — the minimum ratio, the slowest endpoint, the first
+  failing locale. An average hides one bad member; the extreme cannot.
+- **Name the member that lost.** "worst pair `tab.inactive` 4.56:1" tells the reader where to look; "4.56:1"
+  alone tells them nothing when it eventually goes red.
+- **If sampling is genuinely enough, say so and say why** — "we check the largest file because it bounds the
+  rest" is a claim the reader can evaluate. Silence is not.
+- **Prefer a machine-checkable sweep** where the set is enumerable. `all AA true` over 85 generated themes is
+  one line of output and cannot be argued with.
+
+- ❌ A panel badge reading `text/bg contrast 4.88:1 AA` in green, computed from the editor's foreground and
+  background alone, on a theme whose sidebar sat at 2.53:1 and whose inactive tab label sat at 1.55:1.
+- ✅ `worst pair tab.inactive 4.56:1 AA`, computed as the minimum across the seven pairs the code clamps —
+  plus a `node -e` gate that sweeps every generated theme and prints `all AA true`.
+
+> **The defect this prevents:** a green gate that certifies a broken artifact, and the defects that survive
+> behind it because the one readout meant to catch them was looking at the one case that worked. (Observed: a
+> VS Code theme generator whose contrast badge graded a single color pair; 66 of its 85 generated themes failed
+> WCAG AA on a pair the badge never read, and three separate engine defects had shipped underneath it.)
+
+---
+
 ## P7 — Declare the starting state
 *Never let a step assume a prerequisite the reader was never told to set up.*
 

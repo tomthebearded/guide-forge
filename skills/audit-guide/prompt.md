@@ -159,6 +159,15 @@ and mark it **unconfirmed**, naming the tool or environment needed to settle it.
   the finding **unconfirmed**. (Observed: all three break recipes in one guide were wrong — one left the suite
   green and exposed an uncovered branch, one failed two tests by exception rather than one by assertion, one
   named an assertion an earlier one shadows.)
+- **Gate samples one case, label claims the class (rule 6.6) — BLOCKER:** flag any `Done-when`, badge or
+  readout whose wording names a set — *the theme*, *the config*, *the endpoints*, *the locales*, *every profile*
+  — while the expression under it reads a single member. The tell is a plural or collective noun over a singular
+  measurement. Such a gate cannot fail: it stays green on the one case that passes and shelters every defect in
+  the rest, including defects the readout exists to catch. The fix is to measure the **worst case of the named
+  set** and report which member lost, or to narrow the label to what is measured; where the set is enumerable,
+  a sweep printing one assertion is better than either. (Observed: a theme generator's contrast badge graded a
+  single color pair while 66 of the guide's 85 generated themes failed WCAG AA on a pair it never read, with
+  three engine defects shipping underneath the green badge.)
 - **Cross-platform commands:** if `foundation/stack.md`'s *Target OS / shell(s)* lists more than one shell,
   flag any command in a step or `Done-when` gate that runs on only one of them with no variant for the others —
   e.g. a Unix-only `grep`/`ls`/`cat`/`rm`/`export` used as a gate check when the guide also targets

@@ -5,6 +5,24 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+
+- **Rule 6.6 — a gate that samples one case cannot assert the class.** New rule under P6. A gate is trusted for
+  what its **label** says, not for what it measures, and the two drift apart quietly: the label names a set —
+  *the theme*, *the config*, *the endpoints*, *the locales* — while the expression under it reads a single
+  member. Such a gate cannot fail. It goes green on the one case that passes, says nothing about the rest, and
+  because it is green nobody looks — which makes it strictly worse than having no gate at all, since a missing
+  gate leaves the reader uncertain and a sampling gate leaves them confidently wrong. It also shelters every
+  other defect in the same area, because the readout meant to catch them is the thing looking the wrong way.
+  The fix: measure the **worst case of the set the label names** and report which member lost, or narrow the
+  label to the case actually measured; where the set is enumerable, sweep it and print one assertion.
+  *(Found in a VS Code theme-generator guide whose panel badge graded a single color pair. Of the 85 themes its
+  engine could produce, **66 failed WCAG AA on a pair the badge never read** — an inactive tab label as low as
+  1.55:1 — and three separate engine defects had shipped underneath the green badge: a contrast floor set at
+  3:1, which is WCAG's threshold for large text and not for code; a chrome mapper that never clamped its
+  foregrounds at all; and a clamp helper that picked its search direction from the background's luminance and
+  so could not converge on mid-tone backgrounds.)*
+
 ## [1.16.0] — 2026-08-14
 
 ### Added

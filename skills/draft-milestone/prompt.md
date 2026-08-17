@@ -242,7 +242,9 @@ The principles (rules cited by dotted id; full contract in
   terminal prints, not the one a pipe, a redirect or a CI log produced for you — gate on values, not on a line
   to match; **6.4** anchor edits and gates to what your code does, never to a line a scaffold generated, a
   template's wording, or a number you reasoned about instead of measuring; **6.5** run every break recipe
-  before you write it down, and name the failure the reader sees **first**.
+  before you write it down, and name the failure the reader sees **first**; **6.6** a gate whose label names a
+  set must measure that set's **worst case** and say which member lost — never sample one member and grade the
+  class.
 - **P7 Declare the starting state** — **7.1** before the first action, say what must already be
   installed/running/logged-in/built or name the step that established it; never silently assume a prerequisite.
 
