@@ -236,7 +236,6 @@ guide-forge/                      ← a single project = one Claude Code plugin
 ├── .claude-plugin/               ← plugin manifest + local marketplace (install as one unit)
 │   ├── plugin.json
 │   └── marketplace.json
-├── .github/workflows/ci.yml      ← runs `npm test` on every push to main and every PR
 ├── README.md                     ← you are here (the storefront)
 ├── EXPLAINER.md                  ← everything explained from scratch — read this second
 ├── LICENSE                       ← MIT

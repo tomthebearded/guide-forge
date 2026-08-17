@@ -687,7 +687,7 @@ touch the contract, update **every** place in the same pass:
 - `EXPLAINER.md` §7 (the before/after table), plus `README.md`, `templates/step.md`, `templates/verify.md`, and
   the affected `SKILL.md` descriptions wherever they name the contract.
 
-`scripts/check-consistency.mjs` (run by `/pre-pr-check` and CI) verifies **rule-id integrity**: no duplicate id
+`scripts/check-consistency.mjs` (run by `/pre-pr-check` and `npm test`) verifies **rule-id integrity**: no duplicate id
 headings, every rule homed under a real `## P#` principle, and every `rule N.N` cited anywhere in the docs
 resolving to a heading in this file — so a half-applied re-home fails the check instead of shipping silently.
 It also verifies **coverage** in the other direction: the mirrors that state the *whole* contract — the

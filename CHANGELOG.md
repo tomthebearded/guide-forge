@@ -23,6 +23,15 @@ All notable changes to GuideForge are documented here. Format loosely follows
   foregrounds at all; and a clamp helper that picked its search direction from the background's luminance and
   so could not converge on mid-tone backgrounds.)*
 
+### Removed
+
+- **GitHub Actions CI (`.github/workflows/ci.yml`).** The repo no longer runs anything on push or PR; `npm test`
+  (`check-version` + `check-consistency`) is now run locally only, by the contributor and by `/pre-pr-check`.
+  The workflow only ever re-ran that same command, so nothing is checked less than before — it is simply
+  checked by a person instead of a runner. `README.md`, `EXPLAINER.md`, `CONTRIBUTING.md` and
+  `reference/pedagogy-rules.md` drop their references to it, and CONTRIBUTING now states plainly that nothing
+  runs the checks for you.
+
 ## [1.16.0] — 2026-08-14
 
 ### Added

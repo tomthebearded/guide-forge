@@ -61,10 +61,10 @@ working."
   commit it points at, so a check running on that push could never see it. It's on you.
 - **Before pushing:** `npm test` runs `check-version` + `check-consistency` (version stamps aligned,
   skill frontmatter valid, wrappers delegate, counts agree, every contract mirror states every rule, no dead
-  links or anchors). CI runs the same on every push to
-  `main` and every PR (`.github/workflows/ci.yml`) — but it only covers the **deterministic half**. The
-  judgment half (is the change domain-agnostic? does the new rule cite a real confusion? is a gate quietly
-  skipped?) no script can decide, which is why `/pre-pr-check` is still asked of you (next section).
+  links or anchors). Nothing runs it for you — the repo has no CI — and it only covers the **deterministic
+  half** anyway. The judgment half (is the change domain-agnostic? does the new rule cite a real confusion? is
+  a gate quietly skipped?) no script can decide, which is why `/pre-pr-check` is still asked of you (next
+  section).
 
 ## Which number moves — MAJOR, MINOR or PATCH
 
@@ -96,7 +96,7 @@ an earlier release. What counts as the public surface here is unusual, so it's s
 **PATCH** — nothing changes about what the toolkit produces.
 
 - Wording, typos, formatting, dead links, clarifications that don't alter a skill's output.
-- Repo-internal tooling a contributor sees but a user never does: the check scripts, CI, `.gitignore`,
+- Repo-internal tooling a contributor sees but a user never does: the check scripts, `.gitignore`,
   `package.json`.
 - A fix that restores the behaviour the contract already promised.
 
@@ -132,9 +132,9 @@ before 1.10.0 predate this policy and weren't all classified this way; it applie
 > frontmatter, README/EXPLAINER skill list in sync, version stamps aligned **and tagged**, no dead links — and
 > reports PASS/FAIL. It's read-only; fix any blockers it flags, re-run until it passes, then open the PR.
 >
-> CI green is **not** a substitute. It re-runs `npm test` and nothing more; every judgment item on the list
-> below is invisible to it. A PR that is green but unchecked arrives unverified and costs the maintainer the
-> review instead. Run it.
+> A passing `npm test` is **not** a substitute. It checks the deterministic half and nothing more; every
+> judgment item on the list below is invisible to it. A PR that is green but unchecked arrives unverified and
+> costs the maintainer the review instead. Run it.
 
 - [ ] Change is domain-agnostic.
 - [ ] New rules cite the confusion they prevent.
