@@ -89,14 +89,19 @@ Scan the milestone/step files and rewrite **only** what the bump reaches:
 - new-version features that simplify a step the guide already covers → adopt them (don't add new scope).
 
 Rewrite the fewest steps possible. A rewritten step still obeys every pedagogy rule — define new terms on
-first use, say WHERE + WHY, exact values, complete (non-partial) code, nav line, Done-when. Leave every
-unaffected step alone.
+first use, say WHERE + WHY, exact values, complete (non-partial) code, nav line, Done-when, and its
+`## Suggested commit` where the step changes the tree (rule 4.5; update the message only if the bump changed
+what the step actually does). Leave every unaffected step alone.
 
 **Steps behind the frontier follow the route agreed at Step 0**: rewritten in place (**A**), rewritten plus a
 superseded banner with the upgrade collected into one *Before you continue — corrections* section at the top of
 the first unexecuted step (**B** — `/amend-guide` §6 is the canonical form of both marks), or left untouched
 with the new version recorded in `stack.md` as available-but-not-adopted (**C**). Steps ahead of the frontier
 are rewritten in place under every route.
+
+Under **B**, the corrections section closes with **one** `**Suggested commit:**` block for the whole upgrade
+(rule 4.5) — `chore(deps): upgrade <tool> <old>→<new>` — not one commit per rewritten step: the reader runs the
+upgrade on their project as a single change.
 
 ## 5. Log the drift (reality wins)
 - **`status.md` drift log:** one row per change — `date · where · guide said (old) · reality is (new) ·
@@ -120,4 +125,5 @@ Prepend an **Updates** line (`<date> — bumped <tool> <old>→<new>`) and refre
 Run `audit-guide` on the rewritten milestones, then report: **the frontier and the route taken** (and which
 executed steps it did and did not touch), tools moved (old→new + link), steps rewritten, milestones now needing
 re-verification, **what the reader must run on their own project to match the bumped guide**, and the audit
-verdict. Leave changes in the working tree — don't commit.
+verdict. Leave changes in the working tree — don't commit. (That governs the edits *you* just made to the
+guide; the `Suggested commit` blocks you wrote are instructions for the reader's own project.)

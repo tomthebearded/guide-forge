@@ -431,6 +431,51 @@ type-checker or bundler, the step's `Done-when` ends with the build clean (`npm 
 > expected list, and the sitting has no safe stopping point. (Observed: a reader following a VS Code extension
 > guide was told a constructor-signature error in `extension.ts` was expected until step 05.)
 
+### 4.5 — End every step that changes the project with a suggested commit
+**Why:** rule 4.4 already makes every step boundary a point where the project **builds** — which makes it a
+point the reader can **commit**. A guide that never says so leaves them two bad options: commit nothing until
+the milestone ends, so a milestone's worth of unrelated work lands in one blob and undoing a single step is
+impossible; or invent a message per step, which is exactly where a learner stalls ("what do I even call
+this?"). Naming the change is also part of what the guide teaches — one coherent change, one message, in the
+project's convention. And the change is **not always code**: a setting flipped in an engine's project settings,
+an asset import preset, a manifest, a `.editorconfig` line all land in version control, and a reader who thinks
+commits are for source files leaves them uncommitted until a later diff is unreadable.
+
+**Do:** every step that leaves a change in the **version-controlled tree** ends with a `## Suggested commit`
+section — after `## Done when (this step)`, before `## If it breaks` — carrying **one** message in a fenced
+block, in the format `foundation/conventions.md` § *Commit messages* records (Conventional Commits
+`<type>(<scope>): <subject>` by default): imperative, no trailing period, ≤72 characters, naming what this step
+changed.
+
+- **A non-code change gets one too.** `chore(project): set the color space to gamma` is a commit — the reader
+  flipped a setting and their `ProjectSettings/` moved.
+- **A step that changes nothing tracked gets no section** — pure observation, a request fired at a running
+  service, a click-through in a hosted console, an `NN_verify.md` that only checks. Inventing a message for an
+  empty diff teaches the reader to commit noise.
+- **One step, one commit.** A same-commit multi-file bundle is still one message; never two blocks in one step,
+  and never one message spanning several steps.
+- **The message, not the command.** `git commit -m "…"` quotes differently in bash and PowerShell (see the
+  cross-platform rule in `conventions.md`), and the reader may not be at a CLI at all.
+- **English, like the rest of the skeleton**, whatever language the guide's prose is written in: a commit log
+  is a literal artifact of the reader's project, not prose the guide translates.
+- **A corrections section carries its own single commit.** `## Before you continue — corrections` — written by
+  the maintenance skills behind the frontier gate — closes with one `**Suggested commit:**` after its
+  `**Corrected when:**` checklist, covering the whole section however many dated passes it has accumulated. The
+  repair is one change to the reader's project, and it is *not* the step's own commit.
+
+- ❌ a step that has the reader create `internal/store/store.go` and stops at the Done-when: they either commit
+  nine unrelated files at the end of the milestone or stop to name it themselves.
+- ✅ a `## Suggested commit` block under the gate reading `feat(store): add the in-memory todo store`.
+- ❌ `## Suggested commit` on a step whose only action is `curl`-ing the running server to read a response —
+  nothing changed, so there is nothing to commit.
+
+> **The defect this prevents:** a guide that teaches the build and leaves the history to improvisation — the
+> reader arrives at the end of a milestone with one shapeless commit, or none, and no way back to the step
+> before the one that broke. (Origin: reported from following guides drafted with this method. Every step ended
+> green and none of them said what to call it, so the reader either batched a milestone into one commit or
+> stopped at each boundary to invent a message; the steps that changed only *settings* were skipped entirely,
+> because a step with no code reads as a step with nothing to commit.)
+
 ---
 
 ## P5 — Anticipate failure

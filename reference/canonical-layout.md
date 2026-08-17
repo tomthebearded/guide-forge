@@ -17,7 +17,8 @@
 ```
 <project>/                        ← PROJECT LEVEL
 └── <guide-root>/  (the guide/)   ← THE GUIDE FOLDER — every guide-related doc lives here
-    ├── README.md                 ← the front door (objective · stack summary · decisions · Updates log)
+    ├── README.md                 ← the front door (objective · stack summary · decisions · Updates log ·
+    │                               how a step is built · how to follow the guide)
     ├── PLAN.md                   ← the approved plan (written by plan-guide; scaffold fills the guide in around it)
     ├── feedback-log.md           ← append-only field log of reader friction (seeded by scaffold; appended by /log-feedback)
     ├── foundation/               ← the cross-cutting docs, read first
@@ -155,13 +156,17 @@ illustrative — and it closes with a `**Corrected when:**` checklist so the rea
 before continuing. It is deliberately **not** a `## Done when` heading: the step keeps its own single gate,
 and a second one would be a second gate to drift.
 
+Below that checklist comes **one** `**Suggested commit:**` block (rule 4.5) — the repair is one change to the
+reader's project, so it gets one message, separate from the step's own `## Suggested commit`. A later pass
+appending its dated sub-heading updates that single message rather than adding a second one.
+
 ## Writing language (the prose translates; the skeleton doesn't)
 
 A guide's **prose** may be written in any language. `plan-guide` asks for it once (Phase 0, Q7) and the answer
 is recorded in **`foundation/conventions.md` § Writing language** — the only place later skills can read it
-from. `draft-milestone`, `clarify-step`, `report-issue`, `update-stack`, `review-before-follow` and
-`log-feedback` each run in their own session, so a language agreed only in conversation is a language the next
-skill silently drops. **No recorded language → English.**
+from. `scaffold-guide`, `draft-milestone`, `clarify-step`, `amend-guide`, `report-issue`, `update-stack`,
+`review-before-follow`, `mark-progress` and `log-feedback` each run in their own session, so a language agreed
+only in conversation is a language the next skill silently drops. **No recorded language → English.**
 
 The **skeleton stays English in every guide**, whatever the prose language, because the pipeline and the audit
 read it literally — exactly like the naming rules above:
@@ -169,8 +174,10 @@ read it literally — exactly like the naming rules above:
 - file and folder names — `README.md`, `00_overview.md`, `NN_verify.md`, `MILESTONE_<N>_<slug>/`,
   `foundation/`, and the step slugs;
 - the template section headings — `## Do this`, `## Code`, `## Done when (this step)`, `## Why / design`,
-  `## Glossary for this step`, `## If it breaks`, `## Handoff`, `## Frontier`,
+  `## Glossary for this step`, `## Suggested commit`, `## If it breaks`, `## Handoff`, `## Frontier`,
   `## Before you continue — corrections`, and the rest;
+- the **commit messages** themselves (rule 4.5): the message inside a `## Suggested commit` block is an
+  artifact of the reader's repository, not prose — it stays English in a guide written in any language;
 - the nav-line vocabulary and separator — `Nav`, `Overview`, `prev:`, `next:`, `start:`, `milestone K of N`,
   `·`;
 - the fixed table column keys in `stack.md` / `status.md`;

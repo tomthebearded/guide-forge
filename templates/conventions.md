@@ -18,16 +18,28 @@ and makes every step conform. Fill with YOUR stack's rules.
 
 ## Writing language
 <!-- The language the guide's PROSE is written in — decided once in the plan (plan-guide Q7) and recorded
-     here, because this file is the only place the later skills (draft-milestone, clarify-step, report-issue,
-     update-stack, review-before-follow, log-feedback) can read it from in a fresh session. If this line is
-     missing, every skill defaults to English.
+     here, because this file is the only place the later skills (scaffold-guide, draft-milestone, clarify-step,
+     amend-guide, report-issue, update-stack, review-before-follow, mark-progress, log-feedback) can read it
+     from in a fresh session. If this line is missing, every skill defaults to English.
      FIXED across every GuideForge guide, whatever the prose language: the skeleton stays English — file and
      folder names, the template section headings (`## Do this`, `## Done when (this step)`, …), the nav-line
      vocabulary (`Nav`, `Overview`, `prev:`/`next:`/`start:`), stack/status table column keys, and of course
      code, commands, identifiers and URLs. See ../reference/canonical-layout.md § Writing language. -->
 - Prose language: **<e.g. English>**. Everything a reader reads as a sentence is written in it.
 - Untranslated in every guide: file/folder names, template section headings, nav-line labels, table column
-  keys, code, commands, identifiers, paths, doc URLs.
+  keys, code, commands, identifiers, paths, doc URLs, and the commit messages in `## Suggested commit`.
+
+## Commit messages
+<!-- The format every step's `## Suggested commit` block follows (rule 4.5). Seeded by scaffold-guide with the
+     Conventional Commits default below — change it HERE, once, if the project this guide builds uses another
+     convention, and every step follows the change. The message is written in ENGLISH whatever the guide's
+     prose language: it is an artifact of the reader's repository, not prose (see ../reference/canonical-layout.md
+     § Writing language). Steps that change nothing under version control carry no commit block at all. -->
+- Format: **`<type>(<scope>): <subject>`** (Conventional Commits).
+- Types: `feat`, `fix`, `refactor`, `perf`, `style`, `docs`, `test`, `build`, `chore`, `ci`.
+- Scope: the part of the project the step touched — <e.g. `api`, `ui`, `store`, `project-settings`>.
+- Subject: imperative mood, no trailing period, ≤72 characters, says **what** changed.
+- One step, one commit — including a step that only changes settings, assets or config.
 
 ## Naming
 <!-- e.g. file naming, symbol casing, which names are load-bearing by convention. -->

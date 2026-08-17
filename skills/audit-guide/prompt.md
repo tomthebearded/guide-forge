@@ -37,7 +37,10 @@ and mark it **unconfirmed**, naming the tool or environment needed to settle it.
 - **Canonical layout:** `README.md` at the guide root; foundation docs under `foundation/`; one
   `MILESTONE_<N>_<slug>/` folder per milestone. Flag `overview.md` (must be `00_overview.md`), foundation docs loose at
   the root, or a missing README. `PLAN.md` and `feedback-log.md` are expected guide-root files (not foundation
-  docs) — don't flag them.
+  docs) — don't flag them. Flag as a **WARNING** a README missing either of its two fixed orientation sections
+  — **How a step is built** (what each section of a step file gives the reader) and **Following this guide** —
+  or one whose step-anatomy table names sections the guide's steps don't actually use: it is the reader's only
+  orientation before their first step, and a stale one teaches them to expect the wrong page.
 - Each milestone has a `00_overview.md` (Goal · Prerequisite · Steps at a glance grouped into sittings ·
   Design/decisions folded in) and ends in an `NN_verify.md` (Done-when gate · file checkpoint ·
   troubleshooting · Handoff).
@@ -105,6 +108,20 @@ and mark it **unconfirmed**, naming the tool or environment needed to settle it.
   called within the same milestone **and** carries no `[Mn]` deferral marker naming the milestone that
   consumes it. An unmarked, uncalled member is gold-plating built ahead of its use. (Observed: a guide
   built a later milestone's marker system early, leaving dead members across milestones.)
+- **Suggested commit present where the step changes the tree (rule 4.5) — WARNING:** every step that leaves a
+  change in version control — code, a flipped engine/project setting, an asset, a manifest, a config line —
+  ends with a `## Suggested commit` block after its `Done when`, holding **one** message in the format
+  `foundation/conventions.md` § *Commit messages* records (Conventional Commits `<type>(<scope>): <subject>` by
+  default). Flag: a missing block on a step that clearly changes files (the settings-only step is the one most
+  often missed — its diff is real but nobody thinks of it as code); a block on a step that changes **nothing**
+  tracked (pure observation, a request against a running service, a console click-through, a verify step that
+  only checks) — an empty diff has nothing to commit; **two** blocks or a message covering several steps (one
+  step, one commit); a message that doesn't follow the recorded convention, carries a trailing period, runs
+  past 72 characters, or is wrapped in `git commit -m "…"` (quoting differs between the targeted shells); and a
+  message translated into the guide's prose language (commit messages stay English, like the rest of the
+  skeleton). Also flag a `## Before you continue — corrections` section with no single `**Suggested commit:**`
+  after its `**Corrected when:**` checklist, or with more than one. If `conventions.md` wasn't attached, judge
+  against the Conventional Commits default and say you did.
 - **Gates show expected output:** every `Done when` (per step and in `NN_verify.md`) pairs its action with a
   concrete expected result the reader will observe. Flag aspirational gates ("it works", "the endpoint
   responds", "the build succeeds") that give the reader nothing to diff reality against.
@@ -257,7 +274,8 @@ consistency sweep above) · cryptic guide-invented identifiers (3.6) · a solved
 acknowledgement that the library exists (3.7) · arrow-chains instead of numbered lists (4.1) · multi-part code batched in a trailing
 block instead of interleaved under its instructions (4.2) · a pre-existing file re-pasted whole or an ambiguous
 insertion anchor (4.3) · a step that ends on a broken build (4.4, checked as the structural blocker above) ·
-no likely-failure note (5.1) · a step that silently assumes unestablished starting
+a step that changes the tree with no suggested commit — or one on a step that changes nothing (4.5, checked as
+the structural warning above) · no likely-failure note (5.1) · a step that silently assumes unestablished starting
 state (7.1). Apply each **relative to the audience matrix** — a term is a violation only if the reader isn't
 Expert on that topic.
 - **Rule 1.1c built-ins / inconsistent bar:** for a New/Beginner topic, treat **built-in library methods and
@@ -324,7 +342,7 @@ Expert on that topic.
   language is **not** a defect — prose that drifts *between* languages inside the guide is. Flag: a step
   written in a different language from the rest, and any **translated skeleton** — a section heading that
   isn't the template's English one (`## Do this`, `## Done when (this step)`, `## Code`, `## Why / design`,
-  `## Glossary for this step`, `## If it breaks`, `## Handoff`,
+  `## Glossary for this step`, `## Suggested commit`, `## If it breaks`, `## Handoff`,
   `## Before you continue — corrections`, …), a nav line whose labels aren't
   `Nav`/`Overview`/`prev:`/`next:`/`start:`, a translated file or folder name, or translated table column
   keys, identifiers, commands or paths. Those strings are matched literally by the pipeline and by this audit.

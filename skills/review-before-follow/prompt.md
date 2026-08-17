@@ -39,7 +39,10 @@ Run these over the step(s) before approving execution:
 3. **Sequences are numbered, not arrow-chained.** Reformat any multi-action arrow chain into a numbered list.
 4. **Reconcile against reality — reality wins.** Diff the step's assumptions (API names, versions, UI labels,
    file paths, command syntax) against the actual project/tool. Where they differ, **patch the step to match
-   reality** and add a drift-log line to `status.md`.
+   reality** and add a drift-log line to `status.md`. If the patch changes *what the step does*, bring its
+   `## Suggested commit` message with it (rule 4.5) — a message describing the pre-patch action is one the
+   reader's history will disagree with. And if the patch turns a no-change step into one that writes files (or
+   the reverse), add or drop the block accordingly.
 5. **Distrust any capability justified by a family.** Scan the step for a `because`/`since` clause whose
    subject is a *class* of names — "it takes the override **because** it's an `editor.*` setting", "all hooks
    support this", "every `/v2` endpoint accepts it". Platforms declare capabilities **per item**, and docs prose
@@ -78,7 +81,9 @@ Run these over the step(s) before approving execution:
    written**: once the tree is red you can't tell your own mistakes from the guide's planned ones. Merge the
    later step that repairs the build into this one (pull in the call-site edits it makes) and execute them as a
    single unit, ending with the build clean. Same if the step changes a signature, renames a symbol, or moves a
-   file and *doesn't* mention the call sites it breaks — find them first, and fix them in the same pass.
+   file and *doesn't* mention the call sites it breaks — find them first, and fix them in the same pass. Merged
+   steps are **one** commit: say which of the two `## Suggested commit` messages the merged unit takes, or
+   write the message that covers both — one green boundary, one entry in the reader's history (rule 4.5).
 
 ---
 

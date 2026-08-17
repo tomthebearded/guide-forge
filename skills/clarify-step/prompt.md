@@ -140,6 +140,14 @@ asserts**, so neither is a clarity edit:**
    scope for a clarity pass. Flag it (deliverable 4), naming the step that currently repairs the build and the
    edits that would have to move here. What you *may* fix in place: make the existing gate concrete (the exact
    build command + expected output) — never soften or delete it.
+4.5. **A step that changes the tree ends with a suggested commit.** If the step leaves anything in version
+   control — code, a settings flip, an asset, a manifest — and carries no `## Suggested commit` block, add one:
+   a single fenced message in the format `conventions.md` § *Commit messages* records (Conventional Commits
+   `<type>(<scope>): <subject>` by default), imperative, ≤72 chars, English whatever the prose language.
+   Adding the missing block is a clarity edit — nothing the reader typed changes. Two things are **not**:
+   *deleting* a block (that asserts the step changes nothing — flag it instead), and **rewording an existing
+   message on a step behind the frontier**, since the reader has already committed under it; leave it and note
+   it in deliverable 4.
 
 **P5 — Anticipate failure**
 5.1. **The likely failure + its usual cause** is named.
@@ -153,7 +161,8 @@ Structural checks:
 - Multi-part code is **interleaved under its instructions** (rule 4.2), not batched in a trailing block; each
   fragment names where it goes. No redundant consolidated "complete file" copy (that belongs in `NN_verify.md`).
 - The step is still **one indivisible action** — if it's secretly several, say so and propose a split.
-- The **Nav line** and **Done-when** are intact.
+- The **Nav line**, the **Done-when** and the **`## Suggested commit`** block are intact — a clarity pass never
+  removes a gate or a commit message.
 
 ---
 

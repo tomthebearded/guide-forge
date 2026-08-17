@@ -106,7 +106,8 @@ longer describes the amendment.
 ### 5. After approval — rewrite ahead of the frontier
 - Rewrite, insert or delete the affected **unexecuted** steps under the full step contract: WHERE/WHAT/WHY,
   exact values, mandatory vs illustrative, complete non-partial code, one indivisible action, its own
-  **Done when**, a step that ends on a green build.
+  **Done when**, a step that ends on a green build, and — where the step changes the version-controlled tree —
+  its own `## Suggested commit` (rule 4.5), in the format `conventions.md` § *Commit messages* records.
 - Renumbering unexecuted steps is allowed — and then **every affected nav line is regenerated, top and
   bottom, identical**, including the neighbouring files that point at a renamed one and the `start:` segment
   of the milestone's `00_overview.md`.
@@ -150,8 +151,21 @@ illustrative — closing with a `**Corrected when:**` checklist so the reader ca
 continuing. Deliberately **not** a `## Done when` heading: the step keeps its own single gate, and a second
 one is a second gate to drift.
 
+**One commit for the whole repair (rule 4.5).** Under that checklist, and only if the corrections change the
+reader's tree, write a single `**Suggested commit:**` block:
+
+```
+fix(<scope>): apply the <YYYY-MM-DD> corrections to <what they touch>
+```
+
+One message, however many numbered actions the section holds — the repair is one change to their project. It
+is **not** the step's own `## Suggested commit`, which stays where it is and covers the step's own work; the
+reader commits the corrections first, then follows the step.
+
 If a corrections section is already there from an earlier amendment, **append to it** under its own dated
-sub-heading rather than starting a second one — one section per step, however many amendments it has seen.
+sub-heading rather than starting a second one — one section per step, however many amendments it has seen —
+and **update that one `**Suggested commit:**`** to cover the section as it now stands, rather than adding a
+second block.
 
 **If there is no step ahead of the frontier** (the reader has finished the guide), the amendment's own new
 steps are the first unexecuted ones: put the corrections at the top of the first of them. A change that
@@ -204,4 +218,6 @@ Hand off to `audit-guide` on every milestone you touched, to confirm the amendme
 6. **Anything left for the reader to decide** — flagged, not guessed.
 7. **What to do next:** apply the corrections, then `/mark-progress` to clear the `[!]` rows.
 
-> Leave all changes in the working tree — **do not commit.**
+> Leave all changes in the working tree — **do not commit.** (That governs the edits *you* just made to the
+> guide. The `Suggested commit` blocks you wrote are instructions for the reader's own project — writing one is
+> never you committing anything.)

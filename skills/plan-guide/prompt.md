@@ -124,9 +124,9 @@ confirmed with me too, not inferred from a source.**
    reference? One document or a folder of many small files? And **which language is the guide's prose written
    in** — propose the language I'm talking to you in as the default, and let me name another. Only the *prose*
    follows that choice: file and folder names, the template section headings (`## Do this`,
-   `## Done when (this step)`, …), the nav-line labels (`Nav`, `Overview`, `prev:`/`next:`/`start:`), code,
-   commands, identifiers and doc URLs stay **English in every guide**, because the layout contract and the
-   audit read them literally. Whatever I choose goes into the Conventions foundation doc (Phase 1) — it's the
+   `## Done when (this step)`, `## Suggested commit`, …), the nav-line labels (`Nav`, `Overview`,
+   `prev:`/`next:`/`start:`), the commit messages themselves, code, commands, identifiers and doc URLs stay
+   **English in every guide**, because the layout contract and the audit read them literally. Whatever I choose goes into the Conventions foundation doc (Phase 1) — it's the
    only place the drafting and maintenance skills can read it from in a later session.
 8. **Build vs borrow — the default posture.** Parts of this build are almost certainly already solved by a
    library. Ask which way to lean when that happens; default **Balanced**:
@@ -211,7 +211,8 @@ Before decomposing the work, plan the shared docs every step will lean on. Propo
 
 - **README (the guide's front door)** — a *thin* landing page: the objective (observable end state), a
   one-line stack summary, the headline decisions (only the ones a reader must know before starting), an
-  **Updates** log, and a short **"Following this
+  **Updates** log, a **"How a step is built"** table naming each section of a step file and what it gives the
+  reader (their only orientation before the first step), and a short **"Following this
   guide"** note that invites the reader to *type the code rather than paste it* (the complete files are an
   authoritative reference to diff against, not an invitation to paste blindly) — each section *linking* to the
   detailed doc (`stack.md`, `decision-log.md`) rather than duplicating it. It summarizes; `status.md` still
@@ -229,7 +230,10 @@ Before decomposing the work, plan the shared docs every step will lean on. Propo
 - **Conventions** — the style/architecture rules the code will follow (naming, structure, patterns,
   data-vs-code decisions). One place, referenced everywhere, so no step re-argues them. It also **records the
   writing language from Q7** (prose language + the note that the skeleton stays English): the later skills run
-  in fresh sessions and read the language from here or default to English.
+  in fresh sessions and read the language from here or default to English. It also carries the **commit-message
+  convention** every step's `## Suggested commit` block follows (rule 4.5) — Conventional Commits
+  `<type>(<scope>): <subject>` unless the project the guide builds uses something else; state it once here so
+  no step invents its own.
 - **Glossary** — a running list of domain terms with one-sentence plain-language definitions. Steps link
   into it; it grows as the ladder introduces concepts.
 - **Status authority** — one file that is the *single source of truth* for what is actually done and verified
@@ -257,8 +261,9 @@ Decompose the idea into an ordered ladder of **milestones**. Each milestone must
   one sentence ("the key is hard-coded here; M4 moves it into config") — only when leaving it out would read
   as a mistake.
 - **Be small enough to finish in one sitting or a few.** If a milestone has many steps, group them into
-  **"sittings"** — natural stopping points, each ending in a checkpoint/commit — so the reader sees where
-  they can safely pause.
+  **"sittings"** — natural stopping points, each ending at a checkpoint — so the reader sees where they can
+  safely pause. (Committing isn't what marks a sitting: under rule 4.5 every step that changes the tree already
+  carries its own commit message, so a sitting is simply where the day can end.)
 
 Insert an explicit **reality-check gate** at the first point where the thing is minimally usable: stop,
 actually use it, and confirm it's worth continuing before building further.
@@ -331,6 +336,8 @@ Start from this and adapt it to the domain:
 ## Do this                       (the exact numbered actions; multi-part code interleaves under each action — rule 4.2)
 ## Code                          (single-block steps only; multi-part code goes under "Do this"; whole file in NN_verify.md)
 ## Done when (this step)         (the sub-slice of the milestone gate this step satisfies)
+## Suggested commit              (rule 4.5 — one message, `<type>(<scope>): <subject>`; omitted only when the
+                                  step changes nothing under version control)
 ```
 
 Also propose a **milestone-overview template** — a short map, one screen: Goal · Prerequisite ·
@@ -423,6 +430,15 @@ contract:
   compiler/type-checker, the step's Done-when ends with the build clean (0 errors). A failing *test* is not a
   broken build — test-first is fine; the ban is on code that doesn't build. Cut the ladder with this in mind:
   a step that can't end green is a mis-cut step.
+- **4.5 End every step that changes the project with a suggested commit.** A step that ends green ends on
+  something committable, so it closes with a `## Suggested commit` block holding **one** message in the format
+  `conventions.md` § *Commit messages* records (Conventional Commits `<type>(<scope>): <subject>` by default,
+  imperative, ≤72 chars) — the message only, never a `git commit -m` line. This is **not code-only**: a flipped
+  engine/project setting, an import preset, a manifest or a config line all land in version control and get a
+  commit. A step that changes nothing tracked (pure observation, a request against a running service, a
+  click-through in a hosted console) carries **no** block — a message for an empty diff teaches the reader to
+  commit noise. Record the guide's commit convention in `conventions.md` at plan time, once, so no step
+  re-argues it.
 
 **P5 — Anticipate failure**
 - **5.1 Name the common failure and its usual cause.** For each step's likely error, give the first thing to

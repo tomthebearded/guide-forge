@@ -113,8 +113,9 @@ what. Make it a mechanical test:
 ## Sittings (stopping points inside a milestone)
 
 A milestone with many steps gets grouped into **sittings** — clusters of steps that end at a natural
-checkpoint/commit. This tells the reader where they can safely stop for the day. Name them in the overview's
-"Steps at a glance":
+checkpoint. This tells the reader where they can safely stop for the day. (Committing isn't what a sitting is
+for: every step that changes the tree carries its own suggested commit under rule 4.5, so the reader's history
+is per step and a sitting is simply where the day ends.) Name them in the overview's "Steps at a glance":
 
 ```
 Sitting 1 — Project setup (01–04)

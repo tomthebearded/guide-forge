@@ -143,7 +143,8 @@ Edit the step where the reader got stuck so the *cause* is gone — not just the
 - add or tighten the **Done-when** so the reader observes the correct result and can't sail past a broken step.
 
 The rewritten step obeys **every** pedagogy rule (WHERE/WHAT/WHY, exact values, mandatory-vs-illustrative,
-complete non-partial code, nav line, Done-when). Change the fewest steps needed — but change them *fully*.
+complete non-partial code, nav line, Done-when, and its `## Suggested commit` where the step changes the tree —
+rule 4.5). Change the fewest steps needed — but change them *fully*.
 
 **Where the fix lands depends on the route agreed at Step 0.** Under **A** the corrected step is the fix, and
 nothing else is written. Under **B** the step is still corrected — the next reader must not be taught the
@@ -153,6 +154,12 @@ are collected into one *Before you continue — corrections* section at the top 
 Under **C** no executed step is touched at all and the fix lives only in that corrections section, with the
 untouched steps logged as a known open defect. Steps **ahead** of the frontier are rewritten in place under
 every route.
+
+**A corrections section carries one commit, whatever the route (rule 4.5).** However many steps the sweep
+repaired, the section closes with a single `**Suggested commit:**` block under its `**Corrected when:**`
+checklist — `fix(<scope>): apply the <YYYY-MM-DD> corrections to <what they touch>` — because the reader
+applies the whole repair as one change to their project. Never one commit per corrected step, and never a
+second block when a later pass appends its dated sub-heading: update the one that's there.
 
 ### 4. Sweep the whole guide for the same class of defect  ← the "avoid it again" core
 The reader hit it in one place; the same mistake is very likely elsewhere. Scan **every** milestone/step for
@@ -235,4 +242,6 @@ Hand off to `audit-guide` on the rewritten milestones to confirm the fixes didn'
 7. **Pedagogy-rule proposal** (if any), or the rule the guide violated.
 8. **Anything you could not fix without a decision from the user** — flagged, not guessed.
 
-> Leave all changes in the working tree — **do not commit.**
+> Leave all changes in the working tree — **do not commit.** (That governs the edits *you* just made to the
+> guide. The `Suggested commit` blocks you wrote are instructions for the reader's own project — writing one is
+> never you committing anything.)

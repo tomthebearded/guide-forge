@@ -103,8 +103,11 @@ second dialect):
   repair — with, for a defect fix, one extra clause naming what the step now teaches: *"the code below has been
   corrected; if you followed this step before &lt;date&gt;, the repair is under…"*;
 - the **corrections section** at the top of the first unexecuted step, holding the diffs in the order they must
-  be applied, closing with a `**Corrected when:**` checklist. If one is already there from an earlier pass,
-  append under a dated sub-heading — one section per step, however many passes it has seen.
+  be applied, closing with a `**Corrected when:**` checklist and then **one** `**Suggested commit:**` block for
+  the whole repair (rule 4.5) — the reader applies it as a single change to their project, so it is never one
+  commit per corrected step, and it is not the host step's own `## Suggested commit`. If a section is already
+  there from an earlier pass, append under a dated sub-heading — one section per step, however many passes it
+  has seen — and update that single commit message rather than adding a second block.
 
 Then mark every invalidated row `[!]` in `progress.md`, naming the step that carries its correction. Never tick
 or untick a row on the reader's behalf beyond that.

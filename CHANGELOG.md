@@ -7,6 +7,46 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ### Added
 
+- **Rule 4.5 — every step that changes the project ends with a suggested commit.** New rule under P4, and a new
+  `## Suggested commit` section in the step template, between `## Done when (this step)` and `## If it breaks`.
+  Rule 4.4 already makes each step boundary a point where the project *builds*, which makes it a point the
+  reader can *commit* — but no guide said so, leaving them two bad options: commit nothing until the milestone
+  ends (one shapeless blob, and no way back to the step before the one that broke) or stop and invent a message
+  per step, which is exactly where a learner stalls. The block holds **one** message, in the format
+  `foundation/conventions.md` § *Commit messages* now records (Conventional Commits `<type>(<scope>): <subject>`
+  by default, imperative, ≤72 chars) — the message only, never a `git commit -m` line, since quoting differs
+  between the targeted shells. **Not code-only:** a flipped engine/project setting, an asset import preset, a
+  manifest or a config line all land in version control and get a commit — the settings-only step is the one a
+  reader is most likely to leave uncommitted. A step that changes nothing tracked (pure observation, a request
+  fired at a running service, a click-through in a hosted console, an `NN_verify.md` that only checks) carries
+  **no** block: a message for an empty diff teaches the reader to commit noise. The messages stay **English**
+  whatever the guide's prose language — a commit log is an artifact of the reader's repository, not prose.
+  `/scaffold-guide` seeds the convention, `/plan-guide` states it in the writing contract, `/draft-milestone`
+  writes the blocks and self-audits them, `/clarify-step` may add a missing one (but never reword one behind
+  the frontier — the reader has already committed under it), and `/audit-guide` flags a missing block, a block
+  on a step with no diff, two blocks in one step, and a message that breaks the recorded convention.
+
+- **"How a step is built" — every generated guide now explains its own step anatomy.** A new fixed section in
+  the guide README (`templates/readme.md`, stamped by `/scaffold-guide`): a one-line-per-section table saying
+  what `> Nav:`, `## Glossary for this step`, `## Why / design`, `## Do this`, `## Code`,
+  `## Done when (this step)`, `## Suggested commit` and `## If it breaks` each give the reader — plus the two
+  they meet less often (a `## Before you continue — corrections` section and a `⚠️ Superseded` banner) and a
+  line on how `NN_verify.md` differs. Until now the layout was contract for every skill in the pipeline and a
+  surprise for the person following the guide: they opened `01_*.md` having been told the milestone order and
+  nothing about the page in front of them, so the sections that are legitimately **absent** on some steps (no
+  Glossary block, no `## Code`, no commit) read as a malformed step rather than a normal one. It is
+  orientation, not contract — one line per section, no rule restated — and the heading names stay English in a
+  translated guide, since they are what the reader will actually see on the page. `/audit-guide` flags a README
+  that lost either orientation section or whose table names sections the steps don't use.
+
+- **One commit for a corrections section.** The `## Before you continue — corrections` section that
+  `/amend-guide`, `/report-issue` and `/update-stack` write ahead of the frontier now closes with a single
+  `**Suggested commit:**` under its `**Corrected when:**` checklist. However many steps a sweep repaired, the
+  reader applies the repair as **one** change to their project, so it gets one message — never one per
+  corrected step, and never a second block when a later pass appends its dated sub-heading (that pass updates
+  the message that's there). It is separate from the host step's own `## Suggested commit`, which still covers
+  the step's own work.
+
 - **The frontier gate (`reference/frontier-gate.md`) — no editing skill rewrites executed work without asking.**
   `/amend-guide` has always known that a step someone already ran is not text but a project on disk, and has
   refused to touch one since it shipped. Its three neighbours never read `progress.md` at all: `/report-issue`,
@@ -48,6 +88,18 @@ All notable changes to GuideForge are documented here. Format loosely follows
   merge commit, so a fresh clone's `main` always matches the newest tag and the top released `CHANGELOG.md`
   header. `CONTRIBUTING.md` gains it as ground rule 5 and the release bullet spells out the order (bump on
   `develop` → merge → tag on `main`); `/pre-pr-check` now defaults its diff base to `develop`.
+
+### Fixed
+
+- **Two stale skill lists that a coherence sweep surfaced.** `scaffold-guide` told the reader that
+  `draft-milestone`, `clarify-step`, `report-issue`, `update-stack` and `review-before-follow` rewrite the
+  `Last updated with …` provenance stamp — but `/amend-guide` (§7) and `/mark-progress` rewrite it too, and
+  `/log-feedback` deliberately doesn't (it appends to `feedback-log.md` and changes no guide content). The list
+  now names all seven and states the exception. Likewise, the roster of skills that read the guide's prose
+  language from `conventions.md` § *Writing language* — in `reference/canonical-layout.md` and in the
+  `conventions.md` template — omitted `scaffold-guide`, `amend-guide` and `mark-progress`, each of which
+  already reads it. Both lists are the kind that silently rot: nothing dereferences them, so a reader takes
+  them as the contract.
 
 ### Removed
 

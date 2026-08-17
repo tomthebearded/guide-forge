@@ -29,7 +29,12 @@ Use the one canonical skeleton — don't invent a per-guide structure. The fixed
    linking to `foundation/decision-log.md`; a
    **provenance line** stamping the GuideForge version used (see the version rule below); an **Updates** log
    seeded with `<date> — Guide created with GuideForge v<x.y.z>.`). Thin: it summarizes and links, it doesn't
-   duplicate.
+   duplicate. Its **How a step is built** section and its **Following this guide** list are **fixed
+   boilerplate** — carry them over from `templates/readme.md` as they stand (the one adaptation is language:
+   the prose follows the guide's, while the `## Do this` / `## Done when (this step)` / `## Suggested commit`
+   heading names in the left column stay English, because that is what the reader will see on the page). They
+   are the only orientation the reader gets before their first step, so a guide that drops them sends someone
+   into a step file having never been told what its sections are for.
 2. **Foundation docs under `foundation/`**, from the templates, **pre-filled from the plan**:
    - `stack.md` — the Verified stack table (versions + docs + check date) verbatim from the plan.
    - `status.md` — the **two provenance lines** stamping the GuideForge version used (see the version rule
@@ -46,10 +51,14 @@ Use the one canonical skeleton — don't invent a per-guide structure. The fixed
      If the plan carries a **build-vs-borrow table** (Phase 2.5), write one `decision-log.md` entry per row
      now — the capability, which way it went, why, and the revisit-if — rather than leaving them for drafting;
      they are decisions, and this is the file that holds decisions. Otherwise: seeded with what the plan has,
-     otherwise the empty template with headings. `conventions.md` § **Writing language** is the one section
-     that is **never left empty**: fill it with the prose language the plan settled in Q7 (English if the plan
-     doesn't say), because every later skill reads the guide's language from there and falls back to English
-     without it. Write the scaffold's own prose in that language too — the skeleton (file names, template
+     otherwise the empty template with headings. Two `conventions.md` sections are **never left empty**,
+     because a later skill running in a fresh session can only read them from there:
+     § **Writing language** — the prose language the plan settled in Q7 (English if the plan doesn't say),
+     without which every skill silently defaults to English; and § **Commit messages** — the format every step's
+     `## Suggested commit` block follows (rule 4.5): fill it from the plan if the plan decided one, otherwise
+     seed the **Conventional Commits** default (`<type>(<scope>): <subject>`, imperative, no trailing period,
+     ≤72 characters, one step one commit) and note that the messages stay English whatever the prose language.
+     Write the scaffold's own prose in that language too — the skeleton (file names, template
      headings, nav-line labels) stays English. In `glossary.md`, every term is a **`### <term>` heading**
      (never a bullet) so `../glossary.md#<slug>` deep-links from steps resolve natively on GitHub — bulleted
      terms have no anchor and the links silently fail. (Observed: a guide had dead `glossary.md#term`
@@ -79,8 +88,9 @@ The two lines answer different questions and age differently:
 - **`Generated with …`** — set once, here, and never touched again. It marks the method revision the guide was
   built against.
 - **`Last updated with …`** — the version and date of the most recent skill run that *changed* the guide.
-  Every later skill that writes to the guide (`draft-milestone`, `clarify-step`, `report-issue`,
-  `update-stack`, `review-before-follow`) rewrites it. You only seed it.
+  Every later skill that writes to the guide (`draft-milestone`, `clarify-step`, `amend-guide`,
+  `report-issue`, `update-stack`, `review-before-follow`, `mark-progress`) rewrites it. You only seed it.
+  (`log-feedback` is the exception: it appends to `feedback-log.md` and changes no guide content.)
 
 If you genuinely can't read the version (e.g. a plain-chat paste with no file access), ask for it rather than
 inventing one.

@@ -73,6 +73,15 @@ milestone (listed below). Pre-existing files the milestone only added to are sho
      milestone that last changed them and are NOT reproduced here. -->
 - `<path/to/untouched/file>` — unchanged since <milestone>.
 
+## Suggested commit
+<!-- RULE 4.5 — OMIT THIS SECTION unless the verify step itself changes files under version control (it
+     usually doesn't: checking a gate is not a change). Where it does — a fixture the gate needs, a test the
+     milestone ends on — give the one message, same format as any step's. Never a message for "verified the
+     milestone": an empty diff has nothing to commit. -->
+```
+<type>(<scope>): <what this verify step changed, imperative, no trailing period>
+```
+
 ## Troubleshooting
 <!-- The handful of traps for THIS milestone's gate, each with the first thing to check (rule 5.1). -->
 | Symptom | Likely cause → fix |

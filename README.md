@@ -260,7 +260,7 @@ guide-forge/                      ← a single project = one Claude Code plugin
 │   └── pre-pr-check/SKILL.md     ← repo maintenance (self-contained; no prompt.md)
 │
 ├── templates/                    ← copy-paste scaffolds a generated guide uses
-│   ├── readme.md                  ← the generated guide's front door (objective · stack summary · updates)
+│   ├── readme.md                  ← the generated guide's front door (objective · stack · updates · step anatomy)
 │   ├── milestone-overview.md      ← the 00_overview.md map (one screen: goal · prerequisite · steps · design index)
 │   ├── step.md
 │   ├── verify.md                  ← the NN_verify.md gate + full-file checkpoint + the milestone handoff
@@ -339,7 +339,7 @@ Every generated step obeys the **pedagogy principles** (full detail + before/aft
 1. **Explain what's new** — define every concept on first use at its topic's depth (inline, or a "New concept" callout right above the line); teach the recurring mental model where it first bites.
 2. **Anchor every action** — say WHERE it happens (file / menu / command / URL), and WHAT it does and WHY.
 3. **Leave nothing ambiguous** — exact values not ranges; mandatory vs illustrative marked; what to change vs leave at default; load-bearing vs cosmetic names flagged; a recurring value defined once and identical everywhere; every identifier the guide writes self-describing (`elapsedMs`, not `d`).
-4. **Structure steps & code** — numbered lists, never arrow-chains; each code block directly under the instruction it implements; add to an existing file (fragment + a unique anchor), never re-paste it whole; every step ends on a green build — never "this error is expected, the next step fixes it".
+4. **Structure steps & code** — numbered lists, never arrow-chains; each code block directly under the instruction it implements; add to an existing file (fragment + a unique anchor), never re-paste it whole; every step ends on a green build — never "this error is expected, the next step fixes it" — and every step that changes the tree ends with a ready-made **suggested commit message** (code, settings, assets and config alike).
 5. **Anticipate failure** — name the likely error and its usual cause.
 6. **Prove the gate** — a Done-when must exercise the exact property it claims, and stay observable in the environment you told the reader to watch (no debug session or dev mode masking the signal).
 7. **Declare the starting state** — never silently assume an install, a running service, a login, or a prior artifact.
@@ -427,9 +427,9 @@ on it, where one does.
   complete"; and no rung uses a symbol a later rung introduces. Fixing the table costs minutes — re-drafting
   off a wrong table costs the whole guide. **Skill:** [/plan-guide](skills/plan-guide/prompt.md) — this is its
   approval gate.
-- **Know which unit you're dividing by.** A **step** is one indivisible action, ending on a green build. A
-  **sitting** is a run of steps ending at a natural commit point — that's where you tell the reader they can
-  stop for the day. A **milestone** is a capability with a gate. Group steps into sittings; don't lengthen a
+- **Know which unit you're dividing by.** A **step** is one indivisible action, ending on a green build and on
+  one commit (the guide writes the message). A **sitting** is a run of steps ending at a natural stopping
+  point — that's where you tell the reader they can close the laptop for the day. A **milestone** is a capability with a gate. Group steps into sittings; don't lengthen a
   step to fill one. **Skill:** [/plan-guide](skills/plan-guide/prompt.md) sets the granularity,
   [/draft-milestone](skills/draft-milestone/prompt.md) cuts the actual steps.
 - **Build the capability in the milestone that consumes it.** If a milestone adds a public function nothing in

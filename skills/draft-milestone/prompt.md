@@ -234,7 +234,11 @@ The principles (rules cited by dotted id; full contract in
 - **P4 Structure steps & code** — **4.1** numbered lists, not arrow-chains; **4.2** put each code block under
   the instruction it implements; **4.3** don't reproduce an existing file whole to add to it — give the
   fragment + a unique placement anchor; **4.4** every step ends on a **green build** — a step that changes a
-  signature/name/path also fixes every call site it breaks, in the same step.
+  signature/name/path also fixes every call site it breaks, in the same step; **4.5** every step that changes
+  the version-controlled tree ends with a `## Suggested commit` block — one message, in the format
+  `conventions.md` § *Commit messages* records (Conventional Commits `<type>(<scope>): <subject>` by default),
+  imperative, ≤72 chars, message only (never `git commit -m`), English whatever the prose language; a settings
+  flip, an asset preset or a manifest edit counts, and a step that changes nothing tracked gets no block.
 - **P5 Anticipate failure** — **5.1** name the likely failure and its usual cause.
 - **P6 Prove the gate** — **6.1** every Done-when exercises the exact property it claims; **6.2** the property
   is observable in the environment the step tells the reader to watch — never let a debug session, dev mode,
@@ -332,6 +336,17 @@ Plus the structural rules — the ones drafters most often drop:
 - **Required code lives in a step, never in "If it breaks."** The failure section lists diagnoses only; if a
   fix needs new code/config, it's a numbered step (or a clearly-flagged optional one).
 - **Every step ends in its own "Done when"** — the sub-slice of the milestone gate it satisfies.
+- **Every step that changes the tree ends with its `## Suggested commit` (rule 4.5).** The step ends green, so
+  it ends on something committable: give the reader the message instead of leaving them to invent one. One
+  fenced block, one line, `<type>(<scope>): <subject>` in the format `conventions.md` § *Commit messages*
+  records — imperative, no trailing period, ≤72 characters, naming what **this** step changed; the message
+  only, never `git commit -m "…"` (quoting differs across the targeted shells). **Non-code changes count** — a
+  flipped engine/project setting, an import preset, a manifest, a config line: `chore(project): set the color
+  space to gamma`. **Omit the section entirely** when the step changes nothing under version control (pure
+  observation, a request fired at a running service, a click-through in a hosted console, an `NN_verify.md`
+  that only checks) — a message for an empty diff teaches the reader to commit noise. One step, one commit:
+  a same-commit multi-file bundle is still a single message. The message stays **English** whatever the guide's
+  prose language.
 - **Every gate shows its expected output.** Each `Done when` — per step and in `NN_verify.md` — pairs the
   action with the exact result the reader will observe (response body, console line, exit code, or the precise
   on-screen state). "It works" / "the server responds" is not a gate; give the reader something concrete to
@@ -418,6 +433,9 @@ yourself. Confirm:
   does the project still compile?"; every signature/rename/move is accompanied by its call-site fixes in the
   **same** step, and no step says an error is "expected" until a later one;
 - **every Done-when shows its expected output** — a concrete observable result, not "it works";
+- **every step that changes the tree carries its `## Suggested commit` (rule 4.5)** — one message in the
+  guide's recorded format, and *no* block on the steps that change nothing tracked; walk the milestone and ask
+  of each step "what would `git status` show?" — settings, assets and config count as much as code;
 - **no gate is masked by its own environment (rule 6.2)** — for each gate, the debug session / dev server /
   emulator / preview build the step runs in does **not** override, suppress, or duplicate the exact signal the
   gate reads; where it would, the step observes an unmasked channel, sets the environment-specific variant too,

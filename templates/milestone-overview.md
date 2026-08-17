@@ -25,7 +25,9 @@ Target: the whole file fits on one screen.
 <!-- The previous milestone; what must already exist/work before starting this one. One or two lines. -->
 
 ## Steps at a glance
-<!-- The step files, GROUPED into sittings (natural stopping points, each ending in a checkpoint/commit).
+<!-- The step files, GROUPED into sittings (natural stopping points — a sitting ends where the reader can
+     safely close the laptop). Every step that changes the tree already carries its own suggested commit
+     (rule 4.5); a sitting is where they'd stop, not the only place they'd commit.
      Titles and links only — no summary of what each step does. -->
 **Sitting 1 — <name> (01–0X)**
 1. [<step>](01_<slug>.md)
