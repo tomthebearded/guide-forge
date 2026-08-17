@@ -29,7 +29,11 @@ sharpen those are especially welcome.
 3. **Templates stay copy-paste-ready.** No placeholders that require reading three other files to fill in.
 4. **Preserve the pipeline's gates.** The whole design rests on "verify before you advance." Don't add
    a shortcut that skips a gate without labelling it clearly (like lite mode does).
-5. **Read everything the AI produces before you submit it.** GuideForge exists so that people keep control of
+5. **Branch off `develop`, never off `main`.** `develop` is where the work happens and where PRs are opened
+   and merged; `main` holds released state only — it moves when a release is cut, and every version tag lives
+   on it. Nothing lands on `main` except a merge of `develop` at release time, so a fresh clone's `main`
+   always matches the newest `v<x.y.z>` tag and the top released `CHANGELOG.md` header.
+6. **Read everything the AI produces before you submit it.** GuideForge exists so that people keep control of
    — and keep learning from — the work, rather than shipping output they don't understand. Hold your own
    contributions to that standard: if Claude drafted a prompt, rule, or example for you, read it line by line,
    make sure you understand *why* it says what it says, and edit it until it's genuinely yours. Don't open a PR
@@ -55,10 +59,12 @@ working."
   the `README.md` badge, the top released `CHANGELOG.md` header) and drifts if edited by hand — which is why
   `package.json` is private and carries **no** `version` field; `check-consistency.mjs` fails if one appears.
   Move it only with `node scripts/release.mjs <x.y.z>`, which updates all three and promotes
-  `## [Unreleased]`; then create the matching `git tag v<x.y.z>`. **Push the commit and the tag together** —
-  `git push origin main v<x.y.z>` — not `git push` followed by `git push --tags`, which leaves the remote
-  holding a release commit nobody can find by version. No script enforces this: the tag can't exist before the
-  commit it points at, so a check running on that push could never see it. It's on you.
+  `## [Unreleased]`. Run it on `develop`, merge `develop` into `main`, then tag **that merge commit on `main`**
+  with `git tag v<x.y.z>` — the tag belongs to the branch a fresh clone lands on, so `main` and the newest tag
+  never disagree. **Push the commit and the tag together** — `git push origin main v<x.y.z>` — not `git push`
+  followed by `git push --tags`, which leaves the remote holding a release commit nobody can find by version.
+  No script enforces this: the tag can't exist before the commit it points at, so a check running on that push
+  could never see it. It's on you. Push `develop` too, so the two don't drift.
 - **Before pushing:** `npm test` runs `check-version` + `check-consistency` (version stamps aligned,
   skill frontmatter valid, wrappers delegate, counts agree, every contract mirror states every rule, no dead
   links or anchors). Nothing runs it for you — the repo has no CI — and it only covers the **deterministic

@@ -23,6 +23,14 @@ All notable changes to GuideForge are documented here. Format loosely follows
   foregrounds at all; and a clamp helper that picked its search direction from the background's luminance and
   so could not converge on mid-tone backgrounds.)*
 
+### Changed
+
+- **Branching model — work lands on `develop`, `main` carries releases and tags.** Contributions now branch
+  off and merge into `develop`; `main` moves only when a release is cut, and every `v<x.y.z>` tag sits on that
+  merge commit, so a fresh clone's `main` always matches the newest tag and the top released `CHANGELOG.md`
+  header. `CONTRIBUTING.md` gains it as ground rule 5 and the release bullet spells out the order (bump on
+  `develop` → merge → tag on `main`); `/pre-pr-check` now defaults its diff base to `develop`.
+
 ### Removed
 
 - **GitHub Actions CI (`.github/workflows/ci.yml`).** The repo no longer runs anything on push or PR; `npm test`
