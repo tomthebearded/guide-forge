@@ -16,6 +16,33 @@ clearly it teaches — you do **not** change what it does.
 > "clarity." The only technical change allowed is reconciling against verified reality (that's prompt 04's
 > job, and it gets a status-log line). If you spot a genuine bug, **flag it, don't silently fix it.**
 
+This is a different job from its neighbours, and picking the wrong one produces the wrong edit:
+
+| The guide… | Run |
+|---|---|
+| …is right, and **what you want built has changed** | `/amend-guide` |
+| …failed a reader — a step is wrong, missing, or stale | `/report-issue` |
+| …pins versions that have moved since it was written | `/update-stack` |
+| …**reads unclearly at one step**, but does the right thing | **this one** |
+
+## Step 0 — the frontier check (one line, usually)
+
+Read `guide/foundation/progress.md` and see whether the step you were handed is marked executed. Then say so
+before you edit — one line is enough:
+
+- **Ahead of the frontier** → *"not executed yet — clarifying freely."*
+- **Behind the frontier** → *"this step is behind the frontier: prose only, nothing you built changes."* A pure
+  clarity pass is safe on executed work by construction, which is why this is a notice and not a stop.
+- **No ledger, or it contradicts `status.md`** → say so and clarify anyway; a prose pass doesn't need the
+  boundary to be exact. Mention `/mark-progress` once, don't block on it.
+
+**The stop returns the moment the pass stops being cosmetic.** A renamed identifier (3.6), a value quoted
+differently (3.5), a re-cut step (4.4), a gate made concrete in a way that changes what it asserts — on an
+**executed** step those are load-bearing edits wearing a clarity label, and they take the full gate in
+[reference/frontier-gate.md](../../reference/frontier-gate.md): stop, show what the reader would have to
+re-apply, and let them choose. The rules below already tell you to flag each of those rather than apply them —
+this is why.
+
 ## The one input
 The step file to clarify: <paste it, or name it>.
 Also recall (ask if missing): the **audience model** — the per-topic expertise matrix (topic →

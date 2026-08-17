@@ -7,6 +7,24 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ### Added
 
+- **The frontier gate (`reference/frontier-gate.md`) — no editing skill rewrites executed work without asking.**
+  `/amend-guide` has always known that a step someone already ran is not text but a project on disk, and has
+  refused to touch one since it shipped. Its three neighbours never read `progress.md` at all: `/report-issue`,
+  `/update-stack` and `/clarify-step` could not locate the frontier, so they could not warn about crossing it.
+  The consequence is not theoretical — a report-issue pass fixing a contrast defect at its root rewrote **six
+  executed steps** across four milestones, correctly for the next reader and invisibly for the one whose project
+  had just stopped matching their guide. The new reference states the shared contract and each of the three
+  skills now runs it: establish the frontier before planning any edit, classify every edit as ahead / behind-
+  cosmetic / behind-**load-bearing**, and where the last bucket is non-empty **stop and present three routes** —
+  **A** rewrite in place, **B** rewrite plus a superseded banner with every diff collected into one *Before you
+  continue — corrections* section ahead of the frontier, **C** defer and log a known open defect — with what
+  each one costs, recommending B whenever work has been executed. When nothing load-bearing sits behind the
+  frontier the gate says so in one line and gets out of the way. `/clarify-step` gets the reduced form (a prose
+  pass is safe on executed work by construction) that escalates to the full gate the moment the pass would
+  rename an identifier, requote a value, re-cut a step or change what a gate asserts. All three prompts also
+  gained the "which skill is this?" routing table `/amend-guide` already carried, so the choice is visible
+  before the pass starts rather than in its report.
+
 - **Rule 6.6 — a gate that samples one case cannot assert the class.** New rule under P6. A gate is trusted for
   what its **label** says, not for what it measures, and the two drift apart quietly: the label names a set —
   *the theme*, *the config*, *the endpoints*, *the locales* — while the expression under it reads a single

@@ -5,8 +5,10 @@ description: >
   latest stable version, rewrites stack.md, then scans the guide and rewrites ONLY the steps whose
   code/commands/APIs/doc-links the bump affects (using the new version's features), logs the drift in
   status.md + decision-log.md, refreshes the README Updates log, and hands off to audit-guide to QA the
-  changes. Use when the user wants to update/bump framework or library versions in a guide. Invoke with the
-  tools to bump (or none for all), e.g. "/update-stack" or "/update-stack Go modernc.org/sqlite".
+  changes. Reads foundation/progress.md first and STOPS for your decision before rewriting any step you have
+  already executed, offering to deliver the upgrade as a corrections section instead. Use when the user wants
+  to update/bump framework or library versions in a guide. Invoke with the tools to bump (or none for all),
+  e.g. "/update-stack" or "/update-stack Go modernc.org/sqlite".
 argument-hint: "[tool ...] [file ...]"
 ---
 
@@ -33,5 +35,8 @@ Tools to bump / args:
 $ARGUMENTS
 ```
 
-**Gate:** touch only what the version bump actually affects; never mark a rewritten milestone `✅` — the code
-changed, so the user must re-run the Done-when gates. Leave all changes in the working tree — do not commit.
+**Gate:** run the prompt's **Step 0 frontier gate first** — read `guide/foundation/progress.md`, and if the
+propagation would rewrite a step already executed, **stop and present the three routes before writing any step
+file** (`stack.md` itself is always safe to bump). Touch only what the version bump actually affects; never mark
+a rewritten milestone `✅` — the code changed, so the user must re-run the Done-when gates. Leave all changes in
+the working tree — do not commit.

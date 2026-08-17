@@ -21,6 +21,43 @@ one spot they got stuck — it's to fix the guide so **this class of issue canno
 > only exception is a genuine mistake the reader made *outside* what the guide told them to do (see step 2);
 > even then, if the guide *invited* the mistake, that's a guide defect.
 
+This is a different job from its neighbours, and picking the wrong one produces the wrong edit:
+
+| The guide… | Run |
+|---|---|
+| …is right, and **what you want built has changed** | `/amend-guide` |
+| …pins versions that have moved since it was written | `/update-stack` |
+| …reads unclearly at one step, but does the right thing | `/clarify-step` |
+| …**failed a reader** — a step is wrong, missing, or stale | **this one** |
+
+> ⚠️ **This skill fixes the defect at its root, which is usually an early step someone has already executed.**
+> That is the right fix for the *guide* and a rewrite of instructions the reader already followed — so it is
+> never done silently. Step 0 below establishes what has been executed, and you stop and ask before touching
+> any of it.
+
+---
+
+## Step 0 — the frontier gate (before you plan a single edit)
+
+Run the shared contract in [reference/frontier-gate.md](../../reference/frontier-gate.md), in full. In short:
+
+1. **Read `guide/foundation/progress.md`** and find the frontier — the last `[x]` row. No ledger, or a ledger
+   that contradicts `status.md`? **Stop and ask**; don't infer it from how finished the guide looks.
+2. **Diagnose and scope the fix first** (steps 1–2 and the sweep in step 4 below), but **write nothing yet** —
+   you can't classify edits you haven't found.
+3. **Classify every edit** the fix and its sweep would make: ahead of the frontier (free), behind it but
+   cosmetic (free, listed), behind it and **load-bearing** — code, a command, a value, a `Done-when`
+   assertion, a file checkpoint the reader diffs against.
+4. **If anything is load-bearing and behind the frontier, STOP** and present the notice: the frontier, the
+   root cause, every executed step the fix would rewrite, and the three routes (**A** root fix + sweep in
+   place · **B** root fix + a superseded banner on each executed step and one consolidated *Before you
+   continue — corrections* section ahead of the frontier · **C** defer, logged as a known open defect) with
+   what each costs. **Recommend B** unless nothing downstream was executed. Then wait.
+5. **If nothing load-bearing sits behind the frontier**, say so in one line and carry straight on. Nothing to
+   decide, no question to manufacture.
+
+The route chosen changes §3, §4 and §6 below — where the corrected code lands, and what bookkeeping it takes.
+
 ## The inputs — one or more issue reports
 
 Each report, ideally: **where** (milestone / step file, or "not sure"), **what I did**, **what I expected**,
@@ -108,6 +145,15 @@ Edit the step where the reader got stuck so the *cause* is gone — not just the
 The rewritten step obeys **every** pedagogy rule (WHERE/WHAT/WHY, exact values, mandatory-vs-illustrative,
 complete non-partial code, nav line, Done-when). Change the fewest steps needed — but change them *fully*.
 
+**Where the fix lands depends on the route agreed at Step 0.** Under **A** the corrected step is the fix, and
+nothing else is written. Under **B** the step is still corrected — the next reader must not be taught the
+defect — and it *additionally* takes a superseded banner, while the diffs the current reader has to re-apply
+are collected into one *Before you continue — corrections* section at the top of the first unexecuted step
+(`/amend-guide` §6 is the canonical form of both marks; follow it rather than inventing a second dialect).
+Under **C** no executed step is touched at all and the fix lives only in that corrections section, with the
+untouched steps logged as a known open defect. Steps **ahead** of the frontier are rewritten in place under
+every route.
+
 ### 4. Sweep the whole guide for the same class of defect  ← the "avoid it again" core
 The reader hit it in one place; the same mistake is very likely elsewhere. Scan **every** milestone/step for
 the same pattern and fix each occurrence:
@@ -119,6 +165,12 @@ the same pattern and fix each occurrence:
 
 **Report what you swept and what you found** — including "swept for X, no other occurrences." A silent sweep
 that missed a sibling defect is the failure mode to avoid.
+
+> ⚠️ **The sweep is the part that reaches furthest behind the frontier.** The reader hit the defect at one
+> step, but its root usually sits in an early milestone they finished days ago, and every file checkpoint that
+> copies the changed code is another executed step. **Classify each hit against the frontier as you find it**
+> and carry the whole list into the Step 0 notice — a sweep is exactly the pass that quietly rewrites six
+> executed steps when the reader authorized one fix.
 
 ### 5. Guard the next reader
 At the step(s) involved, add a **rule 5.1 "likely failure + its usual cause"** note naming the exact symptom the
@@ -132,7 +184,13 @@ stuck.
 
 ### 6. Log it (the guide's bookkeeping)
 - **`status.md` drift log:** one row per issue — `date · where · guide said (old) · reality is (new) ·
-  action taken`.
+  action taken`. Name the **route** taken and, under **A**, list every executed step whose code changed in the
+  order they must be re-applied: that row is now the reader's only re-apply checklist. Under **C** the row is
+  a `⚠️ **Known open defect**` and says `deferred by the reader on <date>`.
+- **`progress.md`:** under **B**, mark every invalidated executed row `[!]`, naming the step that carries its
+  correction (`/mark-progress` flips it back to `[x]` when the reader confirms the repair). Under **A**, leave
+  the marks alone and note the pending re-apply on the *Current position* block. **Never tick or untick a step
+  on the reader's behalf.**
 - **`status.md` milestone table:** mark every milestone you rewrote `⏳` / needs-re-verify. **Never mark it
   `✅`** — the steps changed; the reader re-runs the Done-when gates (step 9).
 - **`status.md` session log:** one append-only line — issue reported, root cause, fix.
@@ -166,10 +224,15 @@ Hand off to `audit-guide` on the rewritten milestones to confirm the fixes didn'
 
 1. **Per issue:** the report as you understood it → the step it occurred at → **root-cause statement** →
    the fix you made.
-2. **Sweep results:** each defect class you searched for and every other place you fixed it (or "none found").
-3. **Files touched:** steps rewritten, foundation docs updated, log rows added.
-4. **Milestones now needing re-verification** (marked `⏳`, never `✅`).
-5. **Pedagogy-rule proposal** (if any), or the rule the guide violated.
-6. **Anything you could not fix without a decision from the user** — flagged, not guessed.
+2. **The frontier and the route** — the frontier you worked against, the route the reader chose, and the
+   executed steps it did and did not touch. If the gate didn't fire, one line saying nothing load-bearing sat
+   behind the frontier.
+3. **Sweep results:** each defect class you searched for and every other place you fixed it (or "none found").
+4. **Files touched:** steps rewritten, foundation docs updated, log rows added.
+5. **Milestones now needing re-verification** (marked `⏳`, never `✅`).
+6. **What the reader must now re-apply to their own project**, in order — explicit under every route, because
+   a guide that is correct and a project that matches it are not the same thing.
+7. **Pedagogy-rule proposal** (if any), or the rule the guide violated.
+8. **Anything you could not fix without a decision from the user** — flagged, not guessed.
 
 > Leave all changes in the working tree — **do not commit.**

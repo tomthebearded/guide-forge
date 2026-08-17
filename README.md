@@ -108,11 +108,11 @@ Thirteen skills, one plugin. What each does *for you* — invoke any as a `/slas
 |---|---|
 | `/scaffold-guide` | Stamps the guide's folder skeleton + six foundation docs from the approved plan, so drafting starts immediately. |
 | `/audit-guide` | Lints a drafted guide against the GuideForge contract and reports violations, ranked by severity (read-only). |
-| `/update-stack` | Re-verifies framework/library versions online and bumps the guide to current releases. |
+| `/update-stack` | Re-verifies framework/library versions online and bumps the guide to current releases — asking first if the bump would rewrite a step you've already executed. |
 | `/modernize-guide` | Converts an existing tutorial / README / runbook into a learn-as-you-go GuideForge plan. |
 | `/amend-guide` | The requirements changed while you're halfway through → folds the change into what's ahead of you, leaves what you've already built alone, and tells you exactly what to repair where it can't. |
 | `/mark-progress` | Ticks what you've actually executed into the guide's `progress.md` ledger — the frontier every other maintenance skill reads. |
-| `/report-issue` | A reader hit a real issue → fixes the root cause *everywhere* it appears and logs the fix. |
+| `/report-issue` | A reader hit a real issue → fixes the root cause *everywhere* it appears and logs the fix — stopping first if "everywhere" reaches a step you've already executed, so you choose how the repair is delivered. |
 | `/log-feedback` | Captures reader friction to the guide's `feedback-log.md` — a durable record for improving the guide and the method — **without** changing the guide. |
 
 **Contribute to GuideForge:**
@@ -276,6 +276,7 @@ guide-forge/                      ← a single project = one Claude Code plugin
 │   ├── pedagogy-rules.md
 │   ├── milestone-design.md
 │   ├── audience-model.md
+│   ├── frontier-gate.md           ← what every editing skill asks you before it rewrites executed work
 │   └── canonical-layout.md        ← the one fixed on-disk skeleton every guide uses
 │
 ├── fixtures/                     ← complete generated guides, kept in-repo as TEST SUBJECTS
