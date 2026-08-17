@@ -438,8 +438,9 @@ contract:
 *(Principle 6 — **prove the gate** — is designed in Phase 5: every Done-when must exercise the exact property
 it claims (6.1), stay observable in the environment the reader watches it in (6.2), quote what the
 reader's terminal shows rather than what a captured stream showed you (6.3), read the effect of the reader's
-own code rather than a scaffold's output (6.4), and — where a gate is proven by breaking it — describe a
-failure someone actually produced (6.5). See the pedagogy reference.)*
+own code rather than a scaffold's output (6.4), be proven — where it is proven by breaking it — by a failure
+someone actually produced (6.5), and measure the whole set its label names rather than one member of it (6.6).
+See the pedagogy reference.)*
 
 ---
 
@@ -468,6 +469,13 @@ failure someone actually produced (6.5). See the pedagogy reference.)*
   checks. Say in the plan which mutation the milestone will use and which test it must turn red — that is also
   a coverage question, because a mutation nothing catches means the ladder is missing a test, and that is far
   cheaper to notice here than in the field.
+- **When a gate's label names a set, plan the sweep — not a sample (rule 6.6).** A milestone whose gate reads a
+  plural or collective noun — *the themes*, *the endpoints*, *the locales*, *the pages* — must gate on the
+  **worst member of that set**, named, or its label must be narrowed to the single case it really measures. A
+  gate that grades one member and claims the class cannot fail, so it certifies a broken artifact and shelters
+  every defect the readout was meant to catch. Decide it here, while the set is still enumerable on paper: say
+  which set the gate covers and whether the milestone can sweep it (`all AA true` over every generated case is
+  one line the drafting pass can write and the reader can't argue with).
 - **Consistency check** before a guide ships: every command/code block uses the pinned Verified-stack versions,
   and every load-bearing name/path/identifier is spelled identically wherever it recurs — version or name drift
   between steps is a top cause of a multi-milestone guide breaking.
