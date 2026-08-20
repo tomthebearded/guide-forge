@@ -18,6 +18,12 @@ don't rewrite anything.
 The guide file(s) to audit (attach or point at them). If a foundation doc (`status.md`, `progress.md`,
 `glossary.md`, `stack.md`) is relevant to a check, ask for it.
 
+**Ask for `foundation/conventions.md` before you start.** It carries § *Writing language* — the prose
+language, the code language and the **heading map**. Every section name in the checks below (`## Do this`,
+`## Done when (this step)`, `New here:`, `Nav:`, …) is the **canonical** name; the string on the page is the
+map's right-hand column, and that is what you match against. Without the file, judge in English and say so —
+but never report a translated heading as a defect on that basis alone.
+
 ## Severity — two levels, no others
 Every finding carries exactly one of these. There is no third level: if you can't decide, ask whether the
 reader is *stopped* or merely *worse off*.
@@ -37,7 +43,10 @@ and mark it **unconfirmed**, naming the tool or environment needed to settle it.
 - **Canonical layout:** `README.md` at the guide root; foundation docs under `foundation/`; one
   `MILESTONE_<N>_<slug>/` folder per milestone. Flag `overview.md` (must be `00_overview.md`), foundation docs loose at
   the root, or a missing README. `PLAN.md` and `feedback-log.md` are expected guide-root files (not foundation
-  docs) — don't flag them.
+  docs) — don't flag them. Flag as a **WARNING** a README missing either of its two fixed orientation sections
+  — **How a step is built** (what each section of a step file gives the reader) and **Following this guide** —
+  or one whose step-anatomy table names sections the guide's steps don't actually use: it is the reader's only
+  orientation before their first step, and a stale one teaches them to expect the wrong page.
 - Each milestone has a `00_overview.md` (Goal · Prerequisite · Steps at a glance grouped into sittings ·
   Design/decisions folded in) and ends in an `NN_verify.md` (Done-when gate · file checkpoint ·
   troubleshooting · Handoff).
@@ -105,6 +114,21 @@ and mark it **unconfirmed**, naming the tool or environment needed to settle it.
   called within the same milestone **and** carries no `[Mn]` deferral marker naming the milestone that
   consumes it. An unmarked, uncalled member is gold-plating built ahead of its use. (Observed: a guide
   built a later milestone's marker system early, leaving dead members across milestones.)
+- **Suggested commit present where the step changes the tree (rule 4.5) — WARNING:** every step that leaves a
+  change in version control — code, a flipped engine/project setting, an asset, a manifest, a config line —
+  ends with a `## Suggested commit` block after its `Done when`, holding **one** message in the format
+  `foundation/conventions.md` § *Commit messages* records (Conventional Commits `<type>(<scope>): <subject>` by
+  default). Flag: a missing block on a step that clearly changes files (the settings-only step is the one most
+  often missed — its diff is real but nobody thinks of it as code); a block on a step that changes **nothing**
+  tracked (pure observation, a request against a running service, a console click-through, a verify step that
+  only checks) — an empty diff has nothing to commit; **two** blocks or a message covering several steps (one
+  step, one commit); a message that doesn't follow the recorded convention, carries a trailing period, runs
+  past 72 characters, or is wrapped in `git commit -m "…"` (quoting differs between the targeted shells); and a
+  message written in the wrong language — a commit subject follows the **code** language from `conventions.md`
+  § *Writing language* (English by default), not the prose one, and the `<type>`/`<scope>` tokens stay English
+  either way. Also flag a `## Before you continue — corrections` section with no single `**Suggested commit:**`
+  after its `**Corrected when:**` checklist, or with more than one. If `conventions.md` wasn't attached, judge
+  against the Conventional Commits default and say you did.
 - **Gates show expected output:** every `Done when` (per step and in `NN_verify.md`) pairs its action with a
   concrete expected result the reader will observe. Flag aspirational gates ("it works", "the endpoint
   responds", "the build succeeds") that give the reader nothing to diff reality against.
@@ -257,7 +281,8 @@ consistency sweep above) · cryptic guide-invented identifiers (3.6) · a solved
 acknowledgement that the library exists (3.7) · arrow-chains instead of numbered lists (4.1) · multi-part code batched in a trailing
 block instead of interleaved under its instructions (4.2) · a pre-existing file re-pasted whole or an ambiguous
 insertion anchor (4.3) · a step that ends on a broken build (4.4, checked as the structural blocker above) ·
-no likely-failure note (5.1) · a step that silently assumes unestablished starting
+a step that changes the tree with no suggested commit — or one on a step that changes nothing (4.5, checked as
+the structural warning above) · no likely-failure note (5.1) · a step that silently assumes unestablished starting
 state (7.1). Apply each **relative to the audience matrix** — a term is a violation only if the reader isn't
 Expert on that topic.
 - **Rule 1.1c built-ins / inconsistent bar:** for a New/Beginner topic, treat **built-in library methods and
@@ -319,15 +344,25 @@ Expert on that topic.
   (step actions, Done-when gates, troubleshooting, handoffs). It must be second-person "you". (Referring in
   third person to a *different* actor — an app end-user, a teammate — is fine.) Suggest the direct "you"
   rewrite.
-- **Language — prose consistent, skeleton English:** the guide's prose language is whatever
-  `conventions.md` § *Writing language* records (**English** if the section is missing). Prose in another
-  language is **not** a defect — prose that drifts *between* languages inside the guide is. Flag: a step
-  written in a different language from the rest, and any **translated skeleton** — a section heading that
-  isn't the template's English one (`## Do this`, `## Done when (this step)`, `## Code`, `## Why / design`,
-  `## Glossary for this step`, `## If it breaks`, `## Handoff`,
-  `## Before you continue — corrections`, …), a nav line whose labels aren't
-  `Nav`/`Overview`/`prev:`/`next:`/`start:`, a translated file or folder name, or translated table column
-  keys, identifiers, commands or paths. Those strings are matched literally by the pipeline and by this audit.
+- **Language — everything the reader reads, in one language, through the map:** `conventions.md` § *Writing
+  language* records the **prose language**, the **code language** and the **heading map** (**English** for all
+  three if the section is missing). Prose in another language is not a defect; *drift* is. Flag, worst first:
+  - a **missing or incomplete heading map** in a guide whose prose isn't English — without it every later
+    skill translates on the fly and the guide's own sections stop being findable (flag a missing map in an
+    English guide too, one severity lower: the identity table is what tells the pipeline there's nothing to
+    look up);
+  - **any heading, inline marker or nav label that doesn't match the map byte for byte** — including one left
+    in **English on a page whose prose isn't**, which is the common case: `New here:`, `New concept —`,
+    `Build vs borrow —`, `## Do this`, `## Done when (this step)`, `## Why / design`, `Nav:`, `Overview`,
+    `prev:`/`next:`/`start:`. A half-translated page is a defect, not a style choice;
+  - **the same section named two ways** across two files (the signature of on-the-fly translation);
+  - a step written in a **different prose language** from the rest;
+  - **code in the wrong language for the setting** — identifiers, comments or user-facing strings translated
+    where the code language is English, or left English where it isn't; and, either way, a translated language
+    keyword, framework API name or framework-mandated identifier, which is always a defect;
+  - a **translated file or folder name**, `foundation/` section heading, table column key, command, path or
+    doc URL — those are matched literally by the pipeline and by this audit, in every language.
+  If `conventions.md` wasn't attached, judge against English for all three and say you did.
 - **Rule 1.1e forward-explained concept:** flag a taught concept whose **full explanation lives in a later step than
   its first appearance** when that first appearance lacks a **mini-gloss + forward pointer**. The first mention
   needs a one-line plain-language definition *and* a link to the step that teaches it fully — leaving it bare

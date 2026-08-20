@@ -16,14 +16,45 @@ clearly it teaches — you do **not** change what it does.
 > "clarity." The only technical change allowed is reconciling against verified reality (that's prompt 04's
 > job, and it gets a status-log line). If you spot a genuine bug, **flag it, don't silently fix it.**
 
+This is a different job from its neighbours, and picking the wrong one produces the wrong edit:
+
+| The guide… | Run |
+|---|---|
+| …is right, and **what you want built has changed** | `/amend-guide` |
+| …failed a reader — a step is wrong, missing, or stale | `/report-issue` |
+| …pins versions that have moved since it was written | `/update-stack` |
+| …**reads unclearly at one step**, but does the right thing | **this one** |
+
+## Step 0 — the frontier check (one line, usually)
+
+Read `guide/foundation/progress.md` and see whether the step you were handed is marked executed. Then say so
+before you edit — one line is enough:
+
+- **Ahead of the frontier** → *"not executed yet — clarifying freely."*
+- **Behind the frontier** → *"this step is behind the frontier: prose only, nothing you built changes."* A pure
+  clarity pass is safe on executed work by construction, which is why this is a notice and not a stop.
+- **No ledger, or it contradicts `status.md`** → say so and clarify anyway; a prose pass doesn't need the
+  boundary to be exact. Mention `/mark-progress` once, don't block on it.
+
+**The stop returns the moment the pass stops being cosmetic.** A renamed identifier (3.6), a value quoted
+differently (3.5), a re-cut step (4.4), a gate made concrete in a way that changes what it asserts — on an
+**executed** step those are load-bearing edits wearing a clarity label, and they take the full gate in
+[reference/frontier-gate.md](../../reference/frontier-gate.md): stop, show what the reader would have to
+re-apply, and let them choose. The rules below already tell you to flag each of those rather than apply them —
+this is why.
+
 ## The one input
 The step file to clarify: <paste it, or name it>.
 Also recall (ask if missing): the **audience model** — the per-topic expertise matrix (topic →
 Expert/Intermediate/Beginner/New) and the granularity setting — and the running **glossary**.
 **Write in the guide's language:** `foundation/conventions.md` § *Writing language* records it (default
-**English** if absent) — a clarity pass never changes the language a step is written in. The skeleton stays
-English whatever the prose language: file names, template section headings, nav-line labels, code, commands,
-identifiers and URLs are not translated.
+**English** if absent) — a clarity pass never changes the language a step is written in. It records three
+things you need: the **prose language** (every sentence *and* every heading and inline marker the reader
+sees), the **heading map** — reproduce its right-hand column byte for byte and never translate a heading
+yourself, since a second wording for the same section is exactly what the map exists to prevent — and the
+**code language** for identifiers, comments and strings. Not translated in any guide: file and folder names,
+the `foundation/` docs' own headings and column keys, commands, paths and doc URLs. Finding a heading or a
+`New here:` marker left in English on a page whose prose isn't **is** a clarity defect: fix it to the map.
 You may also **attach the related code file(s)** the step references, so the clarified step matches what
 actually exists — but don't change behavior (see the box above).
 
@@ -34,13 +65,16 @@ actually exists — but don't change behavior (see the box above).
 Read the whole step first. Then revise it so every one of these holds:
 
 Grouped by principle (rules cited by dotted id; full contract in
-[reference/pedagogy-rules.md](../../reference/pedagogy-rules.md)). **P6 "prove the gate" (rules 6.1–6.5) is a
+[reference/pedagogy-rules.md](../../reference/pedagogy-rules.md)). **P6 "prove the gate" (rules 6.1–6.6) is a
 drafting / review-gate concern, not a clarity edit — it's intentionally absent here; clarifying a step never
 changes what its Done-when checks. If the gate looks unprovable (6.1), masked by the environment the step
 tells the reader to observe in (6.2), written against output a pipe or a CI log produced rather than the
 reader's terminal (6.3), anchored to a line or a string some scaffold generated rather than to the reader's own
-code (6.4), or proven by a break recipe whose described failure nobody has produced (6.5), *flag it* for
-`report-issue`; don't rewrite the gate:**
+code (6.4), proven by a break recipe whose described failure nobody has produced (6.5), or reading one member
+of the set its own label names — *the themes*, *the endpoints*, *the locales* — so that it cannot fail (6.6),
+*flag it* for `report-issue`; don't rewrite the gate. 6.6 is the one most likely to look like a wording
+problem: the fix is either to measure the whole set or to narrow the label, and **both change what the gate
+asserts**, so neither is a clarity edit:**
 
 > **Same carve-out for a sourcing claim.** If the step justifies a capability by the *family* a name belongs to
 > — "it takes that option **because** it's an `editor.*` setting", "all hooks allow this" — that is a factual
@@ -110,6 +144,15 @@ code (6.4), or proven by a break recipe whose described failure nobody has produ
    scope for a clarity pass. Flag it (deliverable 4), naming the step that currently repairs the build and the
    edits that would have to move here. What you *may* fix in place: make the existing gate concrete (the exact
    build command + expected output) — never soften or delete it.
+4.5. **A step that changes the tree ends with a suggested commit.** If the step leaves anything in version
+   control — code, a settings flip, an asset, a manifest — and carries no `## Suggested commit` block, add one:
+   a single fenced message in the format `conventions.md` § *Commit messages* records (Conventional Commits
+   `<type>(<scope>): <subject>` by default), imperative, ≤72 chars, in the **code** language (English by
+   default), not the prose one.
+   Adding the missing block is a clarity edit — nothing the reader typed changes. Two things are **not**:
+   *deleting* a block (that asserts the step changes nothing — flag it instead), and **rewording an existing
+   message on a step behind the frontier**, since the reader has already committed under it; leave it and note
+   it in deliverable 4.
 
 **P5 — Anticipate failure**
 5.1. **The likely failure + its usual cause** is named.
@@ -123,7 +166,8 @@ Structural checks:
 - Multi-part code is **interleaved under its instructions** (rule 4.2), not batched in a trailing block; each
   fragment names where it goes. No redundant consolidated "complete file" copy (that belongs in `NN_verify.md`).
 - The step is still **one indivisible action** — if it's secretly several, say so and propose a split.
-- The **Nav line** and **Done-when** are intact.
+- The **Nav line**, the **Done-when** and the **`## Suggested commit`** block are intact — a clarity pass never
+  removes a gate or a commit message.
 
 ---
 

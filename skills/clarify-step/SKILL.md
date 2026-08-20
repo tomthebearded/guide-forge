@@ -30,5 +30,7 @@ Step to clarify:
 $ARGUMENTS
 ```
 
-**Gate:** clarity only — never change what the step *does*. If you spot a genuine bug, **flag it, don't
-silently fix it**.
+**Gate:** clarity only — never change what the step *does*. Run the prompt's **Step 0 frontier check** and say
+in one line whether the step is already executed; if the pass turns out to need a load-bearing edit (a rename,
+a changed value, a re-cut step, a gate that would assert something new) on an executed step, **stop and let the
+user choose** rather than applying it. If you spot a genuine bug, **flag it, don't silently fix it**.

@@ -6,7 +6,7 @@
 
 A prompt-and-skill toolkit that plans, drafts, and hardens **learn-as-you-go** developer guides — built for Claude. For games, libraries, web apps, CLIs, APIs, anything. The reader follows it start to finish and *understands what they're doing*, even for the parts they've never seen.
 
-`MIT License` · `Works with Claude | Claude Code` · `Domain-agnostic` · `v1.16.0` · `PRs welcome`
+`MIT License` · `Works with Claude | Claude Code` · `Domain-agnostic` · `v1.17.0` · `PRs welcome`
 
 [Quick start](#quick-start) · [The toolkit](#the-toolkit) · [Learning path](#learning-path) · [Examples](examples/README.md) · [Explainer](EXPLAINER.md) · [FAQ](#faq)
 
@@ -78,7 +78,7 @@ GuideForge encodes that discipline as reusable prompts and skills, so what comes
 | **A planning meta-prompt** | Turns a one-line idea into a full, milestone-laddered build plan — with an audience + stack interview up front. |
 | **Per-topic expertise + granularity dials** | Rates the reader **per topic** (Expert → New) so an expert gets names-only and a junior gets definitions, doc links, and deep dives — on that exact topic. A separate granularity dial sets how finely steps are cut. |
 | **Live stack verification** | Interviews you for languages/versions/stack, then **checks the web** for the latest stable versions and pins them with official doc links — so the guide is built on current facts, not stale training memory. |
-| **Your language, one contract** | The plan interview asks which language the guide's prose is written in; it's recorded in `conventions.md` so every later skill keeps writing in it. The skeleton — file names, section headings, nav labels, code — stays English in every guide, so the pipeline and the audit still match it. |
+| **Your language, one contract** | The plan interview asks two language questions: which language the guide's **prose** is in — headings, `New here:` markers and nav labels included, so no page is half-translated — and whether the **code** follows it too (identifiers, comments, strings; English by default, keywords and framework APIs never). Both are recorded in `conventions.md`, along with a **heading map** that fixes each section's translation once, so every later skill writes the same words and the audit still matches them. File names, commands, paths and URLs stay English in every guide. |
 | **A drafting prompt** | Expands one approved milestone into atomic, teaching step-files — built against the pinned versions, APIs re-checked against the live docs. |
 | **A clarity prompt** | Runs the pedagogy pass over any existing step to remove confusion. |
 | **A review-before-follow prompt** | The gate you run before *acting on* any guide, so stale/ambiguous steps get fixed first. |
@@ -108,11 +108,11 @@ Thirteen skills, one plugin. What each does *for you* — invoke any as a `/slas
 |---|---|
 | `/scaffold-guide` | Stamps the guide's folder skeleton + six foundation docs from the approved plan, so drafting starts immediately. |
 | `/audit-guide` | Lints a drafted guide against the GuideForge contract and reports violations, ranked by severity (read-only). |
-| `/update-stack` | Re-verifies framework/library versions online and bumps the guide to current releases. |
+| `/update-stack` | Re-verifies framework/library versions online and bumps the guide to current releases — asking first if the bump would rewrite a step you've already executed. |
 | `/modernize-guide` | Converts an existing tutorial / README / runbook into a learn-as-you-go GuideForge plan. |
 | `/amend-guide` | The requirements changed while you're halfway through → folds the change into what's ahead of you, leaves what you've already built alone, and tells you exactly what to repair where it can't. |
 | `/mark-progress` | Ticks what you've actually executed into the guide's `progress.md` ledger — the frontier every other maintenance skill reads. |
-| `/report-issue` | A reader hit a real issue → fixes the root cause *everywhere* it appears and logs the fix. |
+| `/report-issue` | A reader hit a real issue → fixes the root cause *everywhere* it appears and logs the fix — stopping first if "everywhere" reaches a step you've already executed, so you choose how the repair is delivered. |
 | `/log-feedback` | Captures reader friction to the guide's `feedback-log.md` — a durable record for improving the guide and the method — **without** changing the guide. |
 
 **Contribute to GuideForge:**
@@ -236,7 +236,6 @@ guide-forge/                      ← a single project = one Claude Code plugin
 ├── .claude-plugin/               ← plugin manifest + local marketplace (install as one unit)
 │   ├── plugin.json
 │   └── marketplace.json
-├── .github/workflows/ci.yml      ← runs `npm test` on every push to main and every PR
 ├── README.md                     ← you are here (the storefront)
 ├── EXPLAINER.md                  ← everything explained from scratch — read this second
 ├── LICENSE                       ← MIT
@@ -261,7 +260,7 @@ guide-forge/                      ← a single project = one Claude Code plugin
 │   └── pre-pr-check/SKILL.md     ← repo maintenance (self-contained; no prompt.md)
 │
 ├── templates/                    ← copy-paste scaffolds a generated guide uses
-│   ├── readme.md                  ← the generated guide's front door (objective · stack summary · updates)
+│   ├── readme.md                  ← the generated guide's front door (objective · stack · updates · step anatomy)
 │   ├── milestone-overview.md      ← the 00_overview.md map (one screen: goal · prerequisite · steps · design index)
 │   ├── step.md
 │   ├── verify.md                  ← the NN_verify.md gate + full-file checkpoint + the milestone handoff
@@ -277,6 +276,7 @@ guide-forge/                      ← a single project = one Claude Code plugin
 │   ├── pedagogy-rules.md
 │   ├── milestone-design.md
 │   ├── audience-model.md
+│   ├── frontier-gate.md           ← what every editing skill asks you before it rewrites executed work
 │   └── canonical-layout.md        ← the one fixed on-disk skeleton every guide uses
 │
 ├── fixtures/                     ← complete generated guides, kept in-repo as TEST SUBJECTS
@@ -339,7 +339,7 @@ Every generated step obeys the **pedagogy principles** (full detail + before/aft
 1. **Explain what's new** — define every concept on first use at its topic's depth (inline, or a "New concept" callout right above the line); teach the recurring mental model where it first bites.
 2. **Anchor every action** — say WHERE it happens (file / menu / command / URL), and WHAT it does and WHY.
 3. **Leave nothing ambiguous** — exact values not ranges; mandatory vs illustrative marked; what to change vs leave at default; load-bearing vs cosmetic names flagged; a recurring value defined once and identical everywhere; every identifier the guide writes self-describing (`elapsedMs`, not `d`).
-4. **Structure steps & code** — numbered lists, never arrow-chains; each code block directly under the instruction it implements; add to an existing file (fragment + a unique anchor), never re-paste it whole; every step ends on a green build — never "this error is expected, the next step fixes it".
+4. **Structure steps & code** — numbered lists, never arrow-chains; each code block directly under the instruction it implements; add to an existing file (fragment + a unique anchor), never re-paste it whole; every step ends on a green build — never "this error is expected, the next step fixes it" — and every step that changes the tree ends with a ready-made **suggested commit message** (code, settings, assets and config alike).
 5. **Anticipate failure** — name the likely error and its usual cause.
 6. **Prove the gate** — a Done-when must exercise the exact property it claims, and stay observable in the environment you told the reader to watch (no debug session or dev mode masking the signal).
 7. **Declare the starting state** — never silently assume an install, a running service, a login, or a prior artifact.
@@ -427,9 +427,9 @@ on it, where one does.
   complete"; and no rung uses a symbol a later rung introduces. Fixing the table costs minutes — re-drafting
   off a wrong table costs the whole guide. **Skill:** [/plan-guide](skills/plan-guide/prompt.md) — this is its
   approval gate.
-- **Know which unit you're dividing by.** A **step** is one indivisible action, ending on a green build. A
-  **sitting** is a run of steps ending at a natural commit point — that's where you tell the reader they can
-  stop for the day. A **milestone** is a capability with a gate. Group steps into sittings; don't lengthen a
+- **Know which unit you're dividing by.** A **step** is one indivisible action, ending on a green build and on
+  one commit (the guide writes the message). A **sitting** is a run of steps ending at a natural stopping
+  point — that's where you tell the reader they can close the laptop for the day. A **milestone** is a capability with a gate. Group steps into sittings; don't lengthen a
   step to fill one. **Skill:** [/plan-guide](skills/plan-guide/prompt.md) sets the granularity,
   [/draft-milestone](skills/draft-milestone/prompt.md) cuts the actual steps.
 - **Build the capability in the milestone that consumes it.** If a milestone adds a public function nothing in

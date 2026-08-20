@@ -7,6 +7,13 @@ which steps are in it. Then get out of the way.
 The milestone's acceptance gate and its handoff are NOT here — both live in NN_verify.md, where the reader
 needs them (after doing the work). One gate, one place.
 Target: the whole file fits on one screen.
+
+LANGUAGE — THE HEADINGS BELOW ARE CANONICAL, NOT LITERAL. Every section heading and inline marker in this
+template is the English string the skills know the section by. What you WRITE into the file is the guide's own
+version of it, copied byte for byte from foundation/conventions.md § Writing language → Heading map (for an
+English guide the two are identical). Never translate a heading on the fly, and never leave one in English on
+a page whose prose is not — the reader reads the furniture too. Untranslated regardless: file/folder names,
+code, commands, paths, doc URLs, the `·` separator and the `[ ]` marks.
 -->
 
 # Milestone <ID> — <title>
@@ -25,7 +32,9 @@ Target: the whole file fits on one screen.
 <!-- The previous milestone; what must already exist/work before starting this one. One or two lines. -->
 
 ## Steps at a glance
-<!-- The step files, GROUPED into sittings (natural stopping points, each ending in a checkpoint/commit).
+<!-- The step files, GROUPED into sittings (natural stopping points — a sitting ends where the reader can
+     safely close the laptop). Every step that changes the tree already carries its own suggested commit
+     (rule 4.5); a sitting is where they'd stop, not the only place they'd commit.
      Titles and links only — no summary of what each step does. -->
 **Sitting 1 — <name> (01–0X)**
 1. [<step>](01_<slug>.md)

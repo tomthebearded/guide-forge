@@ -97,8 +97,11 @@ there's something they're missing.
   sits inside prose.
 - **"New concept" callout right above** — when the term first lands on a command, menu, or code line where
   an inline aside would wreck the flow, put a one-line callout on its own line *immediately above* that line:
-  `> New concept — **term**: one-sentence definition.` (The marker is this exact plain-text form — no emoji,
-  so it renders identically in every terminal and viewer. Deep-link the term's *official docs* here when it's
+  `> New concept — **term**: one-sentence definition.` (The marker's **shape** is fixed — blockquote, marker
+  words, em-dash, bold term, no emoji, so it renders identically in every terminal and viewer — while the
+  marker *words* are prose like everything else the reader reads: in a guide whose prose isn't English, write
+  them as `foundation/conventions.md` § *Writing language* → *Heading map* records, and never translate them
+  freshly per step. Deep-link the term's *official docs* here when it's
   an external API — the sourcing principle requires it — but **not** the glossary; see 1.1b.)
 
 If a step introduces many terms, also add a "Glossary for this step" block at the top — as an **index, not a
@@ -262,7 +265,10 @@ with your prose beside it, and once later in their own project, with nothing bes
 teaches nothing the second time; `const elapsedMs = endedAtMs - startedAtMs` still does. Cryptic names also
 force a comment to do the name's job, and make the prose ambiguous: "check `res`" doesn't say which of the two
 `res` on screen. **Do:** name every identifier **you** introduce — variable, constant, function/method, class,
-file, CSS class, config key, test name — for **what it holds or what it does**, readable in isolation:
+file, CSS class, config key, test name — for **what it holds or what it does**, readable in isolation. This
+holds **in whatever language `conventions.md` § *Writing language* sets for code** (English by default): a
+guide writing its code in Italian owes the reader `tempoTrascorsoMs`, not `t`. Either way, names the platform
+fixes — keywords, framework APIs, lifecycle methods, config keys the framework reads — are never translated:
 
 - **Nouns for state, verbs for behavior.** `pendingSnapshots`, `applyPaletteToSettings()`, not `arr`, `handle()`.
 - **Include the unit or type when it prevents a mistake** — `timeoutMs`, `widthPx`, `priceCents`.
@@ -302,7 +308,8 @@ stack solves**, put a one-line callout on its own line, right above the work:
 `> Build vs borrow — **<library> <version>** does this in production (<official docs URL>): you're writing it`
 `by hand here to learn <the mechanism>. Swap it in when <condition>.`
 
-Same plain-text marker style as the "New concept" callout — no emoji, so it renders everywhere. The library
+Same plain-text marker style as the "New concept" callout — no emoji, so it renders everywhere, and the same
+language rule: the shape is fixed, the marker words come from the guide's heading map. The library
 is a **verified** fact like any other: check that it exists, is maintained, and supports the pinned stack
 (sourcing principle), or don't name one. And the mirror case: when the guide **borrows**, one clause says what
 the library is doing for the reader, so the dependency isn't a black box either.
@@ -430,6 +437,53 @@ type-checker or bundler, the step's `Done-when` ends with the build clean (`npm 
 > "which errors are expected" in their head until a later step — so a real error of their own hides inside the
 > expected list, and the sitting has no safe stopping point. (Observed: a reader following a VS Code extension
 > guide was told a constructor-signature error in `extension.ts` was expected until step 05.)
+
+### 4.5 — End every step that changes the project with a suggested commit
+**Why:** rule 4.4 already makes every step boundary a point where the project **builds** — which makes it a
+point the reader can **commit**. A guide that never says so leaves them two bad options: commit nothing until
+the milestone ends, so a milestone's worth of unrelated work lands in one blob and undoing a single step is
+impossible; or invent a message per step, which is exactly where a learner stalls ("what do I even call
+this?"). Naming the change is also part of what the guide teaches — one coherent change, one message, in the
+project's convention. And the change is **not always code**: a setting flipped in an engine's project settings,
+an asset import preset, a manifest, a `.editorconfig` line all land in version control, and a reader who thinks
+commits are for source files leaves them uncommitted until a later diff is unreadable.
+
+**Do:** every step that leaves a change in the **version-controlled tree** ends with a `## Suggested commit`
+section — after `## Done when (this step)`, before `## If it breaks` — carrying **one** message in a fenced
+block, in the format `foundation/conventions.md` § *Commit messages* records (Conventional Commits
+`<type>(<scope>): <subject>` by default): imperative, no trailing period, ≤72 characters, naming what this step
+changed.
+
+- **A non-code change gets one too.** `chore(project): set the color space to gamma` is a commit — the reader
+  flipped a setting and their `ProjectSettings/` moved.
+- **A step that changes nothing tracked gets no section** — pure observation, a request fired at a running
+  service, a click-through in a hosted console, an `NN_verify.md` that only checks. Inventing a message for an
+  empty diff teaches the reader to commit noise.
+- **One step, one commit.** A same-commit multi-file bundle is still one message; never two blocks in one step,
+  and never one message spanning several steps.
+- **The message, not the command.** `git commit -m "…"` quotes differently in bash and PowerShell (see the
+  cross-platform rule in `conventions.md`), and the reader may not be at a CLI at all.
+- **In the guide's *code* language** — `conventions.md` § *Writing language*, English by default — and not in
+  its prose language: a commit log is a literal artifact of the reader's project, not prose the guide
+  translates. The `<type>` and `<scope>` tokens are Conventional Commits' own vocabulary and stay English
+  in every guide.
+- **A corrections section carries its own single commit.** `## Before you continue — corrections` — written by
+  the maintenance skills behind the frontier gate — closes with one `**Suggested commit:**` after its
+  `**Corrected when:**` checklist, covering the whole section however many dated passes it has accumulated. The
+  repair is one change to the reader's project, and it is *not* the step's own commit.
+
+- ❌ a step that has the reader create `internal/store/store.go` and stops at the Done-when: they either commit
+  nine unrelated files at the end of the milestone or stop to name it themselves.
+- ✅ a `## Suggested commit` block under the gate reading `feat(store): add the in-memory todo store`.
+- ❌ `## Suggested commit` on a step whose only action is `curl`-ing the running server to read a response —
+  nothing changed, so there is nothing to commit.
+
+> **The defect this prevents:** a guide that teaches the build and leaves the history to improvisation — the
+> reader arrives at the end of a milestone with one shapeless commit, or none, and no way back to the step
+> before the one that broke. (Origin: reported from following guides drafted with this method. Every step ended
+> green and none of them said what to call it, so the reader either batched a milestone into one commit or
+> stopped at each boundary to invent a message; the steps that changed only *settings* were skipped entirely,
+> because a step with no code reads as a step with nothing to commit.)
 
 ---
 
@@ -687,7 +741,7 @@ touch the contract, update **every** place in the same pass:
 - `EXPLAINER.md` §7 (the before/after table), plus `README.md`, `templates/step.md`, `templates/verify.md`, and
   the affected `SKILL.md` descriptions wherever they name the contract.
 
-`scripts/check-consistency.mjs` (run by `/pre-pr-check` and CI) verifies **rule-id integrity**: no duplicate id
+`scripts/check-consistency.mjs` (run by `/pre-pr-check` and `npm test`) verifies **rule-id integrity**: no duplicate id
 headings, every rule homed under a real `## P#` principle, and every `rule N.N` cited anywhere in the docs
 resolving to a heading in this file — so a half-applied re-home fails the check instead of shipping silently.
 It also verifies **coverage** in the other direction: the mirrors that state the *whole* contract — the

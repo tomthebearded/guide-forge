@@ -60,7 +60,8 @@ The brief isn't only the one-line prompt. It can come from **any context you giv
   stable release minus any brand-new major still in its first weeks)** — a teaching guide wants the version
   with the most stable ecosystem and the fewest breaking-change surprises, not the bleeding edge. Say the
   choice explicitly and note that a reader who wants the newest major can opt in. For Q7's **writing language**,
-  default to the language of the brief you were given and state that assumption too. **Still run Phase 0.5** — the
+  default the **prose** to the language of the brief you were given and the **code** to English, and state both
+  assumptions too. **Still run Phase 0.5** — the
   online version/doc check does not need me and must always happen; it's where you confirm what the current LTS
   actually is.
 
@@ -121,13 +122,26 @@ confirmed with me too, not inferred from a source.**
 6. **Hard constraints.** Anything non-negotiable: platform, house style, "must not touch X," offline-only,
    budget, deadline pressure, existing codebase to build on vs greenfield.
 7. **Format, size & writing language.** Roughly how big is this — a weekend project, a multi-week course, a
-   reference? One document or a folder of many small files? And **which language is the guide's prose written
-   in** — propose the language I'm talking to you in as the default, and let me name another. Only the *prose*
-   follows that choice: file and folder names, the template section headings (`## Do this`,
-   `## Done when (this step)`, …), the nav-line labels (`Nav`, `Overview`, `prev:`/`next:`/`start:`), code,
-   commands, identifiers and doc URLs stay **English in every guide**, because the layout contract and the
-   audit read them literally. Whatever I choose goes into the Conventions foundation doc (Phase 1) — it's the
-   only place the drafting and maintenance skills can read it from in a later session.
+   reference? One document or a folder of many small files? Then ask **two separate language questions** —
+   they have different right answers and one does not imply the other:
+   - **Prose language** — propose the language I'm talking to you in as the default, and let me name another.
+     Say what it covers, because it is more than the sentences: **everything I read is in it**, including the
+     section headings (`## Do this` → `## Fai così`), the `New here:` / `New concept —` / `Build vs borrow —`
+     markers, the nav vocabulary and the checklist labels. A page whose prose is Italian under an English
+     heading is half-translated, and the English half lands exactly where the reader is least able to read
+     past it. `scaffold-guide` will fix the translations once, in a **heading map** in the Conventions doc, so
+     every step uses the same words.
+   - **Code language** — ask **explicitly** whether that language also applies to the code the guide has me
+     write: **identifiers, comments and user-facing strings**. Default **English**, and say so: a guide in
+     another language teaching English-named code is a normal, common choice, and it's my repository that
+     lives with the answer. Make clear what the answer can *never* change — language keywords, standard-library
+     and framework API names, framework-mandated identifiers (lifecycle methods, config keys, route/DI names),
+     package names and file names stay as the platform defines them. The commit messages in `## Suggested
+     commit` follow this setting too, not the prose one.
+   Untranslated in every guide whatever I answer: file and folder names, the `foundation/` docs' own section
+   headings and table column keys, commands, paths and doc URLs — the pipeline and the audit read those
+   literally. Both answers go into the Conventions foundation doc (Phase 1) — the only place the drafting and
+   maintenance skills can read them from in a later session.
 8. **Build vs borrow — the default posture.** Parts of this build are almost certainly already solved by a
    library. Ask which way to lean when that happens; default **Balanced**:
    - **Borrow-first** → use the ecosystem's solution wherever one exists; the guide teaches integrating it.
@@ -211,7 +225,8 @@ Before decomposing the work, plan the shared docs every step will lean on. Propo
 
 - **README (the guide's front door)** — a *thin* landing page: the objective (observable end state), a
   one-line stack summary, the headline decisions (only the ones a reader must know before starting), an
-  **Updates** log, and a short **"Following this
+  **Updates** log, a **"How a step is built"** table naming each section of a step file and what it gives the
+  reader (their only orientation before the first step), and a short **"Following this
   guide"** note that invites the reader to *type the code rather than paste it* (the complete files are an
   authoritative reference to diff against, not an invitation to paste blindly) — each section *linking* to the
   detailed doc (`stack.md`, `decision-log.md`) rather than duplicating it. It summarizes; `status.md` still
@@ -228,8 +243,13 @@ Before decomposing the work, plan the shared docs every step will lean on. Propo
   under-explaining a New one.*
 - **Conventions** — the style/architecture rules the code will follow (naming, structure, patterns,
   data-vs-code decisions). One place, referenced everywhere, so no step re-argues them. It also **records the
-  writing language from Q7** (prose language + the note that the skeleton stays English): the later skills run
-  in fresh sessions and read the language from here or default to English.
+  writing language from Q7** — both settings: the **prose language** (which covers the headings and inline
+  markers too, translated once through the heading map `scaffold-guide` writes there) and the **code
+  language** for identifiers, comments and strings. The later skills run in fresh sessions and read them from
+  here or default to English. It also carries the **commit-message convention** every step's
+  `## Suggested commit` block follows (rule 4.5) — Conventional Commits `<type>(<scope>): <subject>` unless the
+  project the guide builds uses something else, written in the **code** language; state it once here so no step
+  invents its own.
 - **Glossary** — a running list of domain terms with one-sentence plain-language definitions. Steps link
   into it; it grows as the ladder introduces concepts.
 - **Status authority** — one file that is the *single source of truth* for what is actually done and verified
@@ -257,8 +277,9 @@ Decompose the idea into an ordered ladder of **milestones**. Each milestone must
   one sentence ("the key is hard-coded here; M4 moves it into config") — only when leaving it out would read
   as a mistake.
 - **Be small enough to finish in one sitting or a few.** If a milestone has many steps, group them into
-  **"sittings"** — natural stopping points, each ending in a checkpoint/commit — so the reader sees where
-  they can safely pause.
+  **"sittings"** — natural stopping points, each ending at a checkpoint — so the reader sees where they can
+  safely pause. (Committing isn't what marks a sitting: under rule 4.5 every step that changes the tree already
+  carries its own commit message, so a sitting is simply where the day can end.)
 
 Insert an explicit **reality-check gate** at the first point where the thing is minimally usable: stop,
 actually use it, and confirm it's worth continuing before building further.
@@ -331,6 +352,8 @@ Start from this and adapt it to the domain:
 ## Do this                       (the exact numbered actions; multi-part code interleaves under each action — rule 4.2)
 ## Code                          (single-block steps only; multi-part code goes under "Do this"; whole file in NN_verify.md)
 ## Done when (this step)         (the sub-slice of the milestone gate this step satisfies)
+## Suggested commit              (rule 4.5 — one message, `<type>(<scope>): <subject>`; omitted only when the
+                                  step changes nothing under version control)
 ```
 
 Also propose a **milestone-overview template** — a short map, one screen: Goal · Prerequisite ·
@@ -423,6 +446,15 @@ contract:
   compiler/type-checker, the step's Done-when ends with the build clean (0 errors). A failing *test* is not a
   broken build — test-first is fine; the ban is on code that doesn't build. Cut the ladder with this in mind:
   a step that can't end green is a mis-cut step.
+- **4.5 End every step that changes the project with a suggested commit.** A step that ends green ends on
+  something committable, so it closes with a `## Suggested commit` block holding **one** message in the format
+  `conventions.md` § *Commit messages* records (Conventional Commits `<type>(<scope>): <subject>` by default,
+  imperative, ≤72 chars) — the message only, never a `git commit -m` line. This is **not code-only**: a flipped
+  engine/project setting, an import preset, a manifest or a config line all land in version control and get a
+  commit. A step that changes nothing tracked (pure observation, a request against a running service, a
+  click-through in a hosted console) carries **no** block — a message for an empty diff teaches the reader to
+  commit noise. Record the guide's commit convention in `conventions.md` at plan time, once, so no step
+  re-argues it.
 
 **P5 — Anticipate failure**
 - **5.1 Name the common failure and its usual cause.** For each step's likely error, give the first thing to
@@ -438,8 +470,9 @@ contract:
 *(Principle 6 — **prove the gate** — is designed in Phase 5: every Done-when must exercise the exact property
 it claims (6.1), stay observable in the environment the reader watches it in (6.2), quote what the
 reader's terminal shows rather than what a captured stream showed you (6.3), read the effect of the reader's
-own code rather than a scaffold's output (6.4), and — where a gate is proven by breaking it — describe a
-failure someone actually produced (6.5). See the pedagogy reference.)*
+own code rather than a scaffold's output (6.4), be proven — where it is proven by breaking it — by a failure
+someone actually produced (6.5), and measure the whole set its label names rather than one member of it (6.6).
+See the pedagogy reference.)*
 
 ---
 
@@ -468,6 +501,13 @@ failure someone actually produced (6.5). See the pedagogy reference.)*
   checks. Say in the plan which mutation the milestone will use and which test it must turn red — that is also
   a coverage question, because a mutation nothing catches means the ladder is missing a test, and that is far
   cheaper to notice here than in the field.
+- **When a gate's label names a set, plan the sweep — not a sample (rule 6.6).** A milestone whose gate reads a
+  plural or collective noun — *the themes*, *the endpoints*, *the locales*, *the pages* — must gate on the
+  **worst member of that set**, named, or its label must be narrowed to the single case it really measures. A
+  gate that grades one member and claims the class cannot fail, so it certifies a broken artifact and shelters
+  every defect the readout was meant to catch. Decide it here, while the set is still enumerable on paper: say
+  which set the gate covers and whether the milestone can sweep it (`all AA true` over every generated case is
+  one line the drafting pass can write and the reader can't argue with).
 - **Consistency check** before a guide ships: every command/code block uses the pinned Verified-stack versions,
   and every load-bearing name/path/identifier is spelled identically wherever it recurs — version or name drift
   between steps is a top cause of a multi-milestone guide breaking.

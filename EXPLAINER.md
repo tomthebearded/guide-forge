@@ -183,7 +183,6 @@ improvable — and lets you re-run just the stage that went wrong.
 | `CONTRIBUTING.md` | How to add rules and prompt refinements, plus the PR checklist. | When accepting contributions. |
 | `.claude-plugin/` | `plugin.json` (manifest) + `marketplace.json` (local marketplace) — makes the repo installable as one Claude Code plugin. | When you cut a release / bump the version. |
 | `package.json` | Repo tooling only — `npm test` runs the two check scripts (what `/pre-pr-check` invokes). Private and **version-less on purpose**: a fourth version stamp would drift, so `check-consistency.mjs` fails if one appears. | Adding a maintenance script. |
-| `.github/workflows/ci.yml` | Runs `npm test` on every push to `main` and every PR. Full clone (`fetch-depth: 0`) so the tag check can see tags. Covers the deterministic half only — the judgment half stays with `/pre-pr-check`. | Changing what the gate runs. |
 
 ### The prompt contracts — `skills/*/prompt.md`
 
@@ -237,7 +236,7 @@ you the exact shape of a GuideForge guide.
 
 | File | Role |
 |------|------|
-| `readme.md` | The generated guide's front door: objective + one-line stack summary + headline decisions + an Updates log, each linking to the detailed doc. A thin summary — `status.md` still owns progress. |
+| `readme.md` | The generated guide's front door: objective + one-line stack summary + headline decisions + an Updates log, each linking to the detailed doc, plus the two fixed orientation sections — **How a step is built** (what each section of a step file gives the reader) and **Following this guide**. A thin summary — `status.md` still owns progress. |
 | `milestone-overview.md` | The `00_overview.md` contract for a milestone — a one-screen map (goal · prerequisite · steps · design index), no teaching, no gate, no handoff. |
 | `step.md` | The atomic step file template. |
 | `verify.md` | The `NN_verify.md` template: the milestone's **one** Done-when gate, **a full-file checkpoint** (the complete current contents of every file the milestone touched, so no file survives only as fragments), troubleshooting, and the three-line cumulative **handoff**. |
@@ -300,9 +299,11 @@ contract, not when you change a skill.
   New on each topic the build touches), a **granularity** dial (Terse → Highly granular), target end state, a
   **detailed stack interview** (language + version, framework/runtime, key libraries, package manager, target
   platform, the tool the reader drives), scope boundaries, hard constraints, and format, size & **writing
-  language** (which language the guide's prose is written in — default: the language you're asking in; the
-  skeleton stays English, see [reference/canonical-layout.md](reference/canonical-layout.md) § Writing
-  language). This is
+  language** — two answers, not one: the **prose language** (default: the language you're asking in), which
+  covers *everything you read* including the section headings and the `New here:` / `New concept —` markers,
+  and separately whether that language applies to the **code** too (identifiers, comments, user-facing
+  strings; default English, with keywords and framework APIs never translated). See
+  [reference/canonical-layout.md](reference/canonical-layout.md) § Writing language. This is
   *mandatory*; the prompt asks one concrete follow-up rather than infer if you're vague. The gate then
   **closes with a mandatory advise-back step**: before any plan, the planner suggests *other features* worth
   considering (yours to accept or decline) and flags the *long-run risks* of your choices — EOL/fading
@@ -380,6 +381,7 @@ The rules are grouped under **named principles** (`P1`, `P2`, …); each id (lik
 | 4.2 | Code sits under the instruction it implements | All actions listed, then one trailing block with the config, loader, and wiring stacked together. | Config block under step 1, loader block under step 2, wiring block under step 3 — each labelled with where it goes; the whole file lives in `NN_verify.md`. |
 | 4.3 | Add to an existing file; don't reproduce it whole | "Add `spawnEnemy()` — here's the full `game.js`:" [entire file re-pasted] / "put it under `let ready = true;`" (three such lines). | "In `game.js`, add `spawnEnemy()` immediately after the `init()` function (the block ending `canvas.focus();`) — leave the rest untouched." Fragment + a unique anchor. |
 | 4.4 | Every step ends on a green build | "Done when: `ThemePanelProvider.ts` matches the checkpoint. It will show a compile error where `extension.ts` still calls the old signature — expected; step 05 fixes it." | The step changes the constructor **and** updates the call site it breaks. "Done when: the watch task reports **0 errors** and `npm run compile` exits 0." (A longer green step beats a broken interval.) |
+| 4.5 | End every step that changes the project with a suggested commit | The step ends at its Done-when; the reader either commits a whole milestone as one blob or stops to invent a message — and a settings-only step reads as "nothing to commit" though `ProjectSettings/` moved. | A `## Suggested commit` block under the gate: `feat(store): add the in-memory todo store` — one message, in the guide's recorded convention, on every step that leaves a change in version control (code, settings, assets, config); none at all on a step that changes nothing tracked. |
 | **P5 — Anticipate failure** | | | |
 | 5.1 | Name the likely failure | (silent) | "If you get `undefined: mux`, you forgot the import in step 2 — check the top of the file first." |
 | **P6 — Prove the gate** | | | |
@@ -407,12 +409,17 @@ The rules are grouped under **named principles** (`P1`, `P2`, …); each id (lik
 ## Do this                   ← the numbered actions (rules 2.1, 3.1, 3.3, 4.1), each with its code block right under it (rule 4.2).
 ## Code                      ← only for a single-block step; multi-part code interleaves under "Do this" instead.
 ## Done when (this step)     ← the sub-slice of the milestone gate this step satisfies.
+## Suggested commit          ← one ready-made commit message (rule 4.5) — omitted only when the step changes
+                               nothing under version control.
 ```
 - **Nav line** — a reader in the middle of a folder of files needs to know where they are and how to move.
 - **Per-step glossary** — keeps rule 1.1 local; you don't hunt a global list mid-step. It's an *index*, not a second set of definitions: the term is taught once in the body, where the work is, and the block tells you it's new and where to find it (rule 1.1b). Explained once, findable twice.
 - **Why before Do** — understanding precedes action; that's the "learn" in learn-as-you-go.
 - **Code under its instruction (rule 4.2)** — a trailing code dump forces "wait, which block was that?"; the whole paste-able file is guaranteed in `NN_verify.md` instead.
 - **Done-when** — the atomic verification; the milestone gate is just the sum of these.
+- **Suggested commit (rule 4.5)** — a step that ends green ends on something committable, so the guide names it
+  instead of leaving the reader to. It teaches the habit (one coherent change, one message) and it catches the
+  changes readers forget are changes: a flipped engine setting, an import preset, a manifest line.
 
 ### Milestone overview ([templates/milestone-overview.md](templates/milestone-overview.md))
 Goal · Prerequisite · Steps-at-a-glance (grouped into "sittings" = natural stopping points) · Design/decisions
@@ -469,7 +476,8 @@ than no ledger at all, because it produces confident edits to work that has alre
 | Four prompts, not one | Each stage has its own gate + failure mode; independently improvable. | More files to learn. |
 | Vertical slices | Every increment runs and is verifiable. | Harder to cut than layers. |
 | Written rule contract | Makes "teach well" auditable, not a vibe. | Rules must be maintained. |
-| An **amendment** never rewrites an executed step | A reader can't un-run what they ran; a step that worked and then changes under them turns a working project into an undiagnosable mismatch. (A *defect* fix is the opposite case — `/report-issue` corrects a step reality never matched.) | A fresh reader meets stale steps carrying a superseded banner, and the repair lives one step ahead instead of in place. |
+| An **amendment** never rewrites an executed step | A reader can't un-run what they ran; a step that worked and then changes under them turns a working project into an undiagnosable mismatch. | A fresh reader meets stale steps carrying a superseded banner, and the repair lives one step ahead instead of in place. |
+| Every other editing skill **asks** before it does | A *defect* fix is the opposite case — `/report-issue` and `/update-stack` correct steps reality never matched, and the next reader must not be taught them — but the person who already followed those steps still ends up with a project that no longer matches their guide. So the rewrite happens, and it happens as **their** decision: [reference/frontier-gate.md](reference/frontier-gate.md) makes them read the frontier, list what they'd rewrite, and offer to deliver the repair as a consolidated corrections section instead. | One stop, and a route to choose, on every maintenance pass over a guide that is under way. |
 | Reality-wins reconcile | Stale-but-clear guides are the dangerous kind. | Requires a status file. |
 | Lite mode exists | The full method is overkill for a one-sitting guide. | Users must opt into it. |
 

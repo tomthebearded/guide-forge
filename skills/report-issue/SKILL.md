@@ -5,9 +5,11 @@ description: >
   issue can't recur. Diagnoses the root cause, fixes the step where they got stuck, then sweeps the WHOLE
   guide for every other place the same class of defect appears and fixes those too, adds a failure-note
   guard, logs it in status.md + decision-log.md, proposes a pedagogy rule if it's a general confusion, marks
-  affected milestones for re-verification (never ✅), and hands off to audit-guide. Use when a reader got
-  stuck, hit an error, or found something wrong following the guide. Invoke with the issue(s), e.g.
-  "/report-issue M2/03 — npm run dev fails, needs .env first".
+  affected milestones for re-verification (never ✅), and hands off to audit-guide. Reads foundation/progress.md
+  first and STOPS for your decision before rewriting any step you have already executed, offering to deliver the
+  repair as a corrections section instead. Use when a reader got stuck, hit an error, or found something wrong
+  following the guide. Invoke with the issue(s), e.g. "/report-issue M2/03 — npm run dev fails, needs .env
+  first".
 argument-hint: "<issue description> [file ...]"
 ---
 
@@ -39,7 +41,9 @@ Issue report(s) / args:
 $ARGUMENTS
 ```
 
-**Gate:** the reader's failure is real — fix the guide, don't explain it away; fix the root cause everywhere
-it appears, not just where they hit it; never mark a rewritten milestone `✅` (the reader must re-run the
-Done-when gates); propose pedagogy rules, don't silently add them. Leave all changes in the working tree — do
-not commit.
+**Gate:** run the prompt's **Step 0 frontier gate first** — read `guide/foundation/progress.md`, classify every
+edit the fix and its sweep would make, and if any load-bearing edit lands on a step already executed, **stop and
+present the three routes before writing anything**. The reader's failure is real — fix the guide, don't explain
+it away; fix the root cause everywhere it appears, not just where they hit it; never mark a rewritten milestone
+`✅` (the reader must re-run the Done-when gates); propose pedagogy rules, don't silently add them. Leave all
+changes in the working tree — do not commit.

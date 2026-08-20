@@ -234,7 +234,12 @@ The principles (rules cited by dotted id; full contract in
 - **P4 Structure steps & code** — **4.1** numbered lists, not arrow-chains; **4.2** put each code block under
   the instruction it implements; **4.3** don't reproduce an existing file whole to add to it — give the
   fragment + a unique placement anchor; **4.4** every step ends on a **green build** — a step that changes a
-  signature/name/path also fixes every call site it breaks, in the same step.
+  signature/name/path also fixes every call site it breaks, in the same step; **4.5** every step that changes
+  the version-controlled tree ends with a `## Suggested commit` block — one message, in the format
+  `conventions.md` § *Commit messages* records (Conventional Commits `<type>(<scope>): <subject>` by default),
+  imperative, ≤72 chars, message only (never `git commit -m`), in the **code** language (English by default),
+  not the prose one; a settings
+  flip, an asset preset or a manifest edit counts, and a step that changes nothing tracked gets no block.
 - **P5 Anticipate failure** — **5.1** name the likely failure and its usual cause.
 - **P6 Prove the gate** — **6.1** every Done-when exercises the exact property it claims; **6.2** the property
   is observable in the environment the step tells the reader to watch — never let a debug session, dev mode,
@@ -252,12 +257,27 @@ The principles (rules cited by dotted id; full contract in
 Human"/"the human"/"the user"/"the developer"/"the reader"/"one" — write every action and gate as something
 **you** do and see. (Third-person is fine only for a *different* actor: the app's end-user, a teammate.)
 
-**Language — write in the guide's language.** Read `foundation/conventions.md` § *Writing language* and write
-every sentence in it; **default to English** if the section is missing. The skeleton is never translated,
-whatever the prose language: file and folder names, the template section headings (`## Do this`,
-`## Done when (this step)`, …), the nav-line vocabulary (`Nav`, `Overview`, `prev:`/`next:`/`start:`,
-`milestone K of N`), table column keys, code, commands, identifiers, paths and doc URLs stay English — the
-audit and the rest of the pipeline match them literally.
+**Language — write the whole page in the guide's language.** Read `foundation/conventions.md` § *Writing
+language* first; **default to English** if the section is missing. It gives you two settings and a table:
+
+- **Prose language** — every sentence *and every piece of page furniture the reader sees*: the section
+  headings, the `New here:` / `New concept —` / `Build vs borrow —` markers, the nav vocabulary, the checklist
+  labels. Leaving those in English gives the reader a half-translated page, and the English half always lands
+  on the words that carry the teaching.
+- **The heading map** (§ *Writing language*) is where those translations already live — canonical English
+  string on the left, this guide's string on the right. **Copy the right column byte for byte; never translate
+  a heading yourself.** Two steps that each invent their own wording for `## Do this` are two steps the audit
+  and the amendment skills can no longer find their way around. Need a heading the map doesn't list? Add the
+  row to the map first, then use it.
+- **Code language** — identifiers, comments and user-facing strings in the code you write follow the *code*
+  setting (English by default), independently of the prose. Rule 3.6 (self-describing identifiers) then
+  applies **in that language**: `tempoTrascorsoMs`, never `t`. Never translated either way: language keywords,
+  standard-library and framework API names, framework-mandated identifiers (lifecycle methods, config keys,
+  route/DI names), package names.
+
+Untranslated in every guide whatever the settings say: file and folder names, the `foundation/` docs' own
+section headings and table column keys, commands, paths and doc URLs — the audit and the rest of the pipeline
+match those literally.
 
 Plus the structural rules — the ones drafters most often drop:
 - **Draft every step in full — never stub, summarize, or collapse.** Each atomic step gets its own complete
@@ -332,6 +352,18 @@ Plus the structural rules — the ones drafters most often drop:
 - **Required code lives in a step, never in "If it breaks."** The failure section lists diagnoses only; if a
   fix needs new code/config, it's a numbered step (or a clearly-flagged optional one).
 - **Every step ends in its own "Done when"** — the sub-slice of the milestone gate it satisfies.
+- **Every step that changes the tree ends with its `## Suggested commit` (rule 4.5).** The step ends green, so
+  it ends on something committable: give the reader the message instead of leaving them to invent one. One
+  fenced block, one line, `<type>(<scope>): <subject>` in the format `conventions.md` § *Commit messages*
+  records — imperative, no trailing period, ≤72 characters, naming what **this** step changed; the message
+  only, never `git commit -m "…"` (quoting differs across the targeted shells). **Non-code changes count** — a
+  flipped engine/project setting, an import preset, a manifest, a config line: `chore(project): set the color
+  space to gamma`. **Omit the section entirely** when the step changes nothing under version control (pure
+  observation, a request fired at a running service, a click-through in a hosted console, an `NN_verify.md`
+  that only checks) — a message for an empty diff teaches the reader to commit noise. One step, one commit:
+  a same-commit multi-file bundle is still a single message. The message follows the **code** language from
+  `conventions.md` § *Writing language* (English by default), not the prose language — a commit log is an
+  artifact of the reader's repository.
 - **Every gate shows its expected output.** Each `Done when` — per step and in `NN_verify.md` — pairs the
   action with the exact result the reader will observe (response body, console line, exit code, or the precise
   on-screen state). "It works" / "the server responds" is not a gate; give the reader something concrete to
@@ -405,8 +437,10 @@ yourself. Confirm:
   pre-existing file is re-pasted whole and no insertion anchor is ambiguous** (rule 4.3);
 - no required code hides in an "If it breaks" note; every milestone→milestone link is clickable and resolves;
 - **every file is written in the guide's language** (`conventions.md` § *Writing language*, English by
-  default) with **no untranslated skeleton**: section headings, nav-line labels, file names, table column
-  keys, code, commands and URLs stayed English;
+  default) with **nothing reader-facing left untranslated** — every section heading, inline marker and
+  nav label matches the **heading map** byte for byte, and none was translated freshly here; identifiers,
+  comments and strings follow the *code* language setting; file names, `foundation/` section headings and
+  column keys, commands, paths and URLs stayed English;
 - **no step crossed the milestone boundary** — every step stays inside what the ladder gives this milestone;
   anything out of scope was deferred and flagged, not silently absorbed, and no deferral was written up as a
   standing "what this milestone doesn't do" section (inline, one sentence, only where its absence would
@@ -418,6 +452,9 @@ yourself. Confirm:
   does the project still compile?"; every signature/rename/move is accompanied by its call-site fixes in the
   **same** step, and no step says an error is "expected" until a later one;
 - **every Done-when shows its expected output** — a concrete observable result, not "it works";
+- **every step that changes the tree carries its `## Suggested commit` (rule 4.5)** — one message in the
+  guide's recorded format, and *no* block on the steps that change nothing tracked; walk the milestone and ask
+  of each step "what would `git status` show?" — settings, assets and config count as much as code;
 - **no gate is masked by its own environment (rule 6.2)** — for each gate, the debug session / dev server /
   emulator / preview build the step runs in does **not** override, suppress, or duplicate the exact signal the
   gate reads; where it would, the step observes an unmasked channel, sets the environment-specific variant too,

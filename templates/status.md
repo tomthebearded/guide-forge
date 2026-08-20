@@ -9,6 +9,10 @@ authority on the GUIDE's state (is this milestone verified? what drifted? what h
 Frontier and its milestone table are DERIVED from that ledger and are never written in disagreement with it.
 A milestone is ✅ here only when every one of its rows there is [x] AND its NN_verify.md gate was observed.
 /mark-progress writes both files in the same run — that is the only way either should move.
+
+LANGUAGE — this is a `foundation/` doc: its section headings, table column keys and marks are the schema the
+skills look things up by, so they stay ENGLISH in every guide, whatever the prose language. The prose you
+write inside them follows the guide's prose language (conventions.md § Writing language).
 -->
 
 # STATUS — <project name>

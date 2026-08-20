@@ -2,9 +2,17 @@
 TEMPLATE: atomic step file. One step = one indivisible action.
 Exception: code files created in the SAME commit may be bundled here under one sub-heading each — and the step
 says so at the top ("this step touches N files, committed together: …").
-Delete these comments and any section that doesn't apply (Glossary/Code are omittable; the corrections section
-below exists only on a step an amendment touched).
+Delete these comments and any section that doesn't apply (Glossary/Code are omittable; "Suggested commit" is
+omitted only when the step changes nothing under version control — rule 4.5; the corrections section below
+exists only on a step an amendment touched).
 Every step must obey the pedagogy principles — see ../reference/pedagogy-rules.md.
+
+LANGUAGE — THE HEADINGS BELOW ARE CANONICAL, NOT LITERAL. Every section heading and inline marker in this
+template is the English string the skills know the section by. What you WRITE into the file is the guide's own
+version of it, copied byte for byte from foundation/conventions.md § Writing language → Heading map (for an
+English guide the two are identical). Never translate a heading on the fly, and never leave one in English on
+a page whose prose is not — the reader reads the furniture too. Untranslated regardless: file/folder names,
+code, commands, paths, doc URLs, the `·` separator and the `[ ]` marks.
 
 NAV LINE IS CANONICAL AND REQUIRED — AT BOTH TOP AND BOTTOM: line 2 directly under the H1, AND repeated
 verbatim at the very bottom of the file after a "---" horizontal rule. Same EXACT format in both places, the
@@ -56,7 +64,9 @@ fixes it". Where the stack has a compiler/type-checker, the Done-when below ends
      fixes. The condition line is mandatory: a reader who started the guide after the amendment must skip it.
      Ordinary step contract applies to the actions — WHERE, WHAT + WHY, exact values, mandatory vs illustrative.
      It closes with **Corrected when:** and NOT a "## Done when" heading — the step keeps its own single gate.
-     A later amendment APPENDS a dated sub-heading here rather than opening a second section. -->
+     A later amendment APPENDS a dated sub-heading here rather than opening a second section — and updates the
+     ONE **Suggested commit:** below instead of adding a second (rule 4.5: the repair is one change to the
+     reader's project, and it is not this step's own commit). -->
 > Applies only if you executed <steps> before <YYYY-MM-DD>. Started the guide after that date? Skip this
 > section — your project already matches.
 
@@ -64,6 +74,11 @@ fixes it". Where the stack has a compiler/type-checker, the Done-when below ends
 
 **Corrected when:**
 - [ ] <action> → <exact expected result>.
+
+**Suggested commit:**
+```
+fix(<scope>): apply the <YYYY-MM-DD> corrections to <what they touch>
+```
 
 ## Glossary for this step
 <!-- AN INDEX, NOT A SECOND SET OF DEFINITIONS (rule 1.1b). Lists only the terms THIS step introduces —
@@ -130,6 +145,24 @@ fixes it". Where the stack has a compiler/type-checker, the Done-when below ends
 - [ ] <action> → <exact expected output the reader should see>.
 - [ ] `<build command>` → exits 0 / the watch task reports **0 errors**.   <!-- rule 4.4; drop only if the
       stack has no build step. Never replace it with "an error here is expected". -->
+
+## Suggested commit
+<!-- RULE 4.5 — the step ends green (4.4), so it ends on something committable: give the reader the message.
+     ONE message, one fenced block, in the format foundation/conventions.md § Commit messages records
+     (Conventional Commits `<type>(<scope>): <subject>` by default) — imperative, no trailing period, ≤72
+     chars, naming what THIS step changed. The message only, never `git commit -m "…"` (quoting differs
+     between bash and PowerShell, and the reader may not be at a CLI).
+     NON-CODE COUNTS: a flipped engine/project setting, an import preset, a manifest, an .editorconfig line all
+     land in version control and get a commit — `chore(project): set the color space to gamma`.
+     OMIT THE WHOLE SECTION when the step changes nothing tracked: pure observation, a request fired at a
+     running service, a click-through in a hosted console. A message for an empty diff teaches the reader to
+     commit noise. Same for NN_verify.md unless the verify itself edits files.
+     ONE STEP, ONE COMMIT — a same-commit multi-file bundle is still a single message.
+     LANGUAGE: the message follows foundation/conventions.md § Writing language → CODE language (English by
+     default), not the prose language — a commit log is an artifact of the reader's repo. -->
+```
+<type>(<scope>): <what this step changed, imperative, no trailing period>
+```
 
 ## If it breaks
 <!-- Rule 5.1: the likely failure and the first thing to check. Omit only if truly nothing can go wrong. -->

@@ -36,9 +36,18 @@ instead of a one-line idea. You do **not** write the finished guide.
 - Ask **who** the modernized guide is for — the per-topic expertise matrix (Expert/Intermediate/Beginner/New)
   + the granularity dial. The source rarely says; batch the questions and default sensibly.
 - Ask which **language** the modernized guide's prose is written in — default to the source document's own
-  language, and record the answer in the plan's Conventions doc, since that's where every later skill reads it
-  from. Only the prose: file names, template section headings, nav-line labels, code, commands and URLs stay
-  English in every guide.
+  language, and record the answer in the plan's Conventions doc as § **Writing language** — that exact section
+  is where every later skill reads it from, and `scaffold-guide` fills it from the plan (including the
+  **heading map** that fixes, once, how each section heading and inline marker is written in that language —
+  the reader reads the furniture too, so none of it is left in English). Ask **separately** whether the code
+  the guide has the reader write follows that language as well — identifiers, comments and user-facing strings
+  — defaulting to **English**, and record that as the § *Writing language* **code language**; the source
+  document's own code is the obvious first evidence of what the answer should be. Untranslated in every guide:
+  file and folder names, the `foundation/` docs' own headings and column keys, commands, paths and doc URLs.
+- **Record the commit-message convention** in that same Conventions doc, as § **Commit messages** (rule 4.5): every step the modernized
+  guide drafts that changes the tree ends with a `## Suggested commit`. Salvage the source's convention if it
+  has a visible one (a repo of per-chapter commits, a stated style); otherwise take the Conventional Commits
+  default. Old tutorials rarely name one — that absence is a gap to fill, not a choice to preserve.
 - **For every versioned tool in the salvaged stack, always ask me to choose explicitly:** modernize it to the
   **latest stable version** or pin a **specific version I name**. Don't silently bump everything to latest —
   make it a real per-tool question. Default to `latest` only if I say "you decide".

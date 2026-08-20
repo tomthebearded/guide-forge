@@ -15,6 +15,10 @@ with `[<term>](../glossary.md#<slug>)` and it resolves natively. Bullets have NO
 links to a bulleted term silently fail (they scroll nowhere) — this is why terms must be headings.
 (Slug rule: lowercase the term, replace each space with `-`, drop characters other than letters/digits/hyphens.
  e.g. `### Gamma color space` → `#gamma-color-space`; `### delta time` → `#delta-time`.)
+
+LANGUAGE — this is a `foundation/` doc: its section headings, table column keys and marks are the schema the
+skills look things up by, so they stay ENGLISH in every guide, whatever the prose language. The prose you
+write inside them follows the guide's prose language (conventions.md § Writing language).
 -->
 
 # Glossary — <project name>

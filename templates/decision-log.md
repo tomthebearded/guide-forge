@@ -5,6 +5,10 @@ One entry per decision. Append-only; supersede rather than delete.
 Every BUILD-VS-BORROW call from the plan (plan-guide Phase 2.5) is an entry here — the capability, which way it
 went, and why — because that is the decision a reader most often wants to reverse later. Use the second shape
 below for those; /amend-guide reads them when someone asks to swap a hand-rolled part for the library.
+
+LANGUAGE — this is a `foundation/` doc: its section headings, table column keys and marks are the schema the
+skills look things up by, so they stay ENGLISH in every guide, whatever the prose language. The prose you
+write inside them follows the guide's prose language (conventions.md § Writing language).
 -->
 
 # Decision log — <project name>

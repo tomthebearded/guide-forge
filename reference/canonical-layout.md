@@ -17,7 +17,8 @@
 ```
 <project>/                        ← PROJECT LEVEL
 └── <guide-root>/  (the guide/)   ← THE GUIDE FOLDER — every guide-related doc lives here
-    ├── README.md                 ← the front door (objective · stack summary · decisions · Updates log)
+    ├── README.md                 ← the front door (objective · stack summary · decisions · Updates log ·
+    │                               how a step is built · how to follow the guide)
     ├── PLAN.md                   ← the approved plan (written by plan-guide; scaffold fills the guide in around it)
     ├── feedback-log.md           ← append-only field log of reader friction (seeded by scaffold; appended by /log-feedback)
     ├── foundation/               ← the cross-cutting docs, read first
@@ -155,28 +156,73 @@ illustrative — and it closes with a `**Corrected when:**` checklist so the rea
 before continuing. It is deliberately **not** a `## Done when` heading: the step keeps its own single gate,
 and a second one would be a second gate to drift.
 
-## Writing language (the prose translates; the skeleton doesn't)
+Below that checklist comes **one** `**Suggested commit:**` block (rule 4.5) — the repair is one change to the
+reader's project, so it gets one message, separate from the step's own `## Suggested commit`. A later pass
+appending its dated sub-heading updates that single message rather than adding a second one.
 
-A guide's **prose** may be written in any language. `plan-guide` asks for it once (Phase 0, Q7) and the answer
-is recorded in **`foundation/conventions.md` § Writing language** — the only place later skills can read it
-from. `draft-milestone`, `clarify-step`, `report-issue`, `update-stack`, `review-before-follow` and
-`log-feedback` each run in their own session, so a language agreed only in conversation is a language the next
-skill silently drops. **No recorded language → English.**
+## Writing language (the whole page translates; the file names don't)
 
-The **skeleton stays English in every guide**, whatever the prose language, because the pipeline and the audit
-read it literally — exactly like the naming rules above:
+A guide is written in **one** language and *everything the reader reads is in it* — the sentences **and the
+page furniture**: section headings, the `New here:` / `New concept —` / `Build vs borrow —` markers, the
+nav-line vocabulary, the checklist labels. Italian prose under an English `## Do this` is a half-translated
+page, and the reader meets the English half at the exact moment they are least equipped to read past it.
 
-- file and folder names — `README.md`, `00_overview.md`, `NN_verify.md`, `MILESTONE_<N>_<slug>/`,
-  `foundation/`, and the step slugs;
-- the template section headings — `## Do this`, `## Code`, `## Done when (this step)`, `## Why / design`,
-  `## Glossary for this step`, `## If it breaks`, `## Handoff`, `## Frontier`,
-  `## Before you continue — corrections`, and the rest;
-- the nav-line vocabulary and separator — `Nav`, `Overview`, `prev:`, `next:`, `start:`, `milestone K of N`,
-  `·`;
-- the fixed table column keys in `stack.md` / `status.md`;
-- code, identifiers, commands, paths and doc URLs.
+Two settings carry this, both recorded in **`foundation/conventions.md` § Writing language** — the only place
+later skills can read them from. `plan-guide` asks for both once (Phase 0, Q7) and `scaffold-guide` writes
+them. `draft-milestone`, `clarify-step`, `amend-guide`, `report-issue`, `update-stack`, `review-before-follow`,
+`mark-progress` and `log-feedback` each run in their own session, so a language agreed only in conversation is
+a language the next skill silently drops. **Neither setting recorded → English for both.**
 
-So an Italian guide reads as Italian sentences under an English `## Do this`. Translating a heading buys
-cosmetics and breaks the one string every other skill matches on.
+1. **Prose language** — every sentence and every heading the reader sees on a step, an overview, a verify or
+   the README.
+2. **Code language** — whether the code the guide has the reader *write* is in that language too:
+   **identifiers, comments and user-facing strings**. Default **English**, and deliberately independent of the
+   prose — a guide written in Italian teaching English-named code is a normal, common choice, and it is the
+   reader's own repository that lives with the answer. Whatever the answer, what the **platform** fixes is
+   never translated: language keywords, standard-library and framework API names, framework-mandated
+   identifiers (lifecycle methods, config keys, route/DI names), package names and file names. Rule 3.6
+   (self-describing identifiers) applies **in the code language** — `tempoTrascorsoMs`, never `t`.
+
+### The heading map — translate once, then read it
+
+Headings translated freely would break every skill that has to *find* a section (`audit-guide` checking for a
+Done-when, `amend-guide` inserting a corrections block, `clarify-step` rewriting a glossary line). So the
+translation is decided **once** and written down: `conventions.md` § *Writing language* carries a **heading
+map** — canonical English string on the left, the exact string this guide uses on the right.
+
+- `scaffold-guide` writes the map, complete, at scaffold time. For an English guide the right column simply
+  repeats the left.
+- **Every other skill reads the right column and reproduces it byte for byte.** No skill ever translates a
+  heading on the fly, and no skill matches on the English string when a map exists — that is how two steps end
+  up with two different translations of the same section.
+- A guide that needs a heading the map doesn't list: **add the row first**, then use it.
+
+The map covers exactly the reader-facing furniture — the step, overview, verify and README section headings,
+the inline markers (`New here:`, `New concept —`, `Build vs borrow —`, `Corrected when:`, `Suggested commit:`,
+the `⚠️ Superseded` banner), and the nav vocabulary (`Nav`, `Overview`, `prev:`, `next:`, `start:`,
+`milestone K of N`). See `templates/conventions.md` for the full table.
+
+### What never translates, in any guide
+
+- **File and folder names** — `README.md`, `00_overview.md`, `NN_verify.md`, `MILESTONE_<N>_<slug>/`,
+  `foundation/`, and the step slugs. They are paths, not prose; the pipeline resolves them literally and a
+  translated slug dead-links every nav line pointing at it.
+- **Code, commands, paths and doc URLs** — subject to the *code language* setting above for the parts the
+  guide authors itself.
+- **The `foundation/` docs' own section headings and table column keys** — `§ Writing language`,
+  `§ Commit messages`, `## Frontier`, `## Milestone status`, the `stack.md` / `status.md` / `progress.md`
+  columns and marks. These are the schema the skills look things up by, and § *Writing language* is where the
+  map itself lives: translate that heading and nothing can find the translation of anything else. The **prose
+  inside** those docs still follows the prose language. Same for `feedback-log.md`'s field labels and its
+  fixed `Suspected class` / `Severity` / `Status` values — the vocabulary the log is analysed by.
+- **The `·` separator, the `—` bare-prev dash, and the `[ ]` / `[x]` marks.**
+
+### Commit messages follow the *code* language
+
+The message inside a `## Suggested commit` block (rule 4.5) is an artifact of the reader's repository, so it
+takes the **code language**, not the prose language — English by default, including in a guide whose prose is
+not. A guide that chose to write its code in the prose language writes its commit subjects there too. The
+*format* is separate and lives in `conventions.md` § *Commit messages*; the `<type>` and `<scope>` tokens of
+Conventional Commits are the convention's own vocabulary and stay English regardless.
 
 > This layout is not optional styling — it is the contract the whole pipeline and the audit rely on.

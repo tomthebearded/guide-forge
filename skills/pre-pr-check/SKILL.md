@@ -6,7 +6,7 @@ description: >
   README/EXPLAINER skill list in sync, CHANGELOG updated, version stamps aligned, no dead links). Read-only:
   it reports PASS/FAIL with a checklist, it does not fix. Use right before you `git push` / open a PR against
   GuideForge. Invoke with no argument to check the current branch's diff, e.g. "/pre-pr-check", or name a base
-  branch, e.g. "/pre-pr-check main".
+  branch, e.g. "/pre-pr-check develop".
 argument-hint: "[base-branch]"
 ---
 
@@ -17,7 +17,8 @@ change respects every rule in [CONTRIBUTING.md](../../CONTRIBUTING.md) and leave
 consistent. Read-only: **report, don't fix.** If a check fails, say exactly which file/line and what the fix
 is, then let the contributor fix it and re-run.
 
-Base to diff against: `$ARGUMENTS` (default `main` — use `develop` if that's the repo's trunk).
+Base to diff against: `$ARGUMENTS` (default `develop`, the branch every contribution targets — `main` holds
+released state only).
 
 ## Step 0 — Scope the change
 Determine what this PR touches. Run:
@@ -87,9 +88,9 @@ don't re-perform them by hand; you confirm the scripts passed and add the judgme
   in both docs actually gained/lost the row (the script counts the number, not the list rows). Report old vs new.
 - **Version single-sourced.** *(script)* `plugin.json` `version` is the single source of truth; the README
   badge and top released `CHANGELOG.md` header must match. Tagging is **not** script-enforced — on a release
-  PR, check by eye that `v<x.y.z>` will be pushed alongside the commit (`git push origin main v<x.y.z>`), since
-  nothing downstream will catch a release that ships untagged. **Never hand-edit the version** — it moves only via
-  `node scripts/release.mjs <x.y.z>`. **Prompt headers must NOT stamp a version number** (they point to
+  PR (the `develop` → `main` merge), check by eye that `v<x.y.z>` will be pushed alongside the merge commit on
+  `main` (`git push origin main v<x.y.z>`), since nothing downstream will catch a release that ships untagged.
+  **Never hand-edit the version** — it moves only via `node scripts/release.mjs <x.y.z>`. **Prompt headers must NOT stamp a version number** (they point to
   `plugin.json`); flag any `skills/*/prompt.md` header that reintroduces a `vX.Y.Z`. If `version` did **not**
   change but the change is user-visible, flag that a bump is likely needed.
 - **Rule ids in sync.** *(script checks id integrity; the sync set is yours)* If

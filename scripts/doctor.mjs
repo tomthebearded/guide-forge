@@ -35,7 +35,7 @@ if (!existsSync(cache)) {
 
 // Compare each file IN THE CACHE (the published subset that's actually running) against the working
 // tree — NOT the whole tree against the cache. The working tree also holds dev-only paths never
-// published (scripts/, .github/, package.json, node_modules, tasks/); diffing the whole tree would
+// published (scripts/, package.json, node_modules, tasks/); diffing the whole tree would
 // flag all of them and report STALE even when every shipped file matches.
 function walkFiles(dir, rel, acc) {
   for (const e of readdirSync(path.join(dir, rel), { withFileTypes: true })) {
