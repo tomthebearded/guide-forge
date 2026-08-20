@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.17.0] — 2026-08-20
+
 ### Changed
 
 - **A translated guide is now translated *whole* — headings and markers included — through a heading map.**
