@@ -46,8 +46,9 @@ Read it against the guide's real files rather than against what the reader remem
    ending with `NN_verify.md`), every row unticked. Say that you created it. Never invent a step that has no
    file, and never drop a row for a file you found.
 2. **Orient.** Read `status.md` (frontier + milestone table) and `conventions.md` § *Writing language* — the
-   ledger's prose is written in the guide's language; the marks, file names and section keys are matched
-   literally and stay as they are.
+   ledger's prose is written in the guide's prose language; the marks, file names and the `foundation/` docs'
+   own section keys are matched literally and stay as they are. When you quote a step's gate by name, use the
+   guide's own wording for it from the **heading map**, not the canonical English.
 3. **Apply the marks** the reader claimed, using the ledger's own legend:
    - `[x]` — executed and the step's **Done when** was observed;
    - `[~]` — executed but the Done when did not pass, or was skipped — the row says what is outstanding;

@@ -48,9 +48,13 @@ The step file to clarify: <paste it, or name it>.
 Also recall (ask if missing): the **audience model** — the per-topic expertise matrix (topic →
 Expert/Intermediate/Beginner/New) and the granularity setting — and the running **glossary**.
 **Write in the guide's language:** `foundation/conventions.md` § *Writing language* records it (default
-**English** if absent) — a clarity pass never changes the language a step is written in. The skeleton stays
-English whatever the prose language: file names, template section headings, nav-line labels, code, commands,
-identifiers and URLs are not translated.
+**English** if absent) — a clarity pass never changes the language a step is written in. It records three
+things you need: the **prose language** (every sentence *and* every heading and inline marker the reader
+sees), the **heading map** — reproduce its right-hand column byte for byte and never translate a heading
+yourself, since a second wording for the same section is exactly what the map exists to prevent — and the
+**code language** for identifiers, comments and strings. Not translated in any guide: file and folder names,
+the `foundation/` docs' own headings and column keys, commands, paths and doc URLs. Finding a heading or a
+`New here:` marker left in English on a page whose prose isn't **is** a clarity defect: fix it to the map.
 You may also **attach the related code file(s)** the step references, so the clarified step matches what
 actually exists — but don't change behavior (see the box above).
 
@@ -143,7 +147,8 @@ asserts**, so neither is a clarity edit:**
 4.5. **A step that changes the tree ends with a suggested commit.** If the step leaves anything in version
    control — code, a settings flip, an asset, a manifest — and carries no `## Suggested commit` block, add one:
    a single fenced message in the format `conventions.md` § *Commit messages* records (Conventional Commits
-   `<type>(<scope>): <subject>` by default), imperative, ≤72 chars, English whatever the prose language.
+   `<type>(<scope>): <subject>` by default), imperative, ≤72 chars, in the **code** language (English by
+   default), not the prose one.
    Adding the missing block is a clarity edit — nothing the reader typed changes. Two things are **not**:
    *deleting* a block (that asserts the step changes nothing — flag it instead), and **rewording an existing
    message on a step behind the frontier**, since the reader has already committed under it; leave it and note

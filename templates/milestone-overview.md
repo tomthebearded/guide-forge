@@ -7,6 +7,13 @@ which steps are in it. Then get out of the way.
 The milestone's acceptance gate and its handoff are NOT here — both live in NN_verify.md, where the reader
 needs them (after doing the work). One gate, one place.
 Target: the whole file fits on one screen.
+
+LANGUAGE — THE HEADINGS BELOW ARE CANONICAL, NOT LITERAL. Every section heading and inline marker in this
+template is the English string the skills know the section by. What you WRITE into the file is the guide's own
+version of it, copied byte for byte from foundation/conventions.md § Writing language → Heading map (for an
+English guide the two are identical). Never translate a heading on the fly, and never leave one in English on
+a page whose prose is not — the reader reads the furniture too. Untranslated regardless: file/folder names,
+code, commands, paths, doc URLs, the `·` separator and the `[ ]` marks.
 -->
 
 # Milestone <ID> — <title>

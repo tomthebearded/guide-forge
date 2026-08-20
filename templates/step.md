@@ -7,6 +7,13 @@ omitted only when the step changes nothing under version control — rule 4.5; t
 exists only on a step an amendment touched).
 Every step must obey the pedagogy principles — see ../reference/pedagogy-rules.md.
 
+LANGUAGE — THE HEADINGS BELOW ARE CANONICAL, NOT LITERAL. Every section heading and inline marker in this
+template is the English string the skills know the section by. What you WRITE into the file is the guide's own
+version of it, copied byte for byte from foundation/conventions.md § Writing language → Heading map (for an
+English guide the two are identical). Never translate a heading on the fly, and never leave one in English on
+a page whose prose is not — the reader reads the furniture too. Untranslated regardless: file/folder names,
+code, commands, paths, doc URLs, the `·` separator and the `[ ]` marks.
+
 NAV LINE IS CANONICAL AND REQUIRED — AT BOTH TOP AND BOTTOM: line 2 directly under the H1, AND repeated
 verbatim at the very bottom of the file after a "---" horizontal rule. Same EXACT format in both places, the
 SAME in every step of every milestone. The middle anchor label is EXACTLY "Overview" — never "Milestone
@@ -151,7 +158,8 @@ fix(<scope>): apply the <YYYY-MM-DD> corrections to <what they touch>
      running service, a click-through in a hosted console. A message for an empty diff teaches the reader to
      commit noise. Same for NN_verify.md unless the verify itself edits files.
      ONE STEP, ONE COMMIT — a same-commit multi-file bundle is still a single message.
-     ENGLISH whatever the guide's prose language: a commit log is an artifact of the reader's repo, not prose. -->
+     LANGUAGE: the message follows foundation/conventions.md § Writing language → CODE language (English by
+     default), not the prose language — a commit log is an artifact of the reader's repo. -->
 ```
 <type>(<scope>): <what this step changed, imperative, no trailing period>
 ```

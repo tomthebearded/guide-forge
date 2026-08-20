@@ -6,6 +6,13 @@ Updates log, and the two orientation sections every guide carries verbatim — "
 not a source of truth: status.md still owns "what's actually done", stack.md owns the full verified table,
 decision-log.md owns the full rationale. Keep it short; when they disagree, the linked doc wins.
 Scaffolded by prompt/skill `scaffold-guide`; the Updates log grows as the guide evolves (e.g. `update-stack`).
+
+LANGUAGE — THE HEADINGS BELOW ARE CANONICAL, NOT LITERAL. Every section heading and inline marker in this
+template is the English string the skills know the section by. What you WRITE into the file is the guide's own
+version of it, copied byte for byte from foundation/conventions.md § Writing language → Heading map (for an
+English guide the two are identical). Never translate a heading on the fly, and never leave one in English on
+a page whose prose is not — the reader reads the furniture too. Untranslated regardless: file/folder names,
+code, commands, paths, doc URLs, the `·` separator and the `[ ]` marks.
 -->
 
 # <Guide title> — build <the one-line what-you'll-build>
@@ -46,9 +53,10 @@ a published package, a deployed URL.>
 <!-- FIXED boilerplate — every guide carries it, stamped by scaffold-guide. It orients the reader before they
      open their first step; it is NOT the contract (../reference/canonical-layout.md and templates/step.md own
      that), so keep it to one line per section and never restate a rule here.
-     TRANSLATION: the heading names in the left column stay ENGLISH even in a translated guide — they are the
-     skeleton the reader will actually see on the page. The right column is prose and follows the guide's
-     language.
+     TRANSLATION: the heading names in the left column must be the ones the reader will ACTUALLY SEE on the
+     page — copy them from foundation/conventions.md § Writing language → Heading map, byte for byte. A table
+     naming `## Do this` in a guide whose steps say `## Fai così` orients the reader towards a section that
+     isn't there. The right column is prose and follows the prose language like everything else.
      Say plainly which sections can be absent: a reader who meets a step with no Glossary block must not read
      it as a broken step. -->
 Every step file has the same shape, so you always know where to look:

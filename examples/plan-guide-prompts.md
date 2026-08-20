@@ -173,13 +173,15 @@ config, and a redacted `.env.example`.
 | Non-goals | No cluster administration, no on-call procedures, no cost tuning |
 | Constraints | Must not touch production; VPN required; existing conventions win over anything nicer |
 | Build vs borrow | **Borrow-first** — the house tooling *is* the subject; everything else uses what the team already depends on |
-| Size & language | Two afternoons; folder of many small files; prose in **Italian** (the team's working language) |
+| Size & language | Two afternoons; folder of many small files; prose in **Italian** (the team's working language); code stays English |
 
 **What it shows.** Attachments beat description: the manifests supply the real stack, the CI config supplies
 the real commands, and you confirm rather than dictate. But note what the repo *cannot* tell it — your hires'
 per-topic expertise. Context describes the build, never the reader, so Q1 and Q2 still get asked. The language
-answer is the other thing no attachment settles: it lands in `conventions.md` so every later skill keeps
-writing Italian — while the file names, section headings, nav labels and commands stay English, as in every
+answer is the other thing no attachment settles — and it is really two answers. The **prose** one lands in
+`conventions.md` so every later skill keeps writing Italian, headings and `New here:` markers included, fixed
+once in the heading map so no step invents its own wording. The **code** one is asked separately: this team's
+repo already tells you what it should be. File names, commands, paths and doc URLs stay English, as in every
 guide.
 
 ---

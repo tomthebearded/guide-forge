@@ -31,8 +31,10 @@ Use the one canonical skeleton — don't invent a per-guide structure. The fixed
    seeded with `<date> — Guide created with GuideForge v<x.y.z>.`). Thin: it summarizes and links, it doesn't
    duplicate. Its **How a step is built** section and its **Following this guide** list are **fixed
    boilerplate** — carry them over from `templates/readme.md` as they stand (the one adaptation is language:
-   the prose follows the guide's, while the `## Do this` / `## Done when (this step)` / `## Suggested commit`
-   heading names in the left column stay English, because that is what the reader will see on the page). They
+   the whole page follows the guide's prose language, and the heading names in the left column of the
+   step-anatomy table are the **mapped** ones — that table exists to tell the reader what they will meet on the
+   page, so naming `## Do this` in a guide whose steps say `## Fai così` points them at a section that isn't
+   there). They
    are the only orientation the reader gets before their first step, so a guide that drops them sends someone
    into a step file having never been told what its sections are for.
 2. **Foundation docs under `foundation/`**, from the templates, **pre-filled from the plan**:
@@ -53,13 +55,16 @@ Use the one canonical skeleton — don't invent a per-guide structure. The fixed
      they are decisions, and this is the file that holds decisions. Otherwise: seeded with what the plan has,
      otherwise the empty template with headings. Two `conventions.md` sections are **never left empty**,
      because a later skill running in a fresh session can only read them from there:
-     § **Writing language** — the prose language the plan settled in Q7 (English if the plan doesn't say),
-     without which every skill silently defaults to English; and § **Commit messages** — the format every step's
-     `## Suggested commit` block follows (rule 4.5): fill it from the plan if the plan decided one, otherwise
-     seed the **Conventional Commits** default (`<type>(<scope>): <subject>`, imperative, no trailing period,
-     ≤72 characters, one step one commit) and note that the messages stay English whatever the prose language.
-     Write the scaffold's own prose in that language too — the skeleton (file names, template
-     headings, nav-line labels) stays English. In `glossary.md`, every term is a **`### <term>` heading**
+     § **Writing language** — **both** settings the plan settled in Q7 (English for both if the plan doesn't
+     say), without which every skill silently defaults to English: the **prose language** and the **code
+     language** (identifiers, comments, user-facing strings); and § **Commit messages** — the format every
+     step's `## Suggested commit` block follows (rule 4.5): fill it from the plan if the plan decided one,
+     otherwise seed the **Conventional Commits** default (`<type>(<scope>): <subject>`, imperative, no trailing
+     period, ≤72 characters, one step one commit), written in the **code** language, not the prose one.
+     § *Writing language* also carries the **heading map**, and you are the only skill that writes it — see
+     *Write the heading map*, below. Write the scaffold's own prose, and every heading you stamp into a
+     `README.md` or an `00_overview.md`, in the prose language, through that map.
+     In `glossary.md`, every term is a **`### <term>` heading**
      (never a bullet) so `../glossary.md#<slug>` deep-links from steps resolve natively on GitHub — bulleted
      terms have no anchor and the links silently fail. (Observed: a guide had dead `glossary.md#term`
      links because terms were bullets.)
@@ -70,12 +75,36 @@ Use the one canonical skeleton — don't invent a per-guide structure. The fixed
    here (two copies of a gate is one gate that drifts). Give the placeholder its canonical milestone nav line at **both**
    the top (line 2) and the bottom (after a `---`), identical — see `reference/canonical-layout.md`. That line
    ends with a `start:` segment linking the milestone's first step; at scaffold time no step file exists yet, so
-   write it as the literal text **`start: — not drafted yet`** (no link — a link to a missing `01_*.md` would be
+   write it as the literal text **`start: — not drafted yet`** — in the guide's own words for that
+   segment, as the heading map records them (no link — a link to a missing `01_*.md` would be
    a dead link). `draft-milestone` replaces it with `start: [<step 01 title>](01_<slug>.md)`.
 4. **`feedback-log.md` at the guide root**, from `templates/feedback-log.md` — the empty append-only field log
    for reader friction (header only, no entries yet). It's later appended by `/log-feedback` and `/report-issue`.
 
 Do not invent content the plan didn't decide — leave template headings empty rather than guessing.
+
+## Write the heading map (you are the only skill that writes it)
+
+The guide's prose language covers **everything the reader reads** — not only the sentences but the section
+headings, the inline markers and the nav vocabulary. Translating those ad hoc would give one section two
+different names in two steps, and leave every later skill (`audit-guide` looking for a Done-when, `amend-guide`
+inserting a corrections block, `clarify-step` rewriting a glossary line) matching on a string that isn't
+there. So the translation is decided **once, here**, and written into `conventions.md` § *Writing language* as
+the **heading map**: canonical English string on the left, the exact string this guide uses on the right.
+
+- Copy the table from `templates/conventions.md` **whole** — every row, in that order. A missing row is a
+  heading the drafter will end up translating on the fly.
+- **English guide → the right column repeats the left, verbatim.** Write it anyway: the map's presence is what
+  tells the later skills there is nothing to look up, and its absence is what `audit-guide` flags.
+- Translate for a **developer reading in that language** — the term the local ecosystem actually uses, not a
+  dictionary calque. Keep each heading's *shape*: a heading stays a heading at the same level, `New concept —`
+  keeps its em-dash and its no-emoji plain-text form, `Nav:` keeps its colon, and the `·` separator, the `—`
+  bare-prev dash and the `[ ]` marks are untouched.
+- Names that are **not** prose stay put in every language: file and folder names, the `foundation/` docs' own
+  section headings and table column keys (they are the schema the skills look things up by — and § *Writing
+  language* is where this map lives), commands, paths, doc URLs.
+- Use the map yourself immediately: the `README.md` you stamp and the placeholder `00_overview.md` files are
+  the first pages written through it.
 
 ## Stamp the GuideForge version (provenance rule)
 Every guide records **which version of the GuideForge plugin produced it** — the same way `stack.md` pins the

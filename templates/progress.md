@@ -18,6 +18,10 @@ Seeded by scaffold-guide (milestone sections, no step rows yet — no step files
 draft-milestone (one row per step file it writes), ticked by /mark-progress.
 Write the prose in the guide's language (conventions.md § Writing language); keep file names, the marks and
 the section keys exactly as below — they are matched literally.
+
+LANGUAGE — this is a `foundation/` doc: its section headings, table column keys and marks are the schema the
+skills look things up by, so they stay ENGLISH in every guide, whatever the prose language. The prose you
+write inside them follows the guide's prose language (conventions.md § Writing language).
 -->
 
 # PROGRESS — <project name>

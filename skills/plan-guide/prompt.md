@@ -60,7 +60,8 @@ The brief isn't only the one-line prompt. It can come from **any context you giv
   stable release minus any brand-new major still in its first weeks)** — a teaching guide wants the version
   with the most stable ecosystem and the fewest breaking-change surprises, not the bleeding edge. Say the
   choice explicitly and note that a reader who wants the newest major can opt in. For Q7's **writing language**,
-  default to the language of the brief you were given and state that assumption too. **Still run Phase 0.5** — the
+  default the **prose** to the language of the brief you were given and the **code** to English, and state both
+  assumptions too. **Still run Phase 0.5** — the
   online version/doc check does not need me and must always happen; it's where you confirm what the current LTS
   actually is.
 
@@ -121,13 +122,26 @@ confirmed with me too, not inferred from a source.**
 6. **Hard constraints.** Anything non-negotiable: platform, house style, "must not touch X," offline-only,
    budget, deadline pressure, existing codebase to build on vs greenfield.
 7. **Format, size & writing language.** Roughly how big is this — a weekend project, a multi-week course, a
-   reference? One document or a folder of many small files? And **which language is the guide's prose written
-   in** — propose the language I'm talking to you in as the default, and let me name another. Only the *prose*
-   follows that choice: file and folder names, the template section headings (`## Do this`,
-   `## Done when (this step)`, `## Suggested commit`, …), the nav-line labels (`Nav`, `Overview`,
-   `prev:`/`next:`/`start:`), the commit messages themselves, code, commands, identifiers and doc URLs stay
-   **English in every guide**, because the layout contract and the audit read them literally. Whatever I choose goes into the Conventions foundation doc (Phase 1) — it's the
-   only place the drafting and maintenance skills can read it from in a later session.
+   reference? One document or a folder of many small files? Then ask **two separate language questions** —
+   they have different right answers and one does not imply the other:
+   - **Prose language** — propose the language I'm talking to you in as the default, and let me name another.
+     Say what it covers, because it is more than the sentences: **everything I read is in it**, including the
+     section headings (`## Do this` → `## Fai così`), the `New here:` / `New concept —` / `Build vs borrow —`
+     markers, the nav vocabulary and the checklist labels. A page whose prose is Italian under an English
+     heading is half-translated, and the English half lands exactly where the reader is least able to read
+     past it. `scaffold-guide` will fix the translations once, in a **heading map** in the Conventions doc, so
+     every step uses the same words.
+   - **Code language** — ask **explicitly** whether that language also applies to the code the guide has me
+     write: **identifiers, comments and user-facing strings**. Default **English**, and say so: a guide in
+     another language teaching English-named code is a normal, common choice, and it's my repository that
+     lives with the answer. Make clear what the answer can *never* change — language keywords, standard-library
+     and framework API names, framework-mandated identifiers (lifecycle methods, config keys, route/DI names),
+     package names and file names stay as the platform defines them. The commit messages in `## Suggested
+     commit` follow this setting too, not the prose one.
+   Untranslated in every guide whatever I answer: file and folder names, the `foundation/` docs' own section
+   headings and table column keys, commands, paths and doc URLs — the pipeline and the audit read those
+   literally. Both answers go into the Conventions foundation doc (Phase 1) — the only place the drafting and
+   maintenance skills can read them from in a later session.
 8. **Build vs borrow — the default posture.** Parts of this build are almost certainly already solved by a
    library. Ask which way to lean when that happens; default **Balanced**:
    - **Borrow-first** → use the ecosystem's solution wherever one exists; the guide teaches integrating it.
@@ -229,11 +243,13 @@ Before decomposing the work, plan the shared docs every step will lean on. Propo
   under-explaining a New one.*
 - **Conventions** — the style/architecture rules the code will follow (naming, structure, patterns,
   data-vs-code decisions). One place, referenced everywhere, so no step re-argues them. It also **records the
-  writing language from Q7** (prose language + the note that the skeleton stays English): the later skills run
-  in fresh sessions and read the language from here or default to English. It also carries the **commit-message
-  convention** every step's `## Suggested commit` block follows (rule 4.5) — Conventional Commits
-  `<type>(<scope>): <subject>` unless the project the guide builds uses something else; state it once here so
-  no step invents its own.
+  writing language from Q7** — both settings: the **prose language** (which covers the headings and inline
+  markers too, translated once through the heading map `scaffold-guide` writes there) and the **code
+  language** for identifiers, comments and strings. The later skills run in fresh sessions and read them from
+  here or default to English. It also carries the **commit-message convention** every step's
+  `## Suggested commit` block follows (rule 4.5) — Conventional Commits `<type>(<scope>): <subject>` unless the
+  project the guide builds uses something else, written in the **code** language; state it once here so no step
+  invents its own.
 - **Glossary** — a running list of domain terms with one-sentence plain-language definitions. Steps link
   into it; it grows as the ladder introduces concepts.
 - **Status authority** — one file that is the *single source of truth* for what is actually done and verified

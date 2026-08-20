@@ -75,9 +75,7 @@ messier than that — a bare error string, "step 3 didn't work", a screenshot de
 ## What to do
 
 ### 1. Understand & locate
-Read `README.md` and `status.md` (frontier + milestone table) to orient, and `conventions.md` §
-*Writing language* for the language every edit you make must be written in (**English** if the section is
-missing; the skeleton — file names, template headings, nav-line labels, code — is never translated). Parse
+Read `README.md` and `status.md` (frontier + milestone table) to orient, and `conventions.md` § *Writing language* — the prose language every sentence and every **heading** you write must be in, the **heading map** whose right-hand column gives the exact section names and inline markers to reproduce byte for byte (never translate one yourself), and the **code language** for identifiers, comments and strings (**English for all three** if the section is missing; file and folder names, `foundation/` section headings and column keys, commands, paths and URLs are never translated). Parse
 each report into:
 symptom → the step (file + line) it occurred at → expected vs actual. If the location isn't given, find it
 by searching the guide. State, per report, exactly which step failed and at which action.

@@ -97,8 +97,11 @@ there's something they're missing.
   sits inside prose.
 - **"New concept" callout right above** — when the term first lands on a command, menu, or code line where
   an inline aside would wreck the flow, put a one-line callout on its own line *immediately above* that line:
-  `> New concept — **term**: one-sentence definition.` (The marker is this exact plain-text form — no emoji,
-  so it renders identically in every terminal and viewer. Deep-link the term's *official docs* here when it's
+  `> New concept — **term**: one-sentence definition.` (The marker's **shape** is fixed — blockquote, marker
+  words, em-dash, bold term, no emoji, so it renders identically in every terminal and viewer — while the
+  marker *words* are prose like everything else the reader reads: in a guide whose prose isn't English, write
+  them as `foundation/conventions.md` § *Writing language* → *Heading map* records, and never translate them
+  freshly per step. Deep-link the term's *official docs* here when it's
   an external API — the sourcing principle requires it — but **not** the glossary; see 1.1b.)
 
 If a step introduces many terms, also add a "Glossary for this step" block at the top — as an **index, not a
@@ -262,7 +265,10 @@ with your prose beside it, and once later in their own project, with nothing bes
 teaches nothing the second time; `const elapsedMs = endedAtMs - startedAtMs` still does. Cryptic names also
 force a comment to do the name's job, and make the prose ambiguous: "check `res`" doesn't say which of the two
 `res` on screen. **Do:** name every identifier **you** introduce — variable, constant, function/method, class,
-file, CSS class, config key, test name — for **what it holds or what it does**, readable in isolation:
+file, CSS class, config key, test name — for **what it holds or what it does**, readable in isolation. This
+holds **in whatever language `conventions.md` § *Writing language* sets for code** (English by default): a
+guide writing its code in Italian owes the reader `tempoTrascorsoMs`, not `t`. Either way, names the platform
+fixes — keywords, framework APIs, lifecycle methods, config keys the framework reads — are never translated:
 
 - **Nouns for state, verbs for behavior.** `pendingSnapshots`, `applyPaletteToSettings()`, not `arr`, `handle()`.
 - **Include the unit or type when it prevents a mistake** — `timeoutMs`, `widthPx`, `priceCents`.
@@ -302,7 +308,8 @@ stack solves**, put a one-line callout on its own line, right above the work:
 `> Build vs borrow — **<library> <version>** does this in production (<official docs URL>): you're writing it`
 `by hand here to learn <the mechanism>. Swap it in when <condition>.`
 
-Same plain-text marker style as the "New concept" callout — no emoji, so it renders everywhere. The library
+Same plain-text marker style as the "New concept" callout — no emoji, so it renders everywhere, and the same
+language rule: the shape is fixed, the marker words come from the guide's heading map. The library
 is a **verified** fact like any other: check that it exists, is maintained, and supports the pinned stack
 (sourcing principle), or don't name one. And the mirror case: when the guide **borrows**, one clause says what
 the library is doing for the reader, so the dependency isn't a black box either.
@@ -456,8 +463,10 @@ changed.
   and never one message spanning several steps.
 - **The message, not the command.** `git commit -m "…"` quotes differently in bash and PowerShell (see the
   cross-platform rule in `conventions.md`), and the reader may not be at a CLI at all.
-- **English, like the rest of the skeleton**, whatever language the guide's prose is written in: a commit log
-  is a literal artifact of the reader's project, not prose the guide translates.
+- **In the guide's *code* language** — `conventions.md` § *Writing language*, English by default — and not in
+  its prose language: a commit log is a literal artifact of the reader's project, not prose the guide
+  translates. The `<type>` and `<scope>` tokens are Conventional Commits' own vocabulary and stay English
+  in every guide.
 - **A corrections section carries its own single commit.** `## Before you continue — corrections` — written by
   the maintenance skills behind the frontier gate — closes with one `**Suggested commit:**` after its
   `**Corrected when:**` checklist, covering the whole section however many dated passes it has accumulated. The

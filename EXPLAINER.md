@@ -299,9 +299,11 @@ contract, not when you change a skill.
   New on each topic the build touches), a **granularity** dial (Terse → Highly granular), target end state, a
   **detailed stack interview** (language + version, framework/runtime, key libraries, package manager, target
   platform, the tool the reader drives), scope boundaries, hard constraints, and format, size & **writing
-  language** (which language the guide's prose is written in — default: the language you're asking in; the
-  skeleton stays English, see [reference/canonical-layout.md](reference/canonical-layout.md) § Writing
-  language). This is
+  language** — two answers, not one: the **prose language** (default: the language you're asking in), which
+  covers *everything you read* including the section headings and the `New here:` / `New concept —` markers,
+  and separately whether that language applies to the **code** too (identifiers, comments, user-facing
+  strings; default English, with keywords and framework APIs never translated). See
+  [reference/canonical-layout.md](reference/canonical-layout.md) § Writing language. This is
   *mandatory*; the prompt asks one concrete follow-up rather than infer if you're vague. The gate then
   **closes with a mandatory advise-back step**: before any plan, the planner suggests *other features* worth
   considering (yours to accept or decline) and flags the *long-run risks* of your choices — EOL/fading

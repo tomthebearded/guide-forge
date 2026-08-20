@@ -5,7 +5,46 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Changed
+
+- **A translated guide is now translated *whole* — headings and markers included — through a heading map.**
+  The contract used to freeze the "skeleton" in English: a guide written in Italian gave the reader Italian
+  sentences under `## Do this`, a `New here:` block, `New concept —` callouts and a `Nav: · Overview` line —
+  the furniture that tells them what they are looking at, in the language they didn't pick. That was a
+  pipeline convenience (every skill matched those strings literally) paid for by the reader, and it landed on
+  exactly the words that carry the teaching. **Everything reader-facing now follows the prose language**:
+  section headings, the inline markers, the nav vocabulary, the checklist labels. The pipeline keeps its
+  determinism through a **heading map** in `foundation/conventions.md` § *Writing language* — canonical
+  English string on the left, this guide's exact string on the right. `/scaffold-guide` writes it once,
+  complete (for an English guide the two columns are identical); every other skill reads the right column and
+  reproduces it byte for byte, and none translates a heading on the fly — which is what stopped two steps from
+  naming the same section two ways. Still untranslated in every guide, because they are matched literally and
+  not read as prose: file and folder names, the `foundation/` docs' own section headings and table column
+  keys (§ *Writing language* is where the map itself lives), `feedback-log.md`'s fixed field vocabulary,
+  commands, paths and doc URLs.
+
+- **Commit messages follow the guide's *code* language, not its prose language.** Rule 4.5's
+  `## Suggested commit` block was pinned to English "like the rest of the skeleton"; with the skeleton gone it
+  needed a real home, and a commit log is an artifact of the reader's repository — so it takes the new code
+  setting below (English by default). The `<type>` and `<scope>` tokens stay English in every guide: they are
+  Conventional Commits' own vocabulary, not prose.
+
 ### Added
+
+- **`/plan-guide` Q7 now asks a second language question: does the language apply to the code too?**
+  Prose language and code language are different decisions with different right answers, and conflating them
+  left the drafter guessing: a guide written in Italian teaching English-named code is a normal, common
+  choice, and so is the opposite. The new setting covers **identifiers, comments and user-facing strings**,
+  defaults to **English**, and is recorded beside the prose language in `conventions.md` § *Writing language*
+  so every later skill reads it in a fresh session. What the answer can never change is stated at the point of
+  asking: language keywords, standard-library and framework API names, framework-mandated identifiers
+  (lifecycle methods, config keys, route/DI names), package and file names stay as the platform defines them.
+  Rule 3.6 (self-describing identifiers) now applies **in the code language** — `tempoTrascorsoMs`, never `t`.
+  `/modernize-guide` asks the same question, reading the source document's own code as first evidence.
+  `/audit-guide` gains the matching checks: a missing or incomplete heading map, any heading or marker that
+  doesn't match it byte for byte (a heading left in English on a page whose prose isn't is now a defect, not a
+  style choice), the same section named two ways across two files, and code in the wrong language for the
+  setting.
 
 - **Rule 4.5 — every step that changes the project ends with a suggested commit.** New rule under P4, and a new
   `## Suggested commit` section in the step template, between `## Done when (this step)` and `## If it breaks`.
@@ -19,8 +58,9 @@ All notable changes to GuideForge are documented here. Format loosely follows
   manifest or a config line all land in version control and get a commit — the settings-only step is the one a
   reader is most likely to leave uncommitted. A step that changes nothing tracked (pure observation, a request
   fired at a running service, a click-through in a hosted console, an `NN_verify.md` that only checks) carries
-  **no** block: a message for an empty diff teaches the reader to commit noise. The messages stay **English**
-  whatever the guide's prose language — a commit log is an artifact of the reader's repository, not prose.
+  **no** block: a message for an empty diff teaches the reader to commit noise. The messages follow the guide's
+  **code** language (English by default) rather than its prose language — a commit log is an artifact of the
+  reader's repository, not prose.
   `/scaffold-guide` seeds the convention, `/plan-guide` states it in the writing contract, `/draft-milestone`
   writes the blocks and self-audits them, `/clarify-step` may add a missing one (but never reword one behind
   the frontier — the reader has already committed under it), and `/audit-guide` flags a missing block, a block
@@ -35,8 +75,9 @@ All notable changes to GuideForge are documented here. Format loosely follows
   surprise for the person following the guide: they opened `01_*.md` having been told the milestone order and
   nothing about the page in front of them, so the sections that are legitimately **absent** on some steps (no
   Glossary block, no `## Code`, no commit) read as a malformed step rather than a normal one. It is
-  orientation, not contract — one line per section, no rule restated — and the heading names stay English in a
-  translated guide, since they are what the reader will actually see on the page. `/audit-guide` flags a README
+  orientation, not contract — one line per section, no rule restated — and the heading names in its left column
+  are the guide's own, taken from the heading map, since they are what the reader will actually see on the
+  page. `/audit-guide` flags a README
   that lost either orientation section or whose table names sections the steps don't use.
 
 - **One commit for a corrections section.** The `## Before you continue — corrections` section that

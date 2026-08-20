@@ -22,8 +22,10 @@ reality and log the drift.
   lockfile/manifest pinning actual versions, a screenshot of the current UI, the guide's `status.md` — read
   them and treat them as ground truth. Reality in those files beats the guide's assumptions.
 - The guide's **writing language**, from `conventions.md` § *Writing language* (**English** if absent): any
-  patch you propose is written in it. Never translate the skeleton — file names, template headings, nav-line
-  labels, code, commands, identifiers and URLs stay English.
+  patch you propose is written in the prose language, with every heading and inline marker copied from the
+  **heading map** rather than translated afresh, and any code in the recorded **code language**. Never
+  translated: file and folder names, the `foundation/` docs' own headings and column keys, commands, paths
+  and doc URLs.
 
 ---
 

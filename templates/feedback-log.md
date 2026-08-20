@@ -5,6 +5,11 @@
 > changed. This is a **record, not a to-do**: logging an entry here does not by itself change the guide. To
 > actually fix the guide from a report, run `/report-issue` (it fixes the root cause and sweeps for siblings).
 >
+> <!-- LANGUAGE — the entry prose follows the guide's prose language (conventions.md § Writing language),
+> while the field labels and the fixed `Suspected class` / `Severity` / `Status` values stay ENGLISH in every
+> guide: they are the vocabulary this log is analysed by. A reader Quote is kept verbatim, in whatever
+> language they said it. -->
+>
 > Written by `/log-feedback` (capture) and, when a fix ships, by `/report-issue`. Newest entries on top; one
 > entry per distinct piece of friction. Use absolute dates (`2026-07-09`), never "today".
 

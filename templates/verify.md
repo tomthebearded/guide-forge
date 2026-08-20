@@ -9,6 +9,13 @@ Steps may teach an edit as a fragment ("add below X"); this file is where files 
 WHOLE, so a reader who lost the thread has one authoritative copy to diff against. Never let a guide-authored
 file's final state exist only as scattered fragments across steps — it must appear complete here.
 Every step must obey the pedagogy principles — see ../reference/pedagogy-rules.md.
+
+LANGUAGE — THE HEADINGS BELOW ARE CANONICAL, NOT LITERAL. Every section heading and inline marker in this
+template is the English string the skills know the section by. What you WRITE into the file is the guide's own
+version of it, copied byte for byte from foundation/conventions.md § Writing language → Heading map (for an
+English guide the two are identical). Never translate a heading on the fly, and never leave one in English on
+a page whose prose is not — the reader reads the furniture too. Untranslated regardless: file/folder names,
+code, commands, paths, doc URLs, the `·` separator and the `[ ]` marks.
 -->
 
 # <Milestone ID> · Verify — <milestone title>

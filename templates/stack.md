@@ -3,6 +3,10 @@ TEMPLATE: stack.md — the VERIFIED STACK (foundation doc, produced by prompt 01
 The single pinned-version reference every milestone builds against, so code stays consistent end to end.
 Every version claim must carry a real official-docs link and a check date — versions move.
 Re-verify (and bump the date) whenever you resume the guide after a gap; log changes in status.md.
+
+LANGUAGE — this is a `foundation/` doc: its section headings, table column keys and marks are the schema the
+skills look things up by, so they stay ENGLISH in every guide, whatever the prose language. The prose you
+write inside them follows the guide's prose language (conventions.md § Writing language).
 -->
 
 # Verified stack — <project name>

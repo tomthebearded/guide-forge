@@ -65,9 +65,7 @@ mark each unverified fact `UNVERIFIED — confirm` in the impact report rather t
 
 ### 1. Orient
 Read `PLAN.md` (the ladder and its rationale), `progress.md` (the frontier), `status.md` (milestone state,
-drift), `stack.md`, `conventions.md` § *Writing language* — the language every edit you write must be in
-(**English** if the section is missing; the skeleton — file names, template headings, nav labels, code — is
-never translated) — and enough of the milestone folders to know what is actually taught where.
+drift), `stack.md`, `conventions.md` § *Writing language* — the prose language every sentence and every **heading** you write must be in, the **heading map** whose right-hand column gives the exact section names and inline markers to reproduce byte for byte (never translate one yourself), and the **code language** for identifiers, comments and strings (**English for all three** if the section is missing; file and folder names, `foundation/` section headings and column keys, commands, paths and URLs are never translated) — and enough of the milestone folders to know what is actually taught where.
 
 ### 2. Trace the change through the guide
 Find **every** place the change reaches: steps whose code or commands change, gates that no longer prove the
