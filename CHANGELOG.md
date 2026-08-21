@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.18.0] — 2026-08-21
+
 ### Added
 
 - **`/check-my-work` — a new skill that checks the reader's *project*, not the guide.** Every other skill in
