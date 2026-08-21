@@ -30,6 +30,18 @@ Followed end to end: the repo's own history walks the ladder milestone by milest
 step. Its `foundation/status.md` still shows the gates unticked — the build outran the guide's own status
 authority, which is worth knowing before you read that file as reality.
 
+### [guide-forge-vscode-extension](https://github.com/tomthebearded/guide-forge-vscode-extension) — GuideForge `v1.2.0`
+
+Takes a reader to *Van Code*, a TypeScript VS Code extension whose sidebar panel live-recolors the entire
+editor — workbench chrome *and* syntax/semantic tokens — non-destructively, ending at a packaged `.vsix`.
+7 milestones, 43 steps and 7 verify gates, audited twice with every finding fixed.
+
+Followed to the end, through M7 to the packaged extension, which ships beside the guide in the same
+repository. Running it for real is also what produced several of the rules the toolkit now carries: the debug
+host masking a milestone's headline gate (rule 6.2), a step that ended on a deliberately broken build (rule
+4.4), and a capability claimed on a setting's *namespace* rather than the setting itself (the sourcing
+principle).
+
 ---
 
 ## Guide only — not followed to the end yet
@@ -37,16 +49,9 @@ authority, which is worth knowing before you read that file as reality.
 The guide is drafted and audited; nobody has taken it all the way through. Read these for the shape of the
 output, not as proof a reader gets to the finish line on their own.
 
-### [guide-forge-vscode-extension](https://github.com/tomthebearded/guide-forge-vscode-extension) — GuideForge `v1.2.0`
-
-Takes a reader to *Van Code*, a TypeScript VS Code extension whose sidebar panel live-recolors the entire
-editor — workbench chrome *and* syntax/semantic tokens — non-destructively, ending at a packaged `.vsix`.
-7 milestones, 43 steps and 7 verify gates, audited twice with every finding fixed.
-
-Built as far as M5 of 7. Running it for real is what produced several of the rules the toolkit now carries:
-the debug host masking a milestone's headline gate (rule 6.2), a step that ended on a deliberately broken
-build (rule 4.4), and a capability claimed on a setting's *namespace* rather than the setting itself (the
-sourcing principle). A guide that hasn't been finished can still be the most productive one you own.
+*Nothing sits here right now — both published guides have been built end to end. The heading stays because
+the distinction does: a drafted, audited guide is not yet evidence that a reader reaches the finish line
+unaided.*
 
 ---
 

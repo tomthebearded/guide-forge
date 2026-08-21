@@ -1,8 +1,8 @@
 # Prompt examples — the auxiliaries
 
 Skills you reach for around a guide rather than to produce one: QA it, keep it current, convert something that
-already exists, track how far you've got through it, change it around work you've already done, and capture
-what readers hit. Plain-chat form is the same everywhere — paste the skill's
+already exists, track how far you've got through it, check that what you built matches what it told you to
+build, change it around work you've already done, and capture what readers hit. Plain-chat form is the same everywhere — paste the skill's
 `prompt.md`, then the argument, then the files.
 
 ---
@@ -79,6 +79,36 @@ A whole milestone, gate included:
 Only the gate earns a `✅`. Claim the milestone without mentioning the verify and it asks the one question
 before writing, because a milestone marked verified by nobody's observation is the one lie the status file
 must never carry.
+
+---
+
+## `check-my-work` — did I actually build what the steps said?
+
+```
+/check-my-work M6
+```
+
+**Attach:** nothing in Claude Code — it reads the guide and your real project itself.
+
+The only skill that treats the **project** as the thing to be checked. It reads the milestone checkpoints (the
+complete-file sections of each `NN_verify.md`), diffs your real files against them, cross-checks
+`progress.md` against your version-control history to catch steps ticked on days nothing was touched, re-runs
+the gate checks that need no human, and sorts every difference into **cosmetic / deliberate / defect / never
+executed** — so a rename you made everywhere is one line in the report and the half-applied edit under it
+isn't buried.
+
+Wider scope when you've lost track of where you are:
+
+```
+/check-my-work everything I've executed
+```
+
+Read-only on both sides: it changes neither your project nor the guide. You repair your own code — that is
+what following a guide is for — and it names the sibling that owns anything else (`/mark-progress` to record,
+`/report-issue` for a guide defect, `/amend-guide` for a deviation you want to keep).
+
+**Before `mark-progress`, not instead of it.** One step just finished, mark it. A run of steps, a whole
+milestone, or work from last week: check first, then mark what the check confirmed.
 
 ---
 

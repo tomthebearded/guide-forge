@@ -6,7 +6,7 @@ where progress is tracked below milestone level.
 THE AUTHORITY SPLIT — read this before writing either file:
   progress.md  = what the reader has EXECUTED. Step granularity. Owned by the reader (written by
                  /mark-progress, read by /amend-guide to find the frontier, checked by /audit-guide
-                 against the step files on disk).
+                 against the step files on disk and by /check-my-work against the reader's real project).
   status.md    = the state of the GUIDE. Milestone verified/in-progress, drift log, session log, provenance.
                  Still the authority on "is this milestone verified" — but its frontier and its milestone
                  table are DERIVED from this file, never written in disagreement with it.

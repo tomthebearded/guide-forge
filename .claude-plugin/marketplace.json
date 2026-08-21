@@ -8,7 +8,7 @@
     {
       "name": "guide-forge",
       "source": "./",
-      "description": "Plan, draft, clarify, review, modernize, audit, scaffold, version-update, amend-mid-flight, track-progress, fix-from-field-reports, and log-reader-feedback learn-as-you-go developer guides, plus a pre-PR contributor check. Thirteen skills, one install."
+      "description": "Plan, draft, clarify, review, modernize, audit, scaffold, version-update, amend-mid-flight, track-progress, check-executed-work, fix-from-field-reports, and log-reader-feedback learn-as-you-go developer guides, plus a pre-PR contributor check. Fourteen skills, one install."
     }
   ]
 }

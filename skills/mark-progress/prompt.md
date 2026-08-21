@@ -31,6 +31,12 @@ Read it against the guide's real files rather than against what the reader remem
 
 - **Mark exactly what was claimed.** A reader who names one step has told you about **one** step. Do not tick
   the steps before it on the assumption they must have been done — say what the gap is and ask.
+- **A claim you can check is worth checking first.** One step just finished is a claim to take at face value.
+  A **run** of steps, a whole milestone, or work done a while ago is the claim that goes wrong quietly — a
+  step ticked that never touched a file leaves every later skill reading a frontier that isn't there. Offer
+  `/check-my-work` (read-only, reads the reader's real project back against the milestone checkpoints) and
+  mark what it confirms. Offer it; never require it — a reader who says "just record it" is recording their
+  own claim, which is exactly what this ledger is for.
 - **A run is a run.** "Through M2/03", "up to the store", "the whole of M1" all mark every step in that range,
   because that is what the reader said.
 - **A milestone is only `✅` when its gate was observed.** If the reader claims a milestone without mentioning
@@ -70,6 +76,9 @@ Read it against the guide's real files rather than against what the reader remem
 
 ## When it's more than bookkeeping
 
+- The reader wants the claim **verified**, not just recorded → `/check-my-work` reconciles their project
+  against the checkpoints of the steps in question and comes back with what to mark, including the `[~]` rows
+  their own project says are owed.
 - The reader hit friction → `/log-feedback` records it, `/report-issue` fixes the guide.
 - The reader wants the guide **changed** from here on → `/amend-guide`, which reads exactly the ledger you just
   wrote to know what it must not touch.

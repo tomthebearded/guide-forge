@@ -74,14 +74,17 @@ These items are enforced by `scripts/check-consistency.mjs` + `check-version.mjs
 don't re-perform them by hand; you confirm the scripts passed and add the judgment only where noted.
 - **Skill frontmatter.** *(script)* `name` matches folder, frontmatter parses. If a `SKILL.md` you touched is
   missing `description`/`argument-hint`, flag it — those two aren't in the script's assertions.
+<!-- The next bullet describes the bash-injection line WITHOUT writing it literally: this file is itself a
+     skill, so an exclamation mark followed directly by a backtick would be executed on every /pre-pr-check
+     run — against a prompt.md that pre-pr-check deliberately doesn't have. Keep the two apart. -->
 - **Skill wrappers delegate, don't duplicate.** *(script checks the injection line exists)* Each skill that
-  **has** a co-located `prompt.md` must inline it via exactly `` !`cat "${CLAUDE_SKILL_DIR}/prompt.md"` `` — not
-  a re-inlined copy of the contract, and never a stale `../../prompts/…` traversal (that path no longer exists)
-  or a bare prose `${CLAUDE_SKILL_DIR}/…` outside a `` !`…` `` block (`CLAUDE_SKILL_DIR` only expands inside
-  bash injection). **Self-contained skills have no `prompt.md` and are correctly exempt** — currently only
-  `pre-pr-check` (the repo-maintenance skill that only runs inside this repo). Your
-  judgment add: eyeball a touched wrapper for a re-grown full copy of its prompt's phases/rules (the drift the
-  script can't measure).
+  **has** a co-located `prompt.md` must inline it via exactly one bash-injection line — an exclamation mark
+  immediately followed by `` `cat "${CLAUDE_SKILL_DIR}/prompt.md"` `` — not a re-inlined copy of the contract,
+  and never a stale `../../prompts/…` traversal (that path no longer exists) or a bare prose
+  `${CLAUDE_SKILL_DIR}/…` outside such a line (`CLAUDE_SKILL_DIR` only expands inside bash injection).
+  **Self-contained skills have no `prompt.md` and are correctly exempt** — currently only `pre-pr-check` (the
+  repo-maintenance skill that only runs inside this repo). Your judgment add: eyeball a touched wrapper for a
+  re-grown full copy of its prompt's phases/rules (the drift the script can't measure).
 - **Skill registry in sync.** *(script checks the count)* If a skill was added or removed, confirm the count in
   `.claude-plugin/marketplace.json` `plugins[].description` (e.g. "Thirteen skills, one install") and every
   "N skills" phrasing in `README.md`/`EXPLAINER.md` reflects the new total — and that the skill **tables/lists**

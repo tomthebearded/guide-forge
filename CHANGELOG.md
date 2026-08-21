@@ -5,6 +5,58 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.18.0] — 2026-08-21
+
+### Added
+
+- **`/check-my-work` — a new skill that checks the reader's *project*, not the guide.** Every other skill in
+  the toolkit reads documents: the guide says what the reader was told to build, and `progress.md` says what
+  they claim to have executed. Nothing read the third witness — the project itself — so a step could be ticked
+  and never performed, and nobody would find out until a milestone gate failed and got filed as a guide
+  defect. This skill closes that gap: it diffs the real files against each milestone's *Files after this
+  milestone* checkpoint (the complete-file sections that already exist in every `NN_verify.md`, and the reason
+  this check is possible at all), cross-checks the ledger against version-control history to catch steps
+  marked `[x]` whose files were never touched, re-runs only the gate checks that need no human, and
+  classifies every difference as **cosmetic / deliberate / defect / never executed** — so a consistent rename
+  is reported as a count and the half-applied edit underneath it isn't buried. Read-only on both sides: it
+  changes neither the project (the reader repairs their own work — that is what a learn-as-you-go guide is
+  for) nor the guide, handing off to `/mark-progress`, `/report-issue` or `/amend-guide` for anything that
+  must be written. It also never calls a milestone verified: it re-ran the machine-checkable half of a gate,
+  and says which checks are still owed to a person. It is indexed everywhere the other skills are — both
+  skill lists, the file tree, the maintenance prompt examples — and `templates/progress.md` now names it as
+  the ledger's second reader, beside `/amend-guide`.
+
+### Changed
+
+- **`/mark-progress` now offers to verify a big claim before it records it.** Marking one step just finished
+  is a claim to take at face value; a run of steps, a whole milestone, or work done a while ago is the claim
+  that goes wrong quietly. The ledger prompt and its wrapper now point at `/check-my-work` for those, and take
+  back the `[~]` rows it finds. Offered, never required — a reader who says "just record it" is recording
+  their own claim, which is what the ledger is for.
+
+- **The README tips now cover the last three releases' features.** Four gaps had opened between what the
+  toolkit does and what the tips tell you to do about it. *Following a guide* gains a tip for
+  `/check-my-work` — check what you built, not what you ticked, before a gate blames the guide — and its
+  `/mark-progress` tip now says a run of steps, a milestone, or week-old work gets offered a check first. Its
+  commit tip stopped telling readers to invent a message: every step that leaves something in the tree now
+  ends with a **Suggested commit** (rule 4.5), so the tip points at it. *Creating a guide* gains the two
+  language questions — prose and code are asked separately, and the prose answer becomes the heading map that
+  fixes each section's wording once, which is the thing that stops a page coming out half-translated.
+
+- **`guide-forge-vscode-extension` moves to *Followed to the end*.** Van Code was built through M7 to the
+  packaged extension, which now ships beside its guide in the same repository — so the entry belongs under
+  the heading that means someone reached the finish line. The *Guide only* section stays, empty and labelled:
+  the distinction it draws is what keeps the index honest, and the next example filed there will need it.
+
+### Fixed
+
+- **`/pre-pr-check` no longer errors on its own documentation.** Its wrapper is the one skill with no
+  `prompt.md`, but the bullet describing how the *other* wrappers inline theirs wrote the bash-injection
+  sequence out literally — and a `SKILL.md` is executed, not just read, so every invocation opened with a
+  failed `cat` against a file the skill deliberately doesn't have. The rule is now stated without the literal
+  (an exclamation mark, then the backticked `cat`), with a comment saying why it must stay split. Nothing
+  about the check itself changed.
+
 ## [1.17.0] — 2026-08-20
 
 ### Changed
