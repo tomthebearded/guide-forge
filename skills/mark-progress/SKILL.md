@@ -29,6 +29,10 @@ As you follow it, adapt for the fact that you're a Claude Code skill, not a past
   rows from the step files actually on disk) if it's missing.
 - **Marks only — touch nothing else.** Do **not** edit step files, overviews, `glossary.md`, `stack.md`,
   `conventions.md`, `decision-log.md`, or the guide `README.md`. Two files, and no others.
+- **A big claim is worth checking before you record it.** For a run of steps, a whole milestone, or work done
+  a while ago, offer the sibling **skill** `/check-my-work` first — it reads the reader's real project back
+  against the milestone checkpoints and tells you what actually landed. Offer, don't insist; then mark what
+  comes back.
 - When the reader wants the guide **changed**, hand off to the sibling **skill** `/amend-guide`; for friction,
   `/log-feedback` or `/report-issue`. Say so; don't do their job here.
 

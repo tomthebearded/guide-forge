@@ -10,7 +10,7 @@
 
 ## Contents
 
-- [Skills at a glance](#skills-at-a-glance-cheat-sheet) — one-line recap of all thirteen skills
+- [Skills at a glance](#skills-at-a-glance-cheat-sheet) — one-line recap of all fourteen skills
 1. [The problem, precisely](#1-the-problem-precisely)
 2. [The core idea: learn-as-you-go](#2-the-core-idea-learn-as-you-go)
 3. [The pillars](#3-the-pillars)
@@ -28,7 +28,7 @@
 
 ## Skills at a glance (cheat-sheet)
 
-The whole toolkit is **thirteen skills** (each a `/slash-command`, each also a paste-prompt twin). What each does,
+The whole toolkit is **fourteen skills** (each a `/slash-command`, each also a paste-prompt twin). What each does,
 in one line — the deep dives are in [§6](#6-the-four-prompts-in-depth) and the per-file tour in
 [§5](#5-every-file-explained).
 
@@ -45,6 +45,7 @@ in one line — the deep dives are in [§6](#6-the-four-prompts-in-depth) and th
 - **`/modernize-guide`** — recasts an existing tutorial/README/runbook as a GuideForge plan.
 - **`/amend-guide`** — the requirements changed mid-build: rewrites what's ahead of the reader, never what they've executed.
 - **`/mark-progress`** — records what has actually been executed into `progress.md`; the frontier the amendment reads.
+- **`/check-my-work`** — diffs the real project against the checkpoints of the steps you executed; catches half-applied edits and steps ticked but never done (read-only).
 - **`/report-issue`** — fixes a reader's field report at the root, everywhere it appears, and logs it.
 - **`/log-feedback`** — captures reader friction to `feedback-log.md` for later analysis, *without* touching the guide.
 
@@ -203,7 +204,9 @@ into a plan), `audit-guide/prompt.md` (lint a drafted guide against the contract
 online, bring the guide up to date, and re-audit), `amend-guide/prompt.md` (the requirements changed mid-build —
 fold them in ahead of the reader's frontier, leave their executed work alone, retrofit what the change
 invalidated), `mark-progress/prompt.md` (record what the reader has actually executed into `progress.md`, and
-reconcile `status.md` with it), `report-issue/prompt.md` (a reader hit a real issue following the
+reconcile `status.md` with it), `check-my-work/prompt.md` (read the reader's real project back against the
+milestone checkpoints of the steps they executed, and classify every difference — read-only, the only skill
+that treats the project rather than the guide as the thing to be checked), `report-issue/prompt.md` (a reader hit a real issue following the
 guide — fix the root cause everywhere it appears, log it, and re-audit), and `log-feedback/prompt.md` (capture a
 reader's friction into the guide's `feedback-log.md` for later analysis — log-only, no fix, decoupled from
 `report-issue`).
@@ -212,8 +215,8 @@ reader's friction into the guide's `feedback-log.md` for later analysis — log-
 
 Each is a folder with a `SKILL.md` (YAML frontmatter + instructions). The repo ships as a Claude Code
 **plugin** (`.claude-plugin/plugin.json`), so one install adds every skill — the four pipeline stages
-(`/plan-guide`, `/draft-milestone`, `/clarify-step`, `/review-before-follow`) plus eight auxiliary tools
-(`/modernize-guide`, `/audit-guide`, `/scaffold-guide`, `/update-stack`, `/amend-guide`, `/mark-progress`, `/report-issue`, `/log-feedback`), and one repo-maintenance skill for contributors to
+(`/plan-guide`, `/draft-milestone`, `/clarify-step`, `/review-before-follow`) plus nine auxiliary tools
+(`/modernize-guide`, `/audit-guide`, `/scaffold-guide`, `/update-stack`, `/amend-guide`, `/mark-progress`, `/check-my-work`, `/report-issue`, `/log-feedback`), and one repo-maintenance skill for contributors to
 GuideForge itself (`/pre-pr-check`, which gates a PR against the CONTRIBUTING rules — skill-only, no paste
 prompt, since it only makes sense run inside this repo). They're **thin wrappers, not copies**: each
 `SKILL.md` is just its frontmatter plus a bash-injection line that **inlines its co-located `prompt.md`**

@@ -82,7 +82,7 @@ GuideForge encodes that discipline as reusable prompts and skills, so what comes
 | **A drafting prompt** | Expands one approved milestone into atomic, teaching step-files — built against the pinned versions, APIs re-checked against the live docs. |
 | **A clarity prompt** | Runs the pedagogy pass over any existing step to remove confusion. |
 | **A review-before-follow prompt** | The gate you run before *acting on* any guide, so stale/ambiguous steps get fixed first. |
-| **A Claude Code plugin** | Installs as one plugin — twelve guide-authoring slash-command skills (the four pipeline stages plus `/modernize-guide`, `/audit-guide`, `/scaffold-guide`, `/update-stack`, `/amend-guide`, `/mark-progress`, `/report-issue`, `/log-feedback`), each also accepting optional attached files, plus `/pre-pr-check` for contributors to the plugin itself. |
+| **A Claude Code plugin** | Installs as one plugin — thirteen guide-authoring slash-command skills (the four pipeline stages plus `/modernize-guide`, `/audit-guide`, `/scaffold-guide`, `/update-stack`, `/amend-guide`, `/mark-progress`, `/check-my-work`, `/report-issue`, `/log-feedback`), each also accepting optional attached files, plus `/pre-pr-check` for contributors to the plugin itself. |
 | **Copy-paste templates** | Guide README (front door), milestone overview, step file, verified-stack table, status authority, execution ledger, glossary, conventions, decision log. |
 | **Reference docs** | The pedagogy rules, milestone-design method, and audience-modeling method — all explained. |
 | **[EXPLAINER.md](EXPLAINER.md)** | Every file, every rule, every design decision — explained from scratch. Start here if you want the *why*. |
@@ -91,7 +91,7 @@ GuideForge encodes that discipline as reusable prompts and skills, so what comes
 
 ## Skills at a glance
 
-Thirteen skills, one plugin. What each does *for you* — invoke any as a `/slash-command`, or paste its twin prompt in a plain chat.
+Fourteen skills, one plugin. What each does *for you* — invoke any as a `/slash-command`, or paste its twin prompt in a plain chat.
 
 **Build a guide (the pipeline):**
 
@@ -112,6 +112,7 @@ Thirteen skills, one plugin. What each does *for you* — invoke any as a `/slas
 | `/modernize-guide` | Converts an existing tutorial / README / runbook into a learn-as-you-go GuideForge plan. |
 | `/amend-guide` | The requirements changed while you're halfway through → folds the change into what's ahead of you, leaves what you've already built alone, and tells you exactly what to repair where it can't. |
 | `/mark-progress` | Ticks what you've actually executed into the guide's `progress.md` ledger — the frontier every other maintenance skill reads. |
+| `/check-my-work` | Diffs the **real project** against the checkpoints of the steps you executed — catching half-applied edits and steps ticked but never performed, before a gate blames the guide (read-only). |
 | `/report-issue` | A reader hit a real issue → fixes the root cause *everywhere* it appears and logs the fix — stopping first if "everywhere" reaches a step you've already executed, so you choose how the repair is delivered. |
 | `/log-feedback` | Captures reader friction to the guide's `feedback-log.md` — a durable record for improving the guide and the method — **without** changing the guide. |
 
@@ -125,7 +126,7 @@ Thirteen skills, one plugin. What each does *for you* — invoke any as a `/slas
 
 ## How it works
 
-GuideForge's core is a **pipeline of four prompts** (plus eight auxiliary tools — see [the toolkit](#the-toolkit)). You stay in the loop between each stage — nothing runs end-to-end unattended.
+GuideForge's core is a **pipeline of four prompts** (plus nine auxiliary tools — see [the toolkit](#the-toolkit)). You stay in the loop between each stage — nothing runs end-to-end unattended.
 
 ```mermaid
 flowchart LR
@@ -160,7 +161,7 @@ The plan is drafted into the **whole guide in one pass**, so you have it in hand
 
 ### Option B — Claude Code (install as a plugin)
 
-GuideForge ships as a Claude Code **plugin** — install it once and all the skills come with it (the twelve
+GuideForge ships as a Claude Code **plugin** — install it once and all the skills come with it (the thirteen
 guide-authoring skills plus `/pre-pr-check` for contributors; each keeps its own slash command). Point Claude
 Code at a checkout, then install:
 
@@ -214,6 +215,7 @@ Append the pedagogy rules (the writing contract) from [`reference/pedagogy-rules
 | [update-stack](skills/update-stack/prompt.md) | paste prompt / `/update-stack` | A guide's framework/library versions have moved and you want them re-verified, the guide brought up to date, and re-audited. |
 | [amend-guide](skills/amend-guide/prompt.md) | paste prompt / `/amend-guide` | What you want built has changed while someone is partway through the guide, and the work already done must survive it. |
 | [mark-progress](skills/mark-progress/prompt.md) | paste prompt / `/mark-progress` | You finished a step, a sitting, or a milestone and want it recorded — the ledger `amend-guide` reads to know what it must not rewrite. |
+| [check-my-work](skills/check-my-work/prompt.md) | paste prompt / `/check-my-work` | You want to know whether your project actually contains what the executed steps said to write — before a milestone gate, or before marking a run of them done (read-only). |
 | [report-issue](skills/report-issue/prompt.md) | paste prompt / `/report-issue` | A reader hit a real issue following the guide and you want the root cause fixed everywhere it appears, not just where they got stuck. |
 | [log-feedback](skills/log-feedback/prompt.md) | paste prompt / `/log-feedback` | A reader hit friction and you want it recorded in the guide's `feedback-log.md` for later analysis — captured, not fixed (that's `report-issue`). |
 
@@ -255,6 +257,7 @@ guide-forge/                      ← a single project = one Claude Code plugin
 │   ├── update-stack/             ← auxiliary · SKILL.md + prompt.md
 │   ├── amend-guide/              ← auxiliary · SKILL.md + prompt.md
 │   ├── mark-progress/            ← auxiliary · SKILL.md + prompt.md
+│   ├── check-my-work/            ← auxiliary · SKILL.md + prompt.md
 │   ├── report-issue/             ← auxiliary · SKILL.md + prompt.md
 │   ├── log-feedback/             ← auxiliary · SKILL.md + prompt.md
 │   └── pre-pr-check/SKILL.md     ← repo maintenance (self-contained; no prompt.md)
@@ -288,7 +291,7 @@ guide-forge/                      ← a single project = one Claude Code plugin
 │   ├── real-examples.md           ← guides the pipeline produced, each linked in its own repo
 │   ├── plan-guide-prompts.md      ← eight worked briefs, fully-specified and one-line
 │   ├── pipeline-prompts.md        ← scaffold · draft · clarify · review-before-follow
-│   └── maintenance-prompts.md     ← audit · update-stack · modernize · amend · mark-progress · report-issue · log-feedback
+│   └── maintenance-prompts.md     ← audit · update-stack · modernize · amend · mark-progress · check-my-work · report-issue · log-feedback
 │
 └── scripts/                      ← repo maintenance (run via `npm test` / `npm run …`)
     ├── check-version.mjs          ← the three version stamps agree (plugin.json / badge / CHANGELOG)
@@ -324,10 +327,10 @@ New here? Follow this order.
 | A migration runbook | "move our REST API to gRPC" | The *why* behind each change, not just the diff. |
 
 **See one for real.** [**examples/real-examples.md**](examples/real-examples.md) indexes guides the pipeline
-produced, each published as its own repo — starting with a 25-step one that takes a total beginner to a
-working 2D browser platformer, built end to end from the guide. The index separates those from guides that are
-drafted and audited but **not yet followed through**, because only the first kind is evidence the teaching
-works. For what to *type* rather than what comes out, see
+produced, each published as its own repo — a 25-step one that takes a total beginner to a working 2D browser
+platformer, and a 43-step one that ends at a packaged VS Code extension, both built end to end from the guide.
+The index keeps those apart from guides that are drafted and audited but **not yet followed through**, because
+only the first kind is evidence the teaching works. For what to *type* rather than what comes out, see
 [examples/plan-guide-prompts.md](examples/plan-guide-prompts.md).
 
 ---
@@ -393,6 +396,16 @@ on it, where one does.
   resolves it. Don't supply version numbers from memory, yours or the model's; that's what the stack
   verification pass is for. **Skill:** [/plan-guide](skills/plan-guide/prompt.md) — later,
   [/update-stack](skills/update-stack/prompt.md) re-verifies those pins.
+- **Answer the two language questions separately.** The interview asks which language the guide's **prose** is
+  in and, as a distinct question, whether the **code** follows it — one doesn't imply the other, and a guide
+  written in Italian that teaches English-named identifiers is a normal, common choice. Prose covers
+  everything you read, section headings and `New here:` markers and nav labels included, so no page comes out
+  half-translated; code covers identifiers, comments and user-facing strings, and never keywords, framework
+  APIs, file names, commands or paths. Both answers are frozen in `conventions.md` — the prose one as a
+  **heading map** that fixes each section's wording once, so every later skill writes the same words and the
+  audit still recognizes the sections. Changing your mind after drafting means re-translating a whole guide.
+  **Skill:** [/plan-guide](skills/plan-guide/prompt.md) asks;
+  [/scaffold-guide](skills/scaffold-guide/prompt.md) writes the map.
 - **Name the non-goals.** Scope boundaries keep a guide tight more reliably than goals do — "no auth, no
   deployment, no multiplayer" prevents more sprawl than any amount of describing what you do want. They shape
   the *ladder*, not the prose: the guide itself never lists what it isn't doing, because a reader learns
@@ -488,22 +501,38 @@ you start building against it. Each tip names the skill that acts on it, where o
 - **Don't just copy-paste.** Every step tells you *where* the code goes and *why* it's there — that context is
   the point. Type it, or at minimum read the explanation before you paste the block. A guide you paste your
   way through teaches you nothing, and you won't be able to debug it when it breaks. **Skill:** none.
-- **Commit at the end of every step.** Every step is cut so it ends with the project building, which makes
-  each step boundary a safe restore point — one you get for free and most readers never use. Name the commit
-  after the milestone and step you just finished, so the log reads as your path through the guide and
-  `git diff` against the previous commit shows exactly what that step changed:
-  `M2 step 03 — add the books route`. **Skill:** none — this one is yours.
+- **Commit at the end of every step — with the message the step hands you.** Every step is cut so it ends with
+  the project building, which makes each step boundary a safe restore point: one you get for free and most
+  readers never use. You don't have to name the change yourself either — every step that leaves something in
+  the tree ends with a **Suggested commit** block, written in the convention `foundation/conventions.md`
+  records, and a flipped project setting or an added asset gets one just as a code change does. Use it, and
+  the log reads as your path through the guide while `git diff` against the previous commit shows exactly what
+  that step changed. **Skill:** none — the guide only hands you the message; running it is yours.
 - **Mark a step done the moment you finish it, not at the end of a sitting.** Ticking it in
   `foundation/progress.md` takes one line — `/mark-progress M2/03` — and that ledger is the only record of
   where you actually are: it's what lets `/amend-guide` change the guide later *around* the work you've
   already built instead of over it, and an unticked guide is one those skills must treat as entirely unbuilt.
   Mark the milestone too when its gate passes, and the marks stay honest: nothing goes `✅` on a gate you
-  didn't watch pass. **Skill:** [/mark-progress](skills/mark-progress/prompt.md).
+  didn't watch pass. One step just finished is recorded as you say it; ask to mark a *run* of steps, a whole
+  milestone, or work you did a while ago and you'll be offered a check of the claim first — take it, because
+  that's the claim that goes wrong quietly. **Skill:**
+  [/mark-progress](skills/mark-progress/prompt.md), which offers
+  [/check-my-work](skills/check-my-work/prompt.md) when the claim is big enough to be worth checking.
 - **Don't skip the `NN_verify.md` checkpoint at the end of a milestone.** It holds the milestone's real gate,
   checked by hand — and the only complete, paste-able copy of every file the milestone touched. If you
   suspect you've drifted, that's the file you diff against. Skipping it means finding out two milestones
   later, where the failure no longer points at what caused it. **Skill:**
   [/mark-progress](skills/mark-progress/prompt.md) — it's what records that the gate passed.
+- **Before a gate, check what you built — not what you ticked.** The guide says what you were *told* to write
+  and `progress.md` says what you *claim* to have done; neither of them has looked at your actual files. The
+  quiet failures live in that gap: an edit applied to one call site out of three, a fragment pasted into the
+  wrong function, a step ticked on a day you never opened the editor. `/check-my-work` reads your real project
+  back against the milestone checkpoints of the steps you executed, ignores cosmetic differences, cross-checks
+  the ledger against your commit history, and sorts what's left into deliberate deviations and actual defects
+  — before a failing gate gets filed as a defect in the guide. It's read-only on both sides: it tells you what
+  drifted, and you repair your own project, which is the whole point of building it yourself. **Skill:**
+  [/check-my-work](skills/check-my-work/prompt.md), then
+  [/mark-progress](skills/mark-progress/prompt.md) to record what it confirmed.
 - **Follow the whole guide before adding your own changes.** Resist the urge to refactor, rename, or expand as
   you go. Later steps build on the exact state the earlier ones left behind — file names, function signatures,
   folder layout — so an early "improvement" can make the next steps hard or impossible to follow. Reach the
