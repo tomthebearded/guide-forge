@@ -239,7 +239,10 @@ The principles (rules cited by dotted id; full contract in
   `conventions.md` § *Commit messages* records (Conventional Commits `<type>(<scope>): <subject>` by default),
   imperative, ≤72 chars, message only (never `git commit -m`), in the **code** language (English by default),
   not the prose one; a settings
-  flip, an asset preset or a manifest edit counts, and a step that changes nothing tracked gets no block.
+  flip, an asset preset or a manifest edit counts, and a step that changes nothing tracked gets no block;
+  **4.6** an action performed more than a handful of times arrives with its **count** and the environment's
+  **bulk path** (a multi-selection applied at once, an import preset, a generator, a loop or short script, a
+  data file instead of N literals) — and where no bulk path exists, one clause says so with the count.
 - **P5 Anticipate failure** — **5.1** name the likely failure and its usual cause.
 - **P6 Prove the gate** — **6.1** every Done-when exercises the exact property it claims; **6.2** the property
   is observable in the environment the step tells the reader to watch — never let a debug session, dev mode,
@@ -455,6 +458,9 @@ yourself. Confirm:
 - **every step that changes the tree carries its `## Suggested commit` (rule 4.5)** — one message in the
   guide's recorded format, and *no* block on the steps that change nothing tracked; walk the milestone and ask
   of each step "what would `git status` show?" — settings, assets and config count as much as code;
+- **no step hides a repetition (rule 4.6)** — for every action the reader performs more than a handful of
+  times, the step states **how many** and gives the bulk path the tool offers, or says in one clause that
+  there is none; and its gate counts the whole set rather than checking one member by hand (6.6);
 - **no gate is masked by its own environment (rule 6.2)** — for each gate, the debug session / dev server /
   emulator / preview build the step runs in does **not** override, suppress, or duplicate the exact signal the
   gate reads; where it would, the step observes an unmasked channel, sets the environment-specific variant too,

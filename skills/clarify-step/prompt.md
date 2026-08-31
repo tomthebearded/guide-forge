@@ -153,6 +153,13 @@ asserts**, so neither is a clarity edit:**
    *deleting* a block (that asserts the step changes nothing — flag it instead), and **rewording an existing
    message on a step behind the frontier**, since the reader has already committed under it; leave it and note
    it in deliverable 4.
+4.6. **A repeated action carries its count and its bulk path.** If the step has the reader perform the same
+   action many times — the same field on many files, the same asset per item, the same block per case — and the
+   page reads as a single action, add the **count** and the bulk path the environment offers (a multi-selection
+   applied at once, an import preset, a generator, a short script, a data file instead of N literals). Naming
+   the count and the shortcut is a clarity edit; **replacing the taught procedure with a script the reader must
+   now run is not** — that changes what the step does, so flag it (deliverable 4) instead. If you cannot verify
+   that a bulk path exists in the pinned stack, do not invent one: state the count alone and flag the rest.
 
 **P5 — Anticipate failure**
 5.1. **The likely failure + its usual cause** is named.

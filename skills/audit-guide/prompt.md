@@ -129,6 +129,16 @@ and mark it **unconfirmed**, naming the tool or environment needed to settle it.
   either way. Also flag a `## Before you continue — corrections` section with no single `**Suggested commit:**`
   after its `**Corrected when:**` checklist, or with more than one. If `conventions.md` wasn't attached, judge
   against the Conventional Commits default and say you did.
+- **Hidden repetition (rule 4.6) — WARNING:** flag any step whose prose reads as one action but has the reader
+  perform it many times — the same field applied to a folder of assets, the same asset created per item, the
+  same block pasted per case, the same value typed per row — with **no count on the page** and **no bulk
+  path**. What clears it: the count stated where the reader meets the work, plus either the environment's bulk
+  route (a multi-selection applied at once, an import preset, a generator or codegen command, a loop or short
+  script, a data file read instead of N literals) or one explicit clause saying no bulk route exists. Escalate
+  to **BLOCKER** when the repetition is large enough that a single divergent member is likely and the gate
+  checks only one sample — that is rule 6.6's failure with a manual cause. You are read-only: name the bulk
+  path only if you can source it for the pinned stack; otherwise flag the missing count and say the shortcut
+  needs verifying. (Observed: an art-import step read as one action over a pack of 231 tile PNGs.)
 - **Gates show expected output:** every `Done when` (per step and in `NN_verify.md`) pairs its action with a
   concrete expected result the reader will observe. Flag aspirational gates ("it works", "the endpoint
   responds", "the build succeeds") that give the reader nothing to diff reality against.
@@ -282,8 +292,9 @@ acknowledgement that the library exists (3.7) · arrow-chains instead of numbere
 block instead of interleaved under its instructions (4.2) · a pre-existing file re-pasted whole or an ambiguous
 insertion anchor (4.3) · a step that ends on a broken build (4.4, checked as the structural blocker above) ·
 a step that changes the tree with no suggested commit — or one on a step that changes nothing (4.5, checked as
-the structural warning above) · no likely-failure note (5.1) · a step that silently assumes unestablished starting
-state (7.1). Apply each **relative to the audience matrix** — a term is a violation only if the reader isn't
+the structural warning above) · a repetition hidden behind a single sentence, with no count and no bulk path
+(4.6, checked as the warning above) · no likely-failure note (5.1) · a step that silently assumes
+unestablished starting state (7.1). Apply each **relative to the audience matrix** — a term is a violation only if the reader isn't
 Expert on that topic.
 - **Rule 1.1c built-ins / inconsistent bar:** for a New/Beginner topic, treat **built-in library methods and
   objects** as first-use terms too (`Math.round`, `Math.PI`, `toFixed`, `ctx.fillRect`, `Transform`,
