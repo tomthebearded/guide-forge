@@ -455,6 +455,15 @@ contract:
   click-through in a hosted console) carries **no** block — a message for an empty diff teaches the reader to
   commit noise. Record the guide's commit convention in `conventions.md` at plan time, once, so no step
   re-argues it.
+- **4.6 When an action repeats, teach the bulk path — or say there isn't one.** An action performed more than a
+  handful of times — the same field on many files, the same asset per item, the same block pasted per case —
+  must arrive with its **count** and with the bulk path the environment already offers (a multi-selection
+  applied in one press, an import preset, a generator or codegen command, a loop or a short script, a data file
+  read at startup instead of N literals). That path is the taught one; one-by-one is the fallback. If no bulk
+  path exists, one clause says so **with the count**, so the reader knows the grind is the job rather than a
+  shortcut they failed to find. Note the repetition at plan time wherever a milestone's work is bulk by nature
+  (importing an asset pack, declaring a table of inputs, seeding fixtures) — it changes what the step teaches,
+  and its gate then counts the whole set rather than sampling one member (6.6).
 
 **P5 — Anticipate failure**
 - **5.1 Name the common failure and its usual cause.** For each step's likely error, give the first thing to

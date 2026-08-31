@@ -340,7 +340,8 @@ choice exists. (Changing the choice later, on a guide someone is already followi
 ---
 
 ## P4 — Structure steps & code
-*Order actions and place code so the reader reads-then-does in one motion, and never overwrites their own work.*
+*Order actions and place code so the reader reads-then-does in one motion, never overwrites their own work,
+and never grinds by hand through work the tool does at once.*
 
 ### 4.1 — Sequences are numbered lists, never arrow-chains
 **Why:** an arrow chain hides how many distinct actions there are and where one ends. **Do:** number
@@ -484,6 +485,56 @@ changed.
 > green and none of them said what to call it, so the reader either batched a milestone into one commit or
 > stopped at each boundary to invent a message; the steps that changed only *settings* were skipped entirely,
 > because a step with no code reads as a step with nothing to commit.)
+
+### 4.6 — When an action repeats, teach the bulk path — or say there isn't one
+**Why:** on the page, "set these three fields on the tile" is ten seconds of work. If the reader has to perform
+it on **231** files, it is an afternoon — and nothing on the page said so. Three separate things then go wrong.
+The reader cannot tell whether the grind is inherent or whether they missed the trick every practitioner knows,
+so they either grind through it resentfully or leave the guide to go searching. Hand-repetition is also where
+mistakes enter: one asset out of 231 keeps its default, and the defect surfaces three milestones later as one
+blurry tile or one number that is wrong by a factor of five, with nothing to localize it to. And the guide has
+quietly taught that this *is* how the work is done, so the reader repeats it in their own projects. This is
+rule 3.7's problem — a guide that hand-rolls what the ecosystem has solved — applied to the reader's **labour**
+instead of to the code.
+
+**Do:** when an action in a step is performed more than a handful of times — the same field on many files, the
+same asset created per item, the same block pasted per case, the same value typed per row — the step **says how
+many times** and gives the **bulk path** the environment already offers. That path is the taught path; the
+one-by-one version, if it survives at all, is the fallback for a reader whose tool differs.
+
+- **Look for the bulk path before writing the repetition.** Most environments have one, and it is a verified
+  fact like any other (sourcing principle): a multi-selection the Inspector applies in one press, an import
+  preset or asset post-processor, a generator or codegen command, a `for` loop or a ten-line script, an
+  editor's own bulk tool, a data file the code reads at startup instead of N literals in the source.
+- **State the count where the reader will feel it** — "the pack ships 231 tiles" — not in a closing note after
+  they have already done it by hand.
+- **If there genuinely is no bulk path, spend one clause saying so**, with the count. "There is no bulk
+  setting for this; it is 12 repetitions" costs a line and buys the reader the knowledge that the grind is the
+  job, not a shortcut they failed to find.
+- **A script or command that does the bulk work is taught, not dropped in.** It gets its WHERE and WHY like
+  any other code (2.1, 2.2), and if the reader is meant to keep it, it is a tracked file with its own commit
+  (4.5). A throwaway one-liner says plainly that it is throwaway.
+- **Then verify the bulk, not one sample.** The `Done-when` counts, queries or sweeps the whole set — this is
+  rule 6.6 in its most common form, because a manual repetition is exactly where one member of the class
+  silently diverges from the other 230.
+
+- ❌ "Select the tile images and set **Pixels Per Unit** to `18`, **Filter Mode** to `Point (no filter)`,
+  **Compression** to `None`." — on a pack of 231 PNGs, with no count on the page and no word about how the
+  Inspector treats a multi-selection.
+- ✅ "The pack ships **231** tile PNGs, and all of them need the same three settings. Click the first in the
+  **Project** panel, **Shift**-click the last so the Inspector shows the whole selection, set the three fields
+  once, and press **Apply** — Unity re-imports all 231. Setting them one at a time is the same result and about
+  an hour longer."
+- ✅ (no bulk path available) "There is no multi-edit for this field, so it is **12** repetitions — one per
+  input action. They are identical apart from the name."
+- ✅ (bulk path is code) a step that replaces 40 hand-written literals with one data file plus the six lines
+  that read it, and a `Done-when` asserting the loaded count is 40.
+
+> **The defect this prevents:** a step whose single sentence hides hours of identical manual work, so the
+> reader grinds through it not knowing whether the shortcut exists, and one of the repetitions silently comes
+> out wrong. (Observed: a Unity guide had the reader apply three import settings to the tiles of a downloaded
+> pack — **231** PNGs — with the page reading as one action and no count anywhere on it; the reader worked
+> file by file before discovering that the Inspector applies a multi-selection in a single press.)
 
 ---
 

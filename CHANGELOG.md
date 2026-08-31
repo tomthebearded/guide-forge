@@ -5,6 +5,24 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+
+- **Pedagogy rule 4.6 — when an action repeats, teach the bulk path, or say there isn't one.** A step's prose
+  hides how many times the reader actually performs it: "set these three import fields on the tiles" reads as
+  ten seconds and was, in a real Unity guide, **231** PNGs one at a time. Three things go wrong at once — the
+  reader can't tell an inherent grind from a shortcut everyone else knows, one repetition out of 231 silently
+  keeps its default and surfaces milestones later as an unlocalizable defect, and the guide has taught that
+  this is how the work is done. The rule requires the **count**, stated where the reader meets the work, plus
+  the bulk path the environment already offers (a multi-selection applied in one press, an import preset, a
+  generator or codegen command, a loop or short script, a data file read at startup instead of N literals) —
+  and where no bulk path exists, one clause saying so *with* the count. The gate then counts the whole set
+  rather than sampling one member, which is rule 6.6 in its most common form. Homed under **P4**, whose
+  charter now covers it, and propagated across the contract sync set: the `plan-guide` (note bulk-by-nature
+  work at plan time), `draft-milestone` (writing contract + self-audit), `clarify-step` (add the count and the
+  shortcut in place; flag a procedure swap as out of scope) and `audit-guide` (a new WARNING, escalating to
+  BLOCKER when a large repetition meets a one-sample gate) prompts, `EXPLAINER.md` §7, `README.md`, and
+  `templates/step.md`.
+
 ## [1.18.0] — 2026-08-21
 
 ### Added

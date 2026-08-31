@@ -41,6 +41,9 @@ this stack already solves (colour maths, dates/timezones, parsing, retry, diffin
 one-line callout right above that work — see "Do this" below. The choice itself was made at plan time
 (plan-guide Phase 2.5) and recorded in foundation/decision-log.md; this file only has to SAY it. Name a
 verified library or none at all. Not for three-line helpers.
+REPEATED WORK (rule 4.6): if an action here is performed many times over, the count and the bulk path belong
+on the page — see "Do this" below. A sentence that reads as ten seconds of work and is really 231 repetitions
+is the defect; so is a gate that then checks one of them.
 GREEN BUILD (rule 4.4): this step must END with the project compiling. If its edit breaks call sites (a changed
 signature, a rename, a moved file), FIX THEM IN THIS STEP — a longer step that ends green beats two short steps
 with a broken interval, and this outranks the granularity setting. NEVER write "this error is expected; step NN
@@ -112,7 +115,13 @@ fix(<scope>): apply the <YYYY-MM-DD> corrections to <what they touch>
 > Build vs borrow — **<library> <version>** does this in production (<official docs URL>): you're writing it
 > by hand here to learn <the mechanism>. Swap it in when <condition>.
      Borrowing instead? No callout — just one clause in the action saying what the library does for the reader,
-     so the dependency isn't a black box either. -->
+     so the dependency isn't a black box either.
+     RULE 4.6 — does an action repeat more than a handful of times (same field over a folder of assets, same
+     asset per item, same block per case, same value per row)? Say HOW MANY, right where the reader meets the
+     work, and teach the BULK PATH the tool offers: a multi-selection applied in one press, an import preset,
+     a generator/codegen command, a loop or short script, a data file read at startup instead of N literals.
+     That path is the taught one; one-by-one is the fallback. No bulk path in this stack? One clause saying so,
+     WITH the count. Then the Done-when counts the whole set, never one hand-picked member (rule 6.6). -->
 1. In `<where>`, <do the thing> — <why>.
    ```<lang>
    // the fragment this action adds — labelled above with where it goes in the file

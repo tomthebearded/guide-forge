@@ -28,7 +28,9 @@ instead of a one-line idea. You do **not** write the finished guide.
    Draw them out even if the doc never named them.
 2. **Diagnose against the contract.** Score the source on the pedagogy principles and the vertical-slice test.
    Produce a **gap report**: undefined terms, actions missing WHERE/WHY, arrow-chains, vague values, missing
-   Done-when gates, horizontal (non-runnable) layering, stale/unverifiable versions.
+   Done-when gates, horizontal (non-runnable) layering, stale/unverifiable versions, and repetitions hidden
+   behind a single sentence (rule 4.6) — an old tutorial routinely says "repeat for each" without ever saying
+   how many times or naming the bulk path, and that count is often the reason the doc was abandoned.
 3. **Flag what's salvageable vs. what must be rewritten.**
 
 ## Phase B — Audience + stack (same discipline as the planner)
