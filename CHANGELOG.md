@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.19.0] — 2026-08-31
+
 ### Added
 
 - **Pedagogy rule 4.6 — when an action repeats, teach the bulk path, or say there isn't one.** A step's prose
