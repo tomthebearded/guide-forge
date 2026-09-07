@@ -252,7 +252,11 @@ The principles (rules cited by dotted id; full contract in
   template's wording, or a number you reasoned about instead of measuring; **6.5** run every break recipe
   before you write it down, and name the failure the reader sees **first**; **6.6** a gate whose label names a
   set must measure that set's **worst case** and say which member lost — never sample one member and grade the
-  class.
+  class; **6.7** where the outcome rides on a continuum — impact speed, press rate, initialization order,
+  collection size, concurrency, latency, load — the gate instructs the **hardest** condition the build
+  actually reaches ("*200 rows, two sharing a timestamp*", "*two calls at once*", "*mash the button*", "*from a
+  full jump*"), never the gentlest one the reader would pick unprompted, and never depends on an order the
+  platform does not guarantee.
 - **P7 Declare the starting state** — **7.1** before the first action, say what must already be
   installed/running/logged-in/built or name the step that established it; never silently assume a prerequisite.
 
@@ -306,8 +310,9 @@ Plus the structural rules — the ones drafters most often drop:
   several lines.
 - **No step ends on a broken build (rule 4.4).** Cut steps at compiling boundaries: when an edit forces others
   — a changed constructor signature, a rename, a moved file, an extracted interface — the **same** step updates
-  every call site it breaks, and its `Done-when` ends with the build clean (`npm run compile` exits 0,
-  `tsc --noEmit` silent, the watch task at **0 errors**). Prefer one longer green step over two short ones with
+  every call site it breaks, and its `Done-when` ends with the build clean — whatever "clean" is in this stack
+  (a compile command exiting 0, a type-check silent, `cargo check` green, the editor's watch task at
+  **0 errors**). Prefer one longer green step over two short ones with
   a broken interval; **this outranks the granularity dial**. **Never draft the sentence "this error is expected;
   step NN fixes it"** — re-cut the step to absorb the fix. A failing *test* is not a broken build (test-first is
   fine, and the gate names the failing test); a codegen command that makes the tree buildable belongs in the
@@ -473,6 +478,10 @@ yourself. Confirm:
 - **every break recipe was run (rule 6.5)** — for each "break it and watch it fail", the mutation was applied
   and the failure it actually produces is what the page describes: the right test, the right assertion or
   exception, and a note where a second test surprisingly stays green;
+- **no gate is passed by being gentle (rule 6.7)** — for each gate whose outcome varies with speed, rate,
+  order, size, delay or load, the step names that variable and instructs the reader at the breaking end of it,
+  and any measured limit is written down with the point where it stops holding; where the platform promises no
+  ordering at all, the taught code does not rely on one and the gate does not pass by luck;
 - **versions and load-bearing names are consistent** — every command/code block uses the pinned Verified-stack
   versions, and every recurring name/path/identifier matches how earlier steps spelled it (no drift);
 - **no term is defined twice on one page (rule 1.1b)** — for each step, read the `## Glossary for this step`

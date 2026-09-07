@@ -37,21 +37,36 @@ editor — workbench chrome *and* syntax/semantic tokens — non-destructively, 
 7 milestones, 43 steps and 7 verify gates, audited twice with every finding fixed.
 
 Followed to the end, through M7 to the packaged extension, which ships beside the guide in the same
-repository. Running it for real is also what produced several of the rules the toolkit now carries: the debug
-host masking a milestone's headline gate (rule 6.2), a step that ended on a deliberately broken build (rule
-4.4), and a capability claimed on a setting's *namespace* rather than the setting itself (the sourcing
-principle).
+repository — and past it: the `.vsix` the last milestone builds is now published as
+[**Vincent Van Code**](https://marketplace.visualstudio.com/items?itemName=TommasoMastroberardino.vincent-van-code)
+on the VS Code Marketplace, which is as far as "the reader finishes with something real" goes. Running it for
+real is also what produced several of the rules the toolkit now carries: the debug host masking a milestone's
+headline gate (rule 6.2), a step that ended on a deliberately broken build (rule 4.4), and a capability
+claimed on a setting's *namespace* rather than the setting itself (the sourcing principle).
 
 ---
 
 ## Guide only — not followed to the end yet
 
-The guide is drafted and audited; nobody has taken it all the way through. Read these for the shape of the
-output, not as proof a reader gets to the finish line on their own.
+The guide is drafted and audited, but nobody has taken it all the way through — a build may be well under
+way and still not have reached the last gate. Read these for the shape of the output, not as proof a reader
+gets to the finish line on their own.
 
-*Nothing sits here right now — both published guides have been built end to end. The heading stays because
-the distinction does: a drafted, audited guide is not yet evidence that a reader reaches the finish line
-unaided.*
+### [guide-forge-unity-platformer](https://github.com/tomthebearded/guide-forge-unity-platformer) — GuideForge `v1.18.0`
+
+Takes a reader to *Cavern Dash*, a 2D pixel platformer in **Unity 6.3 LTS** and C# — run, jump, dash and
+wall-jump through a tilemap cavern, past moving and one-way platforms, coins, enemies, lives and checkpoints,
+to menus, rebindable keys, a persisted best time and a double-clickable desktop build. 13 milestones, 64 steps
+and 13 verify gates across 77 step files, on Kenney's CC0 art and audio.
+
+Executed through **M11 of 13** — the frontier sits at M12, and M9 and M10 are back at `⏳` awaiting a
+re-run of their gates after two late fixes, so nothing here yet says a reader reaches the finish line unaided.
+What running it in the Editor did produce is field evidence: three audits and a run of `/report-issue` fixes
+that reached back into the toolkit — a mashed jump re-arming the coyote window mid-rise, Unity 6.3 dropping the
+*Used By Composite* checkbox, a moving platform that carried its rider by re-parenting and threw on Play, an
+opening HUD read from `OnEnable` in an order Unity never promised, and a stomp measured against the enemy's
+head that only ever passed on a slow approach. Two pedagogy rules came out of it: **4.6** (the 231 tiles
+imported one at a time) and **6.7** (the gates that went green because they were performed gently).
 
 ---
 

@@ -480,7 +480,8 @@ contract:
 it claims (6.1), stay observable in the environment the reader watches it in (6.2), quote what the
 reader's terminal shows rather than what a captured stream showed you (6.3), read the effect of the reader's
 own code rather than a scaffold's output (6.4), be proven — where it is proven by breaking it — by a failure
-someone actually produced (6.5), and measure the whole set its label names rather than one member of it (6.6).
+someone actually produced (6.5), measure the whole set its label names rather than one member of it (6.6), and
+be performed at the hardest condition the build actually reaches rather than the gentlest one available (6.7).
 See the pedagogy reference.)*
 
 ---
@@ -517,6 +518,14 @@ See the pedagogy reference.)*
   every defect the readout was meant to catch. Decide it here, while the set is still enumerable on paper: say
   which set the gate covers and whether the milestone can sweep it (`all AA true` over every generated case is
   one line the drafting pass can write and the reader can't argue with).
+- **When a milestone's behaviour rides on a continuum, plan the extreme the gate is performed at (rule 6.7).**
+  Speed, press rate, initialization order, collection size, concurrency, latency, load — where the outcome
+  varies along one of these, a reader performing the gate in the gentlest way available passes it on broken
+  code, and the defect ships forward under a check that has already certified it. Name the variable in the plan
+  and which end breaks, so the drafting pass writes "*200 rows, two sharing a timestamp*", "*two calls at
+  once*" or "*from a full jump*" into the gate instead of "a couple of rows", "call it" and "jump". Where the platform guarantees **no** order at all — undefined initialization order,
+  unordered iteration, concurrent callbacks — record that here too: a gate that passes on the lucky order is
+  a coincidence of one machine, and the ladder should not depend on it in the first place.
 - **Consistency check** before a guide ships: every command/code block uses the pinned Verified-stack versions,
   and every load-bearing name/path/identifier is spelled identically wherever it recurs — version or name drift
   between steps is a top cause of a multi-milestone guide breaking.

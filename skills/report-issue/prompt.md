@@ -217,6 +217,29 @@ earn its place from a real point of confusion (this field report is exactly that
 approves, add it to [reference/pedagogy-rules.md](../../reference/pedagogy-rules.md) under the principle it
 belongs to. If an existing rule already covers it, say which rule the guide *violated* and skip the proposal.
 
+**The rule you propose must be domain-neutral — the report is the evidence, the rule is not about it.** The
+field report always arrives wearing one stack: an engine, a framework, a language, a product's UI. The rule
+that comes out of it goes into a contract used to write guides for every other domain, so before you propose
+it, **strip the stack and re-state the mechanism.** "*This engine promises no initialization order between
+two components*" is a fact about one engine; "*where the platform guarantees no ordering, the taught code must
+not depend on one*" is the rule. "*This editor applies a multi-selection in one press*" is a fact about one
+editor; "*when an action repeats, teach the bulk path the environment offers*" is the rule.
+Three checks before you write it down:
+
+- **The two-domain test.** Name a second, unrelated domain where the rule bites — a CLI, a data pipeline, an
+  API, an embedded build. If you cannot phrase the rule without naming the engine, framework or product it
+  came from, it is not a rule: it is a troubleshooting note, and it belongs in that step's *If it breaks*.
+- **At least one ❌/✅ pair from a domain other than the report's.** Examples stay concrete — an abstract
+  before/after teaches nothing — but a rule illustrated only in the stack that produced it reads as being
+  *about* that stack, and every guide in another domain skips it.
+- **The specifics live in the origin note, and only there.** The closing `> **The defect this prevents:** …
+  (Observed: …)` line is where the engine, the version and the exact symptom belong — that is the provenance
+  CONTRIBUTING requires, and keeping it concrete is what stops the rule from being speculative.
+
+The same applies to anything else this skill writes into the repo-level contract (a failure-note guard pattern,
+a `conventions.md` clause it proposes upstream): guide-level documents describe the reader's stack; repo-level
+documents describe the method.
+
 ### 8. Refresh the guide README
 Prepend an **Updates** line to the guide's `README.md`: `<date> — fixed: <one-line issue> (<milestone/step>)`.
 

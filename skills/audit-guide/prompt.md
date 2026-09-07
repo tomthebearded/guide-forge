@@ -202,6 +202,22 @@ and mark it **unconfirmed**, naming the tool or environment needed to settle it.
   a sweep printing one assertion is better than either. (Observed: a theme generator's contrast badge graded a
   single color pair while 66 of the guide's 85 generated themes failed WCAG AA on a pair it never read, with
   three engine defects shipping underneath the green badge.)
+- **Gate performed at the gentlest condition (rule 6.7) — WARNING, BLOCKER when the milestone's headline gate
+  is the one affected:** flag any `Done-when` whose outcome varies along a continuum the step never names —
+  impact speed, press rate, initialization order, collection size, concurrency, latency, load — but whose
+  instruction is the bare action ("add a couple of rows and check the order", "call the endpoint", "press the
+  button", "open the screen", "jump on the enemy"). A reader performs the gentlest
+  version available, so the check passes on broken code and the defect ships forward under a green gate,
+  surfacing milestones later far from its cause. The tell is a verb with no severity attached to it where the
+  step's own code contains a threshold, a tolerance, a timer or an ordering assumption. The fix is to instruct
+  the extreme ("**from a full jump**", "**mash** the button"), and to write the measured limit down with the
+  point where it stops holding. Where the platform guarantees no ordering at all — undefined initialization
+  order, unordered iteration, concurrent callbacks — the finding is stronger than the gate: the taught code
+  should not depend on the order, and a passing gate is a coincidence of one machine. (Observed: a Unity
+  platformer whose stomp gate read "landing on an enemy from above destroys it" and passed only on a slow
+  step-off, while every real jump sank the player's feet past the tolerance and cost a life; the same guide's
+  jump gate tested a single press against a bug that needed mashing, and its HUD gate passed only because two
+  components happened to initialize in an order Unity does not promise.)
 - **Cross-platform commands:** if `foundation/stack.md`'s *Target OS / shell(s)* lists more than one shell,
   flag any command in a step or `Done-when` gate that runs on only one of them with no variant for the others —
   e.g. a Unix-only `grep`/`ls`/`cat`/`rm`/`export` used as a gate check when the guide also targets

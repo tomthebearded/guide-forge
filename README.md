@@ -6,7 +6,7 @@
 
 A prompt-and-skill toolkit that plans, drafts, and hardens **learn-as-you-go** developer guides — built for Claude. For games, libraries, web apps, CLIs, APIs, anything. The reader follows it start to finish and *understands what they're doing*, even for the parts they've never seen.
 
-`MIT License` · `Works with Claude | Claude Code` · `Domain-agnostic` · `v1.19.0` · `PRs welcome`
+`MIT License` · `Works with Claude | Claude Code` · `Domain-agnostic` · `v1.20.0` · `PRs welcome`
 
 [Quick start](#quick-start) · [The toolkit](#the-toolkit) · [Learning path](#learning-path) · [Examples](examples/README.md) · [Explainer](EXPLAINER.md) · [FAQ](#faq)
 
@@ -329,8 +329,9 @@ New here? Follow this order.
 **See one for real.** [**examples/real-examples.md**](examples/real-examples.md) indexes guides the pipeline
 produced, each published as its own repo — a 25-step one that takes a total beginner to a working 2D browser
 platformer, and a 43-step one that ends at a packaged VS Code extension, both built end to end from the guide.
-The index keeps those apart from guides that are drafted and audited but **not yet followed through**, because
-only the first kind is evidence the teaching works. For what to *type* rather than what comes out, see
+The index keeps those apart from guides that are drafted and audited but **not yet followed through** —
+currently a 64-step Unity 6.3 platformer, executed through 11 of its 13 milestones — because only the first
+kind is evidence the teaching works. For what to *type* rather than what comes out, see
 [examples/plan-guide-prompts.md](examples/plan-guide-prompts.md).
 
 ---

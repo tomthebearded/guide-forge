@@ -80,6 +80,18 @@ may want tiny steps with no theory. Keep the dials separate.
 > editor operation into its own tiny numbered step (granularity is high). One reader, opposite treatment per
 > topic. That's the whole point.
 
+The same machinery in a different domain, to show the matrix is not about engines:
+
+> **Reader:** ten years of backend Python, first time near a data warehouse. Wants to move fast.
+>
+> **Matrix:** Python = *Expert* · SQL = *Intermediate* · warehouse/columnar storage concepts = *New* ·
+> orchestration tooling = *Beginner*. **Granularity:** *Terse*.
+>
+> **Consequence:** decorators, context managers and packaging pass without a word (Python is Expert); a window
+> function gets a one-line reminder and a doc link (SQL is Intermediate); "partition pruning" and "clustering
+> key" are defined, linked and given a deep-dive (warehouse concepts are New); and the whole thing is cut into
+> a handful of large steps, because this reader does not want twenty small ones.
+
 ## Built-ins count too (don't gloss `const` but skip `Math.round`)
 
 The expertise level for a topic applies to **everything** on that topic — including the standard-library and

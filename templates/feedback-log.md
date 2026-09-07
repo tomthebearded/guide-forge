@@ -17,7 +17,7 @@
 - **Where:** <milestone / step file, or "unplaced">
 - **Reader:** <the audience this guide targets, or what the reporter told us about themselves>
 - **What happened:** <what they did · what they expected · what actually happened — paste the exact error / wrong output / missing thing>
-- **Suspected class:** <missing-prereq | stale value/command/API | pedagogy-gap | unclear-wording | tooling/env | genuine-reader-slip | unknown>
+- **Suspected class:** <missing-prereq | stale value/command/API | taught-code-defect | pedagogy-gap | unclear-wording | tooling/env | genuine-reader-slip | unknown>
 - **Severity:** <blocker | slowed-down | confusing | cosmetic>  <!-- reader-facing scale: how badly this reader
   was hurt. `blocker` maps to the audit's BLOCKER; the other three map to its WARNING. -->
 - **Tags:** <freeform keywords for later analysis, e.g. `env`, `versions`, `M2`, `terminology`>
