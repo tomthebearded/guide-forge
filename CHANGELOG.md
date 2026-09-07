@@ -5,6 +5,25 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+
+- **`examples/real-examples.md` — a third published example**,
+  [`guide-forge-unity-platformer`](https://github.com/tomthebearded/guide-forge-unity-platformer): *Cavern
+  Dash*, a 2D pixel platformer in Unity 6.3 LTS and C#, generated with GuideForge `v1.18.0` — 13 milestones,
+  64 steps and 13 verify gates across 77 step files. Filed under **Guide only**, because it has been executed
+  through M10 of 13 and the frontier sits at M11: a build well under way is still not a reader reaching the
+  last gate. It is the guide whose Editor run produced the coyote-refill fix, the Unity 6.3 *Used By
+  Composite* removal, the re-parenting moving platform, and the 231 one-at-a-time tile imports behind
+  pedagogy rule 4.6. `README.md` §*What you can build* updated to name it.
+
+### Changed
+
+- **`examples/real-examples.md` — the `guide-forge-vscode-extension` entry now records where the build
+  landed.** The `.vsix` its last milestone packages is published on the VS Code Marketplace as
+  [Vincent Van Code](https://marketplace.visualstudio.com/items?itemName=TommasoMastroberardino.vincent-van-code),
+  which is the strongest form the *followed to the end* claim takes: not a guide someone finished, but a
+  shipped artifact other people install.
+
 ## [1.19.0] — 2026-08-31
 
 ### Added

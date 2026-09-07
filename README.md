@@ -329,8 +329,9 @@ New here? Follow this order.
 **See one for real.** [**examples/real-examples.md**](examples/real-examples.md) indexes guides the pipeline
 produced, each published as its own repo — a 25-step one that takes a total beginner to a working 2D browser
 platformer, and a 43-step one that ends at a packaged VS Code extension, both built end to end from the guide.
-The index keeps those apart from guides that are drafted and audited but **not yet followed through**, because
-only the first kind is evidence the teaching works. For what to *type* rather than what comes out, see
+The index keeps those apart from guides that are drafted and audited but **not yet followed through** —
+currently a 64-step Unity 6.3 platformer, executed through 10 of its 13 milestones — because only the first
+kind is evidence the teaching works. For what to *type* rather than what comes out, see
 [examples/plan-guide-prompts.md](examples/plan-guide-prompts.md).
 
 ---
