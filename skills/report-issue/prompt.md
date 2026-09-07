@@ -220,9 +220,10 @@ belongs to. If an existing rule already covers it, say which rule the guide *vio
 **The rule you propose must be domain-neutral — the report is the evidence, the rule is not about it.** The
 field report always arrives wearing one stack: an engine, a framework, a language, a product's UI. The rule
 that comes out of it goes into a contract used to write guides for every other domain, so before you propose
-it, **strip the stack and re-state the mechanism** — not "Unity gives no `Awake` order between components" but
-"where the platform guarantees no ordering, the taught code must not depend on one"; not "the Inspector applies
-a multi-selection in one press" but "when an action repeats, teach the bulk path the environment offers".
+it, **strip the stack and re-state the mechanism.** "*This engine promises no initialization order between
+two components*" is a fact about one engine; "*where the platform guarantees no ordering, the taught code must
+not depend on one*" is the rule. "*This editor applies a multi-selection in one press*" is a fact about one
+editor; "*when an action repeats, teach the bulk path the environment offers*" is the rule.
 Three checks before you write it down:
 
 - **The two-domain test.** Name a second, unrelated domain where the rule bites — a CLI, a data pipeline, an

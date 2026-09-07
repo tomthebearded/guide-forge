@@ -754,10 +754,10 @@ noun is plural or collective while the expression under it is singular.
 > WCAG AA on a pair the badge never read, and three separate engine defects had shipped underneath it.)
 
 ### 6.7 — Gate at the hardest condition the build actually reaches
-**Why:** a gate names a behaviour — *"landing on an enemy from above kills it"*, *"the items come back
-newest-first"*, *"the panel shows the current balance from the first frame"* — and the reader performs it
-**once, in the gentlest way available**: a short hop, two rows, one request, whatever order the process
-happened to start in that run. When the behaviour is conditional on a **continuum the guide never names** —
+**Why:** a gate names a behaviour — *"the items come back newest-first"*, *"the panel shows the current
+balance from the first frame"*, *"a hit from above destroys it"* — and the reader performs it **once, in the
+gentlest way available**: two rows, one request, a short hop, whatever order the process happened to start in
+that run. When the behaviour is conditional on a **continuum the guide never names** —
 impact speed, press rate, initialization order, collection size, concurrency, latency, load — the gentle end
 passes on genuinely broken code. The gate goes green, the milestone is ticked, and the defect ships forward *underneath a check that has already certified it*. It then
 surfaces milestones later, in a place with no causal link to the step that caused it, so the reader debugs the
