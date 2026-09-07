@@ -5,14 +5,16 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.20.0] — 2026-09-07
+
 ### Added
 
 - **Pedagogy rule 6.7 — gate at the hardest condition the build actually reaches.** A gate names a behaviour
-  ("landing on an enemy from above kills it", "the items come back newest-first", "the panel shows the current
-  balance") and the reader performs it **once, in the gentlest way available**. Where the behaviour rides on a
-  continuum the guide never names — impact speed, press rate, initialization order, collection size,
-  concurrency, latency, load — the gentle end passes on genuinely broken code, and the defect ships forward *underneath a check that
-  already certified it*, surfacing milestones later with no causal link to its cause. The rule requires the
+  ("the items come back newest-first", "the panel shows the current balance", "a hit from above destroys it")
+  and the reader performs it **once, in the gentlest way available**. Where the behaviour rides on a continuum
+  the guide never names — impact speed, press rate, initialization order, collection size, concurrency,
+  latency, load — the gentle end passes on genuinely broken code, and the defect ships forward *underneath a
+  check that already certified it*, surfacing milestones later with no causal link to its cause. The rule requires the
   step to name the variable and which end breaks, to instruct the extreme rather than the bare action ("*from
   a full jump*", not "jump"; "*200 rows, two sharing a timestamp*", not "a couple of rows"), to never gate on
   an order the platform does not guarantee, and to write the
