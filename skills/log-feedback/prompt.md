@@ -55,8 +55,12 @@ have and mark the gaps.
    - **Where** — milestone / step file, or `unplaced` if you genuinely can't place it.
    - **Reader** — the guide's target audience, adjusted by anything the reporter said about themselves.
    - **What happened** — what they did · expected · actually happened; paste the exact error / output.
-   - **Suspected class** — one of: `missing-prereq`, `stale value/command/API`, `pedagogy-gap`,
-     `unclear-wording`, `tooling/env`, `genuine-reader-slip`, `unknown`. A guess is fine; label it as one.
+   - **Suspected class** — one of: `missing-prereq`, `stale value/command/API`, `taught-code-defect`,
+     `pedagogy-gap`, `unclear-wording`, `tooling/env`, `genuine-reader-slip`, `unknown`. A guess is fine; label
+     it as one. Use **`taught-code-defect`** when the guide's own code is wrong — it compiles, the reader
+     followed the step exactly, and the behaviour the step promises does not happen. It is the commonest class
+     after `missing-prereq` and the one most often mislabelled `unknown`, which hides it from any later
+     analysis of the log; reach for `unknown` only when you genuinely cannot tell where the fault sits.
    - **Severity** — `blocker` | `slowed-down` | `confusing` | `cosmetic`. This is the **reader-facing** scale:
      it records how badly the reader was hurt, which is finer-grained than the audit's two-level
      BLOCKER/WARNING verdict on the guide. `blocker` here maps to the audit's BLOCKER; the other three all map

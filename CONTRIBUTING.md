@@ -24,7 +24,12 @@ sharpen those are especially welcome.
 
 1. **Keep it domain-agnostic** in each skill's `prompt.md` contract, `templates/`, and `reference/`.
    The repo ships the method, not guides written with it — no game/web/API-specific nouns baked into the
-   general text.
+   general text. This binds hardest on a **pedagogy rule**, because every rule is born in one stack and
+   applied to all the others: the title, the *Why* and the *Do* name the mechanism, never the product that
+   revealed it; the ❌/✅ examples stay concrete but must not all come from one ecosystem; and the closing
+   `Observed:` origin note is the one place the engine, version and symptom belong. If you cannot phrase the
+   rule without naming where it came from, it is a troubleshooting note, not a rule. (Full table:
+   [reference/pedagogy-rules.md § How to add or change a rule](reference/pedagogy-rules.md#how-to-add-or-change-a-rule).)
 2. **Every rule earns its place.** No speculative rules — tie each to a concrete failure it prevents.
 3. **Templates stay copy-paste-ready.** No placeholders that require reading three other files to fill in.
 4. **Preserve the pipeline's gates.** The whole design rests on "verify before you advance." Don't add

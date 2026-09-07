@@ -433,6 +433,10 @@ type-checker or bundler, the step's `Done-when` ends with the build clean (`npm 
   it. Full behavior is verified after step 05."
 - ✅ the step changes the constructor **and** updates the one call site in `extension.ts` it breaks.
   "**Done when:** the watch task reports **0 errors** and `npm run compile` exits 0."
+- ❌ (another stack, same defect) "**Done when:** the migration file is written. The service won't start until
+  step 07 adds the matching model — that's expected."
+- ✅ the step writes the migration **and** the model it requires: "**Done when:** `<build/type-check command>`
+  is clean and the service starts, answering `/health` with `200`."
 
 > **The defect this prevents:** a step that ends on a deliberately broken build and asks the reader to carry
 > "which errors are expected" in their head until a later step — so a real error of their own hides inside the
@@ -487,13 +491,14 @@ changed.
 > because a step with no code reads as a step with nothing to commit.)
 
 ### 4.6 — When an action repeats, teach the bulk path — or say there isn't one
-**Why:** on the page, "set these three fields on the tile" is ten seconds of work. If the reader has to perform
-it on **231** files, it is an afternoon — and nothing on the page said so. Three separate things then go wrong.
-The reader cannot tell whether the grind is inherent or whether they missed the trick every practitioner knows,
-so they either grind through it resentfully or leave the guide to go searching. Hand-repetition is also where
-mistakes enter: one asset out of 231 keeps its default, and the defect surfaces three milestones later as one
-blurry tile or one number that is wrong by a factor of five, with nothing to localize it to. And the guide has
-quietly taught that this *is* how the work is done, so the reader repeats it in their own projects. This is
+**Why:** on the page, "set these three fields on it" is ten seconds of work. If the reader has to perform it on
+**231** of them — files, records, routes, test cases, config entries — it is an afternoon, and nothing on the
+page said so. Three separate things then go wrong. The reader cannot tell whether the grind is inherent or
+whether they missed the trick every practitioner knows, so they either grind through it resentfully or leave
+the guide to go searching. Hand-repetition is also where mistakes enter: one member of the set keeps its
+default, and the defect surfaces three milestones later as one item rendering wrong or one number off by a
+factor of five, with nothing to localize it to. And the guide has quietly taught that this *is* how the work is
+done, so the reader repeats it in their own projects. This is
 rule 3.7's problem — a guide that hand-rolls what the ecosystem has solved — applied to the reader's **labour**
 instead of to the code.
 
@@ -503,11 +508,11 @@ many times** and gives the **bulk path** the environment already offers. That pa
 one-by-one version, if it survives at all, is the fallback for a reader whose tool differs.
 
 - **Look for the bulk path before writing the repetition.** Most environments have one, and it is a verified
-  fact like any other (sourcing principle): a multi-selection the Inspector applies in one press, an import
-  preset or asset post-processor, a generator or codegen command, a `for` loop or a ten-line script, an
-  editor's own bulk tool, a data file the code reads at startup instead of N literals in the source.
-- **State the count where the reader will feel it** — "the pack ships 231 tiles" — not in a closing note after
-  they have already done it by hand.
+  fact like any other (sourcing principle): a multi-selection the tool applies in one press, an import preset
+  or post-processing hook, a generator or codegen command, a `for` loop or a ten-line script, a bulk-edit mode
+  the editor already has, a data file the code reads at startup instead of N literals in the source.
+- **State the count where the reader will feel it** — "there are **231** of them" — not in a closing note
+  after they have already done it by hand.
 - **If there genuinely is no bulk path, spend one clause saying so**, with the count. "There is no bulk
   setting for this; it is 12 repetitions" costs a line and buys the reader the knowledge that the grind is the
   job, not a shortcut they failed to find.
@@ -602,6 +607,11 @@ hot-reload hiding a "survives a restart" claim; a simulator or emulator overridi
 - ✅ The demo writes **both** the normal and the debugging color pairs, and the gate reads: "the status bar
   turns crimson immediately — **including while the debug session is running**, because the demo sets the
   debugging pair too."
+- ❌ (another stack, same defect) "**Done when:** the second request is served from cache — reload and watch
+  the response time drop." The dev server the step told the reader to run disables caching, so a *correct*
+  cache never gets a hit and the gate never goes green.
+- ✅ "**Done when:** the response carries `X-Cache: HIT` on the second request — the dev server bypasses the
+  cache for pages, so run this check against `<the production build command>`."
 
 > **The defect this prevents:** a milestone's headline gate that fails on a *correct* implementation, because
 > the environment the guide prescribed for observing it overrides the exact key being observed. (Observed: a
@@ -664,6 +674,9 @@ was.
   (An unpinned scaffold reworded both.)
 - ✅ "**Done when:** the page shows a counter button whose number goes up when you click it — the template's
   wording moves between releases; the counter responding is the toolchain working."
+- ❌ (another stack, same defect) "**Done when:** the generated project prints the six folders the scaffold
+  created." (a listing the generator owns, reworded and re-shaped between releases)
+- ✅ "**Done when:** the package **your** step added, `internal/store/`, is there and its tests pass."
 
 > **The defect this prevents:** a step that cannot be carried out as written, and a first gate that teaches the
 > reader the guide's exact values are approximate. (Observed: an `outputPath` line the Angular CLI does not
@@ -693,6 +706,10 @@ on a page whose whole purpose is teaching them to trust the output.
   differ in that test, so `&&` holds and the suite stays green — 0 failed, 13 total.)
 - ✅ A second test changes **one** field, and the recipe reads: "exactly one test fails — the one-field one —
   while `…_SameKeyDifferentPayload_…` stays green, which is why both exist."
+- ❌ (another stack, same defect) "Drop the index and re-run: the query test must fail." — on a fixture of
+  twelve rows the planner scans the table just as fast, so the suite stays green and the recipe proves nothing.
+- ✅ "Drop the index and re-run: exactly the plan assertion fails, reporting a sequential scan — the fixture
+  seeds **10 000** rows, because that is what makes the planner's choice observable at all."
 
 > **The defect this prevents:** the reader following a "watch it fail" instruction and seeing success, or a
 > different failure, with nothing on the page to tell them which of the two of you is wrong. (Observed: all
@@ -726,11 +743,61 @@ noun is plural or collective while the expression under it is singular.
   background alone, on a theme whose sidebar sat at 2.53:1 and whose inactive tab label sat at 1.55:1.
 - ✅ `worst pair tab.inactive 4.56:1 AA`, computed as the minimum across the seven pairs the code clamps —
   plus a `node -e` gate that sweeps every generated theme and prints `all AA true`.
+- ❌ (another stack, same defect) "**Done when:** *the endpoints* all answer in under 200 ms — call `/health`
+  and read the timing." One endpoint measured, a whole set claimed.
+- ✅ "**Done when:** the **slowest of the twelve** endpoints is under 200 ms — the run prints
+  `slowest /reports/export 168 ms`, naming which one came last."
 
 > **The defect this prevents:** a green gate that certifies a broken artifact, and the defects that survive
 > behind it because the one readout meant to catch them was looking at the one case that worked. (Observed: a
 > VS Code theme generator whose contrast badge graded a single color pair; 66 of its 85 generated themes failed
 > WCAG AA on a pair the badge never read, and three separate engine defects had shipped underneath it.)
+
+### 6.7 — Gate at the hardest condition the build actually reaches
+**Why:** a gate names a behaviour — *"landing on an enemy from above kills it"*, *"the items come back
+newest-first"*, *"the panel shows the current balance from the first frame"* — and the reader performs it
+**once, in the gentlest way available**: a short hop, two rows, one request, whatever order the process
+happened to start in that run. When the behaviour is conditional on a **continuum the guide never names** —
+impact speed, press rate, initialization order, collection size, concurrency, latency, load — the gentle end
+passes on genuinely broken code. The gate goes green, the milestone is ticked, and the defect ships forward *underneath a check that has already certified it*. It then
+surfaces milestones later, in a place with no causal link to the step that caused it, so the reader debugs the
+wrong file. This is 6.6's sibling: **6.6** is a label naming an enumerable *set* while the check reads one
+member; **6.7** is a label naming a behaviour whose truth varies along a *continuum* while the check samples
+the easy end. It is also the opposite of **6.2**: nothing is masking a correct implementation here — the code
+is wrong, and the gate is too kind to say so.
+
+**Do:**
+1. **Name the variable the outcome rides on** — speed, rate, order, size, delay — and which end of it breaks.
+   If you cannot name it, you do not yet know what the gate proves.
+2. **Instruct the extreme, not the action.** The reader cannot supply a severity you did not ask for:
+   "add a couple of items and check the order" becomes "add **200**, two of them written in the same
+   millisecond"; "call the endpoint" becomes "call it **twice at once**"; "press the button" becomes
+   "**mash** it"; "jump on the enemy" becomes "**from a full-height jump**, land on it".
+3. **Where the platform guarantees no order, never gate on the lucky one.** Undefined initialization order,
+   unordered iteration, concurrent callbacks: a pass is a coincidence of *your* scene, machine or build, and
+   the next reader's differs. Say what the platform does **not** promise, and write code that does not need it.
+4. **Record the measured limit and where it stops holding** — "holds to 10 000 rows, past which the sort
+   spills to disk", "verified up to `20` u/s; above that it is likely, not certain". That is a fact the reader
+   can act on; an unstated margin is one nobody can check.
+
+- ❌ "**Done when:** landing on an enemy from above destroys it and bounces you upward." Performed as a gentle
+  step-off, it passes; the taught test compares the player's feet to the enemy's *head* within `0.1` units,
+  and a trigger callback runs **after** the physics step, so a real jump sinks the feet `0.47` units first and
+  costs a life. Only the slow approach ever passed — which is how the gate came to be ticked.
+- ✅ "**Done when:** **from a full jump off the ledge above**, landing on the enemy destroys it and bounces you
+  upward — and a side contact still costs a life." The test measures against the enemy's **centre**, giving
+  `0.4` units of room, verified at impacts of `10.7`, `22.0` and `31.9` u/s.
+- ❌ "**Done when:** the items come back newest-first — add a couple and reload." Two rows written a second
+  apart always sort correctly; the comparator falls back to insertion order when two timestamps are **equal**,
+  which the gentle case never produces.
+- ✅ "**Done when:** with **200** items added — two of them written in the same millisecond — the list reads
+  newest-first, and those two keep the same relative order across three reloads."
+
+> **The defect this prevents:** a milestone gate ticked green over a core mechanic that does not work at the
+> speeds, rates or orders the finished build actually produces. (Observed: a Unity platformer whose stomp gate
+> passed only on a slow approach and failed every real jump; alongside a jump gate that tested one press while
+> the bug needed mashing, and a HUD gate that passed only because two components happened to initialize in a
+> favourable order Unity does not guarantee.)
 
 ---
 
@@ -751,6 +818,10 @@ isn't yet established anywhere, make it its own step; don't fold it into an acti
   the reader gets a connection error the author's already-configured machine never showed.
 - ✅ "**Before you start:** the API from [M1](../MILESTONE_1_api/00_overview.md) must be running (`npm run dev`
   in `server/`) and `.env` present (M1/04). Then, in a second terminal, run `npm run dev` in `web/`."
+- ❌ (another stack, same defect) "Flash the board and watch the LED blink." — but the cross-compiler was
+  never installed and no step said how to find the board's port.
+- ✅ "**Before you start:** the toolchain from M1/01 must be on your `PATH` (`<compiler> --version` prints one)
+  and the board connected on the port M1/03 had you identify."
 
 > **The defect this prevents:** a step that works only because the author's environment already had a piece of
 > state the reader was never told to set up. (Root-cause class: `report-issue` names "silently-assumed
@@ -775,6 +846,20 @@ When you're about to *follow* a guide rather than write it, three extra checks a
 Only add a rule that comes from a **real** point of confusion. Write it as: the confusion → the rule → a
 before/after, and home it under the principle it belongs to. Speculative rules bloat the contract and get
 ignored. See [CONTRIBUTING](../CONTRIBUTING.md).
+
+**And write it domain-neutral.** Every rule here was born in one stack — an engine, a framework, a CLI, a
+product's UI — and every rule here is applied to guides in every *other* stack. Those two facts set the shape:
+
+| Part of a rule | Domain-specific? |
+|---|---|
+| The rule's **title**, **Why** and **Do** | **Never.** State the mechanism in words any domain has — "an order the platform does not promise", "a signal the environment overrides", "a repetition the tool can batch" — not the product that revealed it. |
+| The **❌/✅ examples** | Concrete by necessity, but **not all from one ecosystem**. A rule illustrated only in the stack that produced it reads as being *about* that stack, and readers in other domains skip it. At least one pair from somewhere else. |
+| The closing **origin note** (`Observed: …`) | **Always.** This is the provenance that keeps the rule from being speculative — name the engine, the version, the exact symptom. |
+
+The test before you commit a rule: **name a second, unrelated domain where it bites.** If you cannot phrase it
+without naming the engine or product it came from, you have a troubleshooting note, not a rule — it belongs in
+a guide's *If it breaks*, not in this contract. (This is CONTRIBUTING's ground rule 1 applied to the rules
+themselves; `report-issue` § 7 carries the same checks at the point where field reports become rules.)
 
 ### The contract sync set (this file is canonical; these mirror it)
 

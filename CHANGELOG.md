@@ -7,17 +7,65 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ### Added
 
+- **Pedagogy rule 6.7 — gate at the hardest condition the build actually reaches.** A gate names a behaviour
+  ("landing on an enemy from above kills it", "the items come back newest-first", "the panel shows the current
+  balance") and the reader performs it **once, in the gentlest way available**. Where the behaviour rides on a
+  continuum the guide never names — impact speed, press rate, initialization order, collection size,
+  concurrency, latency, load — the gentle end passes on genuinely broken code, and the defect ships forward *underneath a check that
+  already certified it*, surfacing milestones later with no causal link to its cause. The rule requires the
+  step to name the variable and which end breaks, to instruct the extreme rather than the bare action ("*from
+  a full jump*", not "jump"; "*200 rows, two sharing a timestamp*", not "a couple of rows"), to never gate on
+  an order the platform does not guarantee, and to write the
+  measured limit down with the point where it stops holding. Sibling to **6.6** (a label naming an enumerable
+  *set* while the check reads one member) and the inverse of **6.2** (which kills a false negative on correct
+  code; 6.7 kills a false positive on broken code). Homed under **P6** and propagated across the contract sync
+  set: `plan-guide` (Phase 5 — name the continuum at plan time), `draft-milestone` (writing contract +
+  self-audit), `clarify-step` (added to the P6 carve-out, since instructing the extreme changes what the gate
+  asserts and is therefore not a clarity edit), `audit-guide` (a new WARNING, escalating to BLOCKER on a
+  milestone's headline gate), `EXPLAINER.md` §7, and `templates/verify.md`.
+- **`log-feedback` — a `taught-code-defect` class.** The vocabulary offered no value for "the guide's own code
+  is wrong", so four consecutive field reports in the Unity platformer all filed as `unknown`, each writing a
+  sentence to apologize for it — which hides the commonest class after `missing-prereq` from any later analysis
+  of the log. Added to `skills/log-feedback/prompt.md` and `templates/feedback-log.md`, with the guidance that
+  `unknown` is for when you cannot tell where the fault sits, not for a defect you have already diagnosed.
 - **`examples/real-examples.md` — a third published example**,
   [`guide-forge-unity-platformer`](https://github.com/tomthebearded/guide-forge-unity-platformer): *Cavern
   Dash*, a 2D pixel platformer in Unity 6.3 LTS and C#, generated with GuideForge `v1.18.0` — 13 milestones,
   64 steps and 13 verify gates across 77 step files. Filed under **Guide only**, because it has been executed
-  through M10 of 13 and the frontier sits at M11: a build well under way is still not a reader reaching the
+  through M11 of 13 and the frontier sits at M12: a build well under way is still not a reader reaching the
   last gate. It is the guide whose Editor run produced the coyote-refill fix, the Unity 6.3 *Used By
-  Composite* removal, the re-parenting moving platform, and the 231 one-at-a-time tile imports behind
-  pedagogy rule 4.6. `README.md` §*What you can build* updated to name it.
+  Composite* removal, the re-parenting moving platform, the 231 one-at-a-time tile imports behind pedagogy
+  rule 4.6, and the two gentle-gate defects behind rule 6.7. `README.md` §*What you can build* updated to name it.
 
 ### Changed
 
+- **Every pedagogy rule is now stated and illustrated across domains, and the standard is written down.**
+  CONTRIBUTING's ground rule 1 ("no game/web/API-specific nouns baked into the general text") existed but was
+  not being met by the rules themselves: several read as being *about* the stack that produced them. The
+  standard is now explicit in `reference/pedagogy-rules.md` § *How to add or change a rule* as a three-row
+  table — **title / Why / Do:** never domain-specific; **❌/✅ examples:** concrete, but never all from one
+  ecosystem; **the closing `Observed:` origin note:** always specific, because that is the provenance that
+  keeps a rule from being speculative — plus the test that settles it: *name a second, unrelated domain where
+  the rule bites; if you cannot phrase it without naming where it came from, it is a troubleshooting note, not
+  a rule.* Mirrored into `CONTRIBUTING.md` ground rule 1.
+- **`report-issue` § 7 now enforces that at the point rules are born.** A field report always arrives wearing
+  one stack, and this is the skill that turns one into a repo-level rule. It must now strip the stack and
+  re-state the mechanism ("where the platform guarantees no ordering, the taught code must not depend on one",
+  not "Unity gives no `Awake` order between components"), pass the two-domain test, and supply at least one
+  ❌/✅ pair from a domain other than the report's — with the same separation applied to anything else it
+  proposes upstream: guide-level documents describe the reader's stack, repo-level documents describe the
+  method.
+- **Rules swept accordingly.** Rule **4.6**'s *Why* and *Do* no longer narrate one engine's asset pipeline
+  ("the tile", "231 PNGs", "the Inspector applies a multi-selection") but the shape any domain has — files,
+  records, routes, test cases, config entries — and **6.7** was rebalanced the same way (its opening triple,
+  its "instruct the extreme" list and its measured-limit examples now span ordering, collection size and
+  concurrency alongside the game case). Rules **4.4**, **6.2**, **6.4**, **6.5**, **6.6** and **7.1**, each
+  previously illustrated in a single ecosystem, gained one compact second ❌/✅ pair from another — a migration
+  and its model, a dev server that disables the cache a gate reads, a scaffold's own folder listing, a query
+  plan that only changes at 10 000 rows, the slowest of twelve endpoints, an embedded toolchain that was never
+  installed. `reference/audience-model.md` gained a second worked matrix (backend Python meets a data
+  warehouse) beside its existing one. The `draft-milestone` mirror of 4.4 no longer names only one stack's
+  build commands. Every `Observed:` note is untouched.
 - **`examples/real-examples.md` — the `guide-forge-vscode-extension` entry now records where the build
   landed.** The `.vsix` its last milestone packages is published on the VS Code Marketplace as
   [Vincent Van Code](https://marketplace.visualstudio.com/items?itemName=TommasoMastroberardino.vincent-van-code),

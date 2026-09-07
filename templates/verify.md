@@ -37,7 +37,13 @@ code, commands, paths, doc URLs, the `·` separator and the `[ ]` marks.
      not an exhaustive file listing, not a size or a width you inferred instead of measuring.
      RULE 6.5 — if a check proves the gate by BREAKING something, run that mutation yourself first and write
      down what came back: which test goes red, on which assertion — or on which exception, if it dies before
-     asserting. A mutation the suite survives is missing coverage, not a wording problem. -->
+     asserting. A mutation the suite survives is missing coverage, not a wording problem.
+     RULE 6.7 — where the outcome rides on a continuum (impact speed, press rate, initialization order,
+     collection size, concurrency, latency, load), instruct the HARDEST condition this build actually reaches,
+     not the gentlest one the reader would pick: "200 rows, two sharing a timestamp", not "a couple of rows";
+     "two calls at once", not "call it"; "mash the button", not "press it".
+     Write the measured limit down with the point where it stops holding. A gate that passes on the gentle
+     case certifies broken code, and the defect then surfaces milestones later, far from its cause. -->
 - [ ] <action — e.g. `curl -s localhost:8080/todos`> → <exact expected output — e.g. `[{"id":1,"title":"…"}]`, status 200>.
 - [ ] <action> → <exact expected output>.
 - [ ] <optional break recipe — e.g. comment out <line> → exactly <test> fails, on <assertion or exception>; restore and confirm green>.

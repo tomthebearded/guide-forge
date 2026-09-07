@@ -59,11 +59,14 @@ wall-jump through a tilemap cavern, past moving and one-way platforms, coins, en
 to menus, rebindable keys, a persisted best time and a double-clickable desktop build. 13 milestones, 64 steps
 and 13 verify gates across 77 step files, on Kenney's CC0 art and audio.
 
-Executed through **M10 of 13** — the frontier sits at M11, so nothing here yet says a reader reaches the
-finish line unaided. What running it in the Editor did produce is field evidence: three audits and a run of
-`/report-issue` fixes that reached back into the toolkit — a mashed jump re-arming the coyote window mid-rise,
-Unity 6.3 dropping the *Used By Composite* checkbox, a moving platform that carried its rider by re-parenting
-and threw on Play, and the 231 tiles imported one at a time that became pedagogy rule 4.6.
+Executed through **M11 of 13** — the frontier sits at M12, and M9 and M10 are back at `⏳` awaiting a
+re-run of their gates after two late fixes, so nothing here yet says a reader reaches the finish line unaided.
+What running it in the Editor did produce is field evidence: three audits and a run of `/report-issue` fixes
+that reached back into the toolkit — a mashed jump re-arming the coyote window mid-rise, Unity 6.3 dropping the
+*Used By Composite* checkbox, a moving platform that carried its rider by re-parenting and threw on Play, an
+opening HUD read from `OnEnable` in an order Unity never promised, and a stomp measured against the enemy's
+head that only ever passed on a slow approach. Two pedagogy rules came out of it: **4.6** (the 231 tiles
+imported one at a time) and **6.7** (the gates that went green because they were performed gently).
 
 ---
 
