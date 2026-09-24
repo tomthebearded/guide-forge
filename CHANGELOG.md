@@ -5,6 +5,8 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.21.0] — 2026-09-24
+
 ### Added
 
 - **`draft-qa-guide` — a QA test guide drafted from the codebase.** The decisions that produce edge cases — a
