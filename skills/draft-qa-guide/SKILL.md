@@ -4,7 +4,9 @@ description: >
   Read a whole codebase — large ones area by area, in parallel — and draft a QA test guide a tester follows
   through the software's own interface: every limit, error branch, role check and lifecycle the code declares
   becomes a case with exact test data and an observable expected result, edge cases first (boundaries, invalid
-  classes, timing, roles, failures the tester can cause). Expected results are tagged SPEC or CODE; where the
+  classes, timing, roles, failures the tester can cause). It follows every dialog or panel an action opens and
+  every journey across screens, and tells the tester where each control sits and what it looks like — region,
+  neighbours, colour, icon — as the code establishes it. Expected results are tagged SPEC or CODE; where the
   code looks wrong it raises a question for development instead of certifying the bug. Gates on a coverage map
   before writing, then writes one Markdown file or one per area plus runs (smoke, full, regression), with CSV
   or other formats on request. Read-only on the code. Invoke with the scope, e.g. "/draft-qa-guide",

@@ -89,6 +89,20 @@ Everything below is recorded **with a `path:line` source**, so a developer can f
 - **Entry points** the user can reach — the screen, route, menu path, command — and how to get there.
 - **Labels as displayed**, taken from templates or string catalogs, not from identifiers. A tester reads
   *Save changes*, never `handleSubmit`.
+- **Where each control is and what it looks like** — the region of the screen that holds it, its neighbours
+  and order, its colour and style, its icon, and whatever must happen before it shows (§ *Tell the tester
+  where to look*).
+- **Surfaces an action opens** — a dialog, a side panel, a pop-up menu, an overlay, a wizard step, a new
+  window or tab, a sub-prompt. Follow each one from the action that opens it to the code that renders it
+  (even when an event, a shared service or a store sits between them) and inventory it **as a screen of its
+  own**: its labels, inputs, actions, states and errors, what each way of closing it does (confirm, cancel,
+  the close control, the escape key or back gesture, a click outside), and what it changes on the screen
+  underneath. A surface opened from inside another is followed the same way.
+- **Journeys** — the paths a user takes across several screens to finish one goal (place an order, finish a
+  level, onboard a new account, run a command that asks follow-up questions). For each: the ordered screens
+  and surfaces, the action that moves from one to the next, where the path forks (by choice, by role, by
+  data), what is carried along (entered data, a selection, a draft), and what happens to it when the user
+  goes back, leaves halfway, or reloads.
 - **Inputs and their rules** — type, required, default, minimum and maximum, length, pattern, allowed set,
   uniqueness. Note **every place** a rule is enforced (client, server, database constraint): a limit that
   differs between two layers is an edge case by itself.
@@ -134,6 +148,13 @@ that matter.
    order the code does not guarantee (rule 6.7).
 10. **Persistence and consistency** — after a reload or restart, and in every other place that shows the same
     data.
+11. **Opened surfaces** — every way of closing a dialog or panel without confirming, checking that nothing
+    changed underneath; confirming it, checking what changed; opening it twice, or opening it and letting the
+    screen underneath change (the record is deleted, the session expires).
+12. **Journeys** — each journey end to end in one case, the whole path in order; then, only where the code
+    gives a reason: each fork taken once; going back one step and checking what is still filled in; leaving
+    at each step that holds unsaved work, and what the user finds on return; a reload in the middle; reaching
+    a middle step directly (a saved link, a shortcut, a resumed session) without the steps before it.
 
 For combinations (a form with six independent options), don't multiply: cover every pair of values once,
 and say that is what you did.
@@ -165,6 +186,7 @@ Present, then **wait for approval**:
 - the areas, with the coverage ledger;
 - the number of cases per area and per priority;
 - the proposed runs and their estimated duration;
+- the journeys found, each as its ordered list of screens;
 - the Questions for development found so far;
 - the file layout and formats you are about to write.
 
@@ -179,8 +201,11 @@ rewrite. If the user says to skip the gate, say that the guide was written witho
 qa/
 ├── README.md               ← front door: what is under test (version or commit), how to use this guide,
 │                             the runs, the tester profiles, the area index
-├── setup.md                ← environment, launching, accounts per role, test data, how to reset state
+├── setup.md                ← environment, launching, accounts per role, test data, how to reset state,
+│                             and the conditions the descriptions assume (window size or device, theme,
+│                             language)
 ├── glossary.md             ← product terms a tester meets, each defined once
+├── journeys.md             ← the multi-screen cases (TC-JRN-NNN), each journey's screens listed first
 ├── areas/
 │   ├── 01_<area>.md        ← one functional area's cases, P1 first
 │   └── …
@@ -204,13 +229,44 @@ qa/
 
 **Steps:**
 
-1. On **<screen>**, in **<section>**, click **<label>**.
+1. On **<screen>**, in **<region>**, click **<label>** — <what it looks like and where it sits: "the blue
+   filled button at the bottom right, to the right of **Cancel**">.
+   → **<surface or screen>** opens: <how the tester knows they are there — its title, its position>.
 2. …
 
 **Expected:** <what the tester sees: the exact message, where it appears, what does not change>.
 
 **Then check:** <after a reload / in the other place that shows it — only where it applies>.
 ```
+
+A journey case lists its path before the steps — **Path:** **<screen A>** → **<dialog B>** → **<screen C>** —
+and groups the steps under one sub-heading per screen, so a tester who loses their place finds it again.
+
+### Tell the tester where to look
+
+A tester who can't find the control stops, guesses, or tests the wrong thing. For every element a step
+touches, give what the code establishes, most reliable first:
+
+1. **The label**, exactly as displayed. For a control with no visible text, its tooltip or accessible name,
+   and its icon described by what it depicts ("the trash-can icon"), never by the icon's identifier.
+2. **Where it sits** — the region (the top bar, the side menu, the footer of the dialog, the row of the
+   record, the bottom of the list), its neighbours ("to the right of **Cancel**"), and its order among
+   similar items ("the third tab").
+3. **What it looks like** — its colour **as seen**, resolved through the theme or stylesheet ("red", never a
+   class or token name), its style (filled, outlined, plain text link, toggle), its size where it stands out,
+   and how it looks when disabled.
+4. **What must happen before it appears** — on hover, after scrolling, inside an overflow menu, only once a
+   field is filled or a row is selected, only for one role.
+
+After any step that changes screen or opens a surface, add the **arrival check** (the `→` line): what the
+tester sees that proves they are in the right place.
+
+These descriptions are sourced like expected results: they come from the code, not from what such a control
+usually looks like. Where they depend on conditions — window size or device, light or dark theme, language,
+user settings — `setup.md` declares the conditions the guide assumes, and a description that differs under
+another one says so. Where the code cannot settle a colour or a position (it is computed at runtime, or set
+by a component whose styles you cannot read), give the label and the region only. A wrong colour sends the
+tester looking for something that is not there, which is worse than no colour.
 
 Rules for every case:
 
@@ -253,6 +309,11 @@ flagged, and kept separate from the interface cases.
 - Every protected action is tried by a role that may and one that may not.
 - No case asserts something that is in Questions for development.
 - Every label in a step matches the interface text in the source.
+- Every element a step touches says where it sits; every colour or style given is resolved from the code,
+  never assumed.
+- Every step that changes screen or opens a surface is followed by its arrival check.
+- Every surface an action opens has its own cases, including closing it without confirming.
+- Every journey in the inventory has an end-to-end case.
 - No case says "correctly", "works", "as expected", or "appropriate".
 - The coverage ledger says plainly what was not read.
 

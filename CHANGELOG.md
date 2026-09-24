@@ -5,6 +5,13 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+## [1.22.0] — 2026-09-24
+
+### Changed
+
+- **`draft-qa-guide` journeys, opened surfaces and locating details** — the guide now tests inside every dialog
+  or panel an action opens, adds multi-screen journeys in `journeys.md`, and says where each control is.
+
 ## [1.21.0] — 2026-09-24
 
 ### Added
