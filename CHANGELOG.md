@@ -5,6 +5,26 @@ All notable changes to GuideForge are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+
+- **`draft-qa-guide` — a QA test guide drafted from the codebase.** The decisions that produce edge cases — a
+  length limit, an error branch, a role check, a status that only moves one way, a list that pages at twenty —
+  live in the code, and a tester working from the interface alone finds the happy path and whatever they
+  stumble into. The new skill surveys a whole codebase (large ones split by functional area and read in
+  parallel, with an honest coverage ledger for anything sampled or unread), inventories what each area decides
+  with `path:line` sources, and derives cases from a fixed catalog applied only where the code gives a reason:
+  boundary values, invalid classes, input classes, dates, lifecycle transitions, timing and navigation,
+  failures the tester can cause, roles, collections, persistence. Every case is executed **through the
+  software's own interface** — labels as the interface shows them, exact test data, an observable expected
+  result — and applies the gate rules to testing: observable where the environment can't mask it (6.2), more
+  than one member when a case names a class (6.6), the hardest condition rather than the gentlest (6.7). Each
+  expected result is tagged SPEC or CODE, and where the code looks wrong the skill files a question for
+  development instead of writing a case that certifies the bug. It gates on the coverage map before writing,
+  then writes one Markdown file or one per area plus run sheets (smoke, full, regression since a ref), with CSV
+  or other formats derived from the Markdown on request. Read-only on the code. Registered in `README.md`,
+  `EXPLAINER.md`, `examples/maintenance-prompts.md`, `reference/frontier-gate.md` and the marketplace
+  description.
+
 ## [1.20.0] — 2026-09-07
 
 ### Added

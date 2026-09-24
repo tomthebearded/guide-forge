@@ -82,7 +82,7 @@ GuideForge encodes that discipline as reusable prompts and skills, so what comes
 | **A drafting prompt** | Expands one approved milestone into atomic, teaching step-files — built against the pinned versions, APIs re-checked against the live docs. |
 | **A clarity prompt** | Runs the pedagogy pass over any existing step to remove confusion. |
 | **A review-before-follow prompt** | The gate you run before *acting on* any guide, so stale/ambiguous steps get fixed first. |
-| **A Claude Code plugin** | Installs as one plugin — thirteen guide-authoring slash-command skills (the four pipeline stages plus `/modernize-guide`, `/audit-guide`, `/scaffold-guide`, `/update-stack`, `/amend-guide`, `/mark-progress`, `/check-my-work`, `/report-issue`, `/log-feedback`), each also accepting optional attached files, plus `/pre-pr-check` for contributors to the plugin itself. |
+| **A Claude Code plugin** | Installs as one plugin — fourteen guide-authoring slash-command skills (the four pipeline stages plus `/modernize-guide`, `/audit-guide`, `/scaffold-guide`, `/update-stack`, `/amend-guide`, `/mark-progress`, `/check-my-work`, `/report-issue`, `/log-feedback`, `/draft-qa-guide`), each also accepting optional attached files, plus `/pre-pr-check` for contributors to the plugin itself. |
 | **Copy-paste templates** | Guide README (front door), milestone overview, step file, verified-stack table, status authority, execution ledger, glossary, conventions, decision log. |
 | **Reference docs** | The pedagogy rules, milestone-design method, and audience-modeling method — all explained. |
 | **[EXPLAINER.md](EXPLAINER.md)** | Every file, every rule, every design decision — explained from scratch. Start here if you want the *why*. |
@@ -91,7 +91,7 @@ GuideForge encodes that discipline as reusable prompts and skills, so what comes
 
 ## Skills at a glance
 
-Fourteen skills, one plugin. What each does *for you* — invoke any as a `/slash-command`, or paste its twin prompt in a plain chat.
+Fifteen skills, one plugin. What each does *for you* — invoke any as a `/slash-command`, or paste its twin prompt in a plain chat.
 
 **Build a guide (the pipeline):**
 
@@ -115,6 +115,7 @@ Fourteen skills, one plugin. What each does *for you* — invoke any as a `/slas
 | `/check-my-work` | Diffs the **real project** against the checkpoints of the steps you executed — catching half-applied edits and steps ticked but never performed, before a gate blames the guide (read-only). |
 | `/report-issue` | A reader hit a real issue → fixes the root cause *everywhere* it appears and logs the fix — stopping first if "everywhere" reaches a step you've already executed, so you choose how the repair is delivered. |
 | `/log-feedback` | Captures reader friction to the guide's `feedback-log.md` — a durable record for improving the guide and the method — **without** changing the guide. |
+| `/draft-qa-guide` | Reads a whole codebase and drafts a **QA test guide** a tester follows through the software's own interface — every limit, error branch, role and state the code declares turned into a case with exact data, edge cases first (read-only on the code). |
 
 **Contribute to GuideForge:**
 
@@ -126,7 +127,7 @@ Fourteen skills, one plugin. What each does *for you* — invoke any as a `/slas
 
 ## How it works
 
-GuideForge's core is a **pipeline of four prompts** (plus nine auxiliary tools — see [the toolkit](#the-toolkit)). You stay in the loop between each stage — nothing runs end-to-end unattended.
+GuideForge's core is a **pipeline of four prompts** (plus ten auxiliary tools — see [the toolkit](#the-toolkit)). You stay in the loop between each stage — nothing runs end-to-end unattended.
 
 ```mermaid
 flowchart LR
@@ -161,7 +162,7 @@ The plan is drafted into the **whole guide in one pass**, so you have it in hand
 
 ### Option B — Claude Code (install as a plugin)
 
-GuideForge ships as a Claude Code **plugin** — install it once and all the skills come with it (the thirteen
+GuideForge ships as a Claude Code **plugin** — install it once and all the skills come with it (the fourteen
 guide-authoring skills plus `/pre-pr-check` for contributors; each keeps its own slash command). Point Claude
 Code at a checkout, then install:
 
@@ -217,6 +218,7 @@ Append the pedagogy rules (the writing contract) from [`reference/pedagogy-rules
 | [mark-progress](skills/mark-progress/prompt.md) | paste prompt / `/mark-progress` | You finished a step, a sitting, or a milestone and want it recorded — the ledger `amend-guide` reads to know what it must not rewrite. |
 | [check-my-work](skills/check-my-work/prompt.md) | paste prompt / `/check-my-work` | You want to know whether your project actually contains what the executed steps said to write — before a milestone gate, or before marking a run of them done (read-only). |
 | [report-issue](skills/report-issue/prompt.md) | paste prompt / `/report-issue` | A reader hit a real issue following the guide and you want the root cause fixed everywhere it appears, not just where they got stuck. |
+| [draft-qa-guide](skills/draft-qa-guide/prompt.md) | paste prompt / `/draft-qa-guide` | A team is about to test a codebase through its interface and needs the cases — boundaries, invalid inputs, roles, states — derived from what the code actually decides, with sourced expected results and ready-made runs (read-only on the code). |
 | [log-feedback](skills/log-feedback/prompt.md) | paste prompt / `/log-feedback` | A reader hit friction and you want it recorded in the guide's `feedback-log.md` for later analysis — captured, not fixed (that's `report-issue`). |
 
 **Repo maintenance** (for contributors to GuideForge itself — skill-only, no paste prompt):
@@ -260,6 +262,7 @@ guide-forge/                      ← a single project = one Claude Code plugin
 │   ├── check-my-work/            ← auxiliary · SKILL.md + prompt.md
 │   ├── report-issue/             ← auxiliary · SKILL.md + prompt.md
 │   ├── log-feedback/             ← auxiliary · SKILL.md + prompt.md
+│   ├── draft-qa-guide/           ← auxiliary · SKILL.md + prompt.md
 │   └── pre-pr-check/SKILL.md     ← repo maintenance (self-contained; no prompt.md)
 │
 ├── templates/                    ← copy-paste scaffolds a generated guide uses
@@ -291,7 +294,7 @@ guide-forge/                      ← a single project = one Claude Code plugin
 │   ├── real-examples.md           ← guides the pipeline produced, each linked in its own repo
 │   ├── plan-guide-prompts.md      ← eight worked briefs, fully-specified and one-line
 │   ├── pipeline-prompts.md        ← scaffold · draft · clarify · review-before-follow
-│   └── maintenance-prompts.md     ← audit · update-stack · modernize · amend · mark-progress · check-my-work · report-issue · log-feedback
+│   └── maintenance-prompts.md     ← audit · update-stack · modernize · amend · mark-progress · check-my-work · report-issue · log-feedback · draft-qa-guide
 │
 └── scripts/                      ← repo maintenance (run via `npm test` / `npm run …`)
     ├── check-version.mjs          ← the three version stamps agree (plugin.json / badge / CHANGELOG)
