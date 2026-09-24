@@ -25,7 +25,8 @@ They are entitled to know that before it happens. This file is the gate that tel
 | `/clarify-step` | the step named for clarification may be one the reader has already followed | reduced gate — see *Clarity is a special case* |
 
 A skill that only reads (`/audit-guide`, `/review-before-follow`, `/check-my-work`, `/pre-pr-check`,
-`/log-feedback`) never runs this gate. A skill that writes only ahead by construction (`/plan-guide`,
+`/log-feedback`, `/draft-qa-guide` — which writes only its own `qa/` files, never the guide) never runs this
+gate. A skill that writes only ahead by construction (`/plan-guide`,
 `/scaffold-guide`) doesn't either.
 
 ## Step 0 — establish the frontier before you plan any edit

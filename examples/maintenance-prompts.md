@@ -2,7 +2,8 @@
 
 Skills you reach for around a guide rather than to produce one: QA it, keep it current, convert something that
 already exists, track how far you've got through it, check that what you built matches what it told you to
-build, change it around work you've already done, and capture what readers hit. Plain-chat form is the same everywhere — paste the skill's
+build, change it around work you've already done, capture what readers hit, and hand a QA team the guide to test what
+was built. Plain-chat form is the same everywhere — paste the skill's
 `prompt.md`, then the argument, then the files.
 
 ---
@@ -172,6 +173,37 @@ the friction captured without stopping to redesign the step. Its severity scale 
 
 **Which of the two?** `log-feedback` records, `report-issue` repairs. Logging a dozen snags in a session and
 then running `report-issue` on the pattern beats fixing each one as it appears.
+
+---
+
+## `draft-qa-guide` — what the testers should try, from the code
+
+```
+/draft-qa-guide
+```
+
+Surveys the whole codebase, splits it into functional areas (read in parallel on a large one), and inventories
+what the code decides — limits, error branches, roles, lifecycles, states — with a `path:line` for each. It
+asks once about format, location, testers and runs, then **stops to show you the coverage map** before writing
+anything. The guide it writes is executed through the software's own interface: exact test data, an observable
+expected result tagged SPEC or CODE, and suspected defects filed as questions for development rather than
+certified as expected behaviour.
+
+One area only, in a single file:
+
+```
+/draft-qa-guide checkout and sign-in — one file
+```
+
+A regression run for what changed since the last release, with a CSV for the test manager:
+
+```
+/draft-qa-guide regression since v2.3.0 — also CSV
+```
+
+**Attach**, in a plain chat: the codebase (area by area if it is large) and whatever says what it *should* do —
+requirements, tickets, a GuideForge `PLAN.md`. Without those, every expected result is inferred from the code,
+and the guide says so.
 
 ---
 
